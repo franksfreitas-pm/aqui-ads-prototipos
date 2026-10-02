@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui Ads - Catálogo de Protótipos</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #F8F9FA;
+      color: #1E293B;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+    }
+    .badge {
+      background-color: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #DBEAFE;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+    .intro {
+      margin-bottom: 2rem;
+    }
+    .intro h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 0.5rem;
+    }
+    .intro p {
+      color: #64748B;
+      font-size: 1rem;
+    }
+    .prototypes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .proto-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .proto-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border-color: #CBD5E1;
+    }
+    .proto-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .proto-date {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      font-weight: 500;
+    }
+    .proto-tag {
+      background-color: #F1F5F9;
+      color: #475569;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .proto-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0F172A;
+      margin-bottom: 0.5rem;
+    }
+    .proto-desc {
+      font-size: 0.875rem;
+      color: #64748B;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+    .proto-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: #2563EB;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 0.6rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+    .btn-view:hover {
+      background-color: #1D4ED8;
+    }
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 1.25rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #94A3B8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="brand-title">Aqui Ads</span>
+      <span class="badge">Hub de Protótipos</span>
+    </div>
+    <div style="font-size: 0.875rem; color: #64748B;">Product OS</div>
+  </header>
+
+  <main class="container">
+    <div class="intro">
+      <h1>Catálogo de Protótipos e Validações</h1>
+      <p>Ambiente oficial para validação de hipóteses, novas interfaces e fluxos com executivos de vendas e stakeholders.</p>
+    </div>
+
+    <div class="prototypes-grid">
+      <!-- Card do Protótipo de Teste -->
+      <div class="proto-card">
+        <div>
+          <div class="proto-header">
+            <span class="proto-tag">Infraestrutura</span>
+            <span class="proto-date">02/10/2026</span>
+          </div>
+          <h2 class="proto-title">PoC - Hospedagem de Protótipos</h2>
+          <p class="proto-desc">Validação da estrutura de publicação de protótipos em HTML no GitHub Pages com visual nativo do Aqui Ads.</p>
+        </div>
+        <div class="proto-footer">
+          <a href="projects/poc-hospedagem/" class="btn-view">Acessar Protótipo →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Aqui Ads • Central de Protótipos e Validação Contínua
+  </footer>
+</body>
+</html>
