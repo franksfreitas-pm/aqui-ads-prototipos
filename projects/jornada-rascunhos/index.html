@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="color-scheme: light !important;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Aquiads - Protótipo da Experiência de Rascunhos</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light !important;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color-scheme: light !important;
+      background-color: #f9fafb !important;
+      color: #111827 !important;
+    }
+    /* Forçar campos de formulário a serem sempre brancos com texto escuro, mesmo em navegadores com Dark Mode ativo */
+    input, select, textarea {
+      color-scheme: light !important;
+      background-color: #ffffff !important;
+      color: #111827 !important;
+    }
+    input:focus, select:focus, textarea:focus {
+      background-color: #ffffff !important;
+      color: #111827 !important;
+    }
+    .brand-orange {
+      background-color: #ff5a00;
+    }
+    .brand-orange-hover:hover {
+      background-color: #e04e00;
+    }
+    .text-brand-orange {
+      color: #ff5a00;
+    }
+    .border-brand-orange {
+      border-color: #ff5a00;
+    }
+    .step-screen {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    .step-screen.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased min-h-screen flex flex-col">
+
+  <!-- ========================================================================= -->
+  <!-- BARRA DE CONTROLE DO PROTÓTIPO (STEPPER SUPERIOR FIXO)                   -->
+  <!-- ========================================================================= -->
+  <header class="bg-gray-950 text-white px-4 py-2.5 sticky top-0 z-50 border-b border-gray-800 shadow-md">
+    <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../../index.html" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-gray-800 text-gray-300 hover:text-white hover:bg-gray-700 transition" style="text-decoration: none;" title="Voltar ao Catálogo Geral">← Catálogo</a>
+        <div class="h-4 w-px bg-gray-800"></div>
+        <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-orange-600 text-white font-black text-xs">UX</span>
+        <div>
+          <h1 class="font-bold text-xs leading-tight text-white flex items-center gap-2">
+            Protótipo: Jornada Completa de Rascunhos
+            <span class="bg-orange-500/20 text-orange-400 text-[10px] px-1.5 py-0.2 rounded font-semibold border border-orange-500/30">Aquiads DS</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Navegação entre as 5 telas -->
+      <nav class="flex items-center gap-1.5 overflow-x-auto">
+        <button onclick="goToStep(1)" id="nav-btn-1" class="step-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 text-white flex items-center gap-1.5 transition">
+          <span class="w-4 h-4 rounded-full bg-white/20 text-[10px] flex items-center justify-center font-bold">1</span>
+          Salvar Rascunho
+        </button>
+        <button onclick="goToStep(2)" id="nav-btn-2" class="step-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 flex items-center gap-1.5 transition">
+          <span class="w-4 h-4 rounded-full bg-white/10 text-[10px] flex items-center justify-center font-bold">2</span>
+          Home com Barra de Alerta
+        </button>
+        <button onclick="goToStep(3)" id="nav-btn-3" class="step-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 flex items-center gap-1.5 transition">
+          <span class="w-4 h-4 rounded-full bg-white/10 text-[10px] flex items-center justify-center font-bold">3</span>
+          Aba Rascunhos (DS)
+        </button>
+        <button onclick="goToStep(4)" id="nav-btn-4" class="step-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 flex items-center gap-1.5 transition">
+          <span class="w-4 h-4 rounded-full bg-white/10 text-[10px] flex items-center justify-center font-bold">4</span>
+          Quick Date Pick
+        </button>
+        <button onclick="goToStep(5)" id="nav-btn-5" class="step-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 flex items-center gap-1.5 transition">
+          <span class="w-4 h-4 rounded-full bg-white/10 text-[10px] flex items-center justify-center font-bold">5</span>
+          Tela de Pagamento
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- PASSO 1: SALVANDO O RASCUNHO NO CARRINHO COM SMART NAMING                -->
+  <!-- ========================================================================= -->
+  <section id="step-1" class="step-screen active flex-1">
+    <!-- Aviso do Sistema Superior Oficial Aquiads -->
+    <div class="bg-amber-500 text-amber-950 px-6 py-1 text-right text-[11px] font-bold flex items-center justify-end gap-1.5">
+      <span>⚠️</span> Você efetuou login com uma conta administradora
+    </div>
+
+    <!-- Header Principal Aquiads -->
+    <header class="bg-white border-b border-gray-200 px-8 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-1">
+          <span class="text-2xl font-black tracking-tight text-gray-900">Aqui<span class="text-brand-orange">ads</span></span>
+          <span class="text-[10px] text-gray-400 font-bold border border-gray-300 rounded px-1">®</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <button class="text-xs font-medium text-gray-600 flex items-center gap-1.5 hover:text-orange-600">
+          <span>Assistente de anúncios</span>
+          <span class="text-purple-600 text-sm">✨</span>
+        </button>
+        <div class="relative cursor-pointer">
+          <span class="text-lg">🛒</span>
+          <span class="absolute -top-1 -right-2 bg-orange-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">2</span>
+        </div>
+        <div class="flex items-center gap-2 pl-3 border-l border-gray-200">
+          <div class="w-7 h-7 rounded-full bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center">F</div>
+          <span class="text-xs font-bold text-gray-800">Olá, FRANKS!</span>
+          <span class="text-gray-400 text-sm">⚙️</span>
+          <span class="text-gray-600 text-sm">☰</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo do Carrinho -->
+    <div class="max-w-[1240px] mx-auto p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <a href="#" class="text-xs text-gray-500 hover:text-gray-800 flex items-center gap-1 mb-2">‹ voltar</a>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight">Plano de mídia</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openSaveModal()" class="px-3.5 py-2 border border-gray-300 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50 flex items-center gap-1.5 shadow-sm transition bg-white">
+            <span>💾</span> Salvar como rascunho
+          </button>
+          <button class="px-3 py-2 border border-gray-200 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-50 flex items-center gap-1 bg-white">
+            <span>🔗</span> Compartilhar proposta
+          </button>
+          <button class="px-3 py-2 border border-gray-200 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-50 flex items-center gap-1 bg-white">
+            <span>⬇️</span> Exportar plano de mídia
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Coluna Esquerda: Itens do Carrinho -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="flex items-center justify-between text-xs text-gray-500 font-semibold px-1">
+            <span class="flex items-center gap-1.5 text-gray-800">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              OOH | Out of Home • Digital
+            </span>
+            <span class="text-gray-400">^</span>
+          </div>
+
+          <!-- Item 1 -->
+          <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-xs">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" checked class="rounded text-orange-500 bg-white">
+                  <h3 class="font-bold text-sm text-gray-900">VN Alvorada 1217</h3>
+                  <span class="bg-gray-100 text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded">9.744</span>
+                  <span class="bg-gray-100 text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded">residencial</span>
+                  <span class="bg-indigo-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">digital</span>
+                  <span class="text-gray-400 hover:text-red-500 cursor-pointer text-xs">🗑️</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1 pl-6">Rua Alvorada, Vila Olímpia, São Paulo, SP</p>
+              </div>
+              <div class="text-right">
+                <p class="font-extrabold text-sm text-gray-900">R$ 264,96 <span class="text-[10px] font-normal text-gray-400">/ 2 semanas</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-xs">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" checked class="rounded text-orange-500 bg-white">
+                  <h3 class="font-bold text-sm text-gray-900">The World Hotels</h3>
+                  <span class="bg-gray-100 text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded">19.488</span>
+                  <span class="bg-gray-100 text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded">residencial</span>
+                  <span class="bg-indigo-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">digital</span>
+                  <span class="text-gray-400 hover:text-red-500 cursor-pointer text-xs">🗑️</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1 pl-6">Rua Gomes de Carvalho, Vila Olímpia, São Paulo, SP</p>
+              </div>
+              <div class="text-right">
+                <p class="font-extrabold text-sm text-gray-900">R$ 264,96 <span class="text-[10px] font-normal text-gray-400">/ 2 semanas</span></p>
+              </div>
+            </div>
+          </div>
+
+          <button class="w-full py-2.5 border border-gray-300 rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 transition bg-white">
+            contratar mais produtos
+          </button>
+        </div>
+
+        <!-- Coluna Direita: Configuração & Smart Naming (Campos 100% brancos e com contraste garantido) -->
+        <div class="lg:col-span-5 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
+          <h3 class="font-bold text-sm text-gray-900 mb-4">Configure seu anúncio</h3>
+
+          <!-- Input de Nome com Smart Default -->
+          <div class="mb-4">
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs font-semibold text-gray-700">Nome da campanha</label>
+              <span class="text-[10px] text-gray-400">28/30 caracteres</span>
+            </div>
+            <div class="relative">
+              <input type="text" id="campaign-name-input" value="OOH • Vila Olímpia (VN Alvorada)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-xs">
+            </div>
+          </div>
+
+          <!-- Duração e Datas (Inputs brancos protegidos contra tema escuro) -->
+          <div class="grid grid-cols-3 gap-2 mb-4">
+            <div>
+              <label class="block text-[10px] text-gray-500 mb-1">duração</label>
+              <select class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs font-semibold text-gray-900 shadow-xs">
+                <option selected>2 semanas</option>
+                <option>4 semanas</option>
+                <option>8 semanas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] text-gray-500 mb-1">início</label>
+              <input type="text" value="28/09/2026" readonly class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs font-semibold text-gray-900 shadow-xs">
+            </div>
+            <div>
+              <label class="block text-[10px] text-gray-500 mb-1">fim</label>
+              <input type="text" value="11/10/2026" readonly class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs font-semibold text-gray-900 shadow-xs">
+            </div>
+          </div>
+
+          <!-- Performance Projetada -->
+          <div class="mb-5 border-t border-gray-100 pt-3">
+            <h4 class="text-xs font-bold text-gray-900 mb-2">Performance projetada</h4>
+            <div class="grid grid-cols-5 gap-2 text-center text-xs">
+              <div><span class="text-[10px] text-gray-400 block">exibições</span><strong>29,23 mil</strong></div>
+              <div><span class="text-[10px] text-gray-400 block">alcance</span><strong>1,02 mil</strong></div>
+              <div><span class="text-[10px] text-gray-400 block">impacto</span><strong>31,28 mil</strong></div>
+              <div><span class="text-[10px] text-gray-400 block">frequência</span><strong>30.55</strong></div>
+              <div><span class="text-[10px] text-gray-400 block">telas</span><strong>6</strong></div>
+            </div>
+          </div>
+
+          <!-- Totais -->
+          <div class="border-t border-gray-100 pt-4 space-y-1 mb-5 text-xs">
+            <div class="flex justify-between text-gray-600"><span>Campanha Out of Home</span><span>R$ 529,92</span></div>
+            <div class="flex justify-between font-bold text-gray-900"><span>Subtotal</span><span>R$ 529,92</span></div>
+            <div class="flex justify-between text-base font-black text-gray-900 pt-2 border-t border-gray-200">
+              <span>Total</span>
+              <span class="text-brand-orange text-lg">R$ 329,93</span>
+            </div>
+          </div>
+
+          <!-- Ações -->
+          <div class="space-y-2">
+            <button onclick="goToStep(5)" class="w-full py-3 brand-orange brand-orange-hover text-white rounded-xl font-bold text-xs shadow-md transition">
+              realizar pagamento
+            </button>
+            <button onclick="openSaveModal()" class="w-full py-2.5 border border-gray-300 rounded-xl font-semibold text-xs text-gray-700 hover:bg-gray-50 transition bg-white">
+              salvar como rascunho
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE RASCUNHO (Fiel ao print) -->
+    <div id="save-draft-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl relative">
+        <button onclick="closeSaveModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-sm font-bold">✕</button>
+        <h3 class="text-lg font-black text-gray-900 mb-2">Rascunho salvo!</h3>
+        <p class="text-xs text-gray-600 mb-6 leading-relaxed">
+          Seu Rascunho será sempre salvo na tela de "Meus anúncios".
+        </p>
+
+        <div class="mb-5 text-left">
+          <label class="block text-[11px] font-semibold text-gray-700 mb-1">Nome identificador do plano:</label>
+          <input type="text" id="modal-name-input" value="OOH • Vila Olímpia (VN Alvorada + The World)" class="w-full bg-white border border-orange-400 rounded-lg p-2 text-xs font-semibold text-gray-900 shadow-xs">
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="confirmSaveDraft()" class="flex-1 py-2.5 brand-orange brand-orange-hover text-white text-xs font-bold rounded-lg shadow-sm">
+            ver meu rascunho
+          </button>
+          <button onclick="goToStep(2)" class="flex-1 py-2.5 border border-gray-300 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-50 bg-white">
+            ir para a home
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PASSO 2: HOME COMPLETA COM BARRA DE RASCUNHO IGUAL À BARRA DE DATA      -->
+  <!-- ========================================================================= -->
+  <section id="step-2" class="step-screen flex-1">
+    <!-- Aviso do Sistema Superior Oficial Aquiads -->
+    <div class="bg-amber-500 text-amber-950 px-6 py-1 text-right text-[11px] font-bold flex items-center justify-end gap-1.5">
+      <span>⚠️</span> Você efetuou login com uma conta administradora
+    </div>
+
+    <!-- Header da Home Aquiads -->
+    <header class="bg-white border-b border-gray-200 px-8 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-1">
+          <span class="text-2xl font-black tracking-tight text-gray-900">Aqui<span class="text-brand-orange">ads</span></span>
+          <span class="text-[10px] text-gray-400 font-bold border border-gray-300 rounded px-1">®</span>
+        </div>
+
+        <!-- Seletor de Canais Central da Home (Fiel ao print) -->
+        <div class="hidden lg:flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+          <button class="px-4 py-1.5 bg-white shadow-xs rounded-lg text-xs font-bold text-gray-900 flex items-center gap-1.5">
+            <span>📍</span> OOH
+          </button>
+          <button class="px-4 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
+            <span>📱</span> Digital
+          </button>
+          <button class="px-4 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
+            <span>📺</span> TV
+          </button>
+          <button class="px-4 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
+            <span>📻</span> Áudio
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <button class="text-xs font-medium text-gray-600 flex items-center gap-1.5 hover:text-orange-600">
+          <span>Assistente de anúncios</span>
+          <span class="text-purple-600 text-sm">✨</span>
+        </button>
+        <div class="relative cursor-pointer">
+          <span class="text-lg">🛒</span>
+          <span class="absolute -top-1 -right-2 bg-orange-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">1</span>
+        </div>
+        <div class="flex items-center gap-2 pl-3 border-l border-gray-200">
+          <div class="w-7 h-7 rounded-full bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center">F</div>
+          <span class="text-xs font-bold text-gray-800">Olá, FRANKS!</span>
+          <span class="text-gray-400 text-sm">⚙️</span>
+          <span class="text-gray-600 text-sm">☰</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- A BARRA DA HOME: EXATAMENTE PARECIDA COM A BARRA DE DATA QUE JÁ EXISTE! -->
+    <div id="home-draft-bar" class="bg-amber-500 text-white px-8 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
+      <div class="flex items-center gap-2.5 text-xs font-bold">
+        <span class="text-base">ℹ️</span>
+        <span>Atenção: você possui 1 campanha salva em rascunho ("OOH • Vila Olímpia"). Continue de onde parou para finalizar a contratação.</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="goToStep(4)" class="bg-white text-amber-900 hover:bg-amber-50 font-black text-xs px-4 py-1.5 rounded-lg shadow-sm transition whitespace-nowrap flex items-center gap-1.5">
+          <span>continuar rascunho</span>
+          <span>➔</span>
+        </button>
+        <button onclick="goToStep(3)" class="text-xs font-bold text-amber-950 underline hover:text-white px-2 py-1">
+          ver todos
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Filtros da Home (Fiel ao print) -->
+    <div class="bg-white border-b border-gray-200 px-8 py-4">
+      <div class="max-w-[1440px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-white p-2 rounded-xl border border-gray-200 shadow-xs mb-3">
+          <div class="px-3 py-1 border-r border-gray-200">
+            <span class="text-[10px] text-gray-400 block font-bold uppercase">Onde?</span>
+            <span class="text-xs font-bold text-gray-800">São Paulo - SP</span>
+          </div>
+          <div class="px-3 py-1 border-r border-gray-200">
+            <span class="text-[10px] text-gray-400 block font-bold uppercase">Período</span>
+            <span class="text-xs text-gray-400">Selecione o período</span>
+          </div>
+          <div class="px-3 py-1">
+            <span class="text-[10px] text-gray-400 block font-bold uppercase">Preço</span>
+            <span class="text-xs text-gray-400">Valor</span>
+          </div>
+          <button class="brand-orange brand-orange-hover text-white rounded-lg text-xs font-bold py-2 flex items-center justify-center gap-2">
+            <span>🔍</span> Buscar pontos
+          </button>
+        </div>
+
+        <!-- Filtros de ambiente em pílulas -->
+        <div class="flex items-center justify-between text-xs overflow-x-auto pb-1">
+          <div class="flex items-center gap-1.5">
+            <button class="bg-gray-800 text-white font-bold px-3 py-1 rounded-full text-xs">Todos</button>
+            <button class="border border-gray-300 text-gray-700 font-semibold px-3 py-1 rounded-full hover:bg-gray-50 bg-white">elevadores residenciais</button>
+            <button class="border border-gray-300 text-gray-700 font-semibold px-3 py-1 rounded-full hover:bg-gray-50 bg-white">elevadores comerciais</button>
+            <button class="border border-gray-300 text-gray-700 font-semibold px-3 py-1 rounded-full hover:bg-gray-50 bg-white">pontos de ônibus</button>
+            <button class="border border-gray-300 text-gray-700 font-semibold px-3 py-1 rounded-full hover:bg-gray-50 bg-white">shopping</button>
+            <button class="border border-gray-300 text-gray-700 font-semibold px-3 py-1 rounded-full hover:bg-gray-50 bg-white">academia</button>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-bold text-gray-700 pl-4">
+            <span>exibir por:</span>
+            <span class="bg-gray-100 p-1 rounded-lg">📋 Lista | 🗺️ Mapa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Catálogo de Pontos + Mapa Real (Fiel ao print) -->
+    <div class="max-w-[1440px] mx-auto p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <!-- Card Ponto 1 -->
+          <div class="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-xs">
+            <div class="h-28 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&auto=format&fit=crop&q=60');">
+              <span class="absolute top-2 left-2 bg-indigo-700 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">digital</span>
+            </div>
+            <div class="p-3">
+              <h4 class="font-bold text-xs text-gray-900 truncate">VN Alvorada 1217</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Vila Olímpia • São Paulo</p>
+              <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100">
+                <span class="font-extrabold text-xs text-gray-900">R$ 264,96</span>
+                <button class="px-2 py-1 border border-green-600 text-green-700 font-bold text-[10px] rounded hover:bg-green-50 bg-white">adicionar +</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Ponto 2 -->
+          <div class="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-xs">
+            <div class="h-28 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&auto=format&fit=crop&q=60');">
+              <span class="absolute top-2 left-2 bg-indigo-700 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">digital</span>
+            </div>
+            <div class="p-3">
+              <h4 class="font-bold text-xs text-gray-900 truncate">Rua Clodomiro</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Itaim Bibi • São Paulo</p>
+              <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100">
+                <span class="font-extrabold text-xs text-gray-900">R$ 284,96</span>
+                <button class="px-2 py-1 border border-green-600 text-green-700 font-bold text-[10px] rounded hover:bg-green-50 bg-white">adicionar +</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Ponto 3 -->
+          <div class="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-xs">
+            <div class="h-28 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1577495508048-b635879837f1?w=400&auto=format&fit=crop&q=60');">
+              <span class="absolute top-2 left-2 bg-indigo-700 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">digital</span>
+            </div>
+            <div class="p-3">
+              <h4 class="font-bold text-xs text-gray-900 truncate">Bela Cintra 434</h4>
+              <p class="text-[10px] text-gray-500 mt-0.5">Consolação • São Paulo</p>
+              <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100">
+                <span class="font-extrabold text-xs text-gray-900">R$ 284,96</span>
+                <button class="px-2 py-1 border border-green-600 text-green-700 font-bold text-[10px] rounded hover:bg-green-50 bg-white">adicionar +</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner Promocional de Criação de Arte (Fiel ao print) -->
+        <div class="bg-purple-100 border border-purple-200 rounded-2xl p-4 flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">📢</span>
+            <div>
+              <h4 class="font-extrabold text-xs text-purple-950">Deixa que a gente cuida da arte</h4>
+              <p class="text-[11px] text-purple-800">Você não precisa contratar designer. Criamos a arte para o seu anúncio.</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-extrabold text-purple-950 block">a partir de R$ 199,99</span>
+            <button class="mt-1 px-3 py-1 bg-purple-900 text-white text-[10px] font-bold rounded-lg">saiba mais</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Mapa Interativo de Pontos (Fiel ao print) -->
+      <div class="lg:col-span-4 bg-gray-200 rounded-2xl overflow-hidden border border-gray-300 relative h-[420px] shadow-xs">
+        <div class="absolute inset-0 bg-slate-100 flex items-center justify-center">
+          <div class="relative w-full h-full bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] p-4 flex flex-col justify-between">
+            <div class="bg-white/90 backdrop-blur-xs p-2 rounded-lg shadow-sm text-xs font-bold text-gray-700 self-start">
+              📍 São Paulo - SP (12 pontos visíveis)
+            </div>
+            <!-- Pins de mapa simulados -->
+            <div class="absolute top-1/4 left-1/3 w-6 h-6 rounded-full bg-orange-500 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border-2 border-white animate-bounce">1</div>
+            <div class="absolute top-1/2 left-1/2 w-6 h-6 rounded-full bg-orange-500 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border-2 border-white">3</div>
+            <div class="absolute bottom-1/3 right-1/4 w-6 h-6 rounded-full bg-orange-500 text-white font-bold text-[10px] flex items-center justify-center shadow-lg border-2 border-white">2</div>
+
+            <button class="self-end brand-orange text-white text-xs font-bold px-4 py-2 rounded-lg shadow-md">
+              ver no mapa ampliado ➔
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PASSO 3: ABA "RASCUNHOS" COM O PADRÃO E PALETA OFICIAL DO AQUIADS DS     -->
+  <!-- ========================================================================= -->
+  <section id="step-3" class="step-screen flex-1">
+    <div class="bg-amber-500 text-amber-950 px-6 py-1 text-right text-[11px] font-bold flex items-center justify-end gap-1.5">
+      <span>⚠️</span> Você efetuou login com uma conta administradora
+    </div>
+
+    <!-- Header Meus Anúncios -->
+    <header class="bg-white border-b border-gray-200 px-8 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-1">
+        <span class="text-2xl font-black tracking-tight text-gray-900">Aqui<span class="text-brand-orange">ads</span></span>
+        <span class="text-[10px] text-gray-400 font-bold border border-gray-300 rounded px-1">®</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="w-7 h-7 rounded-full bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center">F</div>
+        <span class="text-xs font-bold text-gray-800">Olá, FRANKS!</span>
+      </div>
+    </header>
+
+    <div class="max-w-[1440px] mx-auto p-8">
+      <h2 class="text-2xl font-black text-gray-900 tracking-tight mb-6">Meus Anúncios</h2>
+
+      <!-- Abas Oficiais Aquiads DS -->
+      <div class="border-b border-gray-200 flex items-center gap-8 mb-6">
+        <button class="pb-3 text-xs font-semibold text-gray-500 hover:text-gray-800 transition">
+          Planos de mídia (08)
+        </button>
+        <button class="pb-3 text-xs font-bold text-brand-orange border-b-2 border-brand-orange flex items-center gap-1.5">
+          <span>Rascunhos</span>
+          <span class="text-brand-orange text-xs font-bold">(04)</span>
+        </button>
+      </div>
+
+      <!-- Filtros da Listagem (Campos brancos e contraste garantido) -->
+      <div class="bg-white border border-gray-200 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-[11px] text-gray-500 mb-1">Nome ou ID</label>
+          <input type="text" placeholder="Buscar por nome ou ID" class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs text-gray-900 shadow-xs">
+        </div>
+        <div>
+          <label class="block text-[11px] text-gray-500 mb-1">Data de publicação</label>
+          <input type="text" placeholder="dd/mm/aaaa" class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs text-gray-900 shadow-xs">
+        </div>
+        <div>
+          <label class="block text-[11px] text-gray-500 mb-1">Período</label>
+          <select class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs text-gray-900 shadow-xs">
+            <option>Selecione o período</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-gray-500 mb-6">
+        <span>Aqui ficam suas campanhas ainda não finalizadas. Você pode editar tudo antes de concluir a contratação.</span>
+        <div class="flex items-center gap-3 font-semibold text-gray-700">
+          <span>📋 ver em lista</span>
+          <span>⇅ ordenar</span>
+        </div>
+      </div>
+
+      <!-- GRADE DE CARDS: SEGUINDO O PADRÃO OFICIAL DO DESIGN SYSTEM (AZUL MARINHO + LISTRAS LARANJAS DA MARCA) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <!-- Card 1: Rascunho com Data Expirada (Padrão DS Aquiads + Alerta Dourado) -->
+        <div class="border-2 border-amber-400 rounded-2xl overflow-hidden bg-white shadow-xs hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <!-- Header do Card com o padrão oficial Aquiads (Azul Marinho #1e1b4b + Listras Laranja #ff5a00) -->
+            <div class="h-28 bg-[#1e1b4b] relative overflow-hidden p-3 flex flex-col justify-between">
+              <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 120">
+                <rect width="300" height="120" fill="#1e1b4b"/>
+                <path d="M120 -20 L160 -20 L90 140 L50 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M175 -20 L215 -20 L145 140 L105 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M230 -20 L270 -20 L200 140 L160 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M285 -20 L325 -20 L255 140 L215 140 Z" fill="#ff5a00" opacity="0.95" />
+              </svg>
+              <!-- Badge de Alerta de Data Expirada do DS -->
+              <span class="relative z-10 bg-amber-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full self-end flex items-center gap-1 shadow-sm">
+                <span>⚠️</span> Data Expirada
+              </span>
+              <span class="relative z-10 text-white font-extrabold text-xs drop-shadow-sm">2 Telas Digitais • Vila Olímpia</span>
+            </div>
+
+            <div class="p-4">
+              <div class="flex items-center gap-1.5 text-[11px] text-gray-500 mb-1 font-semibold">
+                <span>✏️</span> <span>rascunho</span>
+              </div>
+              <h3 class="font-extrabold text-xs text-gray-900 leading-snug mb-1">
+                OOH • Vila Olímpia (VN Alvorada)
+              </h3>
+              <span class="text-[10px] text-gray-400 font-bold block mb-3">#729938</span>
+
+              <div class="grid grid-cols-2 gap-2 text-xs mb-3 text-gray-600 border-t border-b border-gray-100 py-2">
+                <div><span class="text-[10px] text-gray-400 block">início</span><span class="line-through text-red-500 font-bold">18/06/2026</span></div>
+                <div><span class="text-[10px] text-gray-400 block">fim</span><span class="line-through text-red-500 font-bold">15/07/2026</span></div>
+              </div>
+
+              <div>
+                <span class="text-[10px] text-gray-400 block">valor</span>
+                <strong class="text-sm font-black text-gray-900">R$ 2.092,80</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0 flex items-center gap-2">
+            <button class="flex-1 py-1.5 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 bg-white">
+              🗑️ excluir
+            </button>
+            <button onclick="goToStep(4)" class="flex-1 py-1.5 border border-brand-orange text-brand-orange hover:bg-orange-50 text-xs font-bold rounded-lg flex items-center justify-center gap-1 bg-white">
+              <span>✏️ editar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Rascunho com Data Válida (Padrão DS Aquiads) -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-xs hover:border-gray-300 transition flex flex-col justify-between">
+          <div>
+            <div class="h-28 bg-[#1e1b4b] relative overflow-hidden p-3 flex flex-col justify-between">
+              <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 120">
+                <rect width="300" height="120" fill="#1e1b4b"/>
+                <path d="M120 -20 L160 -20 L90 140 L50 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M175 -20 L215 -20 L145 140 L105 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M230 -20 L270 -20 L200 140 L160 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M285 -20 L325 -20 L255 140 L215 140 Z" fill="#ff5a00" opacity="0.95" />
+              </svg>
+              <span class="relative z-10 bg-green-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full self-end">Pronto para pagamento</span>
+              <span class="relative z-10 text-white font-extrabold text-xs">4 Telas • Bela Vista</span>
+            </div>
+
+            <div class="p-4">
+              <div class="flex items-center gap-1.5 text-[11px] text-gray-500 mb-1 font-semibold">
+                <span>✏️</span> <span>rascunho</span>
+              </div>
+              <h3 class="font-extrabold text-xs text-gray-900 leading-snug mb-1">
+                OOH • Competition Paulista
+              </h3>
+              <span class="text-[10px] text-gray-400 font-bold block mb-3">#726277</span>
+
+              <div class="grid grid-cols-2 gap-2 text-xs mb-3 text-gray-600 border-t border-b border-gray-100 py-2">
+                <div><span class="text-[10px] text-gray-400 block">início</span><span class="font-bold text-gray-800">05/10/2026</span></div>
+                <div><span class="text-[10px] text-gray-400 block">fim</span><span class="font-bold text-gray-800">02/11/2026</span></div>
+              </div>
+
+              <div>
+                <span class="text-[10px] text-gray-400 block">valor</span>
+                <strong class="text-sm font-black text-gray-900">R$ 399,00</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0 flex items-center gap-2">
+            <button class="flex-1 py-1.5 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 bg-white">🗑️ excluir</button>
+            <button onclick="goToStep(5)" class="flex-1 py-1.5 border border-brand-orange text-brand-orange hover:bg-orange-50 text-xs font-bold rounded-lg bg-white">✏️ editar</button>
+          </div>
+        </div>
+
+        <!-- Card 3: Rascunho Abrigos de Ônibus (Padrão DS Aquiads) -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-xs hover:border-gray-300 transition flex flex-col justify-between">
+          <div>
+            <div class="h-28 bg-[#1e1b4b] relative overflow-hidden p-3 flex flex-col justify-between">
+              <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 120">
+                <rect width="300" height="120" fill="#1e1b4b"/>
+                <path d="M120 -20 L160 -20 L90 140 L50 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M175 -20 L215 -20 L145 140 L105 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M230 -20 L270 -20 L200 140 L160 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M285 -20 L325 -20 L255 140 L215 140 Z" fill="#ff5a00" opacity="0.95" />
+              </svg>
+              <span class="relative z-10 text-white font-extrabold text-xs mt-auto">10 Abrigos de Ônibus</span>
+            </div>
+
+            <div class="p-4">
+              <div class="flex items-center gap-1.5 text-[11px] text-gray-500 mb-1 font-semibold">
+                <span>✏️</span> <span>rascunho</span>
+              </div>
+              <h3 class="font-extrabold text-xs text-gray-900 leading-snug mb-1">
+                Abrigos • Av. Rebouças
+              </h3>
+              <span class="text-[10px] text-gray-400 font-bold block mb-3">#726304</span>
+
+              <div class="grid grid-cols-2 gap-2 text-xs mb-3 text-gray-600 border-t border-b border-gray-100 py-2">
+                <div><span class="text-[10px] text-gray-400 block">início</span><span class="font-bold text-gray-800">12/10/2026</span></div>
+                <div><span class="text-[10px] text-gray-400 block">fim</span><span class="font-bold text-gray-800">09/11/2026</span></div>
+              </div>
+
+              <div>
+                <span class="text-[10px] text-gray-400 block">valor</span>
+                <strong class="text-sm font-black text-gray-900">R$ 10.022,00</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0 flex items-center gap-2">
+            <button class="flex-1 py-1.5 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 bg-white">🗑️ excluir</button>
+            <button onclick="goToStep(5)" class="flex-1 py-1.5 border border-brand-orange text-brand-orange hover:bg-orange-50 text-xs font-bold rounded-lg bg-white">✏️ editar</button>
+          </div>
+        </div>
+
+        <!-- Card 4: Rascunho Elevadores Faria Lima (Padrão DS Aquiads) -->
+        <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-xs hover:border-gray-300 transition flex flex-col justify-between">
+          <div>
+            <div class="h-28 bg-[#1e1b4b] relative overflow-hidden p-3 flex flex-col justify-between">
+              <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 120">
+                <rect width="300" height="120" fill="#1e1b4b"/>
+                <path d="M120 -20 L160 -20 L90 140 L50 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M175 -20 L215 -20 L145 140 L105 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M230 -20 L270 -20 L200 140 L160 140 Z" fill="#ff5a00" opacity="0.95" />
+                <path d="M285 -20 L325 -20 L255 140 L215 140 Z" fill="#ff5a00" opacity="0.95" />
+              </svg>
+              <span class="relative z-10 text-white font-extrabold text-xs mt-auto">15 Telas Elevador</span>
+            </div>
+
+            <div class="p-4">
+              <div class="flex items-center gap-1.5 text-[11px] text-gray-500 mb-1 font-semibold">
+                <span>✏️</span> <span>rascunho</span>
+              </div>
+              <h3 class="font-extrabold text-xs text-gray-900 leading-snug mb-1">
+                Elevadores • Faria Lima
+              </h3>
+              <span class="text-[10px] text-gray-400 font-bold block mb-3">#726306</span>
+
+              <div class="grid grid-cols-2 gap-2 text-xs mb-3 text-gray-600 border-t border-b border-gray-100 py-2">
+                <div><span class="text-[10px] text-gray-400 block">início</span><span class="font-bold text-gray-800">19/10/2026</span></div>
+                <div><span class="text-[10px] text-gray-400 block">fim</span><span class="font-bold text-gray-800">16/11/2026</span></div>
+              </div>
+
+              <div>
+                <span class="text-[10px] text-gray-400 block">valor</span>
+                <strong class="text-sm font-black text-gray-900">R$ 7.236,42</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0 flex items-center gap-2">
+            <button class="flex-1 py-1.5 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 bg-white">🗑️ excluir</button>
+            <button onclick="goToStep(5)" class="flex-1 py-1.5 border border-brand-orange text-brand-orange hover:bg-orange-50 text-xs font-bold rounded-lg bg-white">✏️ editar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PASSO 4: QUICK DATE PICK (1 CLIQUE) NO CARRINHO COM DATA EXPIRADA       -->
+  <!-- ========================================================================= -->
+  <section id="step-4" class="step-screen flex-1">
+    <div class="bg-amber-500 text-amber-950 px-6 py-1 text-right text-[11px] font-bold flex items-center justify-end gap-1.5">
+      <span>⚠️</span> Você efetuou login com uma conta administradora
+    </div>
+
+    <!-- Barra Amarela de Data Expirada (Idêntica ao print oficial) -->
+    <div class="bg-amber-500 text-white px-8 py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
+      <div class="flex items-center gap-2.5 text-xs font-bold">
+        <span class="text-base">ℹ️</span>
+        <span>Atenção: a data de início da sua campanha expirou. Escolha uma nova data para continuar.</span>
+      </div>
+      <button onclick="openDateModal()" class="bg-white text-amber-900 hover:bg-amber-50 font-black text-xs px-4 py-1.5 rounded-lg shadow-sm transition whitespace-nowrap flex items-center gap-1.5">
+        <span>escolher nova data</span>
+        <span>📅</span>
+      </button>
+    </div>
+
+    <div class="max-w-[1240px] mx-auto p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <a href="#" onclick="goToStep(3)" class="text-xs text-gray-500 hover:text-gray-800 flex items-center gap-1 mb-2">‹ voltar</a>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight">Plano de mídia</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-7 space-y-4 opacity-75">
+          <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-xs">
+            <h3 class="font-bold text-sm text-gray-900">Viaduto Brig Luís Antônio</h3>
+            <p class="text-xs text-gray-500">Ponto de ônibus • Impresso • R$ 3.289,00 / 4 semanas</p>
+          </div>
+          <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-xs">
+            <h3 class="font-bold text-sm text-gray-900">João Mendes</h3>
+            <p class="text-xs text-gray-500">Digital • Comercial • R$ 2.450,00</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
+          <h3 class="font-bold text-sm text-gray-900 mb-4">Configure seu anúncio</h3>
+          <div class="mb-4">
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Nome da campanha</label>
+            <input type="text" value="Campanha-sem_nome-2026-04-16" readonly class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-xs font-semibold text-gray-700 shadow-xs">
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 mb-4">
+            <div>
+              <label class="block text-[10px] text-gray-500 mb-1">duração</label>
+              <select disabled class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-xs font-semibold text-gray-500 shadow-xs">
+                <option>4 semanas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] text-gray-500 mb-1">início</label>
+              <input type="text" value="16/04/2026" disabled class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-xs font-bold text-red-600 line-through shadow-xs">
+            </div>
+            <div>
+              <label class="block text-[10px] text-gray-500 mb-1">fim</label>
+              <input type="text" value="13/05/2026" disabled class="w-full bg-gray-50 border border-gray-300 rounded-lg p-2 text-xs font-bold text-red-600 line-through shadow-xs">
+            </div>
+          </div>
+
+          <button onclick="openDateModal()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs mb-3">
+            Atualizar Data para Habilitar Pagamento 📅
+          </button>
+
+          <button disabled class="w-full py-3 bg-gray-200 text-gray-400 rounded-xl font-bold text-xs cursor-not-allowed">
+            realizar pagamento (bloqueado)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL QUICK DATE PICK (1 CLIQUE) -->
+    <div id="quick-date-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+        <h3 class="text-base font-black text-gray-900 mb-1">A data de início da sua campanha expirou.</h3>
+        <p class="text-xs text-gray-500 mb-4">Duração total preservada: <strong class="text-gray-900">28 dias</strong></p>
+
+        <!-- CAIXA DE SUGESTÃO DE 1 CLIQUE -->
+        <div class="bg-orange-50 border-2 border-orange-400 rounded-xl p-4 mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] uppercase font-black tracking-wider text-brand-orange bg-white px-2 py-0.5 rounded-full border border-orange-200">
+              ⚡ Sugestão Automática
+            </span>
+            <span class="text-[10px] text-green-700 font-bold">1 Clique</span>
+          </div>
+          <p class="text-xs font-black text-gray-900 mb-1">
+            Próxima segunda-feira: 05/10/2026 ➔ 02/11/2026
+          </p>
+          <p class="text-[11px] text-gray-500 mb-3">Início no próximo ciclo viável mantendo os 28 dias.</p>
+          <button onclick="applyQuickDate()" class="w-full py-2.5 brand-orange brand-orange-hover text-white text-xs font-bold rounded-lg shadow-sm transition">
+            Atualizar para este período com 1 clique
+          </button>
+        </div>
+
+        <div class="text-center">
+          <span class="text-[11px] text-gray-400 block mb-2">ou selecione manualmente no calendário:</span>
+          <input type="date" value="2026-10-05" class="w-full bg-white border border-gray-300 rounded-lg p-2 text-xs mb-3 text-gray-900 shadow-xs">
+          <div class="flex items-center justify-end gap-2">
+            <button onclick="closeDateModal()" class="px-4 py-2 text-xs font-semibold text-gray-500">cancelar</button>
+            <button onclick="applyQuickDate()" class="px-5 py-2 brand-orange text-white text-xs font-bold rounded-lg">salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PASSO 5: TELA DE PAGAMENTO (100% FIEL AO PRINT media_1790348290183.png)   -->
+  <!-- ========================================================================= -->
+  <section id="step-5" class="step-screen flex-1">
+    <div class="bg-amber-500 text-amber-950 px-6 py-1 text-right text-[11px] font-bold flex items-center justify-end gap-1.5">
+      <span>⚠️</span> Você efetuou login com uma conta administradora
+    </div>
+
+    <!-- Header Pagamento -->
+    <header class="bg-white border-b border-gray-200 px-8 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-1">
+        <span class="text-2xl font-black tracking-tight text-gray-900">Aqui<span class="text-brand-orange">ads</span></span>
+        <span class="text-[10px] text-gray-400 font-bold border border-gray-300 rounded px-1">®</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <button class="text-xs font-medium text-gray-600 flex items-center gap-1.5">
+          <span>Assistente de anúncios</span>
+          <span class="text-purple-600 text-sm">✨</span>
+        </button>
+        <div class="relative cursor-pointer">
+          <span class="text-lg">🛒</span>
+          <span class="absolute -top-1 -right-2 bg-orange-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">1</span>
+        </div>
+        <div class="flex items-center gap-2 pl-3 border-l border-gray-200">
+          <div class="w-7 h-7 rounded-full bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center">F</div>
+          <span class="text-xs font-bold text-gray-800">Olá, FRANKS!</span>
+          <span class="text-gray-400 text-sm">⚙️</span>
+          <span class="text-gray-600 text-sm">☰</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo Fiel da Tela de Pagamento -->
+    <div class="max-w-[1240px] mx-auto p-6 md:p-8">
+      <a href="#" onclick="goToStep(4)" class="text-xs text-gray-500 hover:text-gray-800 flex items-center gap-1 mb-4">‹ voltar</a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Coluna Esquerda: Dados de Faturamento + Forma de Pagamento -->
+        <div class="lg:col-span-7 space-y-6">
+          <div>
+            <h2 class="text-2xl font-black text-gray-900 tracking-tight">Pagamento</h2>
+            <p class="text-xs text-gray-500 mt-1">
+              Você está a um passo de concluir sua compra. Confirme os valores e selecione a forma de pagamento.
+            </p>
+          </div>
+
+          <!-- Card: Dados de Faturamento (Fiel ao print) -->
+          <div>
+            <h3 class="font-extrabold text-sm text-gray-900 mb-3">Dados de faturamento</h3>
+            <div class="border border-gray-200 rounded-2xl p-5 bg-white relative shadow-xs">
+              <span class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded inline-block mb-3">
+                pessoa física
+              </span>
+
+              <div class="flex items-start justify-between">
+                <div>
+                  <h4 class="font-bold text-xs text-gray-900 uppercase">FRANKS BAPTISTA FREITAS</h4>
+                  <p class="text-xs text-gray-600 font-medium mt-0.5">381.867.628-33</p>
+                  <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    Rua Coronel Pedro Dias de Campos, 947, Chácara Seis de Outubro, São Paulo, SP, 03508-010
+                  </p>
+                </div>
+
+                <!-- Botões Laterais do Card -->
+                <div class="flex flex-col items-end gap-2">
+                  <button class="text-xs font-semibold text-gray-700 hover:text-gray-900 flex items-center gap-1">
+                    editar ✎
+                  </button>
+                  <button class="text-xs font-semibold text-gray-700 hover:text-gray-900 flex items-center gap-1 mt-2">
+                    trocar perfil ⮀
+                  </button>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-gray-100 text-[11px] text-gray-500">
+                Você ainda não concluiu seu cadastro de Pessoa Jurídica. <a href="#" class="text-brand-orange font-bold underline">Concluir Cadastro</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seção: Escolha o método de pagamento -->
+          <div>
+            <h3 class="font-extrabold text-sm text-gray-900 mb-3">Escolha o método de pagamento</h3>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <!-- Botão PIX Ativo -->
+              <div id="pay-pix" onclick="selectPay('pix')" class="border-2 border-brand-orange bg-orange-50/20 rounded-2xl p-5 cursor-pointer shadow-xs transition">
+                <div class="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-600 flex items-center justify-center text-lg mb-2">
+                  ❖
+                </div>
+                <h4 class="font-black text-sm text-gray-900">PIX</h4>
+                <p class="text-[11px] text-gray-500 mt-0.5">Aprovação imediata</p>
+              </div>
+
+              <!-- Botão Cartão -->
+              <div id="pay-card" onclick="selectPay('card')" class="border border-gray-200 rounded-2xl p-5 cursor-pointer hover:border-gray-300 shadow-xs transition bg-white">
+                <div class="w-7 h-7 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center text-base mb-2">
+                  💳
+                </div>
+                <h4 class="font-black text-sm text-gray-900">Cartão de crédito</h4>
+                <p class="text-[11px] text-gray-500 mt-0.5">Em até 12x</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-1.5 text-xs text-gray-400">
+              <span>Pagamento seguro com</span>
+              <strong class="text-orange-600 font-extrabold">rede <span class="text-gray-500 font-normal">itaú</span></strong>
+            </div>
+
+            <button onclick="finishOrder()" class="w-full mt-6 py-4 brand-orange brand-orange-hover text-white rounded-xl font-black text-sm shadow-xl transition flex items-center justify-center gap-2">
+              <span>Finalizar Compra</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Coluna Direita: Resumo de Valores + Dúvidas (Fiel ao print) -->
+        <div class="lg:col-span-5 space-y-6">
+          <!-- Card Resumo de Valores -->
+          <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
+            <h3 class="font-black text-base text-gray-900 mb-4">Resumo de valores</h3>
+
+            <div class="text-xs mb-4">
+              <span class="text-gray-500">Possui cupom?</span>
+              <a href="#" class="text-green-600 font-bold ml-1">Adicionar</a>
+            </div>
+
+            <div class="space-y-3 text-xs border-b border-gray-100 pb-4 mb-4">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Campanha Out of Home</span>
+                <strong class="text-gray-900">R$ 264,96</strong>
+              </div>
+              <div class="flex justify-between items-center text-gray-600">
+                <div class="flex items-center gap-1.5">
+                  <span>Serviço de criação de arte</span>
+                  <button class="text-gray-400 hover:text-red-500">🗑️</button>
+                </div>
+                <div>
+                  <span class="line-through text-gray-400 text-[10px] mr-1">R$ 259,99</span>
+                  <strong class="text-gray-900">R$ 199,99</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between text-xs text-gray-600 mb-2 font-medium">
+              <span>Subtotal</span>
+              <span>R$ 464,95</span>
+            </div>
+
+            <div class="flex justify-between text-lg font-black text-gray-900 pt-3 border-t border-gray-200">
+              <span>Total</span>
+              <span class="text-brand-orange text-xl">R$ 264,96</span>
+            </div>
+          </div>
+
+          <!-- Card Tire suas dúvidas (Fiel ao print) -->
+          <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs text-xs">
+            <h3 class="font-black text-sm text-gray-900 mb-3">Tire suas dúvidas</h3>
+
+            <details open class="border-b border-gray-100 pb-3 mb-3 cursor-pointer">
+              <summary class="font-bold text-gray-800 flex items-center justify-between mb-2">
+                <span>Sobre a contratação de uma arte</span>
+                <span class="text-xs text-gray-400">^</span>
+              </summary>
+              <p class="text-gray-500 leading-relaxed text-[11px] mb-2">
+                Após o pagamento, preencha o formulário com seus materiais. Você receberá a primeira versão da arte em até 48h úteis. Se precisar, você pode solicitar até <strong>duas alterações</strong>, com entrega em 24h úteis cada.
+              </p>
+              <p class="text-[10px] text-gray-400">
+                Ao finalizar o pedido você concorda com os <a href="#" class="text-brand-orange underline">termos e condições de uso do Aqui Ads</a>.
+              </p>
+            </details>
+
+            <details class="border-b border-gray-100 pb-3 mb-3 cursor-pointer">
+              <summary class="font-bold text-gray-800 flex items-center justify-between">
+                <span>Métodos de pagamentos disponíveis</span>
+                <span class="text-xs text-gray-400">v</span>
+              </summary>
+            </details>
+
+            <div class="space-y-2 pt-1 font-semibold">
+              <a href="#" class="text-brand-orange flex items-center gap-1.5 text-[11px]">
+                <span>⊕</span> mais perguntas
+              </a>
+              <a href="#" class="text-brand-orange flex items-center gap-1.5 text-[11px]">
+                <span>💬</span> Fale com o nosso time
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SCRIPTS DE INTERATIVIDADE DO PROTÓTIPO                                   -->
+  <!-- ========================================================================= -->
+  <script>
+    function goToStep(stepNumber) {
+      document.querySelectorAll('.step-screen').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(`step-${stepNumber}`);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.step-nav-btn').forEach((btn, idx) => {
+        if (idx + 1 === stepNumber) {
+          btn.classList.add('bg-orange-600', 'text-white');
+          btn.classList.remove('bg-gray-800', 'text-gray-300');
+        } else {
+          btn.classList.remove('bg-orange-600', 'text-white');
+          btn.classList.add('bg-gray-800', 'text-gray-300');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openSaveModal() {
+      document.getElementById('save-draft-modal').classList.remove('hidden');
+    }
+    function closeSaveModal() {
+      document.getElementById('save-draft-modal').classList.add('hidden');
+    }
+    function confirmSaveDraft() {
+      const name = document.getElementById('modal-name-input').value;
+      document.getElementById('campaign-name-input').value = name;
+      closeSaveModal();
+      goToStep(3);
+    }
+
+    function openDateModal() {
+      document.getElementById('quick-date-modal').classList.remove('hidden');
+    }
+    function closeDateModal() {
+      document.getElementById('quick-date-modal').classList.add('hidden');
+    }
+    function applyQuickDate() {
+      closeDateModal();
+      goToStep(5);
+    }
+
+    function selectPay(type) {
+      const pix = document.getElementById('pay-pix');
+      const card = document.getElementById('pay-card');
+      if (type === 'pix') {
+        pix.classList.add('border-2', 'border-brand-orange', 'bg-orange-50/20');
+        pix.classList.remove('border-gray-200');
+        card.classList.remove('border-2', 'border-brand-orange', 'bg-orange-50/20');
+        card.classList.add('border-gray-200');
+      } else {
+        card.classList.add('border-2', 'border-brand-orange', 'bg-orange-50/20');
+        card.classList.remove('border-gray-200');
+        pix.classList.remove('border-2', 'border-brand-orange', 'bg-orange-50/20');
+        pix.classList.add('border-gray-200');
+      }
+    }
+
+    function finishOrder() {
+      alert("🎉 Pedido Concluído com Sucesso!\n\nParabéns! O fluxo de ponta a ponta (desde o rascunho salvo até o fechamento de pagamento) foi testado com sucesso.");
+    }
+  </script>
+</body>
+</html>

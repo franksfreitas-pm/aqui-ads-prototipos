@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aqui Ads — Aba Digital (Globo Design System)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-ds-preview.css">
+</head>
+<body>
+  <!-- ========================================================================= -->
+  <!-- BARRA DE CONTROLE DO EXPERIMENTO (PRODUCT OS SUITE)                      -->
+  <!-- ========================================================================= -->
+  <aside class="exp-control-toolbar" aria-label="Controles do Experimento A/B/C">
+    <div class="exp-toolbar-inner">
+      <div class="exp-brand-badge">
+        <span class="exp-dot"></span>
+        <strong>Product OS</strong>
+        <span class="exp-sep">/</span>
+        <span>Experimento A/B/C: Parcelamento na Barra Fixa</span>
+      </div>
+
+      <div class="exp-variant-selector">
+        <span class="exp-label">Selecione a Variante:</span>
+        <div class="exp-pill-group">
+          <button type="button" class="exp-btn-pill" id="btnVarA" onclick="setVariant('A')">
+            <span class="pill-tag">A</span> Controle (Atual)
+          </button>
+          <button type="button" class="exp-btn-pill active" id="btnVarB" onclick="setVariant('B')">
+            <span class="pill-tag">B</span> Var 1: Contador Dinâmico
+          </button>
+          <button type="button" class="exp-btn-pill" id="btnVarC" onclick="setVariant('C')">
+            <span class="pill-tag">C</span> Var 2: Link + Modal Regras
+          </button>
+        </div>
+      </div>
+
+      <div class="exp-actions-group">
+        <span class="exp-label">Simular Valores:</span>
+        <button type="button" class="exp-action-btn" onclick="simulateCart(960)">R$ 960 (Sub-2k)</button>
+        <button type="button" class="exp-action-btn" onclick="simulateCart(1500)">R$ 1.500 (Quase lá)</button>
+        <button type="button" class="exp-action-btn" onclick="simulateCart(2000)">R$ 2.000 (Meta!)</button>
+        <button type="button" class="exp-action-btn" onclick="simulateCart(3500)">R$ 3.500 (Meta+)</button>
+        <button type="button" class="exp-action-btn exp-btn-reset" onclick="clearCart()">Zerar</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header Globo Style -->
+  <header class="aqui-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <span class="aqui-title">aqui<span class="aqui-orange">ads</span></span>
+        <span class="globo-sub">globo</span>
+      </div>
+
+      <nav class="nav-tabs-globo">
+        <button class="nav-tab">OOH</button>
+        <button class="nav-tab active">Digital <span class="tab-badge">22</span></button>
+        <button class="nav-tab">TV</button>
+        <button class="nav-tab">Rádio</button>
+      </nav>
+
+      <div class="user-badge-logged">
+        <div class="user-avatar-circle">FF</div>
+        <div class="user-meta">
+          <span class="user-name">Franks Freitas</span>
+          <span class="user-status">Conectado</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top Bar / Navigation Mode -->
+  <div class="sub-nav-bar">
+    <div class="sub-nav-inner">
+      <div class="page-mode-toggle">
+        <button class="mode-btn active" id="btnModeCatalog" onclick="switchPageMode('catalog')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          Catálogo Digital (22 produtos)
+        </button>
+        <button class="mode-btn" id="btnModeSegmentation" onclick="switchPageMode('segmentation')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          Página de Segmentação
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="content-wrapper">
+
+    <!-- PAGE 1: CATALOG GALLERY -->
+    <section id="pageCatalog" class="page-section active">
+      
+      <!-- Sticky Category Chips Mobile & Desktop -->
+      <div class="sticky-chips-container">
+        <div class="chips-scroll">
+          <button class="category-chip active" onclick="filterCategory('all', this)">
+            Todos <span class="chip-num">22</span>
+          </button>
+          <button class="category-chip" onclick="filterCategory('globoplay', this)">
+            Globoplay <span class="chip-num">3</span>
+          </button>
+          <button class="category-chip" onclick="filterCategory('portais', this)">
+            Portais Globo <span class="chip-num">4</span>
+          </button>
+          <button class="category-chip" onclick="filterCategory('editora', this)">
+            Editora Globo <span class="chip-num">15</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="globo-products-grid" id="globoProductsGrid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- PAGE 2: DEDICATED SEGMENTATION PAGE -->
+    <section id="pageSegmentation" class="page-section">
+      <div class="segmentation-page-card">
+        <div class="seg-title-block">
+          <h1>Segmentação da Campanha Digital</h1>
+          <p>Configure os parâmetros de abrangência e veiculação dos anúncios da Globo para sua empresa.</p>
+        </div>
+
+        <div class="seg-steps-container">
+          
+          <!-- Step 1: Region -->
+          <div class="seg-step-card">
+            <div class="step-header">
+              <span class="step-circle">1</span>
+              <div>
+                <h2>Onde Anunciar (Geolocalização)</h2>
+                <p>Selecione os estados, cidades ou praças onde o seu anúncio deve impactar os leitores.</p>
+              </div>
+            </div>
+
+            <div class="step-body">
+              <div class="region-selector-grid">
+                <button class="reg-btn active" onclick="setRegion('SP', this)">São Paulo (Estado)</button>
+                <button class="reg-btn" onclick="setRegion('RJ', this)">Rio de Janeiro (Estado)</button>
+                <button class="reg-btn" onclick="setRegion('MG', this)">Minas Gerais (Estado)</button>
+                <button class="reg-btn" onclick="setRegion('SUL', this)">Região Sul</button>
+                <button class="reg-btn" onclick="setRegion('BR', this)">Brasil (Nacional)</button>
+              </div>
+
+              <div class="city-search-row">
+                <input type="text" id="inputCitySearch" class="globo-input" placeholder="Ou digite o nome de cidades específicas (ex: Campinas, Niterói...)">
+              </div>
+
+              <div class="reach-banner-globo">
+                <div class="reach-icon">📊</div>
+                <div class="reach-info">
+                  <strong>Alcance Estimado na Região Selecionada:</strong>
+                  <span id="txtReachEstimate">~2.400.000 pessoas impactadas por semana em São Paulo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Schedule -->
+          <div class="seg-step-card">
+            <div class="step-header">
+              <span class="step-circle">2</span>
+              <div>
+                <h2>Período & Calendário de Veiculação</h2>
+                <p>Alinhado às regras de veiculação da Globo.</p>
+              </div>
+            </div>
+
+            <div class="step-body">
+              <div class="period-options-row">
+                <button class="period-btn active">2 semanas (Padrão)</button>
+                <button class="period-btn">1 mês</button>
+                <button class="period-btn">2 meses</button>
+              </div>
+
+              <div class="date-field-group">
+                <label>Data de Início Prevista:</label>
+                <input type="date" class="globo-input" value="2026-09-08">
+              </div>
+
+              <div class="globo-notice">
+                <span>ℹ️ A veiculação se inicia após a aprovação da arte e confirmação do pagamento.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="seg-footer-actions">
+          <button class="btn-save-seg" onclick="saveSegmentation()">Salvar Segmentação & Ir para o Catálogo</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- BARRA FIXA NA TELA DE RESULTADOS (STICKY BOTTOM CART BAR)                -->
+  <!-- Suporta Controle (A), Variável 1 (B) e Variável 2 (C)                     -->
+  <!-- ========================================================================= -->
+  <footer class="bottom-cart-bar" id="bottomCartBar">
+    <div class="cart-bar-inner">
+
+      <!-- ========================================== -->
+      <!-- SLOT 1: VARIANTE B (CONTADOR DE META)      -->
+      <!-- Visível dinamicamente quando activeVariant === 'B' -->
+      <!-- ========================================== -->
+      <div class="cart-slot-counter" id="slotCounterContainer">
+        <div class="progress-info-row">
+          <span class="counter-icon" id="counterIcon">🎯</span>
+          <div class="counter-texts">
+            <span class="counter-headline" id="txtCounterHeadline">
+              Faltam <strong>R$ 2.000,00</strong> para liberar parcelamento sem juros
+            </span>
+            <span class="counter-subline" id="txtCounterSubline">
+              Parcele em até <strong>3x sem juros</strong> no cartão de crédito
+            </span>
+          </div>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLOT 2: RESUMO DO PEDIDO E TOTAL           -->
+      <!-- ========================================== -->
+      <div class="cart-summary-group">
+        <div class="cart-badge-wrapper">
+          <span class="cart-badge-count" id="cartCountBadge">0 ITENS</span>
+        </div>
+
+        <div class="cart-price-block">
+          <span class="total-label">Investimento Total</span>
+          <div class="total-row">
+            <strong class="total-amount" id="txtTotalCart">R$ 0,00</strong>
+
+            <!-- SLOT DA VARIANTE C: LINK + MODAL -->
+            <!-- Visível dinamicamente quando activeVariant === 'C' -->
+            <button type="button" 
+                    class="btn-trigger-modal" 
+                    id="btnModalRulesTrigger" 
+                    onclick="openInstallmentModal('bottom_bar_link')" 
+                    title="Clique para ver todas as regras de parcelamento e boleto">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Regras de parcelamento</span>
+            </button>
+          </div>
+
+          <!-- Microcopy de status de parcelamento -->
+          <span class="installment-status-hint" id="txtInstallmentHint">
+            À vista no cartão ou Pix
+          </span>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLOT 3: CTA PRINCIPAL                      -->
+      <!-- ========================================== -->
+      <div class="cart-cta-group">
+        <button type="button" class="btn-globo-checkout" id="btnCheckout" onclick="proceedCheckout()">
+          <span>Avançar para Pagamento</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL DE REGRAS DE PARCELAMENTO + BOLETO (VARIANTE C)                    -->
+  <!-- Fiel às regras da imagem enviada (Rede / Banco Itaú)                     -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="installmentModalOverlay" onclick="closeInstallmentModal(event)" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="event.stopPropagation()">
+      
+      <!-- Cabeçalho do Modal -->
+      <header class="modal-header">
+        <div class="modal-title-wrapper">
+          <div class="modal-icon-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 id="modalTitle">Regras de Parcelamento + Boleto</h2>
+            <div class="modal-gateway-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+              </svg>
+              <span>Pagamento usando a <strong>Rede</strong> | <strong>Banco Itaú</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-close-modal" onclick="closeInstallmentModal()" aria-label="Fechar Modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+
+      <!-- Corpo do Modal com as 5 Regras Oficiais -->
+      <div class="modal-body">
+        
+        <p class="modal-intro-text">
+          Confira abaixo as condições oficiais de parcelamento sem juros no cartão e faturamento via boleto conforme o valor e a duração da veiculação:
+        </p>
+
+        <div class="rules-cards-stack">
+          
+          <!-- Regra 1: Até R$ 1.999 -->
+          <article class="rule-card rule-card-blocked">
+            <div class="rule-status-badge badge-neutral">Sem parcelamento</div>
+            <div class="rule-content">
+              <div class="rule-condition">
+                <span class="rule-val-pill">Até R$ 1.999</span>
+                <span class="rule-duration">Período de 2 ou 4 semanas</span>
+              </div>
+              <p class="rule-desc">
+                <strong>Não é possível parcelar</strong>. Pagamento exclusivo à vista no cartão de crédito ou Pix.
+              </p>
+            </div>
+          </article>
+
+          <!-- Regra 2: Acima de R$ 2.000 -->
+          <article class="rule-card rule-card-highlight">
+            <div class="rule-status-badge badge-success">3x Sem Juros</div>
+            <div class="rule-content">
+              <div class="rule-condition">
+                <span class="rule-val-pill pill-green">A partir de R$ 2.000</span>
+                <span class="rule-duration">Período de 2 ou 4 semanas</span>
+              </div>
+              <p class="rule-desc">
+                Parcelamento disponível em <strong>até 3x sem juros</strong> no cartão de crédito!
+              </p>
+            </div>
+          </article>
+
+          <!-- Regra 3: 12 semanas independente do valor -->
+          <article class="rule-card">
+            <div class="rule-status-badge badge-blue">3x Sem Juros</div>
+            <div class="rule-content">
+              <div class="rule-condition">
+                <span class="rule-val-pill">Qualquer valor</span>
+                <span class="rule-duration duration-long">Campanha de 12 semanas</span>
+              </div>
+              <p class="rule-desc">
+                Parcelamento disponível em <strong>até 3x sem juros</strong>, independente do valor investido!
+              </p>
+            </div>
+          </article>
+
+          <!-- Regra 4: 24 semanas independente do valor -->
+          <article class="rule-card rule-card-super">
+            <div class="rule-status-badge badge-purple">6x Sem Juros</div>
+            <div class="rule-content">
+              <div class="rule-condition">
+                <span class="rule-val-pill pill-purple">Qualquer valor</span>
+                <span class="rule-duration duration-long">Campanha de 24 semanas</span>
+              </div>
+              <p class="rule-desc">
+                Super parcelamento disponível em <strong>até 6x sem juros</strong> no cartão!
+              </p>
+            </div>
+          </article>
+
+          <!-- Regra 5: Boleto Bancário R$ 1.200 -->
+          <article class="rule-card rule-card-boleto">
+            <div class="rule-status-badge badge-orange">Boleto Liberado</div>
+            <div class="rule-content">
+              <div class="rule-condition">
+                <span class="rule-val-pill pill-orange">A partir de R$ 1.200</span>
+                <span class="rule-duration">Independente do período</span>
+              </div>
+              <p class="rule-desc">
+                Pagamento via <strong>Boleto Bancário</strong> liberado para faturamento da sua empresa!
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Feedback Dinâmico do Carrinho Atual no Modal -->
+        <div class="modal-cart-status-box" id="modalCartStatusBox">
+          <div class="status-box-header">
+            <span>Seu Carrinho Agora:</span>
+            <strong id="modalCartAmount">R$ 0,00</strong>
+          </div>
+          <div class="status-box-feedback" id="modalCartFeedback">
+            Adicione produtos ao carrinho para simular suas opções de pagamento.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Rodapé do Modal -->
+      <footer class="modal-footer">
+        <button type="button" class="btn-modal-secondary" onclick="closeInstallmentModal()">
+          Voltar ao Catálogo
+        </button>
+        <button type="button" class="btn-modal-primary" onclick="proceedFromModal()">
+          Entendi as Condições
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- TOAST DE EVENTOS DE ANALYTICS / MIXPANEL (FEEDBACK DO PRODUCT OS)         -->
+  <!-- ========================================================================= -->
+  <aside class="mixpanel-hud" id="mixpanelHud" aria-live="polite">
+    <div class="hud-header">
+      <div class="hud-title-group">
+        <span class="hud-icon">📊</span>
+        <strong>Mixpanel Live Tracking</strong>
+      </div>
+      <button type="button" class="btn-hud-clear" onclick="clearHudLog()">Limpar</button>
+    </div>
+    <div class="hud-body" id="hudLogList">
+      <!-- Logs inseridos em tempo real -->
+    </div>
+  </aside>
+
+  <script src="app-ds-preview.js"></script>
+</body>
+</html>

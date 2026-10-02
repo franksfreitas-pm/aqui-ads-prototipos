@@ -3,187 +3,582 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aqui Ads - Catálogo de Protótipos</title>
+  <title>Aqui Ads • Hub Oficial de Protótipos</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
   <style>
+    :root {
+      --brand-primary: #FF4F00;
+      --brand-primary-hover: #E04600;
+      --brand-surface: #FFF5F0;
+      --bg-page: #F8F9FA;
+      --bg-card: #FFFFFF;
+      --border-subtle: #E2E8F0;
+      --border-hover: #CBD5E1;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Rethink Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
+
     body {
-      background-color: #F8F9FA;
-      color: #1E293B;
+      background-color: var(--bg-page);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
+
+    /* Top Navigation Header */
     header {
       background-color: #FFFFFF;
-      border-bottom: 1px solid #E2E8F0;
-      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
+      text-decoration: none;
     }
-    .brand-title {
-      font-size: 1.25rem;
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--brand-primary);
+      letter-spacing: -0.03em;
+    }
+
+    .badge-hub {
+      background-color: var(--brand-surface);
+      color: var(--brand-primary);
+      border: 1px solid #FFD6C2;
+      font-size: 0.725rem;
       font-weight: 700;
-      color: #0F172A;
-      letter-spacing: -0.02em;
-    }
-    .badge {
-      background-color: #EFF6FF;
-      color: #1D4ED8;
-      border: 1px solid #DBEAFE;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.65rem;
       border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .container {
-      max-width: 1080px;
-      margin: 2.5rem auto;
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
       padding: 0 1.5rem;
       width: 100%;
       flex: 1;
     }
-    .intro {
-      margin-bottom: 2rem;
+
+    /* Hero Banner */
+    .hero {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      position: relative;
+      overflow: hidden;
     }
-    .intro h1 {
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--brand-primary);
+    }
+
+    .hero-info h1 {
       font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-info p {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      line-height: 1.5;
+      max-width: 680px;
+    }
+
+    .stats-pills {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .stat-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 110px;
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--brand-primary);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.725rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* Section Header */
+    .section-header {
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
       font-weight: 700;
-      color: #0F172A;
-      margin-bottom: 0.5rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .intro p {
-      color: #64748B;
-      font-size: 1rem;
-    }
+
+    /* Grid of Prototype Cards */
     .prototypes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
       gap: 1.5rem;
     }
+
     .proto-card {
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.65rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
+
     .proto-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-      border-color: #CBD5E1;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      border-color: var(--border-hover);
     }
-    .proto-header {
+
+    .proto-tags {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.75rem;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
-    .proto-date {
-      font-size: 0.75rem;
-      color: #94A3B8;
-      font-weight: 500;
+
+    .tag {
+      font-size: 0.675rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
-    .proto-tag {
-      background-color: #F1F5F9;
-      color: #475569;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
+
+    .tag-ooh {
+      background-color: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FDE68A;
     }
+
+    .tag-conv {
+      background-color: #DCFCE7;
+      color: #166534;
+      border: 1px solid #BBF7D0;
+    }
+
+    .tag-journey {
+      background-color: #E0E7FF;
+      color: #3730A3;
+      border: 1px solid #C7D2FE;
+    }
+
+    .tag-upsell {
+      background-color: #F3E8FF;
+      color: #6B21A8;
+      border: 1px solid #E9D5FF;
+    }
+
     .proto-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #0F172A;
-      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
     }
+
     .proto-desc {
-      font-size: 0.875rem;
-      color: #64748B;
-      line-height: 1.5;
-      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.75rem;
       flex: 1;
     }
+
+    .proto-features {
+      background-color: #F8FAFC;
+      border: 1px solid #F1F5F9;
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    .proto-features ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .proto-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .proto-features li i {
+      color: var(--brand-primary);
+      font-size: 0.95rem;
+    }
+
     .proto-footer {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #F1F5F9;
     }
-    .btn-view {
+
+    .proto-version {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .btn-access {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background-color: #2563EB;
+      gap: 0.45rem;
+      background-color: var(--brand-primary);
       color: #FFFFFF;
       text-decoration: none;
-      padding: 0.6rem 1.1rem;
-      border-radius: 6px;
+      padding: 0.65rem 1.2rem;
+      border-radius: 8px;
       font-size: 0.875rem;
-      font-weight: 600;
-      transition: background-color 0.2s ease;
+      font-weight: 700;
+      transition: background-color 0.15s ease, transform 0.15s ease;
     }
-    .btn-view:hover {
-      background-color: #1D4ED8;
+
+    .btn-access:hover {
+      background-color: var(--brand-primary-hover);
+      transform: translateY(-1px);
     }
+
+    /* Footer */
     footer {
       background: #FFFFFF;
-      border-top: 1px solid #E2E8F0;
-      padding: 1.25rem 2rem;
-      text-align: center;
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.75rem 2rem;
+      margin-top: 3rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 0.85rem;
-      color: #94A3B8;
+      color: var(--text-muted);
+    }
+
+    .footer-inner a {
+      color: var(--brand-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+      .stats-pills {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .prototypes-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-inner {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Top Navigation Header -->
   <header>
-    <div class="brand">
-      <span class="brand-title">Aqui Ads</span>
-      <span class="badge">Hub de Protótipos</span>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-logo">Aquiads</span>
+        <span class="badge-hub">Hub de Protótipos</span>
+      </div>
+      <div class="header-meta">
+        <div style="display: flex; align-items: center; gap: 0.4rem;">
+          <span class="live-dot"></span>
+          <span>Ambiente Ativo</span>
+        </div>
+        <span>•</span>
+        <span>Product OS</span>
+      </div>
     </div>
-    <div style="font-size: 0.875rem; color: #64748B;">Product OS</div>
   </header>
 
-  <main class="container">
-    <div class="intro">
-      <h1>Catálogo de Protótipos e Validações</h1>
-      <p>Ambiente oficial para validação de hipóteses, novas interfaces e fluxos com executivos de vendas e stakeholders.</p>
-    </div>
-
-    <div class="prototypes-grid">
-      <!-- Card do Protótipo de Teste -->
-      <div class="proto-card">
-        <div>
-          <div class="proto-header">
-            <span class="proto-tag">Infraestrutura</span>
-            <span class="proto-date">02/10/2026</span>
-          </div>
-          <h2 class="proto-title">PoC - Hospedagem de Protótipos</h2>
-          <p class="proto-desc">Validação da estrutura de publicação de protótipos em HTML no GitHub Pages com visual nativo do Aqui Ads.</p>
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-info">
+        <h1>Protótipos & Validações Aqui Ads</h1>
+        <p>Ambiente oficial e permanente para compartilhamento de fluxos interativos, validação de hipóteses e alinhamento com executivos de vendas e stakeholders.</p>
+      </div>
+      <div class="stats-pills">
+        <div class="stat-box">
+          <span class="stat-val">4</span>
+          <span class="stat-label">Protótipos</span>
         </div>
-        <div class="proto-footer">
-          <a href="projects/poc-hospedagem/" class="btn-view">Acessar Protótipo →</a>
+        <div class="stat-box">
+          <span class="stat-val">OOH</span>
+          <span class="stat-label">Autosserviço</span>
         </div>
       </div>
+    </section>
+
+    <!-- Grid Header -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="uil uil-apps" style="color: var(--brand-primary);"></i>
+        Iniciativas Disponíveis
+      </h2>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Clique no card para abrir e interagir</span>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="prototypes-grid">
+
+      <!-- CARD 1: Barra Fixa Inferior -->
+      <article class="proto-card">
+        <div>
+          <div class="proto-tags">
+            <span class="tag tag-ooh">OOH</span>
+            <span class="tag tag-conv">Conversão</span>
+            <span class="tag" style="background: #F1F5F9; color: #334155;">Desktop & Mobile</span>
+          </div>
+          <h3 class="proto-title">Barra Fixa: Dados Técnicos, Parcelamento & Combo</h3>
+          <p class="proto-desc">
+            Evolução da barra inferior de checkout com alternador flutuante em tempo real para validação das hipóteses de conversão.
+          </p>
+          <div class="proto-features">
+            <ul>
+              <li><i class="uil uil-check-circle"></i> <strong>Proposta 1:</strong> Dados técnicos (alcance e telas ativas)</li>
+              <li><i class="uil uil-check-circle"></i> <strong>Proposta 2:</strong> Valor parcelado sem juros (em até 3x)</li>
+              <li><i class="uil uil-check-circle"></i> <strong>Proposta 3:</strong> Combo (dados técnicos + parcelamento)</li>
+              <li><i class="uil uil-check-circle"></i> Simulador interativo iPhone 15 & Modo Desktop</li>
+            </ul>
+          </div>
+        </div>
+        <div class="proto-footer">
+          <span class="proto-version">v2.0 • Teste A/B/C</span>
+          <a href="projects/barra-fixa-parcelamento/" class="btn-access">
+            <span>Acessar Protótipo</span>
+            <i class="uil uil-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- CARD 2: Experiência do Mapa -->
+      <article class="proto-card">
+        <div>
+          <div class="proto-tags">
+            <span class="tag tag-ooh">OOH</span>
+            <span class="tag tag-conv">Descoberta</span>
+            <span class="tag" style="background: #ECFEFF; color: #0E7490; border: 1px solid #CFFAFE;">Quick Wins</span>
+          </div>
+          <h3 class="proto-title">Experiência do Mapa: Clusters & Quick Wins</h3>
+          <p class="proto-desc">
+            Navegação geográfica imersiva com agrupamento inteligente de pontos OOH, pins interativos e sincronização direta com o catálogo de inventário.
+          </p>
+          <div class="proto-features">
+            <ul>
+              <li><i class="uil uil-check-circle"></i> Clusterização dinâmica por densidade e raio</li>
+              <li><i class="uil uil-check-circle"></i> Pins pulsantes com preview imediato de tela</li>
+              <li><i class="uil uil-check-circle"></i> Sincronização hover/clique entre card e mapa</li>
+              <li><i class="uil uil-check-circle"></i> Filtros por formato (abrigos, relógios, painéis)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="proto-footer">
+          <span class="proto-version">v1.0 • Interativo</span>
+          <a href="projects/experiencia-mapa/" class="btn-access">
+            <span>Acessar Protótipo</span>
+            <i class="uil uil-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- CARD 3: Jornada de Rascunhos -->
+      <article class="proto-card">
+        <div>
+          <div class="proto-tags">
+            <span class="tag tag-journey">Jornada</span>
+            <span class="tag tag-conv">Retenção</span>
+            <span class="tag" style="background: #FFF7ED; color: #C2410C; border: 1px solid #FFEDD5;">Autosserviço</span>
+          </div>
+          <h3 class="proto-title">Jornada de Rascunhos: Retomada no Meus Anúncios</h3>
+          <p class="proto-desc">
+            Fluxo navegável completo projetado para zerar o abandono de campanhas inacabadas com salvamento automático e recuperação simples.
+          </p>
+          <div class="proto-features">
+            <ul>
+              <li><i class="uil uil-check-circle"></i> Stepper de controle com 6 etapas de jornada</li>
+              <li><i class="uil uil-check-circle"></i> Notificação inteligente de retomada de campanha</li>
+              <li><i class="uil uil-check-circle"></i> Gestão de rascunhos na aba Meus Anúncios</li>
+              <li><i class="uil uil-check-circle"></i> Tratamento de validade e expiração de inventário</li>
+            </ul>
+          </div>
+        </div>
+        <div class="proto-footer">
+          <span class="proto-version">v1.2 • Stepper Guiado</span>
+          <a href="projects/jornada-rascunhos/" class="btn-access">
+            <span>Acessar Protótipo</span>
+            <i class="uil uil-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- CARD 4: Upsell OOH no Resumo -->
+      <article class="proto-card">
+        <div>
+          <div class="proto-tags">
+            <span class="tag tag-ooh">OOH</span>
+            <span class="tag tag-upsell">Cross-sell</span>
+            <span class="tag" style="background: #FDF2F8; color: #9D174D; border: 1px solid #FCE7F3;">Ticket Médio</span>
+          </div>
+          <h3 class="proto-title">Upsell OOH no Resumo do Pedido</h3>
+          <p class="proto-desc">
+            Mecanismo de recomendação contextual de inventário adicional na etapa final de fechamento para maximizar o ticket médio do anunciante.
+          </p>
+          <div class="proto-features">
+            <ul>
+              <li><i class="uil uil-check-circle"></i> Sugestão de pontos complementares na mesma região</li>
+              <li><i class="uil uil-check-circle"></i> Cálculo em tempo real do novo impacto de audiência</li>
+              <li><i class="uil uil-check-circle"></i> Adição com 1 clique diretamente no resumo</li>
+              <li><i class="uil uil-check-circle"></i> Comparativo de custo-benefício por inserção</li>
+            </ul>
+          </div>
+        </div>
+        <div class="proto-footer">
+          <span class="proto-version">v1.0 • Checkout</span>
+          <a href="projects/upsell-ooh-resumo/" class="btn-access">
+            <span>Acessar Protótipo</span>
+            <i class="uil uil-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
-    Aqui Ads • Central de Protótipos e Validação Contínua
+    <div class="footer-inner">
+      <div>
+        <strong>Aqui Ads</strong> • Central de Protótipos e Validação de Produto
+      </div>
+      <div>
+        Hospedado via GitHub Pages • Product OS
+      </div>
+    </div>
   </footer>
+
 </body>
 </html>
