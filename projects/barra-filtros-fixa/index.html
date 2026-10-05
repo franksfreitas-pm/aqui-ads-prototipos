@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui Ads • Filtros Fixos na Barra Superior (Protótipo OOH)</title>
+  
+  <!-- Tailwind CSS: Carregamento robusto com fallback -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (!window.tailwind) {
+      document.write('<script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"><\/script>');
+    }
+  </script>
+
+  <!-- Tipografia Oficial Rethink Sans & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+  <style>
+    :root {
+      --brand-primary: #FF4F00;
+      --brand-primary-hover: #E04600;
+      --bg-page: #F8F9FA;
+      --text-main: #111827;
+      --text-muted: #64748B;
+      --border-subtle: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Rethink Sans', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-bottom: 90px;
+    }
+
+    /* Pílulas de filtro conforme print real */
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid #CBD5E1;
+      background-color: #FFFFFF;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .filter-chip:hover {
+      border-color: #94A3B8;
+      background-color: #F8FAFC;
+    }
+    .filter-chip.active {
+      background-color: #475569;
+      color: #FFFFFF;
+      border-color: #475569;
+      font-weight: 600;
+    }
+
+    .filter-chip-more {
+      background-color: #F8FAFC;
+      border-color: #CBD5E1;
+      color: #475569;
+    }
+    .filter-chip-more:hover {
+      background-color: #EFF6FF;
+      border-color: #93C5FD;
+      color: #1D4ED8;
+    }
+
+    /* Search Bar Oficial Flutuante */
+    .official-search-bar {
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 9999px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 6px 4px 18px;
+      max-width: 760px;
+      width: 100%;
+    }
+
+    .search-section {
+      display: flex;
+      flex-direction: column;
+      padding-right: 14px;
+    }
+
+    .search-divider {
+      width: 1px;
+      height: 32px;
+      background-color: #E2E8F0;
+      margin-right: 14px;
+    }
+
+    /* Botão de Exibição */
+    .view-mode-btn {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      color: #64748B;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .view-mode-btn:hover {
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    .view-mode-btn.active {
+      border-color: #0F172A;
+      color: #0F172A;
+      background-color: #F8FAFC;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Cluster do Mapa */
+    .map-cluster-bubble {
+      background: #FF4F00;
+      color: white;
+      font-weight: 800;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(255, 79, 0, 0.45);
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    }
+    .map-cluster-bubble:hover {
+      transform: scale(1.15);
+      box-shadow: 0 6px 18px rgba(255, 79, 0, 0.65);
+    }
+
+    /* Animação suave para fixed sticky */
+    .sticky-fixed-container {
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .sticky-fixed-container.is-stuck {
+      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+      border-bottom-color: #CBD5E1;
+    }
+
+    /* Scrollbar sutil */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="antialiased select-none">
+
+  <!-- ========================================================================= -->
+  <!-- BARRA DE CONTROLE DO EXPERIMENTO (PRODUCT OS / VALIDAÇÃO DE PRODUTO)       -->
+  <!-- ========================================================================= -->
+  <aside class="bg-gray-900 text-white text-xs py-2 px-4 border-b border-gray-800 z-50 sticky top-0">
+    <div class="max-w-[1520px] mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="bg-[#FF4F00] text-white font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wide">
+          Protótipo Interativo
+        </span>
+        <span class="font-bold text-gray-200">Filtros Fixos na Barra Superior (Sticky Search & Category Bar)</span>
+        <span class="text-gray-500 hidden sm:inline">|</span>
+        <span class="text-gray-400 hidden sm:inline">Referência: Print oficial Aqui Ads OOH</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Toggle Modo Sticky -->
+        <div class="flex items-center bg-gray-800 rounded-lg p-0.5 border border-gray-700">
+          <button id="toggleStickyOn" onclick="setStickyMode(true)" class="px-2.5 py-1 rounded text-[11px] font-bold bg-[#FF4F00] text-white shadow-xs transition-colors">
+            📌 Barra Fixa (Ativada)
+          </button>
+          <button id="toggleStickyOff" onclick="setStickyMode(false)" class="px-2.5 py-1 rounded text-[11px] font-medium text-gray-400 hover:text-white transition-colors">
+            Rolagem Normal
+          </button>
+        </div>
+
+        <!-- Botão Comparar com Print Original -->
+        <button onclick="openPrintModal()" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 text-[11px] font-bold transition-all">
+          <i class="uil uil-image text-sm text-[#FF4F00]"></i>
+          <span>Ver Print de Referência</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- HEADER GLOBAL AQUI ADS (GÊMEO DO AMBIENTE REAL)                          -->
+  <!-- ========================================================================= -->
+  <header class="bg-white border-b border-gray-200 relative z-40">
+    <div class="max-w-[1520px] mx-auto px-6 py-2.5 flex items-center justify-between">
+      <!-- Logo Aquiads + Navegação de Meios -->
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-1.5 cursor-pointer">
+          <span class="text-2xl font-black text-[#FF4F00] tracking-tight">Aquiads</span>
+          <span class="text-xs text-[#FF4F00] font-bold">⇅</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-gray-500">
+          <a href="#" class="text-gray-900 border-b-2 border-gray-900 pb-1 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#FF4F00]"></span> OOH
+          </a>
+          <a href="#" class="hover:text-gray-900 transition-colors">Digital</a>
+          <a href="#" class="hover:text-gray-900 transition-colors">TV</a>
+          <a href="#" class="hover:text-gray-900 transition-colors">Rádio</a>
+        </nav>
+      </div>
+
+      <!-- Usuário & Ações -->
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-semibold text-purple-700 hover:text-purple-900 cursor-pointer flex items-center gap-1">
+          <i class="uil uil-sparkles"></i> Assistente
+        </span>
+        <div class="relative cursor-pointer text-gray-700 hover:text-gray-900">
+          <i class="uil uil-shopping-cart text-lg"></i>
+          <span id="headerCartCount" class="absolute -top-1.5 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">2</span>
+        </div>
+        <div class="flex items-center gap-2 cursor-pointer bg-gray-50 hover:bg-gray-100 py-1.5 px-3 rounded-full border border-gray-200 transition-colors">
+          <div class="w-6 h-6 rounded-full bg-[#FF4F00] text-white font-bold text-xs flex items-center justify-center">F</div>
+          <span class="text-xs font-bold text-gray-800">OLÁ, FRANKS!</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- BARRA DE BUSCA + FILTROS FIXOS NO TOPO (STICKY COMPONENT)                 -->
+  <!-- ========================================================================= -->
+  <section id="fixedBarSection" class="sticky-fixed-container bg-white border-b border-gray-200 py-3.5 px-6 sticky top-[37px] z-30 transition-all">
+    <div class="max-w-[1520px] mx-auto flex flex-col gap-3">
+      
+      <!-- Linha 1: Barra de Busca Centralizada conforme Print -->
+      <div class="flex justify-center w-full">
+        <div class="official-search-bar">
+          <!-- Onde -->
+          <div class="search-section flex-1">
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Onde</span>
+            <div class="flex items-center justify-between gap-1">
+              <input type="text" id="searchInput" value="Av. Mário de Andrade, 0 - Barr..." class="w-full text-xs font-bold text-gray-900 outline-none bg-transparent truncate" />
+              <button onclick="clearSearch()" class="text-gray-400 hover:text-gray-600 text-sm p-0.5 rounded-full" title="Limpar">
+                <i class="uil uil-times-circle"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="search-divider"></div>
+
+          <!-- Período -->
+          <div class="search-section" style="width: 140px;">
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Período</span>
+            <div class="flex items-center justify-between cursor-pointer">
+              <span class="text-xs font-bold text-gray-900">2 semanas</span>
+              <i class="uil uil-angle-down text-gray-500 text-sm"></i>
+            </div>
+          </div>
+
+          <div class="search-divider"></div>
+
+          <!-- Início -->
+          <div class="search-section" style="width: 140px;">
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Início</span>
+            <div class="flex items-center justify-between cursor-pointer">
+              <span class="text-xs font-bold text-gray-900">21/09/2026</span>
+              <i class="uil uil-angle-down text-gray-500 text-sm"></i>
+            </div>
+          </div>
+
+          <!-- Botão Lupa Laranja Oficial -->
+          <button class="w-10 h-10 rounded-2xl bg-[#FF4F00] hover:bg-[#E04600] active:scale-95 text-white flex items-center justify-center transition-all shadow-md shrink-0 ml-2">
+            <i class="uil uil-search text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Linha 2: Pílulas de Filtros e Controles de Exibição (Gêmeo ao Print) -->
+      <div class="flex items-center justify-between gap-4 pt-1">
+        
+        <!-- Pílulas de Categorias -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="filterPillsContainer">
+          <button class="filter-chip active" data-category="todos" onclick="selectCategory('todos')">
+            todos
+          </button>
+          <button class="filter-chip" data-category="elevadores comerciais" onclick="selectCategory('elevadores comerciais')">
+            elevadores comerciais
+          </button>
+          <button class="filter-chip" data-category="elevadores residenciais" onclick="selectCategory('elevadores residenciais')">
+            elevadores residenciais
+          </button>
+          <button class="filter-chip" data-category="ponto de ônibus" onclick="selectCategory('ponto de ônibus')">
+            ponto de ônibus
+          </button>
+          <button class="filter-chip" data-category="shopping" onclick="selectCategory('shopping')">
+            shopping
+          </button>
+          <button class="filter-chip" data-category="academia" onclick="selectCategory('academia')">
+            academia
+          </button>
+          <button class="filter-chip filter-chip-more" onclick="toggleMoreFiltersModal()">
+            <span>mais filtros</span>
+            <i class="uil uil-sliders-v-alt text-xs text-blue-600"></i>
+          </button>
+        </div>
+
+        <!-- Controle de Modos de Exibição (Grade, Lista, Dividido) -->
+        <div class="flex items-center gap-2 shrink-0 pl-2 border-l border-gray-200">
+          <span class="text-xs font-semibold text-gray-500 mr-1">exibição</span>
+          <button id="btnViewGrid" onclick="setViewMode('grid')" class="view-mode-btn" title="Visualização em Grade">
+            <i class="uil uil-apps text-base"></i>
+          </button>
+          <button id="btnViewList" onclick="setViewMode('list')" class="view-mode-btn" title="Visualização em Lista">
+            <i class="uil uil-list-ul text-base"></i>
+          </button>
+          <button id="btnViewSplit" onclick="setViewMode('split')" class="view-mode-btn active" title="Visualização Dividida (Cards + Mapa)">
+            <i class="uil uil-columns text-base"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SUBHEADER / STATUS DA BUSCA                                               -->
+  <!-- ========================================================================= -->
+  <div class="max-w-[1520px] mx-auto w-full px-6 pt-3 pb-2 flex items-center justify-between text-xs text-gray-500">
+    <div>
+      Mostrando <strong id="visiblePointsCount" class="text-gray-900 font-bold">18 pontos de mídia</strong> na região da <strong class="text-gray-800">Barra Funda / Pacaembu</strong>
+    </div>
+    <div class="flex items-center gap-3">
+      <span id="currentFilterLabel" class="bg-gray-100 text-gray-700 px-2.5 py-0.5 rounded-full font-semibold border border-gray-200">
+        Filtro: Todos os Ambientes
+      </span>
+      <span class="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full font-semibold">
+        ● Inventário Atualizado
+      </span>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- ÁREA PRINCIPAL: LISTA/GRADE DE CARDS + MAPA DIVIDIDO                       -->
+  <!-- ========================================================================= -->
+  <main class="max-w-[1520px] mx-auto w-full px-6 flex-1 flex gap-6 pb-12 mt-2">
+    
+    <!-- COLUNA ESQUERDA: CARDS DO CATÁLOGO OOH -->
+    <div id="cardsContainerWrapper" class="w-7/12 flex flex-col gap-4">
+      
+      <!-- Grid de Cards Injetados Dinamicamente -->
+      <div id="catalogGrid" class="grid grid-cols-3 gap-4">
+        <!-- Injetado via Javascript -->
+      </div>
+
+      <!-- Banner Oficial: "Deixa que a gente cuida da arte" (conforme print original) -->
+      <div class="mt-4 bg-[#EDE9FE] border border-[#DDD6FE] rounded-2xl p-5 flex items-center justify-between gap-4 shadow-xs">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-white shadow-xs flex items-center justify-center shrink-0 text-3xl">
+            📣
+          </div>
+          <div>
+            <h4 class="text-sm font-extrabold text-[#3B0764]">Deixa que a gente cuida da arte</h4>
+            <p class="text-xs text-[#581C87] mt-0.5 max-w-md">
+              Nosso time de criação transforma sua ideia em uma peça linda, profissional e no formato certo pra mídia escolhida.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="text-right">
+            <span class="line-through text-xs text-gray-400 font-medium block">R$ 299,00</span>
+            <span class="text-sm font-black text-gray-900 block">R$ 199,00</span>
+          </div>
+          <button class="px-4 py-2 bg-gray-900 hover:bg-black text-white text-xs font-bold rounded-lg transition-colors shadow-xs">
+            saiba mais
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLUNA DIREITA: MAPA COM CLUSTERS (GÊMEO DO PRINT) -->
+    <div id="mapColumnWrapper" class="w-5/12">
+      <div class="sticky top-[145px] h-[calc(100vh-220px)] rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white relative flex flex-col">
+        
+        <!-- Botão Flutuante: "Pesquisar nessa área" (fiel ao print) -->
+        <div class="absolute top-3 left-1/2 -translate-x-1/2 z-20">
+          <button onclick="simulateSearchArea()" class="bg-white/95 backdrop-blur hover:bg-white text-gray-800 text-xs font-bold px-3 py-1.5 rounded-full border border-gray-200 shadow-md flex items-center gap-1.5 transition-all active:scale-95">
+            <i class="uil uil-crosshair text-orange-600"></i>
+            <span>pesquisar nessa área</span>
+          </button>
+        </div>
+
+        <!-- Controles de Zoom Mapbox -->
+        <div class="absolute top-3 right-3 z-20 flex flex-col bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
+          <button onclick="zoomMap(1)" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-700 text-base font-bold border-b border-gray-200">+</button>
+          <button onclick="zoomMap(-1)" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-700 text-base font-bold">−</button>
+        </div>
+
+        <!-- Imagem Real do Mapa de Fundo -->
+        <div class="relative w-full h-full bg-[#E5E3DF] overflow-hidden" id="interactiveMapArea">
+          <img src="map_barrafunda_real.png" alt="Mapa Barra Funda" class="w-full h-full object-cover select-none pointer-events-none" onerror="this.src='map_real.png'" />
+
+          <!-- Clusters Laranjas Sobrepostos com Posições Reais do Print -->
+          <div class="map-cluster-bubble absolute w-10 h-10 text-xs" style="top: 18%; left: 16%;" onclick="filterCluster(44)" title="Região Marginal Tietê: 44 telas">44</div>
+          <div class="map-cluster-bubble absolute w-9 h-9 text-xs" style="top: 14%; left: 34%;" onclick="filterCluster(41)" title="Campo de Marte: 41 telas">41</div>
+          <div class="map-cluster-bubble absolute w-8 h-8 text-xs" style="top: 19%; left: 45%;" onclick="filterCluster(9)" title="Ponte da Freguesia: 9 telas">9</div>
+          <div class="map-cluster-bubble absolute w-14 h-14 text-sm" style="top: 36%; left: 22%;" onclick="filterCluster(196)" title="Barra Funda Central: 196 telas">196</div>
+          <div class="map-cluster-bubble absolute w-11 h-11 text-xs" style="top: 35%; left: 47%;" onclick="filterCluster(56)" title="Campos Elísios Norte: 56 telas">56</div>
+          <div class="map-cluster-bubble absolute w-11 h-11 text-xs" style="top: 55%; left: 40%;" onclick="filterCluster(78)" title="Santa Cecília: 78 telas">78</div>
+          <div class="map-cluster-bubble absolute w-14 h-14 text-sm" style="top: 61%; left: 60%;" onclick="filterCluster(113)" title="Santa Ifigênia / Centro: 113 telas">113</div>
+          <div class="map-cluster-bubble absolute w-11 h-11 text-xs" style="top: 45%; left: 78%;" onclick="filterCluster(34)" title="Bom Retiro: 34 telas">34</div>
+          <div class="map-cluster-bubble absolute w-12 h-12 text-xs" style="top: 73%; left: 39%;" onclick="filterCluster(108)" title="Consolação / Higienópolis: 108 telas">108</div>
+          <div class="map-cluster-bubble absolute w-13 h-13 text-xs" style="top: 74%; left: 63%;" onclick="filterCluster(129)" title="República / Paulista: 129 telas">129</div>
+          <div class="map-cluster-bubble absolute w-10 h-10 text-xs" style="top: 73%; left: 81%;" onclick="filterCluster(41)" title="Sé: 41 telas">41</div>
+
+          <!-- Logotipo Mapbox Oficial no Canto Inferior Esquerdo -->
+          <div class="absolute bottom-2 left-3 z-10 flex items-center gap-1 opacity-70">
+            <span class="text-[11px] font-bold text-gray-700 tracking-wider">mapbox</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- BARRA INFERIOR FIXA DE CONVERSÃO (RÉPLICA DO PRINT ORIGINAL)              -->
+  <!-- ========================================================================= -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-3 px-6 shadow-xl z-40 flex items-center justify-between">
+    <div class="max-w-[1520px] mx-auto w-full flex items-center justify-between">
+      
+      <!-- Resumo do Carrinho -->
+      <div class="flex flex-col">
+        <span id="footerProductsCount" class="text-xs font-semibold text-gray-500">2 produtos selecionados</span>
+        <div class="flex items-baseline gap-1.5">
+          <span class="text-xs font-bold text-gray-700">Total</span>
+          <span id="footerTotalPrice" class="text-base font-black text-gray-900 tracking-tight">R$ 1.147,19</span>
+        </div>
+      </div>
+
+      <!-- CTA de Conversão Laranja -->
+      <div class="flex items-center gap-3">
+        <button onclick="clearSelectedPoints()" class="text-xs font-semibold text-gray-400 hover:text-gray-700 transition-colors underline mr-2">
+          Limpar seleção
+        </button>
+        <button onclick="proceedToCheckout()" class="bg-[#FF4F00] hover:bg-[#E04600] active:scale-95 text-white font-bold text-sm px-7 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition-all">
+          <span>continuar</span>
+          <i class="uil uil-arrow-right text-base"></i>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL DE VISUALIZAÇÃO DO PRINT ORIGINAL (PARA COMPARAÇÃO PIXEL-PERFECT)    -->
+  <!-- ========================================================================= -->
+  <div id="printModal" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="p-4 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+        <div>
+          <h3 class="text-sm font-bold text-gray-900">Print de Referência Oficial (Fornecido pelo PM)</h3>
+          <p class="text-xs text-gray-500">Exibição da tela que serviu de base para a construção do protótipo.</p>
+        </div>
+        <button onclick="closePrintModal()" class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center justify-center font-bold">
+          ✕
+        </button>
+      </div>
+      <div class="p-4 overflow-y-auto flex justify-center bg-gray-100">
+        <img src="referencia_print_original.png" alt="Print Original de Referência" class="max-w-full rounded-lg shadow-md border border-gray-300" onerror="this.src='../../brain/e33dd0ab-a6b9-4f75-9adc-ee23b562d6ef/.user_uploaded/media_1790955546405.png'" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: DADOS, FILTRAGEM, STICKY & INTERATIVIDADE                     -->
+  <!-- ========================================================================= -->
+  <script>
+    // Catálogo fiel de pontos OOH (conforme o print original)
+    const OOH_POINTS = [
+      {
+        id: 1,
+        title: "Av Pacaembu, 35 X R Brig Galvão",
+        address: "AV PACAEMBU - 35, PACAEMBU - São Paulo",
+        category: "ponto de ônibus",
+        categoryLabel: "ponto de ônibus",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "125 m",
+        exhibitions: "10,25 mil",
+        reach: "87,38 mil",
+        frequency: "1",
+        screens: 1,
+        price: 6205.68,
+        image: "shelter_pacaembu.png",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 2,
+        title: "Cond. Mundo Apto. Paca...",
+        address: "Alameda Olga - 180, Barra Funda - São Paulo",
+        category: "elevadores residenciais",
+        categoryLabel: "elevadores residenciais",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "151 m",
+        specialBadge: "‹ condomínio - 2 torres ›",
+        exhibitions: "9,74 mil",
+        reach: "412",
+        frequency: "38",
+        screens: 2,
+        price: 529.92,
+        image: "bldg1.jpg",
+        selected: true,
+        btnLabel: "adicionar 2 torres"
+      },
+      {
+        id: 3,
+        title: "Setin Midtown",
+        address: "Alameda Olga - 300, Barra Funda - São Paulo",
+        category: "elevadores residenciais",
+        categoryLabel: "elevadores residenciais",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "174 m",
+        exhibitions: "19,49 mil",
+        reach: "774",
+        frequency: "28",
+        screens: 4,
+        price: 264.96,
+        image: "bldg2.jpg",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 4,
+        title: "Edifício Horizon Corporate",
+        address: "Rua Marquês de São Vicente, 400 - Barra Funda",
+        category: "elevadores comerciais",
+        categoryLabel: "elevadores comerciais",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "210 m",
+        exhibitions: "24,80 mil",
+        reach: "1.250",
+        frequency: "20",
+        screens: 6,
+        price: 617.27,
+        image: "panel.jpg",
+        selected: true,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 5,
+        title: "West Plaza Shopping",
+        address: "Av. Francisco Matarazzo, s/n - Água Branca",
+        category: "shopping",
+        categoryLabel: "shopping",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "320 m",
+        exhibitions: "65,30 mil",
+        reach: "42,10 mil",
+        frequency: "3",
+        screens: 8,
+        price: 1850.00,
+        image: "shelter.jpg",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 6,
+        title: "Bio Ritmo Pacaembu",
+        address: "Rua Tupi, 210 - Santa Cecília",
+        category: "academia",
+        categoryLabel: "academia",
+        badge: "estático",
+        badgeColor: "bg-blue-600",
+        distance: "410 m",
+        exhibitions: "12,10 mil",
+        reach: "980",
+        frequency: "14",
+        screens: 2,
+        price: 340.00,
+        image: "card_thumb_4.png",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 7,
+        title: "Terminal Metropolitano Barra Funda",
+        address: "Rua Mário de Andrade, 66 - Barra Funda",
+        category: "ponto de ônibus",
+        categoryLabel: "ponto de ônibus",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "80 m",
+        exhibitions: "95,00 mil",
+        reach: "110,40 mil",
+        frequency: "2",
+        screens: 12,
+        price: 3200.00,
+        image: "card_thumb_5.png",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 8,
+        title: "Pátio Victor Malzoni (Comercial)",
+        address: "Av. Brigadeiro Faria Lima, 3477",
+        category: "elevadores comerciais",
+        categoryLabel: "elevadores comerciais",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "550 m",
+        exhibitions: "48,90 mil",
+        reach: "3.400",
+        frequency: "16",
+        screens: 10,
+        price: 1420.00,
+        image: "card_thumb_6.png",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      },
+      {
+        id: 9,
+        title: "Smart Fit Barra Funda",
+        address: "Rua Barra Funda, 480 - Barra Funda",
+        category: "academia",
+        categoryLabel: "academia",
+        badge: "digital",
+        badgeColor: "bg-purple-700",
+        distance: "300 m",
+        exhibitions: "15,80 mil",
+        reach: "1.120",
+        frequency: "18",
+        screens: 3,
+        price: 390.00,
+        image: "card_thumb_2.png",
+        selected: false,
+        btnLabel: "adicionar ponto"
+      }
+    ];
+
+    let currentCategory = 'todos';
+    let currentViewMode = 'split'; // 'split', 'grid', 'list'
+    let isStickyActive = true;
+
+    // Inicialização da tela
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCatalog();
+      updateCartTotals();
+      setupScrollDetection();
+    });
+
+    // Renderizador do Catálogo
+    function renderCatalog() {
+      const container = document.getElementById('catalogGrid');
+      const filtered = currentCategory === 'todos' 
+        ? OOH_POINTS 
+        : OOH_POINTS.filter(p => p.category === currentCategory);
+
+      document.getElementById('visiblePointsCount').innerText = `${filtered.length} pontos de mídia`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-3 py-16 text-center bg-white rounded-2xl border border-gray-200">
+            <i class="uil uil-search-alt text-4xl text-gray-300 mb-2 block"></i>
+            <h4 class="text-sm font-bold text-gray-800">Nenhum ponto encontrado para este filtro</h4>
+            <p class="text-xs text-gray-500 mt-1">Tente selecionar "todos" ou outra categoria de ambiente.</p>
+            <button onclick="selectCategory('todos')" class="mt-4 px-4 py-2 bg-[#FF4F00] text-white text-xs font-bold rounded-lg shadow-sm">
+              Mostrar todos os pontos
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isAdded = item.selected;
+        return `
+          <div class="bg-white rounded-xl border ${isAdded ? 'border-orange-500 ring-2 ring-orange-500/20' : 'border-gray-200'} shadow-xs hover:shadow-md transition-all flex flex-col overflow-hidden group">
+            
+            <!-- Imagem e Badges Superiores -->
+            <div class="relative h-36 bg-gray-100 overflow-hidden">
+              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='bldg1.jpg'" />
+              
+              <!-- Badges no topo da imagem conforme o print -->
+              <div class="absolute top-2 left-2 flex items-center gap-1.5 flex-wrap">
+                <span class="bg-black/75 backdrop-blur-xs text-white text-[10px] font-semibold px-2 py-0.5 rounded flex items-center gap-1">
+                  <i class="uil ${item.category === 'ponto de ônibus' ? 'uil-bus' : 'uil-building'} text-[10px]"></i>
+                  ${item.categoryLabel}
+                </span>
+                <span class="${item.badgeColor} text-white text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">
+                  ${item.badge}
+                </span>
+                <span class="bg-black/75 backdrop-blur-xs text-white text-[10px] font-medium px-1.5 py-0.5 rounded">
+                  ${item.distance}
+                </span>
+              </div>
+
+              <!-- Badge especial (Ex: condomínio - 2 torres) -->
+              ${item.specialBadge ? `
+                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs whitespace-nowrap">
+                  ${item.specialBadge}
+                </div>
+              ` : ''}
+
+              <!-- Botão Favoritar Coração -->
+              <button class="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-gray-400 hover:text-red-500 flex items-center justify-center text-sm shadow-xs transition-colors">
+                <i class="uil uil-heart"></i>
+              </button>
+            </div>
+
+            <!-- Detalhes do Ponto OOH -->
+            <div class="p-3.5 flex flex-col flex-1 justify-between">
+              <div>
+                <h3 class="text-xs font-black text-gray-900 leading-snug line-clamp-1" title="${item.title}">
+                  ${item.title}
+                </h3>
+                <p class="text-[10px] text-gray-500 mt-0.5 uppercase tracking-tight line-clamp-1">
+                  ${item.address}
+                </p>
+
+                <!-- Métricas Fielmente Espelhadas do Print -->
+                <div class="grid grid-cols-3 gap-1 py-2.5 my-2 border-y border-gray-100 text-center">
+                  <div>
+                    <span class="text-[9px] text-gray-400 uppercase font-bold block flex items-center justify-center gap-0.5">
+                      <i class="uil uil-play text-[9px]"></i> exibições
+                    </span>
+                    <strong class="text-[11px] font-black text-gray-800">${item.exhibitions}</strong>
+                  </div>
+                  <div>
+                    <span class="text-[9px] text-gray-400 uppercase font-bold block flex items-center justify-center gap-0.5">
+                      <i class="uil uil-users-alt text-[9px]"></i> alcance
+                    </span>
+                    <strong class="text-[11px] font-black text-gray-800">${item.reach}</strong>
+                  </div>
+                  <div>
+                    <span class="text-[9px] text-gray-400 uppercase font-bold block flex items-center justify-center gap-0.5">
+                      <i class="uil uil-sync text-[9px]"></i> freq.
+                    </span>
+                    <strong class="text-[11px] font-black text-gray-800">${item.frequency}</strong>
+                  </div>
+                </div>
+
+                <div class="text-[10px] text-gray-400 font-semibold mb-1">
+                  Telas: <strong class="text-gray-700">${item.screens}</strong>
+                </div>
+
+                <div class="flex items-baseline gap-1">
+                  <span class="text-xs font-black text-gray-900">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  <span class="text-[10px] text-gray-500 font-medium">/ 2 semanas</span>
+                </div>
+              </div>
+
+              <!-- Botão Adicionar Ponto / Adicionar Torres -->
+              <div class="mt-3 flex items-center gap-2">
+                <button onclick="togglePointSelection(${item.id})" class="flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                  isAdded 
+                    ? 'bg-emerald-600 text-white shadow-xs hover:bg-emerald-700' 
+                    : 'border border-emerald-600 text-emerald-700 hover:bg-emerald-50 active:scale-95'
+                }">
+                  <i class="uil ${isAdded ? 'uil-check' : 'uil-plus'} text-sm"></i>
+                  <span>${isAdded ? 'adicionado' : item.btnLabel}</span>
+                </button>
+                <button class="w-8 h-8 rounded-lg border border-gray-200 text-gray-400 hover:text-red-500 flex items-center justify-center text-sm hover:bg-gray-50">
+                  <i class="uil uil-heart"></i>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Seleção de Categoria nas Pills
+    function selectCategory(category) {
+      currentCategory = category;
+
+      // Atualiza classes ativas
+      document.querySelectorAll('.filter-chip').forEach(btn => {
+        if (btn.dataset.category === category) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Atualiza label informativo
+      const labelMap = {
+        'todos': 'Todos os Ambientes',
+        'elevadores comerciais': 'Elevadores Comerciais',
+        'elevadores residenciais': 'Elevadores Residenciais',
+        'ponto de ônibus': 'Pontos de Ônibus',
+        'shopping': 'Shoppings Centers',
+        'academia': 'Academias & Fitness'
+      };
+      document.getElementById('currentFilterLabel').innerText = `Filtro: ${labelMap[category] || category}`;
+
+      renderCatalog();
+    }
+
+    // Alternância do Modo de Exibição
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      
+      const cardsCol = document.getElementById('cardsContainerWrapper');
+      const mapCol = document.getElementById('mapColumnWrapper');
+      const grid = document.getElementById('catalogGrid');
+
+      // Atualiza botões
+      document.getElementById('btnViewGrid').classList.toggle('active', mode === 'grid');
+      document.getElementById('btnViewList').classList.toggle('active', mode === 'list');
+      document.getElementById('btnViewSplit').classList.toggle('active', mode === 'split');
+
+      if (mode === 'split') {
+        cardsCol.className = 'w-7/12 flex flex-col gap-4';
+        mapCol.classList.remove('hidden');
+        mapCol.className = 'w-5/12';
+        grid.className = 'grid grid-cols-3 gap-4';
+      } else if (mode === 'grid') {
+        cardsCol.className = 'w-full flex flex-col gap-4';
+        mapCol.classList.add('hidden');
+        grid.className = 'grid grid-cols-4 lg:grid-cols-5 gap-4';
+      } else if (mode === 'list') {
+        cardsCol.className = 'w-full flex flex-col gap-4';
+        mapCol.classList.add('hidden');
+        grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4';
+      }
+    }
+
+    // Toggle da Seleção do Ponto
+    function togglePointSelection(id) {
+      const item = OOH_POINTS.find(p => p.id === id);
+      if (item) {
+        item.selected = !item.selected;
+        renderCatalog();
+        updateCartTotals();
+      }
+    }
+
+    // Atualização dos totais no footer e header
+    function updateCartTotals() {
+      const selected = OOH_POINTS.filter(p => p.selected);
+      const totalCount = selected.length;
+      const totalPrice = selected.reduce((acc, p) => acc + p.price, 0);
+
+      document.getElementById('headerCartCount').innerText = totalCount;
+      document.getElementById('footerProductsCount').innerText = `${totalCount} ${totalCount === 1 ? 'produto selecionado' : 'produtos selecionados'}`;
+      document.getElementById('footerTotalPrice').innerText = `R$ ${totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    }
+
+    function clearSelectedPoints() {
+      OOH_POINTS.forEach(p => p.selected = false);
+      renderCatalog();
+      updateCartTotals();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchInput').focus();
+    }
+
+    // Controle do Modo Sticky
+    function setStickyMode(enable) {
+      isStickyActive = enable;
+      const bar = document.getElementById('fixedBarSection');
+      const btnOn = document.getElementById('toggleStickyOn');
+      const btnOff = document.getElementById('toggleStickyOff');
+
+      if (enable) {
+        bar.classList.add('sticky', 'top-[37px]');
+        btnOn.className = 'px-2.5 py-1 rounded text-[11px] font-bold bg-[#FF4F00] text-white shadow-xs transition-colors';
+        btnOff.className = 'px-2.5 py-1 rounded text-[11px] font-medium text-gray-400 hover:text-white transition-colors';
+      } else {
+        bar.classList.remove('sticky', 'top-[37px]');
+        btnOn.className = 'px-2.5 py-1 rounded text-[11px] font-medium text-gray-400 hover:text-white transition-colors';
+        btnOff.className = 'px-2.5 py-1 rounded text-[11px] font-bold bg-[#FF4F00] text-white shadow-xs transition-colors';
+      }
+    }
+
+    // Detecção de Rolagem para adicionar sombra ao ficar fixo
+    function setupScrollDetection() {
+      const bar = document.getElementById('fixedBarSection');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40 && isStickyActive) {
+          bar.classList.add('is-stuck');
+        } else {
+          bar.classList.remove('is-stuck');
+        }
+      });
+    }
+
+    // Modais e Simulações
+    function openPrintModal() {
+      document.getElementById('printModal').classList.remove('hidden');
+    }
+    function closePrintModal() {
+      document.getElementById('printModal').classList.add('hidden');
+    }
+
+    function toggleMoreFiltersModal() {
+      alert("Modal de filtros avançados aberto: selecione raio de alcance, tipo de público e formato de tela.");
+    }
+
+    function filterCluster(num) {
+      alert(`Cluster selecionado: ${num} pontos de mídia nesta microrregião. A lista à esquerda foi reordenada.`);
+    }
+
+    function simulateSearchArea() {
+      alert("Área recalculada pelo mapa geolocalizado. Inventário sincronizado.");
+    }
+
+    function zoomMap(delta) {
+      alert(`Zoom ${delta > 0 ? 'aproximado (+)' : 'afastado (-)'} no mapa interativo.`);
+    }
+
+    function proceedToCheckout() {
+      const selected = OOH_POINTS.filter(p => p.selected);
+      if (selected.length === 0) {
+        alert("Selecione pelo menos 1 ponto de mídia para continuar.");
+        return;
+      }
+      alert(`Prosseguindo para a etapa de criação e criativos com ${selected.length} pontos selecionados!`);
+    }
+  </script>
+
+</body>
+</html>
