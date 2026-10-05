@@ -10,8 +10,11 @@ Este repositório centraliza a publicação e hospedagem dos protótipos em HTML
 
 ## Como Publicar um Novo Protótipo
 
-Execute o script `publish.ps1` no terminal informando a mensagem da alteração:
+> **Importante:** Antes de publicar qualquer protótipo no GitHub, é obrigatório gerar o artefato HTML e enviá-lo no chat para validação e aprovação explícita do PM.
+
+Após a validação e aprovação do PM, execute o script `publish.ps1` no terminal informando a mensagem da alteração:
 
 ```powershell
 .\publish.ps1 -Mensagem "Adiciona protótipo da iniciativa X"
 ```
+
