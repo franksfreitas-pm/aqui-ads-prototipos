@@ -85,8 +85,7 @@
     <div class="max-w-[1520px] mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
       
       <!-- Logo Aquiads & Mídias -->
-      <div class="flex items-center gap-6">
-        <a href="../../index.html" class="inline-flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-[#FF4F00] transition-colors border border-gray-200 hover:border-[#FF4F00] px-2.5 py-1 rounded-md" title="Voltar ao Catálogo Geral">← Catálogo</a>
+      <div class="flex items-center gap-8">
         <div class="flex items-center gap-1.5 cursor-pointer">
           <span class="text-2xl font-black text-[#FF4F00] tracking-tight">Aquiads</span>
           <span class="text-xs text-[#FF4F00] font-bold">⇅</span>
@@ -143,7 +142,61 @@
 
     </div>
   </header>
+  <!-- ======================================================== -->
+  <!-- BARRA DE AMBIENTE: ESPECIFICAÇÃO DEV vs. LAB EXPLORAÇÃO -->
+  <!-- ======================================================== -->
+  <section class="bg-gray-950 text-white py-2 px-4 border-b border-gray-800 sticky top-0 z-40 shadow-md">
+    <div class="max-w-[1520px] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      
+      <!-- Seletor de Rota -->
+      <div class="flex items-center gap-2">
+        <span class="text-gray-400 font-semibold text-[11px] uppercase tracking-wider">Visão:</span>
+        <div class="flex items-center bg-gray-900 p-1 rounded-xl border border-gray-800">
+          <button id="nav-tab-dev" onclick="switchEnvironment('spec-dev')" class="px-3.5 py-1.5 rounded-lg font-bold text-xs bg-[#FF4F00] text-white shadow-sm flex items-center gap-1.5 transition-all">
+            <span>🚀 Especificação para Dev (Release 1)</span>
+          </button>
+          <button id="nav-tab-lab" onclick="switchEnvironment('lab')" class="px-3.5 py-1.5 rounded-lg font-semibold text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all">
+            <span>🔬 Laboratório de Exploração (Quick Wins & Clusters)</span>
+          </button>
+        </div>
+      </div>
 
+      <!-- URL Dinâmica com botão de cópia rápida para US / Slack -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-900 px-3 py-1.5 rounded-xl border border-gray-800">
+          <span class="text-gray-500 font-medium">Link Direto:</span>
+          <code id="active-url-display" class="text-emerald-400 font-mono text-[11px] font-bold">#spec-dev</code>
+          <button onclick="copyCurrentRoute()" class="ml-1 text-gray-300 hover:text-white px-1.5 py-0.5 rounded bg-gray-800 hover:bg-gray-700 font-bold text-[10px] flex items-center gap-1 transition-all" title="Copiar link exato para colocar na US">
+            <span>📋</span> Copiar URL
+          </button>
+        </div>
+        <button onclick="openExecutiveSummaryModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 transition-all">
+          <span>📋</span> Resumo da Proposta
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BANNER EXECUTIVO EXCLUSIVO DO MODO DEV (#spec-dev) -->
+  <div id="dev-spec-header-banner" class="bg-blue-50 border-b border-blue-200 py-2.5 px-4 text-xs text-blue-900">
+    <div class="max-w-[1520px] mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="bg-blue-600 text-white font-extrabold text-[10px] px-2 py-0.5 rounded uppercase tracking-wide">
+          Aprovado para Engenharia
+        </span>
+        <span class="text-blue-950 font-medium">
+          <strong>Release 1:</strong> Botão de Expansão Circular (Airbnb) acima do Zoom + Pesquisa Dinâmica por Movimento no Mapa.
+        </span>
+      </div>
+      <div class="flex items-center gap-2 text-[11px] text-blue-800">
+        <span class="text-blue-600 font-bold">Dica de Interação:</span>
+        <span>Arraste o mapa ou acione o zoom para exibir o botão <em>"pesquisar nessa área"</em>.</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="lab-research-bars" class="hidden">
   <!-- ======================================================== -->
   <!-- BARRA DE RECURSOS ATIVOS (QUICK WINS + EXIBIÇÃO) -->
   <!-- ======================================================== -->
@@ -217,6 +270,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- ======================================================== -->
   <!-- VISÃO 1: MODO DESKTOP (RÉPLICA DO PRINT COM CARDS + MAPA) -->
@@ -230,7 +284,7 @@
         <div class="flex items-center divide-x divide-gray-200 bg-white border border-gray-300 rounded-2xl shadow-sm overflow-hidden text-xs w-full max-w-2xl">
           <div class="px-4 py-2 flex-1">
             <span class="block text-[10px] text-gray-400 font-bold uppercase">Onde</span>
-            <span class="font-semibold text-gray-800 truncate block">Av. Mário de Andrade, 0 – Barra... ✕</span>
+            <span class="font-semibold text-gray-800 truncate block">Marginal Tietê Pista Central, 35... ✕</span>
           </div>
           <div class="px-4 py-2 w-32">
             <span class="block text-[10px] text-gray-400 font-bold uppercase">Período</span>
@@ -238,7 +292,7 @@
           </div>
           <div class="px-4 py-2 w-32">
             <span class="block text-[10px] text-gray-400 font-bold uppercase">Início</span>
-            <span class="font-semibold text-gray-800">19/09/2026</span>
+            <span class="font-semibold text-gray-800">10/10/2026</span>
           </div>
           <button class="bg-[#FF4F00] hover:bg-orange-600 text-white px-5 py-3 font-bold flex items-center justify-center transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -263,7 +317,7 @@
     <section class="max-w-[1520px] w-full mx-auto px-4 sm:px-6 pt-3 pb-2 flex items-center justify-between">
       
       <div class="text-xs text-gray-500 font-medium flex items-center gap-2">
-        <span>Mostrando <strong class="text-gray-900">18 pontos de mídia</strong> na Barra Funda / Pacaembu</span>
+        <span>Mostrando <strong class="text-gray-900">18 pontos de mídia</strong> na Marginal Tietê / Casa Verde</span>
         <span id="map-mode-indicator" class="bg-orange-100 text-[#FF4F00] font-bold text-[10px] px-2 py-0.5 rounded-md border border-orange-200">
           Modo Dividido Ativo
         </span>
@@ -341,7 +395,7 @@
             </button>
           </div>
 
-          <!-- BANNER LILÁS PROMOCIONAL (IDÊNTICO À PRODUÇÃO) -->
+          <!-- BANNER LILÁS PROMOCIONAL (CONFORME AGENTS.MD: CONTRATE UMA ARTE) -->
           <div class="mb-4 bg-[#EDE7F6] border border-[#D1C4E9] rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
             <div class="flex items-center gap-3.5">
               <div class="w-12 h-12 rounded-2xl bg-purple-200 text-purple-800 flex items-center justify-center flex-shrink-0 text-2xl shadow-xs">
@@ -349,7 +403,7 @@
               </div>
               <div>
                 <h4 class="font-extrabold text-gray-900 text-sm">Deixa que a gente cuida da arte</h4>
-                <p class="text-xs text-gray-600 mt-0.5">Nosso time de criação transforma sua ideia em uma peça linda, profissional e no formato certo pra mídia escolhida.</p>
+                <p class="text-xs text-gray-600 mt-0.5">Contrate uma arte e transforme sua ideia em uma peça linda, profissional e no formato certo pra mídia escolhida.</p>
               </div>
             </div>
             <div class="flex items-center gap-3 flex-shrink-0 self-end sm:self-center">
@@ -357,7 +411,7 @@
                 <span class="text-[10px] text-gray-400 line-through block">R$ 299,00</span>
                 <span class="text-sm font-black text-gray-900">R$ 199,00</span>
               </div>
-              <button onclick="showToast('🎨 Abrindo serviço de criação de arte...')" class="bg-gray-900 hover:bg-black active:scale-95 text-white text-xs font-bold py-2 px-3.5 rounded-xl transition-all">
+              <button onclick="showToast('🎨 Abrindo contrate uma arte...')" class="bg-gray-900 hover:bg-black active:scale-95 text-white text-xs font-bold py-2 px-3.5 rounded-xl transition-all">
                 saiba mais
               </button>
             </div>
@@ -365,80 +419,39 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             
-            <!-- CARD 1 (HELBOR ESPAÇO VIDA PACAEMBU) -> DO PRINT REAL -->
+            <!-- CARD 1 (AV OTAVIANO ALVES DE LIMA, 572 - DIGITAL) -> PRINT REAL -->
             <article id="card-ponto-1" onmouseenter="highlightMapPin(19, 'card-ponto-1')" onmouseleave="unhighlightMapPin(19, 'card-ponto-1')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
               <div class="relative h-40 bg-gray-200 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80" alt="Helbor Espaço Vida" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="Av Otaviano Alves" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
                   <div class="flex items-center gap-1">
-                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🏢 elevadores residenciais</span>
+                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🚏 ponto de ônibus</span>
                     <span class="bg-indigo-900 text-indigo-100 px-2 py-0.5 rounded-md shadow-xs">📺 digital</span>
                   </div>
-                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md backdrop-blur-xs">📍 184 m</span>
+                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md backdrop-blur-xs">📍 28 m</span>
                 </div>
               </div>
 
               <div class="p-3.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <span class="text-[10px] text-gray-400 block mb-0.5">&lt; condomínio • 2 torres &gt;</span>
-                  <h3 class="font-black text-gray-900 text-xs leading-snug tracking-tight">&lt; Helbor Espaço Vida Paca... &gt;</h3>
-                  <p class="text-[11px] text-gray-500 mb-2 truncate">Rua Dona Elisa – 150, Barra Funda – São Paulo</p>
+                  <h3 class="font-black text-gray-900 text-xs leading-snug tracking-tight">AV OTAVIANO ALVES DE LIMA, ...</h3>
+                  <p class="text-[11px] text-gray-500 mb-2 truncate">Avenida Otaviano Alves de Lima – 572, Freguesia do Ó – São Paulo</p>
 
                   <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
-                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">19,49 mil</span></div>
-                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">642</span></div>
-                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">43</span></div>
+                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">10,25 mil</span></div>
+                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">480</span></div>
+                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">12</span></div>
                   </div>
-                  <span class="text-[10px] text-gray-400">Telas: 4</span>
+                  <span class="text-[10px] text-gray-400">Telas: 1</span>
                 </div>
 
                 <div class="mt-3 pt-2 border-t border-gray-100">
                   <div class="mb-2">
-                    <span class="text-sm font-black text-gray-900">R$ 529,92</span>
+                    <span class="text-sm font-black text-gray-900">R$ 5.171,40</span>
                     <span class="text-[10px] text-gray-500 font-normal">/ 2 semanas</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <button onclick="event.stopPropagation(); showToast('🛒 Helbor 2 torres adicionado!')" class="flex-1 bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1">
-                      adicionar 2 torres 🛒
-                    </button>
-                    <button onclick="event.stopPropagation()" class="w-8 h-8 rounded-xl border border-gray-200 text-gray-400 hover:text-red-500 flex items-center justify-center">♡</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- CARD 2 (SETIN MIDTOWN - SETOR COMERCIAL) -> DO PRINT REAL -->
-            <article id="card-ponto-2" onmouseenter="highlightMapPin(117, 'card-ponto-2')" onmouseleave="unhighlightMapPin(117, 'card-ponto-2')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
-              <div class="relative h-40 bg-gray-200 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Setin Midtown" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
-                  <div class="flex items-center gap-1">
-                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🏢 elevadores comerciais</span>
-                    <span class="bg-indigo-900 text-indigo-100 px-2 py-0.5 rounded-md shadow-xs">📺 digital</span>
-                  </div>
-                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 196 m</span>
-                </div>
-              </div>
-
-              <div class="p-3.5 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 class="font-black text-gray-900 text-xs leading-snug tracking-tight">Setin Midtown - Setor Comercial</h3>
-                  <p class="text-[11px] text-gray-500 mb-2 truncate">Alameda Olga – 288, Barra Funda – São Paulo</p>
-                  <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
-                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">4,8 mil</span></div>
-                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">760</span></div>
-                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">5</span></div>
-                  </div>
-                  <span class="text-[10px] text-gray-400">Telas: 2</span>
-                </div>
-
-                <div class="mt-3 pt-2 border-t border-gray-100">
-                  <div class="mb-2">
-                    <span class="text-sm font-black text-gray-900">R$ 358,28</span>
-                    <span class="text-[10px] text-gray-500 font-normal">/ 2 semanas</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <button onclick="event.stopPropagation(); showToast('🛒 Setin Midtown adicionado!')" class="flex-1 bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1">
+                    <button onclick="event.stopPropagation(); showToast('🛒 Av Otaviano Alves Digital adicionado!')" class="flex-1 bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1">
                       adicionar ponto 🛒
                     </button>
                     <button onclick="event.stopPropagation()" class="w-8 h-8 rounded-xl border border-gray-200 text-gray-400 hover:text-red-500 flex items-center justify-center">♡</button>
@@ -447,29 +460,69 @@
               </div>
             </article>
 
-            <!-- CARD 3 (LIVING NEAR PACAEMBU) -> DO PRINT REAL -->
-            <article id="card-ponto-3" onmouseenter="highlightMapPin(41, 'card-ponto-3')" onmouseleave="unhighlightMapPin(41, 'card-ponto-3')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
+            <!-- CARD 2 (AV OTAVIANO ALVES DE LIMA, 572 - IMPRESSO) -> PRINT REAL -->
+            <article id="card-ponto-2" onmouseenter="highlightMapPin(117, 'card-ponto-2')" onmouseleave="unhighlightMapPin(117, 'card-ponto-2')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
               <div class="relative h-40 bg-gray-200 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="Living Near Pacaembu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Av Otaviano Alves Impresso" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
                   <div class="flex items-center gap-1">
-                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🏢 elevadores residenciais</span>
-                    <span class="bg-indigo-900 text-indigo-100 px-2 py-0.5 rounded-md shadow-xs">📺 digital</span>
+                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🚏 ponto de ônibus</span>
+                    <span class="bg-emerald-600 text-white px-2 py-0.5 rounded-md shadow-xs">🟢 impresso</span>
                   </div>
-                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 199 m</span>
+                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 37 m</span>
                 </div>
               </div>
 
               <div class="p-3.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 class="font-black text-gray-900 text-xs leading-snug tracking-tight">Living Near Pacaembu</h3>
-                  <p class="text-[11px] text-gray-500 mb-2 truncate">Rua Brigadeiro Galvão – 894, Barra Funda – São Paulo</p>
+                  <h3 class="font-black text-gray-900 text-xs leading-snug tracking-tight">AV OTAVIANO ALVES DE LIMA, ...</h3>
+                  <p class="text-[11px] text-gray-500 mb-2 truncate">AV OTAVIANO ALVES DE LIMA – 572, CASA VERDE – São Paulo</p>
                   <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
-                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">14,62 mil</span></div>
-                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">297</span></div>
-                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">21</span></div>
+                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">Fixa</span></div>
+                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">1,45 mi</span></div>
+                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">2</span></div>
                   </div>
-                  <span class="text-[10px] text-gray-400">Telas: 3</span>
+                  <span class="text-[10px] text-gray-400">Telas: 1</span>
+                </div>
+
+                <div class="mt-3 pt-2 border-t border-gray-100">
+                  <div class="mb-2">
+                    <span class="text-sm font-black text-gray-900">R$ 1.973,40</span>
+                    <span class="text-[10px] text-gray-500 font-normal">/ 2 semanas</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button onclick="event.stopPropagation(); showToast('🛒 Av Otaviano Impresso adicionado!')" class="flex-1 bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1">
+                      adicionar ponto 🛒
+                    </button>
+                    <button onclick="event.stopPropagation()" class="w-8 h-8 rounded-xl border border-gray-200 text-gray-400 hover:text-red-500 flex items-center justify-center">♡</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 3 (PROGETTO ATILIO - ELEVADORES RESIDENCIAIS) -> PRINT REAL -->
+            <article id="card-ponto-3" onmouseenter="highlightMapPin(41, 'card-ponto-3')" onmouseleave="unhighlightMapPin(41, 'card-ponto-3')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
+              <div class="relative h-40 bg-gray-200 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80" alt="Progetto Atilio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
+                  <div class="flex items-center gap-1">
+                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🏢 elevadores residenciais</span>
+                    <span class="bg-indigo-900 text-indigo-100 px-2 py-0.5 rounded-md shadow-xs">📺 digital</span>
+                  </div>
+                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 173 m</span>
+                </div>
+              </div>
+
+              <div class="p-3.5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-black text-gray-900 text-xs leading-snug tracking-tight">Progetto Atilio</h3>
+                  <p class="text-[11px] text-gray-500 mb-2 truncate">Rua Atílio Piffer – 120, Casa Verde – São Paulo</p>
+                  <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
+                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">9,74 mil</span></div>
+                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">262</span></div>
+                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">26</span></div>
+                  </div>
+                  <span class="text-[10px] text-gray-400">Telas: 2</span>
                 </div>
 
                 <div class="mt-3 pt-2 border-t border-gray-100">
@@ -478,7 +531,7 @@
                     <span class="text-[10px] text-gray-500 font-normal">/ 2 semanas</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <button onclick="event.stopPropagation(); showToast('🛒 Living Near Pacaembu adicionado!')" class="flex-1 bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1">
+                    <button onclick="event.stopPropagation(); showToast('🛒 Progetto Atilio adicionado!')" class="flex-1 bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl transition-all flex items-center justify-center gap-1">
                       adicionar ponto 🛒
                     </button>
                     <button onclick="event.stopPropagation()" class="w-8 h-8 rounded-xl border border-gray-200 text-gray-400 hover:text-red-500 flex items-center justify-center">♡</button>
@@ -487,83 +540,91 @@
               </div>
             </article>
 
-            <!-- CARD 4 (PORTAL BARRA FUNDA - VILA RUDGE) -> DO PRINT 5 REAL -->
-            <article id="card-ponto-4" onclick="focusPortalRudgeOnMap()" onmouseenter="highlightMapPin('portal-rudge', 'card-ponto-4')" onmouseleave="unhighlightMapPin('portal-rudge', 'card-ponto-4')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
+            <!-- CARD 4 (SMART FIT CASA VERDE BAIXA) -> PRINT REAL -->
+            <article id="card-ponto-4" onmouseenter="highlightMapPin(7, 'card-ponto-4')" onmouseleave="unhighlightMapPin(7, 'card-ponto-4')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
               <div class="relative h-40 bg-gray-200 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Portal Barra Funda" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" alt="Smart Fit Casa Verde" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
                   <div class="flex items-center gap-1">
-                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🏢 elevadores residenciais</span>
+                    <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🏋️ academias</span>
                     <span class="bg-indigo-900 text-indigo-100 px-2 py-0.5 rounded-md shadow-xs">📺 digital</span>
                   </div>
-                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 1 km</span>
+                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 191 m</span>
                 </div>
               </div>
               <div class="p-3.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 class="font-black text-gray-900 text-xs">Portal Barra Funda - Vila Rudge -...</h3>
-                  <p class="text-[11px] text-gray-500 mb-2 truncate">Rua do Bosque – 136, Barra Funda – São Paulo</p>
+                  <h3 class="font-black text-gray-900 text-xs">Smart Fit Casa Verde Baixa</h3>
+                  <p class="text-[11px] text-gray-500 mb-2 truncate">Rua Bernardino Fanganiello – 349, Casa Verde – São Paulo</p>
                   <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
-                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">9,74 mil</span></div>
-                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">502</span></div>
-                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">20</span></div>
+                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">13,86 mil</span></div>
+                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">2,48 mil</span></div>
+                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">5</span></div>
                   </div>
-                  <span class="text-[10px] text-gray-400">Telas: 2</span>
+                  <span class="text-[10px] text-gray-400">Telas: 11</span>
                 </div>
                 <div class="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
-                  <div>
-                    <span class="text-[9px] text-gray-400 block">A partir de</span>
-                    <span class="text-sm font-black text-gray-900">R$ 264,96 <span class="text-[10px] text-gray-500 font-normal">/ 2 sem.</span></span>
-                  </div>
-                  <button onclick="event.stopPropagation(); showToast('🛒 Portal Barra Funda adicionado!')" class="bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl">adicionar 🛒</button>
+                  <span class="text-sm font-black text-gray-900">R$ 1.150,00</span>
+                  <button onclick="event.stopPropagation(); showToast('🛒 Smart Fit Casa Verde adicionada!')" class="bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1.5 px-3 rounded-xl">adicionar 🛒</button>
                 </div>
               </div>
             </article>
 
-            <!-- CARD 5 (AV PACAEMBU, 35) -->
+            <!-- CARD 5 (AV PRES. CASTELO BRANCO, 5699 - IMPRESSO) -> PRINT REAL -->
             <article id="card-ponto-5" onmouseenter="highlightMapPin(10, 'card-ponto-5')" onmouseleave="unhighlightMapPin(10, 'card-ponto-5')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
               <div class="relative h-40 bg-gray-200 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Av Pacaembu" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80" alt="Av Pres Castelo Branco" class="w-full h-full object-cover">
                 <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
                   <div class="flex items-center gap-1">
                     <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🚏 ponto de ônibus</span>
-                    <span class="bg-emerald-500 text-white px-2 py-0.5 rounded-md shadow-xs">🟢 impresso</span>
+                    <span class="bg-emerald-600 text-white px-2 py-0.5 rounded-md shadow-xs">🟢 impresso</span>
                   </div>
-                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 124 m</span>
+                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 274 m</span>
                 </div>
               </div>
               <div class="p-3.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 class="font-black text-gray-900 text-xs">AV PACAEMBU, 35 X R BRIG GA...</h3>
-                  <p class="text-[11px] text-gray-500 mb-2 truncate">AV PACAEMBU – 35, PACAEMBU – São Paulo</p>
+                  <h3 class="font-black text-gray-900 text-xs">AV PRES. CASTELO BRANCO, 5...</h3>
+                  <p class="text-[11px] text-gray-500 mb-2 truncate">AV PRES. CASTELO BRANCO – 5699, BARRA FUNDA – São Paulo</p>
+                  <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
+                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">Fixa</span></div>
+                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">1,13 mi</span></div>
+                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">2</span></div>
+                  </div>
                 </div>
                 <div class="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
-                  <span class="text-sm font-black text-gray-900">R$ 2.368,08</span>
-                  <button onclick="event.stopPropagation(); showToast('🛒 Ponto adicionado!')" class="bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1 px-3 rounded-xl">adicionar 🛒</button>
+                  <span class="text-sm font-black text-gray-900">R$ 1.973,40</span>
+                  <button onclick="event.stopPropagation(); showToast('🛒 Castelo Branco 5699 adicionado!')" class="bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1 px-3 rounded-xl">adicionar 🛒</button>
                 </div>
               </div>
             </article>
 
-            <!-- CARD 6 (PONTO BARRA FUNDA) -->
+            <!-- CARD 6 (AV PRES. CASTELO BRANCO, 6955 - DIGITAL) -> PRINT REAL -->
             <article id="card-ponto-6" onmouseenter="highlightMapPin(6, 'card-ponto-6')" onmouseleave="unhighlightMapPin(6, 'card-ponto-6')" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group cursor-pointer">
               <div class="relative h-40 bg-gray-200 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt="Painel Digital" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=600&q=80" alt="Castelo Branco Digital" class="w-full h-full object-cover">
                 <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 text-[10px] font-bold">
                   <div class="flex items-center gap-1">
                     <span class="bg-white/95 text-gray-800 px-2 py-0.5 rounded-md shadow-xs">🚏 ponto de ônibus</span>
                     <span class="bg-indigo-900 text-indigo-100 px-2 py-0.5 rounded-md shadow-xs">📺 digital</span>
                   </div>
-                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 125 m</span>
+                  <span class="bg-black/60 text-white px-2 py-0.5 rounded-md">📍 275 m</span>
                 </div>
               </div>
               <div class="p-3.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 class="font-black text-gray-900 text-xs">Ponto de Ônibus Barra Funda</h3>
-                  <p class="text-[11px] text-gray-500 mb-2 truncate">Rua Barra Funda – 210, São Paulo</p>
+                  <h3 class="font-black text-gray-900 text-xs">AV PRES. CASTELO BRANCO, 6...</h3>
+                  <p class="text-[11px] text-gray-500 mb-2 truncate">Avenida Presidente Castelo Branco – 6955, São Paulo</p>
+                  <div class="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 text-left mb-1.5">
+                    <div><span class="block text-[10px] text-gray-400">exibições ▷</span><span class="text-xs font-bold text-gray-900">10,25 mil</span></div>
+                    <div><span class="block text-[10px] text-gray-400">alcance 👤</span><span class="text-xs font-bold text-gray-900">480</span></div>
+                    <div><span class="block text-[10px] text-gray-400">frequência ↻</span><span class="text-xs font-bold text-gray-900">12</span></div>
+                  </div>
+                  <span class="text-[10px] text-gray-400">Telas: 1</span>
                 </div>
                 <div class="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
-                  <span class="text-sm font-black text-gray-900">R$ 1.850,00</span>
-                  <button onclick="event.stopPropagation(); showToast('🛒 Ponto adicionado!')" class="bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1 px-3 rounded-xl">adicionar 🛒</button>
+                  <span class="text-sm font-black text-gray-900">R$ 2.450,00</span>
+                  <button onclick="event.stopPropagation(); showToast('🛒 Castelo Branco Digital adicionado!')" class="bg-white hover:bg-emerald-50 border border-emerald-600 text-emerald-700 font-bold text-xs py-1 px-3 rounded-xl">adicionar 🛒</button>
                 </div>
               </div>
             </article>
@@ -575,27 +636,19 @@
         <!-- COLUNA DA DIREITA: MAPA MAPBOX COM AUTO-UNCLUSTER (QW1) & PIN INTERATIVO -->
         <section id="map-wrapper" class="col-span-12 lg:col-span-5 h-[680px] bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm relative flex flex-col transition-all duration-300">
           
-          <!-- BANNER DO MODO SÓ MAPA (100%) -->
-          <div id="map-fullscreen-overlay-bar" class="hidden absolute top-4 left-4 z-30 flex items-center gap-3 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-gray-200 shadow-lg">
-            <button onclick="setViewMode('split')" class="bg-[#FF4F00] hover:bg-orange-600 text-white font-bold text-xs py-1.5 px-3.5 rounded-xl shadow-xs flex items-center gap-1.5 transition-all">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/></svg>
-              Voltar para Cards Divididos (18)
-            </button>
-            <span class="text-gray-300">|</span>
-            <span class="text-xs text-gray-700 font-medium">Você está explorando o <strong>Mapa em Tela Cheia</strong></span>
-          </div>
-
-          <!-- BOTÕES DO MAPA NO TOPO DIREITO -->
-          <div class="absolute top-4 right-4 z-30 flex items-center gap-2">
-            <button id="map-inline-expand-btn" onclick="toggleViewMode()" class="bg-white hover:bg-gray-50 text-gray-700 font-bold text-xs py-2 px-3 rounded-xl border border-gray-200 shadow-md flex items-center gap-1.5 transition-all" title="Alternar entre Dividido e Só Mapa">
-              <svg id="inline-expand-icon" class="w-3.5 h-3.5 text-[#FF4F00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-              <span id="inline-expand-label">Expandir Mapa</span>
+          <!-- CONTROLES DO MAPA NO TOPO DIREITO (ESTILO AIRBNB): BOTÃO DE EXPANSÃO + ZOOM -->
+          <div class="absolute top-4 right-4 z-30 flex flex-col items-center gap-2">
+            <!-- Botão de Alternância de Tela Cheia Circular (Acima do Zoom In) -->
+            <button id="floating-view-toggle-btn" onclick="toggleViewMode()" class="w-9 h-9 bg-white hover:bg-gray-50 active:scale-95 text-gray-700 rounded-full shadow-md border border-gray-200 flex items-center justify-center transition-all cursor-pointer group" title="Expandir mapa (100%)">
+              <svg id="floating-view-toggle-icon" class="w-4 h-4 text-gray-700 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+              </svg>
             </button>
 
-            <!-- Zoom -->
-            <div class="flex flex-col bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden text-sm font-bold">
-              <button onclick="triggerZoomIn()" class="w-8 h-8 flex items-center justify-center text-gray-700 hover:bg-gray-50 border-b border-gray-200" title="Zoom In (+)">+</button>
-              <button onclick="triggerZoomOut()" class="w-8 h-8 flex items-center justify-center text-gray-700 hover:bg-gray-50" title="Zoom Out (-)">-</button>
+            <!-- Controles de Zoom (+ e -) -->
+            <div class="flex flex-col bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden text-sm font-bold w-9">
+              <button onclick="triggerZoomIn()" class="w-9 h-9 flex items-center justify-center text-gray-700 hover:bg-gray-50 border-b border-gray-200 transition-colors" title="Zoom In (+)">+</button>
+              <button onclick="triggerZoomOut()" class="w-9 h-9 flex items-center justify-center text-gray-700 hover:bg-gray-50 transition-colors" title="Zoom Out (-)">-</button>
             </div>
           </div>
 
@@ -608,9 +661,9 @@
             </button>
           </div>
 
-          <!-- BOTÃO FLUTUANTE 'PESQUISAR NESSA ÁREA' (PRESENTE NOS PRINTS 1 A 5) -->
-          <div class="absolute top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-            <button onclick="showToast('🔍 Buscando anúncios disponíveis nesta área do mapa...')" class="pointer-events-auto bg-white hover:bg-gray-50 active:scale-95 text-gray-800 text-xs font-semibold py-1.5 px-3.5 rounded-full shadow-md border border-gray-200 flex items-center gap-1.5 transition-all">
+          <!-- BOTÃO FLUTUANTE 'PESQUISAR NESSA ÁREA' (INICIA OCULTO E SÓ APARECE AO MOVIMENTAR O MAPA) -->
+          <div id="map-search-this-area-wrapper" class="hidden absolute top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none transition-all duration-300">
+            <button onclick="triggerSearchThisArea()" class="pointer-events-auto bg-white hover:bg-gray-50 active:scale-95 text-gray-800 text-xs font-semibold py-1.5 px-3.5 rounded-full shadow-md border border-gray-200 flex items-center gap-1.5 transition-all cursor-pointer">
               <svg class="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               pesquisar nessa área
             </button>
@@ -962,6 +1015,15 @@
                   adicionar 🛒
                 </button>
               </div>
+            </div>
+
+            <!-- BOTÃO FLUTUANTE 'DEFINIR RAIO' (PRESENTE NO PRINT REAL DA TELA CHEIA) -->
+            <div id="floating-define-radius-btn" class="hidden absolute bottom-6 left-6 z-30 pointer-events-auto">
+              <button onclick="showToast('📍 Ajustar raio de alcance no mapa')" class="bg-white hover:bg-gray-50 active:scale-95 text-gray-800 text-xs font-bold py-2 px-3.5 rounded-xl shadow-md border border-gray-200 flex items-center gap-2 transition-all">
+                <svg class="w-3.5 h-3.5 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg>
+                <span>Definir raio</span>
+                <span class="text-gray-400 font-semibold">›</span>
+              </button>
             </div>
 
           </div>
@@ -1388,6 +1450,7 @@
 
     // BOTÕES DE ZOOM (+ / -)
     function triggerZoomIn() {
+      showSearchThisAreaButton();
       if (!isCluster10Expanded) {
         unclusterPin(41, 150, 120);
       } else {
@@ -1396,6 +1459,7 @@
     }
 
     function triggerZoomOut() {
+      showSearchThisAreaButton();
       if (isCluster10Expanded) {
         resetMapZoom();
       } else {
@@ -1553,57 +1617,232 @@
       setViewMode('split');
     }
 
-    // ALTERNAR ENTRE DIVIDIDO E SÓ MAPA
+    // CONTROLE DE AMBIENTES: DEV (#spec-dev) vs. LAB (#lab)
+    let currentEnvironment = 'spec-dev';
+
+    function switchEnvironment(env, updateHash = true) {
+      currentEnvironment = (env === 'lab' || env === 'exploracao') ? 'lab' : 'spec-dev';
+      const navDev = document.getElementById('nav-tab-dev');
+      const navLab = document.getElementById('nav-tab-lab');
+      const devBanner = document.getElementById('dev-spec-header-banner');
+      const labBars = document.getElementById('lab-research-bars');
+      const activeUrl = document.getElementById('active-url-display');
+      const dynamicSwitcher = document.getElementById('dynamic-switcher-area');
+
+      if (currentEnvironment === 'spec-dev') {
+        if (updateHash) window.location.hash = '#spec-dev';
+        if (activeUrl) activeUrl.innerText = '#spec-dev';
+
+        if (navDev) {
+          navDev.className = "px-3.5 py-1.5 rounded-lg font-bold text-xs bg-[#FF4F00] text-white shadow-sm flex items-center gap-1.5 transition-all";
+        }
+        if (navLab) {
+          navLab.className = "px-3.5 py-1.5 rounded-lg font-semibold text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all";
+        }
+        if (devBanner) devBanner.classList.remove('hidden');
+        if (labBars) labBars.classList.add('hidden');
+        if (dynamicSwitcher) dynamicSwitcher.classList.add('hidden');
+        showToast("🚀 Especificação Oficial de Dev Ativa (#spec-dev)");
+      } else {
+        if (updateHash) window.location.hash = '#lab';
+        if (activeUrl) activeUrl.innerText = '#lab';
+
+        if (navLab) {
+          navLab.className = "px-3.5 py-1.5 rounded-lg font-bold text-xs bg-[#FF4F00] text-white shadow-sm flex items-center gap-1.5 transition-all";
+        }
+        if (navDev) {
+          navDev.className = "px-3.5 py-1.5 rounded-lg font-semibold text-xs text-gray-400 hover:text-white flex items-center gap-1.5 transition-all";
+        }
+        if (devBanner) devBanner.classList.add('hidden');
+        if (labBars) labBars.classList.remove('hidden');
+        if (dynamicSwitcher) dynamicSwitcher.classList.remove('hidden');
+        showToast("🔬 Laboratório de Exploração & Clusters Ativo (#lab)");
+      }
+    }
+
+    function handleHashRouting() {
+      const hash = (window.location.hash || '').toLowerCase().replace('#', '');
+      if (hash === 'lab' || hash === 'exploracao') {
+        switchEnvironment('lab', false);
+      } else {
+        switchEnvironment('spec-dev', false);
+      }
+    }
+
+    function copyCurrentRoute() {
+      const fullUrl = window.location.href.split('#')[0] + '#' + currentEnvironment;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullUrl).then(() => {
+          showToast(`📋 Link copiado: #${currentEnvironment}`);
+        }).catch(() => {
+          showToast(`📋 Rota ativa: #${currentEnvironment}`);
+        });
+      } else {
+        showToast(`📋 Rota ativa: #${currentEnvironment}`);
+      }
+    }
+
+    // MECÂNICA DO BOTÃO FLUTUANTE COLAPSÁVEL (ESTILO 'PESQUISAR NESSA ÁREA')
+    let isFloatingButtonCollapsed = false;
+    let collapseTimer = null;
+
+    function collapseFloatingButton() {
+      const label = document.getElementById('floating-view-toggle-label');
+      const btn = document.getElementById('floating-view-toggle-btn');
+      if (!label || !btn) return;
+      isFloatingButtonCollapsed = true;
+      label.style.maxWidth = '0px';
+      label.style.opacity = '0';
+      label.style.marginLeft = '0px';
+      btn.classList.add('px-2.5');
+      btn.classList.remove('px-3');
+    }
+
+    function expandFloatingButton() {
+      const label = document.getElementById('floating-view-toggle-label');
+      const btn = document.getElementById('floating-view-toggle-btn');
+      if (!label || !btn) return;
+      clearTimeout(collapseTimer);
+      isFloatingButtonCollapsed = false;
+      label.style.maxWidth = '140px';
+      label.style.opacity = '1';
+      label.style.marginLeft = '4px';
+      btn.classList.remove('px-2.5');
+      btn.classList.add('px-3');
+    }
+
+    function autoScheduleCollapseFloatingButton() {
+      clearTimeout(collapseTimer);
+      collapseTimer = setTimeout(() => {
+        collapseFloatingButton();
+      }, 2500);
+    }
+
+    function toggleCollapseButtonDemo() {
+      if (isFloatingButtonCollapsed) {
+        expandFloatingButton();
+        showToast('Botão expandido com rótulo descritivo');
+      } else {
+        collapseFloatingButton();
+        showToast('Botão colapsado para ícone padrão (menos poluição no mapa)');
+      }
+    }
+
+    // COMPORTAMENTO DO BOTÃO 'PESQUISAR NESSA ÁREA' (SURGE APENAS APÓS MOVIMENTAR O MAPA)
+    function showSearchThisAreaButton() {
+      const btnWrapper = document.getElementById('map-search-this-area-wrapper');
+      if (btnWrapper) {
+        btnWrapper.classList.remove('hidden');
+      }
+    }
+
+    function hideSearchThisAreaButton() {
+      const btnWrapper = document.getElementById('map-search-this-area-wrapper');
+      if (btnWrapper) {
+        btnWrapper.classList.add('hidden');
+      }
+    }
+
+    function triggerSearchThisArea() {
+      showToast('🔍 Atualizando inventário para a nova área do mapa...');
+      hideSearchThisAreaButton();
+    }
+
+    function setupMapPanListeners() {
+      const canvas = document.getElementById('map-canvas-area');
+      if (!canvas) return;
+
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = Math.abs(e.clientX - startX);
+        const dy = Math.abs(e.clientY - startY);
+        if (dx > 5 || dy > 5) {
+          showSearchThisAreaButton();
+        }
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      canvas.addEventListener('wheel', () => {
+        showSearchThisAreaButton();
+      }, { passive: true });
+
+      canvas.addEventListener('touchmove', () => {
+        showSearchThisAreaButton();
+      }, { passive: true });
+    }
+
+    // ALTERNAR ENTRE MODO DIVIDIDO E SÓ MAPA (100%)
     function setViewMode(mode) {
       currentViewMode = mode;
       const cardsWrapper = document.getElementById('cards-wrapper');
       const mapWrapper = document.getElementById('map-wrapper');
-      const overlayBar = document.getElementById('map-fullscreen-overlay-bar');
       const indicator = document.getElementById('map-mode-indicator');
 
       const btnSplit = document.getElementById('btn-mode-split');
       const btnMapOnly = document.getElementById('btn-mode-maponly');
-      const inlineLabel = document.getElementById('inline-expand-label');
-      const inlineIcon = document.getElementById('inline-expand-icon');
       const airbnbLabel = document.getElementById('airbnb-pill-label');
       const airbnbIcon = document.getElementById('airbnb-pill-icon');
       const gmapText = document.getElementById('gmap-expand-text');
+
+      // Botão Flutuante Circular Airbnb (acima do Zoom In)
+      const floatingIcon = document.getElementById('floating-view-toggle-icon');
+      const floatingBtn = document.getElementById('floating-view-toggle-btn');
+      const radiusBtn = document.getElementById('floating-define-radius-btn');
 
       if (mode === 'split') {
         cardsWrapper.className = "col-span-12 lg:col-span-7 flex flex-col transition-all duration-300";
         mapWrapper.className = "col-span-12 lg:col-span-5 h-[680px] bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm relative flex flex-col transition-all duration-300";
         cardsWrapper.classList.remove('hidden');
-        overlayBar.classList.add('hidden');
+
+        if (radiusBtn) radiusBtn.classList.add('hidden');
 
         indicator.innerText = "Modo Dividido Ativo";
         indicator.className = "bg-orange-100 text-[#FF4F00] font-bold text-[10px] px-2 py-0.5 rounded-md border border-orange-200";
 
-        btnSplit.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-white text-gray-900 shadow-sm flex items-center gap-1.5 border border-gray-200 transition-all";
-        btnMapOnly.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center gap-1.5 transition-all";
+        if (btnSplit) btnSplit.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-white text-gray-900 shadow-sm flex items-center gap-1.5 border border-gray-200 transition-all";
+        if (btnMapOnly) btnMapOnly.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center gap-1.5 transition-all";
 
-        inlineLabel.innerText = "Expandir Mapa";
-        inlineIcon.innerHTML = '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>';
+        // Ícone de Expandir (4 cantos para fora)
+        if (floatingIcon) floatingIcon.innerHTML = '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>';
+        if (floatingBtn) floatingBtn.setAttribute('title', 'Expandir mapa (100%)');
         if (gmapText) gmapText.innerText = "Expandir Mapa (100%)";
 
         if (airbnbLabel) airbnbLabel.innerText = "Só mostrar o mapa (Tela Cheia)";
         if (airbnbIcon) airbnbIcon.innerText = "🗺️";
+        showToast("◫ Modo Dividido Restaurado (Cards + Mapa)");
       } else {
         cardsWrapper.classList.add('hidden');
         mapWrapper.className = "col-span-12 h-[720px] bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-lg relative flex flex-col transition-all duration-300";
-        overlayBar.classList.remove('hidden');
+
+        if (radiusBtn) radiusBtn.classList.remove('hidden');
 
         indicator.innerText = "Só Mapa Ativo (100%)";
         indicator.className = "bg-emerald-100 text-emerald-800 font-bold text-[10px] px-2 py-0.5 rounded-md border border-emerald-200";
 
-        btnSplit.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center gap-1.5 transition-all";
-        btnMapOnly.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-white text-gray-900 shadow-sm flex items-center gap-1.5 border border-gray-200 transition-all";
+        if (btnSplit) btnSplit.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center gap-1.5 transition-all";
+        if (btnMapOnly) btnMapOnly.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-white text-gray-900 shadow-sm flex items-center gap-1.5 border border-gray-200 transition-all";
 
-        inlineLabel.innerText = "Restaurar Cards";
-        inlineIcon.innerHTML = '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/>';
+        // Ícone de Recolher (4 cantos para dentro)
+        if (floatingIcon) floatingIcon.innerHTML = '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/>';
+        if (floatingBtn) floatingBtn.setAttribute('title', 'Recolher mapa (Modo dividido)');
         if (gmapText) gmapText.innerText = "Restaurar Dividido";
 
         if (airbnbLabel) airbnbLabel.innerText = "Dividir tela (Mostrar cards)";
         if (airbnbIcon) airbnbIcon.innerText = "◫";
+        showToast("🗺️ Mapa expandido para Tela Cheia (100%)");
       }
     }
 
@@ -1633,9 +1872,11 @@
       if (modal) modal.classList.add('hidden');
     }
 
-    // Inicialização
+    // Inicialização e Listeners de Hash
+    window.addEventListener('hashchange', handleHashRouting);
     window.addEventListener('DOMContentLoaded', () => {
-      selectBench(1);
+      handleHashRouting();
+      setupMapPanListeners();
     });
   </script>
 
