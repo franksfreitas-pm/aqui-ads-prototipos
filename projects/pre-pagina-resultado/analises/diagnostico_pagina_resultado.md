@@ -131,7 +131,17 @@ A base tratada contempla **18.050 buscas consolidadas**:
 Para entender como o anunciante evolui sua intenção desde o primeiro acesso até o momento de adicionar ao carrinho, mapeamos o histórico cronológico de buscas de todos os usuários. 
 
 ### **A Porta de Entrada (Primeira Busca)**
-Mais de **76%** dos anunciantes abrem a jornada com termos genéricos exploratórios (Cidades ou Bairros). 
+Quando o usuário se depara com o campo de busca pela primeira vez, ele tende a fazer uma pesquisa **muito mais genérica**. O volume absoluto do primeiro termo digitado é liderado por Bairros e Cidades.
+
+| Categoria do 1º Termo Buscado | Usuários | Participação |
+| --- | --- | --- |
+| **Bairro / Região Local** | 2.373 | 52,5% |
+| **Cidade / Município** | 1.082 | 24,0% |
+| **Endereço Completo com Número** | 487 | 10,8% |
+| **Logradouro Isolado (Sem Número)** | 473 | 10,5% |
+| **Ponto de Interesse / Metrô / Shopping** | 100 | 2,2% |
+
+> **Insight:** Mais de 76% dos anunciantes abrem a jornada com termos genéricos exploratórios (Cidade ou Bairro). 
 
 ### **Esforço de Refinamento (Buscas até o Carrinho)**
 A categoria do termo inicial dita o quão longa e "esforçada" será a jornada do usuário até a conversão:
