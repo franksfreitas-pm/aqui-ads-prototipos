@@ -123,3 +123,38 @@ A base tratada contempla **18.050 buscas consolidadas**:
 1. Cidades: *Rio de Janeiro*, *São Paulo*, *Campinas*, *Guarulhos*, *Osasco*, *Salvador*, *Curitiba*, *Recife*;
 2. Bairros e Eixos: *Barra / Barra da Tijuca*, *Pinheiros*, *Av Paulista*, *Moema*, *Faria Lima*, *Alphaville*;
 3. Pontos de Interesse: *Shopping*.
+
+---
+
+## **8. Jornada de Busca e Esforço de Refinamento**
+
+Para entender como o anunciante evolui sua intenção desde o primeiro acesso até o momento de adicionar ao carrinho, mapeamos o histórico cronológico de buscas de todos os usuários. 
+
+### **A Porta de Entrada (Primeira Busca)**
+Mais de **76%** dos anunciantes abrem a jornada com termos genéricos exploratórios (Cidades ou Bairros). 
+
+### **Esforço de Refinamento (Buscas até o Carrinho)**
+A categoria do termo inicial dita o quão longa e "esforçada" será a jornada do usuário até a conversão:
+
+| Categoria da 1ª Busca | Média de Buscas até o Carrinho |
+| --- | --- |
+| **Ponto de Interesse / Metrô / Shopping** | **5,8** buscas |
+| **Cidade / Município** | **4,8** buscas |
+| **Bairro / Região Local** | **4,2** buscas |
+| **Logradouro Isolado (Sem Número)** | **3,8** buscas |
+| **Endereço Completo com Número** | **3,0** buscas |
+
+> **Insight:** Começar a busca de forma genérica (Cidade) exige quase 5 pesquisas para afunilar a intenção. Iniciar sabendo o endereço com número reduz o caminho de compra em quase metade do esforço.
+
+### **O Ponto de Conversão (Carrinho e Pagamento Aprovado)**
+Avaliando a última busca realizada imediatamente antes de adicionar ao carrinho, medimos a **Taxa de Fechamento Monetária (Carrinho → Venda)**:
+
+| Última Busca Antes do Carrinho | Adições ao Carrinho | Pagamentos Aprovados | Taxa de Fechamento |
+| --- | --- | --- | --- |
+| **Endereço Completo com Número** | 145 | **47** | **32,4%** |
+| **Bairro / Região Local** | 429 | **130** | **30,3%** |
+| **Logradouro Isolado (Sem Número)** | 123 | **27** | **22,0%** |
+| **Ponto de Interesse / Metrô / Shopping** | 28 | **5** | **17,9%** |
+| **Cidade / Município** | 122 | **19** | **15,6%** |
+
+> **Conclusão de Design:** O endereço específico com número não só economiza cliques (baixando a média de 4,8 para 3,0 buscas), como é o termo que lidera a taxa de fechamento real. Forçar a pessoa a pular a fase da "Cidade" e ir direto para uma localização hiper-segmentada acelera o afunilamento e coloca o usuário no cenário de maior conversão final.
