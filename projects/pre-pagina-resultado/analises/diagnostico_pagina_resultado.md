@@ -111,13 +111,13 @@ Para corrigir a distorção gerada pelo disparo do evento a cada caractere digit
 
 A base tratada contempla **18.050 buscas consolidadas**:
 
-| Tipo de Busca | Volume de Buscas | Participação | Exemplos Comuns |
-| :--- | :---: | :---: | :--- |
-| **Bairro / Região Local** | 9.101 | **50,42%** | *Barra, Pinheiros, Vila Mariana, Moema, Copacabana, Tatuapé* |
-| **Endereço Completo com Número** | 3.499 | **19,38%** | *Rua Augusta 1200, Av Paulista 1000, Rua das Flores 50* |
-| **Logradouro Isolado (Sem Número)** | 2.986 | **16,54%** | *Av Paulista, Rua da Consolação, Avenida Brasil* |
-| **Cidade / Município** | 1.917 | **10,62%** | *Rio de Janeiro, São Paulo, Campinas, Salvador, Guarulhos* |
-| **Ponto de Interesse / Metrô / Shopping** | 548 | **3,04%** | *Shopping Parque da Cidade, Metrô Santa Cruz, Aeroporto* |
+| Tipo de Busca | Volume de Buscas | Participação | Conversão (Pago) | Exemplos Comuns |
+| :--- | :---: | :---: | :---: | :--- |
+| **Bairro / Região Local** | 9.101 | **50,42%** | **7,93%** | *Barra, Pinheiros, Vila Mariana, Moema, Copacabana, Tatuapé* |
+| **Endereço Completo com Número** | 3.499 | **19,38%** | **12,25%** | *Rua Augusta 1200, Av Paulista 1000, Rua das Flores 50* |
+| **Logradouro Isolado (Sem Número)** | 2.986 | **16,54%** | **11,15%** | *Av Paulista, Rua da Consolação, Avenida Brasil* |
+| **Cidade / Município** | 1.917 | **10,62%** | **6,61%** | *Rio de Janeiro, São Paulo, Campinas, Salvador, Guarulhos* |
+| **Ponto de Interesse / Metrô / Shopping** | 548 | **3,04%** | **11,01%** | *Shopping Parque da Cidade, Metrô Santa Cruz, Aeroporto* |
 
 ### Principais Termos Reais Mais Digitados (≥ 4 letras)
 1. Cidades: *Rio de Janeiro*, *São Paulo*, *Campinas*, *Guarulhos*, *Osasco*, *Salvador*, *Curitiba*, *Recife*;
