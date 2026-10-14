@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqui Ads - Vitrine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #1a202c; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .mobile-container { width: 390px; height: 844px; background-color: #F8F9FA; border-radius: 40px; border: 8px solid #000; overflow: hidden; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
+        
+        .scrollable-content { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; position: relative; padding-bottom: 80px;}
+        .scrollable-content::-webkit-scrollbar { display: none; }
+        
+        /* Sticky Header */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Javascript will toggle this class to simulate shrinking/hiding top part */
+        .header-shrunk {
+            transform: translateY(-60px); /* Adjust based on top bar height */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .btn-primary { background-color: #FF6B00; color: white; border-radius: 8px; padding: 10px 16px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+    <div class="scrollable-content" id="scroll-area">
+        
+        <div class="sticky-header" id="main-header">
+            <!-- Top Nav -->
+            <div class="flex items-center justify-between px-4 py-3 bg-white">
+                <div class="text-[#FF6B00] font-bold text-xl flex items-center">
+                    Aqui<span class="font-normal text-gray-800">ads</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-xs font-medium text-gray-600">Assistente de anúncios</span>
+                    <div class="relative">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span class="absolute -top-1 -right-1 bg-[#FF6B00] text-white text-[9px] font-bold rounded-full w-3.5 h-3.5 flex items-center justify-center">4</span>
+                    </div>
+                    <div class="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold text-gray-600">F</div>
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex items-center justify-between px-4 py-2 bg-white border-b border-gray-100">
+                <div class="flex flex-col items-center">
+                    <div class="text-sm font-semibold text-gray-900 mb-1 flex items-center gap-1">
+                        <div class="w-2 h-3 bg-red-600 rounded-sm"></div> OOH
+                    </div>
+                    <div class="h-0.5 w-full bg-gray-900"></div>
+                </div>
+                <div class="text-sm font-medium text-gray-500 flex items-center gap-1"><div class="w-3 h-2 bg-orange-400 rounded-sm"></div> Digital</div>
+                <div class="text-sm font-medium text-gray-500 flex items-center gap-1"><div class="w-3 h-2 bg-orange-600 rounded-sm"></div> TV</div>
+                <div class="text-sm font-medium text-gray-500 flex items-center gap-1"><div class="w-3 h-2 bg-orange-700 rounded-full"></div> Rádio</div>
+            </div>
+
+            <!-- Search Card -->
+            <div class="p-4 bg-[#F8F9FA]">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3">
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-3">
+                        <div class="flex items-center text-gray-600 text-sm">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Salvador, BA, Brasil
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <div class="flex-1 flex gap-2">
+                            <!-- Duração -->
+                            <div class="flex-1 border border-gray-200 rounded-lg p-2 flex flex-col justify-center relative cursor-pointer" data-track="edit_duration">
+                                <span class="text-[10px] text-gray-400 font-medium leading-none mb-1">Duração</span>
+                                <select class="appearance-none bg-transparent w-full text-sm font-medium text-gray-800 leading-none outline-none cursor-pointer">
+                                    <option>2 semanas</option>
+                                    <option>3 semanas</option>
+                                    <option>1 mês</option>
+                                </select>
+                                <svg class="w-3 h-3 absolute right-2 top-1/2 mt-1 text-gray-600 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <!-- Data de Início -->
+                            <div class="flex-1 border border-gray-200 rounded-lg p-2 flex flex-col justify-center">
+                                <span class="text-[10px] text-gray-400 font-medium leading-none mb-1">Data de Início</span>
+                                <div class="flex items-center text-sm font-medium text-gray-800 leading-none">
+                                    <svg class="w-3.5 h-3.5 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    21/10/2023
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-4 pb-4">
+            <!-- Pills (Carrossel Horizontal Nativo) -->
+            <div class="flex overflow-x-auto gap-2 mb-4 scrollbar-hide pb-1 items-center" style="-ms-overflow-style: none; scrollbar-width: none;">
+                <div class="whitespace-nowrap px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-700 cursor-pointer hover:bg-gray-50 flex-shrink-0">
+                    elevadores comerciais
+                </div>
+                <div class="whitespace-nowrap px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-700 cursor-pointer hover:bg-gray-50 flex-shrink-0">
+                    elevadores residenciais
+                </div>
+                <div class="whitespace-nowrap px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-700 cursor-pointer hover:bg-gray-50 flex-shrink-0">
+                    ponto de ônibus
+                </div>
+                <div class="whitespace-nowrap px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-700 cursor-pointer hover:bg-gray-50 flex-shrink-0">
+                    shopping
+                </div>
+                <div class="whitespace-nowrap px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-700 cursor-pointer hover:bg-gray-50 flex-shrink-0">
+                    academia
+                </div>
+                <div class="whitespace-nowrap px-3 py-1.5 bg-[#e9eef2] border border-gray-200 rounded-md text-xs font-medium text-gray-800 cursor-pointer hover:bg-[#dfe5eb] flex-shrink-0">
+                    mais filtros
+                </div>
+            </div>
+
+            <!-- Card Drogasil -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+                <div class="h-32 bg-gray-800 relative">
+                    <!-- Fake image overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-red-900 to-blue-900 opacity-80 mix-blend-multiply"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                    <!-- Tags -->
+                    <div class="absolute top-3 left-3 flex gap-2">
+                        <span class="bg-white text-gray-800 text-[10px] font-bold px-2 py-1 rounded flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            drogarias
+                        </span>
+                        <span class="bg-indigo-700 text-white text-[10px] font-bold px-2 py-1 rounded flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            digital
+                        </span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-white/90 text-gray-800 text-[10px] font-bold px-2 py-1 rounded flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            1 m
+                        </span>
+                    </div>
+                </div>
+                <div class="p-4 relative">
+                    <div class="absolute -top-4 right-4 bg-gray-400 w-8 h-8 rounded-md flex items-center justify-center shadow">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-[15px] text-gray-900 mb-1 pr-10">Drogasil - 228-SV Canela 1</h3>
+                    <p class="text-[11px] text-gray-400 uppercase tracking-wide mb-4">Rua João Das Botas - 121 , Canela - Salvador</p>
+                    
+                    <div class="grid grid-cols-3 gap-2 border-b border-gray-100 pb-3 mb-3">
+                        <div>
+                            <p class="text-[10px] text-gray-500 flex items-center mb-1">exibições <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></p>
+                            <p class="font-bold text-sm text-gray-900">4,7 mil</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-500 flex items-center mb-1">alcance <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></p>
+                            <p class="font-bold text-sm text-gray-900">4,17 mil</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-500 flex items-center mb-1">frequência <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></p>
+                            <p class="font-bold text-sm text-gray-900">1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 (Clone) -->
+             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+                <div class="h-32 bg-gray-800 relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-red-900 to-blue-900 opacity-80 mix-blend-multiply"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                    </div>
+                     <div class="absolute top-3 left-3 flex gap-2">
+                        <span class="bg-white text-gray-800 text-[10px] font-bold px-2 py-1 rounded flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            drogarias
+                        </span>
+                        <span class="bg-indigo-700 text-white text-[10px] font-bold px-2 py-1 rounded flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            digital
+                        </span>
+                    </div>
+                </div>
+                <div class="p-4">
+                     <h3 class="font-bold text-[15px] text-gray-900 mb-1 pr-10">Drogasil - 331-SV Graça</h3>
+                     <p class="text-[11px] text-gray-400 uppercase tracking-wide mb-4">Rua da Graça - 100 , Graça - Salvador</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+        <div>
+            <p class="text-xs text-gray-600 mb-0.5">4 produtos selecionados</p>
+            <p class="text-sm font-semibold text-gray-900">Total <span class="font-bold">R$ 7.106,16</span></p>
+        </div>
+        <button onclick="window.location.href='resumo.html'" class="btn-primary flex items-center">
+            continuar
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    // JS Fallback for shrinking header
+    const scrollArea = document.getElementById('scroll-area');
+    const header = document.getElementById('main-header');
+    
+    scrollArea.addEventListener('scroll', () => {
+        if (scrollArea.scrollTop > 40) {
+            header.classList.add('header-shrunk');
+        } else {
+            header.classList.remove('header-shrunk');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aqui Ads - Mobile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    
+    <!-- Tela 1: Página de Resultados -->
+    <div id="screen-results" class="screen active">
+      <header class="sticky-header">
+        <h1>Resultados da Busca</h1>
+        <form class="search-bar" id="search-form" onsubmit="return false;">
+          <input type="search" id="search-input" enterkeyhint="search" placeholder="O que você procura?">
+          <button type="submit" class="btn" style="width: auto;">Buscar</button>
+        </form>
+      </header>
+
+      <div class="content-area">
+        <div class="section">
+          <h2>Período da Campanha</h2>
+          <div class="form-group">
+            <label for="start-date">Data de Início</label>
+            <input type="date" id="start-date">
+          </div>
+          
+          <div class="duration-control" id="duration-control">
+            <div>
+              <strong>Duração</strong>
+              <span id="duration-label">30 dias</span>
+            </div>
+            <div class="icon">▼</div>
+            
+            <div class="duration-edit-area" onclick="event.stopPropagation()">
+               <div class="form-group" style="margin-bottom: 0;">
+                 <label>Selecione a duração:</label>
+                 <select id="duration-select" style="width: 100%; padding: 8px; margin-top: 4px;">
+                   <option value="15">15 dias</option>
+                   <option value="30" selected>30 dias</option>
+                   <option value="60">60 dias</option>
+                 </select>
+               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Inventário Disponível</h2>
+          <div class="card">
+            <div class="card-title">Painel Digital Centro</div>
+            <p>10.000 visualizações estimadas</p>
+            <button class="btn btn-outline" style="margin-top: 12px;" onclick="addToCart(1500)">Adicionar (R$ 1.500)</button>
+          </div>
+          <div class="card">
+            <div class="card-title">Mídia Aeroporto</div>
+            <p>25.000 visualizações estimadas</p>
+            <button class="btn btn-outline" style="margin-top: 12px;" onclick="addToCart(4000)">Adicionar (R$ 4.000)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fixed-bottom">
+        <div>
+           <span style="font-size: 0.8rem; color: #666; display: block;">Total estimado</span>
+           <span class="total" id="results-total">R$ 0,00</span>
+        </div>
+        <button class="btn" onclick="goToCart()">Ver Carrinho</button>
+      </div>
+    </div>
+
+    <!-- Tela 2: Tela de Resumo (Carrinho) -->
+    <div id="screen-cart" class="screen">
+      <header class="sticky-header" style="display: flex; align-items: center; gap: 12px;">
+        <button class="btn btn-outline" style="width: auto; padding: 4px 12px;" onclick="goToResults()">←</button>
+        <h1 style="margin: 0;">Resumo do Plano</h1>
+      </header>
+
+      <div class="content-area">
+        <div class="section">
+          <div class="form-group">
+            <label for="campaign-name" style="font-size: 1.1rem; color: var(--primary);">Nome do Plano de Mídia</label>
+            <input type="text" id="campaign-name" placeholder="Ex: Campanha Dia das Mães" style="font-size: 1.1rem; font-weight: bold; border-width: 2px;">
+          </div>
+        </div>
+
+        <div class="section">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h2>Público-Alvo</h2>
+            <button class="btn btn-link">Editar público-alvo</button>
+          </div>
+          <div class="card" style="background: var(--bg-color);">
+            <p><strong>Localização:</strong> São Paulo, SP</p>
+            <p><strong>Faixa Etária:</strong> 25 a 45 anos</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Itens Selecionados</h2>
+          <div id="cart-items">
+            <p style="color: #666;">Nenhum item selecionado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fixed-bottom">
+        <div>
+           <span style="font-size: 0.8rem; color: #666; display: block;">Total do Plano</span>
+           <span class="total" id="cart-total">R$ 0,00</span>
+        </div>
+        <button class="btn">Avançar</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
