@@ -3,269 +3,1777 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aquiads - Resultados</title>
+  <title>Aqui Ads — Página de Resultados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* RESET */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-    body { background-color: #F8F9FA; color: #111827; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-    
-    /* HEADER */
-    header { background: #FFFFFF; border-bottom: 1px solid #F3F4F6; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 72px; flex-shrink: 0; z-index: 500; }
-    .logo-text { font-size: 24px; font-weight: 800; color: #FF5400; cursor: pointer; text-decoration: none; }
-    .header-nav { display: flex; align-items: center; gap: 32px; height: 100%; }
-    .nav-tab { display: flex; align-items: center; gap: 8px; height: 100%; font-size: 14px; font-weight: 600; color: #6B7280; text-decoration: none; border-bottom: 3px solid transparent; cursor: pointer; }
-    .nav-tab.active { color: #111827; border-bottom-color: #FF5400; }
-    .header-actions { display: flex; align-items: center; gap: 16px; }
-    .user-profile { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #F3F4F6; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .user-avatar { width: 22px; height: 22px; background: #E5E7EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    /* ==========================================================================
+       DESIGN SYSTEM AQUI ADS — TOKENS & RESET (LIGHT MODE OBRIGATÓRIO)
+       ========================================================================== */
+    :root {
+      --brand-orange: #FF5400;
+      --brand-orange-hover: #E04800;
+      --brand-orange-light: #FFF4EE;
+      --brand-purple: #4F46E5;
+      --brand-green: #10B981;
+      --brand-green-dark: #059669;
+      --brand-green-light: #ECFDF5;
+      --bg-page: #FFFFFF;
+      --bg-subtle: #F8FAFC;
+      --bg-muted: #F1F5F9;
+      --text-primary: #111827;
+      --text-secondary: #4B5563;
+      --text-muted: #6B7280;
+      --text-light: #9CA3AF;
+      --border-color: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.05);
+      --shadow-md: 0 4px 16px rgba(17, 24, 39, 0.08);
+      --shadow-lg: 0 12px 32px rgba(17, 24, 39, 0.12);
+    }
 
-    /* SUB-HEADER (Search + Filters) */
-    .sub-header { background: #FFFFFF; border-bottom: 1px solid #E5E7EB; padding: 16px 32px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-    .compact-search-bar { display: flex; align-items: center; background: #FFFFFF; border: 1px solid #D1D5DB; border-radius: 100px; padding: 8px 8px 8px 24px; max-width: 600px; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; width: 100%; }
-    .compact-search-bar:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    .search-section { display: flex; flex-direction: column; flex: 1; padding: 0 8px; }
-    .search-label { font-size: 11px; font-weight: 700; color: #4B5563; margin-bottom: 2px; }
-    .search-value { font-size: 13px; color: #111827; font-weight: 500; }
-    .search-divider { width: 1px; height: 32px; background: #E5E7EB; margin: 0 8px; }
-    .search-button-small { background: #FF5400; color: #FFFFFF; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; }
-    
-    .filters-row { display: flex; align-items: center; justify-content: space-between; }
-    .filters-list { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-    .filters-list::-webkit-scrollbar { display: none; }
-    .filter-btn { background: #FFFFFF; border: 1px solid #D1D5DB; border-radius: 20px; padding: 8px 16px; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: all 0.2s; }
-    .filter-btn:hover { border-color: #111827; background: #F9FAFB; }
-    .filter-btn.active { border-color: #111827; background: #F9FAFB; font-weight: 600; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    /* LAYOUT SPLIT */
-    .results-container { display: flex; flex: 1; overflow: hidden; background: #F8F9FA; }
-    .list-section { flex: 1; overflow-y: auto; padding: 24px 32px; scrollbar-width: thin; }
-    .map-section { width: 45%; position: relative; border-left: 1px solid #E5E7EB; background: #E5E7EB; }
-    .map-placeholder { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-    
-    .list-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: #111827; }
-    
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding-bottom: 40px; }
-    
-    /* CARDS */
-    .product-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
-    .product-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #D1D5DB; }
-    .card-media { position: relative; width: 100%; height: 160px; background: #E5E7EB; overflow: hidden; }
-    .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .product-card:hover .card-img { transform: scale(1.05); }
-    
-    .badges-top { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; align-items: flex-start; }
-    .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .badge-white { background: rgba(255, 255, 255, 0.95); color: #111827; }
-    
-    .card-body { padding: 16px; display: flex; flex-direction: column; flex: 1; }
-    .card-title { font-size: 13px; font-weight: 800; color: #111827; text-transform: uppercase; line-height: 1.4; margin-bottom: 4px; }
-    .card-address { font-size: 11px; color: #6B7280; margin-bottom: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    
-    .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
-    .metric { display: flex; flex-direction: column; gap: 2px; }
-    .metric-label { font-size: 10px; color: #6B7280; }
-    .metric-value { font-size: 13px; font-weight: 800; color: #111827; }
-    
-    .price-row { display: flex; align-items: baseline; gap: 4px; margin-top: auto; margin-bottom: 16px; }
-    .price-amount { font-size: 18px; font-weight: 800; color: #111827; }
-    .price-period { font-size: 12px; color: #6B7280; font-weight: 500; }
-    
-    .btn-add { width: 100%; border: 1px solid #10B981; background: #FFFFFF; color: #10B981; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: center; }
-    .btn-add:hover { background: #F0FDF4; }
+    body {
+      background-color: #F1F5F9;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
 
-    /* MAP MARKERS */
-    .map-marker { position: absolute; background: #FF5400; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transform: translate(-50%, -50%); cursor: pointer; transition: transform 0.2s; z-index: 10; }
-    .map-marker::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: #FF5400 transparent transparent; }
-    .map-marker:hover { transform: translate(-50%, -50%) scale(1.1); z-index: 20; }
+    /* ==========================================================================
+       BARRA DE CONTROLE DO PROTÓTIPO (TOP DEMO BAR)
+       ========================================================================== */
+    .demo-bar {
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      z-index: 3000;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid #1E293B;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .demo-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .demo-badge {
+      background: rgba(255, 84, 0, 0.2);
+      color: #FF7A33;
+      border: 1px solid rgba(255, 84, 0, 0.4);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .demo-back-link {
+      color: #CBD5E1;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: #1E293B;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      transition: all 0.2s;
+    }
+    .demo-back-link:hover {
+      color: #FFFFFF;
+      border-color: #64748B;
+    }
+    .demo-switch {
+      display: flex;
+      background: #1E293B;
+      border-radius: 8px;
+      padding: 3px;
+      gap: 4px;
+      border: 1px solid #334155;
+    }
+    .demo-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .demo-btn.active {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+    }
+    .demo-doc-link {
+      text-decoration: none;
+      color: #93C5FD;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    /* ==========================================================================
+       VIEWPORT CONTAINER & MOLDURA MOBILE (390x844 ENCAPSULADA)
+       ========================================================================== */
+    .workspace-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .workspace-stage.is-mobile-stage {
+      padding: 24px 16px 40px;
+      background: radial-gradient(circle at center, #E2E8F0 0%, #CBD5E1 100%);
+    }
+
+    .viewport-container {
+      width: 100%;
+      min-height: calc(100vh - 45px);
+      background: var(--bg-page);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    .viewport-container.mobile-mode {
+      width: 390px;
+      max-width: 390px;
+      height: 844px;
+      min-height: 844px;
+      max-height: 844px;
+      margin: 0 auto;
+      border: 12px solid #0F172A;
+      border-radius: 44px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35), 0 0 0 2px #334155;
+      overflow: hidden;
+      flex: none;
+    }
+
+    .mobile-notch {
+      display: none;
+    }
+    .viewport-container.mobile-mode .mobile-notch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 24px 4px;
+      background: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      color: #111827;
+      flex-shrink: 0;
+    }
+    .notch-pill {
+      width: 96px;
+      height: 22px;
+      background: #0F172A;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+
+    .viewport-scroll-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ==========================================================================
+       HEADER AQUI ADS (FIEL AO ESPELHO DE PRODUÇÃO)
+       ========================================================================== */
+    .site-header {
+      height: 72px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--brand-orange);
+      letter-spacing: -0.03em;
+    }
+    .logo-link span.reg {
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 1px;
+      transform: translateY(-6px);
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 100%;
+    }
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+    .nav-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--brand-orange);
+    }
+    .nav-tab.active svg {
+      color: var(--brand-orange);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .assistant-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    .cart-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      min-width: 17px;
+      height: 17px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 5px;
+      background: #F3F4F6;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .user-avatar {
+      width: 24px;
+      height: 24px;
+      background: #E5E7EB;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .viewport-container.mobile-mode .site-header {
+      height: 56px;
+      padding: 0 14px;
+    }
+    .viewport-container.mobile-mode .header-nav,
+    .viewport-container.mobile-mode .assistant-link,
+    .viewport-container.mobile-mode .user-pill span {
+      display: none;
+    }
+
+    /* ==========================================================================
+       SUB-HEADER: COMPACT SEARCH BAR + FILTROS + SELETOR DE EXIBIÇÃO
+       ========================================================================== */
+    .sub-header-section {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      padding: 18px 40px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .viewport-container.mobile-mode .sub-header-section {
+      padding: 12px 14px;
+      gap: 10px;
+    }
+
+    .compact-search-pill {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 6px 8px 6px 20px;
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.05);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .compact-search-pill:hover {
+      border-color: var(--brand-orange);
+      box-shadow: 0 4px 16px rgba(255, 84, 0, 0.1);
+    }
+    .cs-block {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      padding: 2px 8px;
+    }
+    .cs-block.cs-onde {
+      flex: 1.6;
+    }
+    .cs-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .cs-value-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cs-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cs-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border-color);
+      margin: 0 4px;
+    }
+    .cs-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .filters-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .filters-chips-scroll {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filters-chips-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .filter-pill {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .filter-pill:hover {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+    .filter-pill.active {
+      background: #374151;
+      color: #FFFFFF;
+      border-color: #374151;
+      font-weight: 600;
+    }
+
+    .view-toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .viewport-container.mobile-mode .view-toggle-group {
+      display: none;
+    }
+    .view-icons-box {
+      display: flex;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .view-icon-btn {
+      padding: 6px 10px;
+      border: none;
+      background: #FFFFFF;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .view-icon-btn.active {
+      background: var(--bg-muted);
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       SPLIT WORKSPACE: GRID DE CARDS (ESQUERDA) + MAPA STICKY (DIREITA)
+       ========================================================================== */
+    .results-split-wrapper {
+      display: flex;
+      gap: 24px;
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px 40px 48px;
+      align-items: flex-start;
+    }
+    .viewport-container.mobile-mode .results-split-wrapper {
+      flex-direction: column;
+      padding: 14px 14px 32px;
+    }
+
+    .results-left-col {
+      flex: 1.45;
+      min-width: 0;
+    }
+    .results-context-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .results-count-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .results-location-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand-orange);
+      background: var(--brand-orange-light);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* Grid de 3 colunas fiel ao espelho de produção */
+    .results-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .viewport-container.mobile-mode .results-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* CARD DE PONTO DE MÍDIA */
+    .product-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+    .product-card:hover,
+    .product-card.highlighted {
+      border-color: var(--brand-green);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 144px;
+      background: #E5E7EB;
+      overflow: hidden;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .badges-top {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .badge-group-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .badge-pill {
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    .badge-env {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1F2937;
+    }
+    .badge-digital {
+      background: #4F46E5;
+      color: #FFFFFF;
+    }
+    .badge-impresso {
+      background: #10B981;
+      color: #FFFFFF;
+    }
+    .badge-dist {
+      background: rgba(17, 24, 39, 0.78);
+      color: #FFFFFF;
+    }
+
+    .card-body {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-address {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      padding: 6px 0;
+      border-top: 1px solid #F3F4F6;
+      border-bottom: 1px solid #F3F4F6;
+      margin-bottom: 8px;
+    }
+    .metric-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      display: block;
+    }
+    .metric-value {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .screens-row {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .price-row {
+      margin-top: auto;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .price-amount {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .price-period {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-add-point {
+      flex: 1;
+      border: 1px solid var(--brand-green);
+      background: #FFFFFF;
+      color: var(--brand-green-dark);
+      border-radius: 7px;
+      padding: 7px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-add-point:hover {
+      background: var(--brand-green-light);
+    }
+    .btn-add-point.added {
+      background: var(--brand-green);
+      color: #FFFFFF;
+    }
+    .btn-fav {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    /* BANNER ROXO NO MEIO DO GRID ("Deixa que a gente cuida da arte") */
+    .art-promo-banner {
+      grid-column: 1 / -1;
+      background: linear-gradient(90deg, #DDD6FE 0%, #C4B5FD 100%);
+      border-radius: 14px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 4px 0;
+    }
+    .viewport-container.mobile-mode .art-promo-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px;
+    }
+    .art-promo-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .art-megaphone-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #6D28D9;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .art-promo-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1E1B4B;
+      margin-bottom: 3px;
+    }
+    .art-promo-desc {
+      font-size: 12px;
+      color: #312E81;
+      max-width: 420px;
+      line-height: 1.35;
+    }
+    .art-promo-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+    .art-price-tag {
+      text-align: right;
+      font-size: 11px;
+      color: #312E81;
+    }
+    .art-price-tag strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1E1B4B;
+    }
+    .btn-art-more {
+      background: #1F2937;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* CARD IN-GRID: "Sua campanha no ar em poucos cliques" */
+    .in-grid-info-card {
+      background: #FFFFFF;
+      border: 1px dashed var(--border-strong);
+      border-radius: 14px;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .info-card-illus {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: #EEF2FF;
+      color: #4F46E5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .info-card-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .info-card-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .btn-ver-mais-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .btn-ver-mais {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 48px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    /* ==========================================================================
+       COLUNA DIREITA: MAPA URBANO ESTILO GOOGLE MAPS LIGHT (FIEL À PRODUÇÃO)
+       ========================================================================== */
+    .results-right-map-col {
+      flex: 1;
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .viewport-container.mobile-mode .results-right-map-col {
+      width: 100%;
+      position: relative;
+      top: 0;
+    }
+
+    .map-frame-box {
+      width: 100%;
+      height: 440px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      position: relative;
+      background: #E5E7EB;
+      box-shadow: var(--shadow-sm);
+    }
+    .viewport-container.mobile-mode .map-frame-box {
+      height: 260px;
+    }
+
+    /* Mapa Vetorial Urbano Realista estilo Google Maps Positron */
+    .urban-map-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .map-zoom-controls {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      overflow: hidden;
+      z-index: 20;
+    }
+    .map-zoom-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: #FFFFFF;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .map-zoom-btn:last-child {
+      border-bottom: none;
+    }
+    .map-zoom-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    /* Marcadores Circulares Laranjas de Cluster (Fiel à imagem de produção) */
+    .map-cluster-pin {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 4px 12px rgba(255, 84, 0, 0.45);
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 15;
+    }
+    .map-cluster-pin:hover,
+    .map-cluster-pin.active {
+      transform: translate(-50%, -50%) scale(1.18);
+      background: #111827;
+      z-index: 25;
+    }
+
+    .map-bottom-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-map-continue {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================================
+       SEÇÕES INFERIORES DO ESPELHO DE PRODUÇÃO (AMBIENTES, FAQ E SEO FOOTER)
+       ========================================================================== */
+    .other-envs-section {
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px 40px 48px;
+      border-top: 1px solid var(--border-color);
+    }
+    .viewport-container.mobile-mode .other-envs-section {
+      padding: 20px 14px 32px;
+    }
+    .section-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+    }
+    .envs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .viewport-container.mobile-mode .envs-grid {
+      grid-template-columns: 1fr;
+    }
+    .env-promo-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .env-promo-card:hover {
+      border-color: var(--brand-orange);
+      background: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+    }
+    .env-promo-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .env-promo-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .env-promo-price {
+      margin-top: auto;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .env-promo-price strong {
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    /* FAQ SECTION */
+    .faq-section {
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 40px;
+      border-top: 1px solid var(--border-color);
+    }
+    .viewport-container.mobile-mode .faq-section {
+      grid-template-columns: 1fr;
+      padding: 24px 14px;
+      gap: 20px;
+    }
+    .faq-left h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .faq-left p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .btn-specialist {
+      background: #1F2937;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      border-left: 3px solid var(--border-color);
+      padding: 8px 0 8px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .faq-item.open {
+      border-left-color: var(--brand-orange);
+    }
+    .faq-q {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .faq-a {
+      display: none;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    /* SEO NEIGHBORHOODS FOOTER */
+    .seo-footer {
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 32px 40px 60px;
+      border-top: 1px solid var(--border-color);
+    }
+    .viewport-container.mobile-mode .seo-footer {
+      padding: 20px 14px 40px;
+    }
+    .seo-footer h4 {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .seo-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px 24px;
+    }
+    .viewport-container.mobile-mode .seo-links-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .seo-link {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .seo-link:hover {
+      color: var(--brand-orange);
+    }
   </style>
 </head>
 <body>
 
-  <div style="background: #F1F5F9; border-bottom: 1px solid #E2E8F0; padding: 6px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #64748B; z-index: 2000; position: relative; font-family: sans-serif;">
-    <div style="display: flex; gap: 12px; align-items: center;">
-      <span>Protótipo Interativo - Resultados</span>
-      <a href="index.html" style="color: #64748B; text-decoration: underline;">Voltar à Home</a>
+  <!-- BARRA DE CONTROLE DO PROTÓTIPO -->
+  <div class="demo-bar">
+    <div class="demo-bar-left">
+      <span class="demo-badge">PROTÓTIPO V2 • ARGON</span>
+      <a href="index.html" id="backToPrePageLink" class="demo-back-link">
+        ← Voltar à Pré-Página (Busca Guiada)
+      </a>
     </div>
-    <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2?source=copy_link" target="_blank" style="text-decoration: none; color: #3B82F6; font-weight: 700; background: #DBEAFE; padding: 4px 10px; border-radius: 6px; display: flex; align-items: center; gap: 4px; font-size: 11px;">📘 Ver Documentação</a>
-  </div>
 
-
-  <!-- HEADER -->
-  <header>
-    <a href="index.html" class="logo-text">Aquiads®</a>
-    <div class="header-nav">
-      <div class="nav-tab active">OOH</div>
-      <div class="nav-tab">Digital</div>
-      <div class="nav-tab">TV</div>
-      <div class="nav-tab">Rádio</div>
-    </div>
-    <div class="header-actions">
-      <div class="user-profile">
-        <span>Assistente de anúncios</span>
-        <div class="user-avatar">🤖</div>
-      </div>
-      <div class="user-profile">
-        <span>Olá, FRANKS</span>
-        <div class="user-avatar">F</div>
-      </div>
-    </div>
-  </header>
-
-  <!-- SUB-HEADER (Busca e Filtros) -->
-  <div class="sub-header">
-    <div class="compact-search-bar" onclick="window.location.href='index.html'">
-      <div class="search-section">
-        <div class="search-label">Onde</div>
-        <div class="search-value">São Paulo, SP</div>
-      </div>
-      <div class="search-divider"></div>
-      <div class="search-section">
-        <div class="search-label">Período</div>
-        <div class="search-value">2 semanas</div>
-      </div>
-      <div class="search-divider"></div>
-      <div class="search-section">
-        <div class="search-label">Início</div>
-        <div class="search-value">10/10/2026</div>
-      </div>
-      <button class="search-button-small">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <div class="demo-switch">
+      <button class="demo-btn active" id="btnModeDesktop" onclick="setViewportMode('desktop')">
+        <span>💻</span> Desktop
+      </button>
+      <button class="demo-btn" id="btnModeMobile" onclick="setViewportMode('mobile')">
+        <span>📱</span> Mobile (390×844)
       </button>
     </div>
 
-    <div class="filters-row">
-      <div class="filters-list">
-        <button class="filter-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-          Filtros
-        </button>
-        <button class="filter-btn">elevadores comerciais</button>
-        <button class="filter-btn">pontos de ônibus</button>
-        <button class="filter-btn">shopping</button>
-      </div>
-      
+    <div>
+      <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2" target="_blank" class="demo-doc-link">
+        📘 Ver Diagnóstico no Notion
+      </a>
     </div>
   </div>
 
-  <!-- SPLIT LAYOUT -->
-  <div class="results-container">
-    
-    <!-- LISTA DE CARDS -->
-    <div class="list-section">
-      <h2 class="list-title">Mais de 1.200 pontos encontrados</h2>
-      
-      <div class="cards-grid">
-        
-        <!-- Card 1 -->
-        <div class="product-card">
-          <div class="card-media">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Ponto">
-            <div class="badges-top">
-              <span class="badge badge-white">ponto de ônibus</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">AV OTAVIANO ALVES DE LIMA, 572</div>
-            <div class="card-address">Avenida Otaviano Alves de Lima - 572</div>
-            <div class="metrics-grid">
-              <div class="metric"><span class="metric-label">exibições</span><span class="metric-value">10,25 mil</span></div>
-              <div class="metric"><span class="metric-label">alcance</span><span class="metric-value">2,38 mil</span></div>
-              <div class="metric"><span class="metric-label">frequência</span><span class="metric-value">4</span></div>
-            </div>
-            <div class="price-row">
-              <span class="price-amount">R$ 5.171,40</span>
-              <span class="price-period">/ 2 semanas</span>
-            </div>
-            <div class="btn-add">adicionar ponto</div>
-          </div>
-        </div>
+  <!-- PALCO DO VIEWPORT -->
+  <div class="workspace-stage" id="workspaceStage">
+    <div class="viewport-container" id="viewportContainer">
 
-        <!-- Card 2 -->
-        <div class="product-card">
-          <div class="card-media">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Elevador">
-            <div class="badges-top">
-              <span class="badge badge-white">elevadores residenciais</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">PROGETTO ATÍLIO</div>
-            <div class="card-address">Rua Atílio Piffer - 120, Casa Verde</div>
-            <div class="metrics-grid">
-              <div class="metric"><span class="metric-label">exibições</span><span class="metric-value">9,74 mil</span></div>
-              <div class="metric"><span class="metric-label">alcance</span><span class="metric-value">2,38 mil</span></div>
-              <div class="metric"><span class="metric-label">frequência</span><span class="metric-value">4</span></div>
-            </div>
-            <div class="price-row">
-              <span class="price-amount">R$ 264,96</span>
-              <span class="price-period">/ 2 semanas</span>
-            </div>
-            <div class="btn-add">adicionar ponto</div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="product-card">
-          <div class="card-media">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Comercial">
-            <div class="badges-top">
-              <span class="badge badge-white">elevadores comerciais</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">EDIFÍCIO PAULISTA CORPORATE</div>
-            <div class="card-address">Avenida Paulista - 1842, Bela Vista</div>
-            <div class="metrics-grid">
-              <div class="metric"><span class="metric-label">exibições</span><span class="metric-value">18,50 mil</span></div>
-              <div class="metric"><span class="metric-label">alcance</span><span class="metric-value">5,10 mil</span></div>
-              <div class="metric"><span class="metric-label">frequência</span><span class="metric-value">3</span></div>
-            </div>
-            <div class="price-row">
-              <span class="price-amount">R$ 1.420,00</span>
-              <span class="price-period">/ 2 semanas</span>
-            </div>
-            <div class="btn-add">adicionar ponto</div>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="product-card">
-          <div class="card-media">
-            <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Shopping">
-            <div class="badges-top">
-              <span class="badge badge-white">shopping</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">SHOPPING CIDADE SÃO PAULO</div>
-            <div class="card-address">Av. Paulista - 1230, Bela Vista</div>
-            <div class="metrics-grid">
-              <div class="metric"><span class="metric-label">exibições</span><span class="metric-value">35,00 mil</span></div>
-              <div class="metric"><span class="metric-label">alcance</span><span class="metric-value">12,00 mil</span></div>
-              <div class="metric"><span class="metric-label">frequência</span><span class="metric-value">2</span></div>
-            </div>
-            <div class="price-row">
-              <span class="price-amount">R$ 3.890,00</span>
-              <span class="price-period">/ 2 semanas</span>
-            </div>
-            <div class="btn-add">adicionar ponto</div>
-          </div>
-        </div>
-
+      <div class="mobile-notch">
+        <span>9:41</span>
+        <div class="notch-pill"></div>
+        <span>5G 100%</span>
       </div>
-    </div>
-    
-    <!-- MAPA -->
-    <div class="map-section">
-      <!-- Imagem de mapa focada em SP para ser mais realista -->
-      <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" class="map-placeholder" alt="Mapa">
-      
-      <div class="map-marker" style="top: 35%; left: 45%;">R$ 5.171</div>
-      <div class="map-marker" style="top: 50%; left: 65%;">R$ 264</div>
-      <div class="map-marker" style="top: 60%; left: 35%;">R$ 1.420</div>
-      <div class="map-marker" style="top: 75%; left: 55%;">R$ 3.890</div>
-    </div>
-  </div>
 
+      <div class="viewport-scroll-area">
+
+        <!-- HEADER OFICIAL -->
+        <header class="site-header">
+          <a href="index.html" class="logo-link">
+            Aquiads<span class="reg">®</span>
+          </a>
+
+          <nav class="header-nav">
+            <a class="nav-tab active">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+              OOH
+            </a>
+            <a class="nav-tab">Digital</a>
+            <a class="nav-tab">TV</a>
+            <a class="nav-tab">Rádio</a>
+          </nav>
+
+          <div class="header-actions">
+            <div class="assistant-link">
+              <span>Assistente de anúncios</span>
+              <span>✨</span>
+            </div>
+            <button class="cart-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              <span class="cart-badge" id="resCartBadge">0</span>
+            </button>
+            <div class="user-pill">
+              <div class="user-avatar">F</div>
+              <span>Olá, FRANKS!</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- SUB-HEADER COM PÍLULA DE BUSCA PREENCHIDA E FILTROS -->
+        <section class="sub-header-section">
+          <div class="compact-search-pill" onclick="voltarParaEditarBusca()" title="Clique para alterar endereço, período ou data na Pré-Página">
+            <div class="cs-block cs-onde">
+              <span class="cs-label">Onde</span>
+              <div class="cs-value-row">
+                <span class="cs-value" id="resOndeVal">Av. Paulista, 1000 - São Paulo</span>
+              </div>
+            </div>
+            <div class="cs-divider"></div>
+            <div class="cs-block">
+              <span class="cs-label">Período</span>
+              <span class="cs-value" id="resPeriodoVal">2 semanas</span>
+            </div>
+            <div class="cs-divider"></div>
+            <div class="cs-block">
+              <span class="cs-label">Início</span>
+              <span class="cs-value" id="resInicioVal">26/10/2026</span>
+            </div>
+            <button type="button" class="cs-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </div>
+
+          <div class="filters-toolbar">
+            <div class="filters-chips-scroll">
+              <button class="filter-pill active" onclick="filterResults('todos', this)">Todos</button>
+              <button class="filter-pill" onclick="filterResults('elevadores comerciais', this)">elevadores comerciais</button>
+              <button class="filter-pill" onclick="filterResults('elevadores residenciais', this)">elevadores residenciais</button>
+              <button class="filter-pill" onclick="filterResults('ponto de ônibus', this)">ponto de ônibus</button>
+              <button class="filter-pill" onclick="filterResults('shopping', this)">shopping</button>
+              <button class="filter-pill" onclick="filterResults('academia', this)">academia</button>
+              <button class="filter-pill">Mais filtros</button>
+            </div>
+
+            <div class="view-toggle-group">
+              <span>Exibição:</span>
+              <div class="view-icons-box">
+                <button class="view-icon-btn active">⊞</button>
+                <button class="view-icon-btn">☰</button>
+                <button class="view-icon-btn">🗺️</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LAYOUT SPLIT: LISTA + MAPA -->
+        <div class="results-split-wrapper">
+
+          <!-- COLUNA ESQUERDA: GRID DE CARDS -->
+          <div class="results-left-col">
+            <div class="results-context-header">
+              <h1 class="results-count-title" id="resultsHeadingTitle">Pontos encontrados no entorno</h1>
+            </div>
+
+            <div class="results-cards-grid" id="resultsCardsGrid"></div>
+
+            <div class="btn-ver-mais-row">
+              <button type="button" class="btn-ver-mais" onclick="this.textContent='Todos os pontos carregados ✓'">ver mais</button>
+            </div>
+          </div>
+
+          <!-- COLUNA DIREITA: MAPA INTERATIVO ESTILO PRODUÇÃO -->
+          <aside class="results-right-map-col">
+            <div class="map-frame-box">
+              <div class="map-zoom-controls">
+                <button type="button" class="map-zoom-btn" onclick="zoomMap(1.15)">+</button>
+                <button type="button" class="map-zoom-btn" onclick="zoomMap(1)">−</button>
+              </div>
+
+              <!-- Mapa Urbano Vetorial Light (Fiel ao Google Maps de Produção) -->
+              <svg class="urban-map-svg" id="urbanMapSvg" viewBox="0 0 500 440" preserveAspectRatio="xMidYMid slice">
+                <rect width="500" height="440" fill="#F1F3F4"/>
+                <!-- Quadras e Parques -->
+                <rect x="20" y="20" width="110" height="80" rx="6" fill="#E8EAED"/>
+                <rect x="150" y="20" width="140" height="80" rx="6" fill="#E8EAED"/>
+                <rect x="310" y="20" width="160" height="90" rx="6" fill="#CEEAD6"/>
+                <rect x="20" y="120" width="110" height="120" rx="6" fill="#E8EAED"/>
+                <rect x="150" y="120" width="140" height="120" rx="6" fill="#FFFFFF"/>
+                <rect x="310" y="130" width="160" height="110" rx="6" fill="#E8EAED"/>
+                <rect x="20" y="260" width="180" height="150" rx="6" fill="#E8EAED"/>
+                <rect x="220" y="260" width="130" height="150" rx="6" fill="#E8EAED"/>
+                <rect x="370" y="260" width="110" height="150" rx="6" fill="#CEEAD6"/>
+
+                <!-- Avenidas Principais (Amarelo/Laranja claro Google Maps) -->
+                <path d="M 0 110 L 500 110" stroke="#FDE293" stroke-width="14"/>
+                <path d="M 0 250 L 500 250" stroke="#FFFFFF" stroke-width="10"/>
+                <path d="M 140 0 L 140 440" stroke="#FFFFFF" stroke-width="10"/>
+                <path d="M 300 0 L 240 440" stroke="#FBCFE8" stroke-width="12"/>
+                <path d="M 300 0 L 240 440" stroke="#FDE293" stroke-width="10"/>
+                <path d="M 0 340 L 360 440" stroke="#FCD34D" stroke-width="16"/>
+
+                <!-- Rótulos de Ruas Reais -->
+                <text x="175" y="106" fill="#5F6368" font-size="10" font-weight="600">Av. Paulista</text>
+                <text x="55" y="246" fill="#5F6368" font-size="10" font-weight="600">Av. Brig. Faria Lima</text>
+                <text x="330" y="70" fill="#137333" font-size="10" font-weight="600">Parque Trianon</text>
+                <text x="165" y="180" fill="#5F6368" font-size="10" font-weight="700" id="mapCenterLabel">Região Pesquisada</text>
+
+                <!-- Círculo de Raio do Endereço Pesquisado -->
+                <circle cx="245" cy="185" r="78" fill="rgba(255, 84, 0, 0.08)" stroke="#FF5400" stroke-width="1.5" stroke-dasharray="5,5"/>
+              </svg>
+
+              <!-- Marcadores Laranjas de Cluster (Fiel ao Espelho de Produção) -->
+              <div class="map-cluster-pin" style="top: 32%; left: 34%;" onclick="highlightCardByIndex(0, this)">3</div>
+              <div class="map-cluster-pin" style="top: 44%; left: 50%;" onclick="highlightCardByIndex(1, this)">8</div>
+              <div class="map-cluster-pin" style="top: 38%; left: 66%;" onclick="highlightCardByIndex(2, this)">12</div>
+              <div class="map-cluster-pin" style="top: 56%; left: 42%;" onclick="highlightCardByIndex(3, this)">5</div>
+              <div class="map-cluster-pin" style="top: 64%; left: 62%;" onclick="highlightCardByIndex(4, this)">4</div>
+            </div>
+
+            <div class="map-bottom-actions">
+              <button type="button" class="btn-map-continue">continuar ›</button>
+            </div>
+          </aside>
+
+        </div>
+
+        <!-- SEÇÃO: EXPLORE OUTROS AMBIENTES (ESPELHO DE PRODUÇÃO) -->
+        <section class="other-envs-section">
+          <h2 class="section-heading">Explore outros ambientes</h2>
+          <div class="envs-grid">
+            <div class="env-promo-card" onclick="filterResults('elevadores comerciais')">
+              <span class="env-promo-title">Anuncie em elevadores comerciais</span>
+              <p class="env-promo-desc">Impacte decisores, empresários e profissionais qualificados em prédios comerciais.</p>
+              <span class="env-promo-price">a partir de <strong>R$ 150,00</strong> / 2 semanas</span>
+            </div>
+            <div class="env-promo-card" onclick="filterResults('elevadores residenciais')">
+              <span class="env-promo-title">Anuncie em elevadores residenciais</span>
+              <p class="env-promo-desc">Esteja presente na rotina diária das famílias nos melhores condomínios residenciais.</p>
+              <span class="env-promo-price">a partir de <strong>R$ 120,00</strong> / 2 semanas</span>
+            </div>
+            <div class="env-promo-card" onclick="filterResults('ponto de ônibus')">
+              <span class="env-promo-title">Anuncie em ponto de ônibus</span>
+              <p class="env-promo-desc">Alta visibilidade nas principais avenidas e corredores urbanos de grande fluxo.</p>
+              <span class="env-promo-price">a partir de <strong>R$ 980,00</strong> / 2 semanas</span>
+            </div>
+            <div class="env-promo-card" onclick="filterResults('academia')">
+              <span class="env-promo-title">Anuncie em academias</span>
+              <p class="env-promo-desc">Conecte sua marca com o público focado em saúde, bem-estar e estilo de vida ativo.</p>
+              <span class="env-promo-price">a partir de <strong>R$ 390,00</strong> / 2 semanas</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SEÇÃO DE DÚVIDAS / FAQ (ESPELHO DE PRODUÇÃO) -->
+        <section class="faq-section">
+          <div class="faq-left">
+            <h3>Ficou com alguma dúvida?</h3>
+            <p>Confira as perguntas frequentes</p>
+            <button type="button" class="btn-specialist">fale com um especialista</button>
+          </div>
+          <div class="faq-accordion">
+            <div class="faq-item open" onclick="this.classList.toggle('open')">
+              <div class="faq-q">O que é o Aqui Ads?</div>
+              <div class="faq-a">O Aqui Ads é a plataforma de autosserviço da Eletromidia que permite planejar, contratar e veicular campanhas de mídia OOH (Out of Home) em poucos cliques, escolhendo os pontos exatos no entorno do seu negócio.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+              <div class="faq-q">O que significam as métricas de exibições, alcance e frequência?</div>
+              <div class="faq-a">Exibições indicam o total de vezes que seu anúncio será exibido nas telas; Alcance estima o número de pessoas únicas impactadas; Frequência representa a média de vezes que cada pessoa verá sua campanha.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+              <div class="faq-q">Quais são as opções de criação de arte do meu anúncio?</div>
+              <div class="faq-a">Você pode enviar seu próprio material seguindo as especificações técnicas da tela, usar nossos modelos gratuitos ou contratar nosso time de designers por apenas R$ 250,00.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+              <div class="faq-q">Moradores de prédios com telas da Eletromidia têm algum benefício para anunciar?</div>
+              <div class="faq-a">Sim! Moradores e condôminos contam com condições especiais para divulgar seus negócios no próprio edifício ou na vizinhança imediata.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER DE LINKS ESTRATÉGICOS (ESPELHO DE PRODUÇÃO) -->
+        <footer class="seo-footer">
+          <h4>Anuncie em pontos estratégicos de São Paulo</h4>
+          <div class="seo-links-grid">
+            <a class="seo-link">Anuncie em Centro Histórico</a>
+            <a class="seo-link">Anuncie em Perdizes</a>
+            <a class="seo-link">Anuncie em Jabaquara</a>
+            <a class="seo-link">Anuncie em Tatuapé</a>
+            <a class="seo-link">Anuncie em Itaim Bibi</a>
+            <a class="seo-link">Anuncie em Vila Olímpia</a>
+            <a class="seo-link">Anuncie em Santo Amaro</a>
+            <a class="seo-link">Anuncie em Mooca</a>
+            <a class="seo-link">Anuncie em Jardins</a>
+            <a class="seo-link">Anuncie em Pinheiros</a>
+            <a class="seo-link">Anuncie em Vila Andrade</a>
+            <a class="seo-link">Anuncie em Santana</a>
+            <a class="seo-link">Anuncie em Bela Vista</a>
+            <a class="seo-link">Anuncie em Vila Mariana</a>
+            <a class="seo-link">Anuncie em Morumbi</a>
+            <a class="seo-link">Anuncie em Lapa</a>
+            <a class="seo-link">Anuncie em Santa Cecília</a>
+            <a class="seo-link">Anuncie em Moema</a>
+            <a class="seo-link">Anuncie em Butantã</a>
+            <a class="seo-link">Anuncie em Brooklin</a>
+          </div>
+        </footer>
+
+      </div><!-- /viewport-scroll-area -->
+    </div><!-- /viewport-container -->
+  </div><!-- /workspace-stage -->
+
+  <script>
+    const resultsState = {
+      onde: 'Av. Paulista, 1000 - Bela Vista, São Paulo',
+      periodo: '2 semanas',
+      semanas: 2,
+      inicio: '26/10/2026',
+      mode: 'desktop',
+      filter: 'todos',
+      cartCount: 0,
+      addedIds: []
+    };
+
+    const resultsCatalog = [
+      {
+        id: 'r1',
+        env: 'elevadores comerciais',
+        envIcon: '🏢',
+        format: 'digital',
+        dist: '28 m',
+        title: 'VII AVENIDA 1212',
+        address: 'Avenida Paulista - 1212, Bela Vista - São Paulo',
+        exibs: '14,20 mil',
+        reach: '4,10 mil',
+        freq: '3',
+        screens: 3,
+        weeklyPrice: 132.48,
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r2',
+        env: 'elevadores residenciais',
+        envIcon: '🏠',
+        format: 'digital',
+        dist: '45 m',
+        title: 'ED. SAINT MICHEL',
+        address: 'Alameda Santos - 1180, Cerqueira César - São Paulo',
+        exibs: '10,60 mil',
+        reach: '2,65 mil',
+        freq: '4',
+        screens: 2,
+        weeklyPrice: 132.48,
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r3',
+        env: 'elevadores residenciais',
+        envIcon: '🏠',
+        format: 'digital',
+        dist: '82 m',
+        title: 'EDIFÍCIO OLÍMPIA',
+        address: 'Rua Cardoso de Melo - 1340, Vila Olímpia - São Paulo',
+        exibs: '9,74 mil',
+        reach: '2,38 mil',
+        freq: '4',
+        screens: 2,
+        weeklyPrice: 132.48,
+        img: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r4',
+        env: 'ponto de ônibus',
+        envIcon: '🚌',
+        format: 'digital',
+        dist: '110 m',
+        title: 'AV OTAVIANO ALVES DE LIMA, 572',
+        address: 'Av. Otaviano Alves de Lima - 572, São Paulo',
+        exibs: '24,80 mil',
+        reach: '8,20 mil',
+        freq: '3',
+        screens: 1,
+        weeklyPrice: 2585.70,
+        img: 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r5',
+        env: 'elevadores comerciais',
+        envIcon: '🏢',
+        format: 'digital',
+        dist: '145 m',
+        title: 'EDIFÍCIO PAULISTA CORPORATE',
+        address: 'Avenida Paulista - 1842, Bela Vista - São Paulo',
+        exibs: '18,50 mil',
+        reach: '5,10 mil',
+        freq: '4',
+        screens: 4,
+        weeklyPrice: 710.00,
+        img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r6',
+        env: 'shopping',
+        envIcon: '🛍️',
+        format: 'digital',
+        dist: '190 m',
+        title: 'SHOPPING CIDADE SÃO PAULO',
+        address: 'Av. Paulista - 1230, Bela Vista - São Paulo',
+        exibs: '35,00 mil',
+        reach: '12,00 mil',
+        freq: '3',
+        screens: 6,
+        weeklyPrice: 1945.00,
+        img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r7',
+        env: 'elevadores residenciais',
+        envIcon: '🏠',
+        format: 'digital',
+        dist: '215 m',
+        title: 'LE PREMIER RESIDENCE',
+        address: 'Rua Pamplona - 880, Jardim Paulista - São Paulo',
+        exibs: '8,90 mil',
+        reach: '2,20 mil',
+        freq: '4',
+        screens: 2,
+        weeklyPrice: 132.48,
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r8',
+        env: 'elevadores residenciais',
+        envIcon: '🏠',
+        format: 'digital',
+        dist: '240 m',
+        title: 'PIAZZA NAVONA',
+        address: 'Rua São Carlos do Pinhal - 450, Bela Vista',
+        exibs: '9,10 mil',
+        reach: '2,25 mil',
+        freq: '4',
+        screens: 2,
+        weeklyPrice: 132.48,
+        img: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r9',
+        env: 'academia',
+        envIcon: '🏋️',
+        format: 'digital',
+        dist: '280 m',
+        title: 'BODYTECH PAULISTA',
+        address: 'Rua São Carlos do Pinhal - 266, Bela Vista',
+        exibs: '15,40 mil',
+        reach: '4,80 mil',
+        freq: '3',
+        screens: 4,
+        weeklyPrice: 495.00,
+        img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r10',
+        env: 'elevadores comerciais',
+        envIcon: '🏢',
+        format: 'digital',
+        dist: '310 m',
+        title: 'THE SQUARE OFFICES',
+        address: 'Alameda Joaquim Eugênio de Lima - 680',
+        exibs: '16,20 mil',
+        reach: '4,40 mil',
+        freq: '4',
+        screens: 3,
+        weeklyPrice: 580.00,
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r11',
+        env: 'elevadores residenciais',
+        envIcon: '🏠',
+        format: 'digital',
+        dist: '350 m',
+        title: 'ED. BARONESA DE ARARY',
+        address: 'Av. Paulista - 1745, Cerqueira César',
+        exibs: '11,20 mil',
+        reach: '2,80 mil',
+        freq: '4',
+        screens: 3,
+        weeklyPrice: 162.00,
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+      }
+    ];
+
+    function renderResultsGrid() {
+      const grid = document.getElementById('resultsCardsGrid');
+      if (!grid) return;
+
+      const weeks = resultsState.semanas || 2;
+      const periodSuffix = weeks === 1 ? '/ 1 semana' : `/ ${weeks} semanas`;
+
+      const filtered = resultsState.filter === 'todos'
+        ? resultsCatalog
+        : resultsCatalog.filter(c => c.env === resultsState.filter);
+
+      let html = '';
+
+      filtered.forEach((item, idx) => {
+        const price = (item.weeklyPrice * weeks).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const isAdded = resultsState.addedIds.includes(item.id);
+        const fmtClass = item.format === 'digital' ? 'badge-digital' : 'badge-impresso';
+
+        html += `
+          <article class="product-card" id="res-card-${idx}">
+            <div class="card-media">
+              <img src="${item.img}" class="card-img" alt="${item.title}" loading="lazy">
+              <div class="badges-top">
+                <div class="badge-group-left">
+                  <span class="badge-pill badge-env">${item.envIcon} ${item.env}</span>
+                  <span class="badge-pill ${fmtClass}">🖥️ ${item.format}</span>
+                </div>
+                <span class="badge-pill badge-dist">📍 ${item.dist}</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title" title="${item.title}">${item.title}</h3>
+              <p class="card-address" title="${item.address}">${item.address}</p>
+
+              <div class="metrics-grid">
+                <div>
+                  <span class="metric-label">exibições ▷</span>
+                  <span class="metric-value">${item.exibs}</span>
+                </div>
+                <div>
+                  <span class="metric-label">alcance 👤</span>
+                  <span class="metric-value">${item.reach}</span>
+                </div>
+                <div>
+                  <span class="metric-label">frequência 🔄</span>
+                  <span class="metric-value">${item.freq}</span>
+                </div>
+              </div>
+
+              <div class="screens-row">Telas: ${item.screens}</div>
+
+              <div class="price-row">
+                <span class="price-amount">${price}</span>
+                <span class="price-period">${periodSuffix}</span>
+              </div>
+
+              <div class="card-actions-row">
+                <button type="button" class="btn-add-point ${isAdded ? 'added' : ''}" onclick="toggleResCart('${item.id}')">
+                  ${isAdded ? '✓ ponto adicionado' : '🛒 adicionar ponto'}
+                </button>
+                <button type="button" class="btn-fav" onclick="this.style.color='#EF4444'">♡</button>
+              </div>
+            </div>
+          </article>
+        `;
+
+        // Insere o banner roxo "Deixa que a gente cuida da arte" após o 6º card (fiel à produção)
+        if (idx === 5) {
+          html += `
+            <div class="art-promo-banner">
+              <div class="art-promo-left">
+                <div class="art-megaphone-icon">📢</div>
+                <div>
+                  <div class="art-promo-title">Deixa que a gente cuida da arte</div>
+                  <div class="art-promo-desc">Sem material para anunciar? Nossos designers criam peças animadas focadas em conversão por um custo acessível.</div>
+                </div>
+              </div>
+              <div class="art-promo-right">
+                <div class="art-price-tag">
+                  apenas
+                  <strong>R$ 250,00</strong>
+                </div>
+                <button type="button" class="btn-art-more">saiba mais</button>
+              </div>
+            </div>
+          `;
+        }
+
+        // Insere o card informativo in-grid na posição 10 (fiel à produção)
+        if (idx === 10) {
+          html += `
+            <div class="in-grid-info-card">
+              <div class="info-card-illus">👆</div>
+              <div class="info-card-title">Sua campanha no ar em poucos cliques</div>
+              <p class="info-card-text">Adicione os pontos desejados ao carrinho, envie sua arte ou contrate nossa criação e acompanhe tudo online.</p>
+            </div>
+          `;
+        }
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function filterResults(env, btnEl) {
+      resultsState.filter = env;
+      if (btnEl) {
+        document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      renderResultsGrid();
+    }
+
+    function toggleResCart(id) {
+      const idx = resultsState.addedIds.indexOf(id);
+      if (idx >= 0) resultsState.addedIds.splice(idx, 1);
+      else resultsState.addedIds.push(id);
+
+      const totalCount = resultsState.cartCount + resultsState.addedIds.length;
+      document.getElementById('resCartBadge').textContent = totalCount;
+      renderResultsGrid();
+    }
+
+    function highlightCardByIndex(idx, pinEl) {
+      document.querySelectorAll('.map-cluster-pin').forEach(p => p.classList.remove('active'));
+      if (pinEl) pinEl.classList.add('active');
+
+      document.querySelectorAll('.product-card').forEach(c => c.classList.remove('highlighted'));
+      const card = document.getElementById(`res-card-${idx}`);
+      if (card) {
+        card.classList.add('highlighted');
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function zoomMap(scale) {
+      const svg = document.getElementById('urbanMapSvg');
+      if (svg) svg.style.transform = `scale(${scale})`;
+    }
+
+    function voltarParaEditarBusca() {
+      window.location.href = `index.html?mode=${resultsState.mode}`;
+    }
+
+    function setViewportMode(mode) {
+      resultsState.mode = mode;
+      const stage = document.getElementById('workspaceStage');
+      const container = document.getElementById('viewportContainer');
+      const btnDesk = document.getElementById('btnModeDesktop');
+      const btnMob = document.getElementById('btnModeMobile');
+      const backLink = document.getElementById('backToPrePageLink');
+
+      if (mode === 'mobile') {
+        stage.classList.add('is-mobile-stage');
+        container.classList.add('mobile-mode');
+        btnMob.classList.add('active');
+        btnDesk.classList.remove('active');
+      } else {
+        stage.classList.remove('is-mobile-stage');
+        container.classList.remove('mobile-mode');
+        btnDesk.classList.add('active');
+        btnMob.classList.remove('active');
+      }
+
+      if (backLink) {
+        backLink.href = `index.html?mode=${mode}`;
+      }
+    }
+
+    (function initResults() {
+      // 1. Tenta ler da sessionStorage ou URL
+      try {
+        const saved = sessionStorage.getItem('aquiads_search_state');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.onde) resultsState.onde = parsed.onde;
+          if (parsed.periodo) resultsState.periodo = parsed.periodo;
+          if (parsed.semanas) resultsState.semanas = Number(parsed.semanas);
+          if (parsed.inicio) resultsState.inicio = parsed.inicio;
+          if (parsed.mode) resultsState.mode = parsed.mode;
+          if (parsed.cartCount) resultsState.cartCount = Number(parsed.cartCount);
+        }
+      } catch (e) {}
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('onde')) resultsState.onde = params.get('onde');
+      if (params.get('periodo')) resultsState.periodo = params.get('periodo');
+      if (params.get('semanas')) resultsState.semanas = Number(params.get('semanas'));
+      if (params.get('inicio')) resultsState.inicio = params.get('inicio');
+      if (params.get('mode')) resultsState.mode = params.get('mode');
+      if (params.get('cart')) resultsState.cartCount = Number(params.get('cart'));
+
+      document.getElementById('resOndeVal').textContent = resultsState.onde;
+      document.getElementById('resPeriodoVal').textContent = resultsState.periodo;
+      document.getElementById('resInicioVal').textContent = resultsState.inicio;
+      document.getElementById('resCartBadge').textContent = resultsState.cartCount;
+      document.getElementById('resultsHeadingTitle').textContent = `Mais de 1.200 pontos próximos a ${resultsState.onde}`;
+      document.getElementById('mapCenterLabel').textContent = resultsState.onde.split('-')[0].trim();
+
+      if (resultsState.mode === 'mobile') {
+        setViewportMode('mobile');
+      }
+
+      renderResultsGrid();
+    })();
+  </script>
 </body>
 </html>

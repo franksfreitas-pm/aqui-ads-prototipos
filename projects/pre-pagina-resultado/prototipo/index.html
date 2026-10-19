@@ -3,723 +3,2760 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aquiads - Início</title>
+  <title>Aqui Ads — Pré-Página de Resultados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* RESET & BASE */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-    body { background-color: #FFFFFF; color: #111827; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-    
-    
-    /* DEMO BAR E VIEWPORT */
-    .demo-bar { background: #F1F5F9; border-bottom: 1px solid #E2E8F0; padding: 6px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #64748B; z-index: 2000; position: relative; }
-    .demo-switch { display: flex; background: #E2E8F0; border-radius: 6px; padding: 2px; gap: 2px; }
-    .demo-btn { border: none; background: transparent; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; color: #64748B; transition: all 0.2s; }
-    .demo-btn.active { background: #FFFFFF; color: #0F172A; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
-    
-    .viewport-container { width: 100%; display: flex; flex-direction: column; flex: 1; transition: max-width 0.3s ease, margin 0.3s ease, border-radius 0.3s ease; position: relative; background: #FFFFFF; overflow-y: auto; overflow-x: hidden; }
-    
-    /* Quando ativo, restringe a largura como se fosse um celular real */
-    .viewport-container.mobile-mode { max-width: 400px; margin: 20px auto; border: 12px solid #111827; border-radius: 36px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); height: 800px; flex: none; }
-
-    /* HEADER */
-    header { height: 80px; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F3F4F6; }
-    .logo-text { font-size: 26px; font-weight: 800; color: #FF5400; cursor: pointer; text-decoration: none; }
-    .header-nav { display: flex; gap: 32px; height: 100%; }
-    .nav-tab { display: flex; align-items: center; font-size: 14px; font-weight: 600; color: #6B7280; text-decoration: none; border-bottom: 3px solid transparent; cursor: pointer; }
-    .nav-tab.active { color: #111827; border-bottom-color: #FF5400; }
-    .header-actions { display: flex; align-items: center; gap: 16px; }
-    .user-profile { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #F3F4F6; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .user-avatar { width: 24px; height: 24px; background: #E5E7EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
-    /* HERO SEARCH BAR */
-    .hero-section { padding: 40px 20px 20px; display: flex; justify-content: center; z-index: 100; position: relative; }
-    .search-bar-container { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 100px; padding: 12px 16px 12px 32px; display: flex; align-items: center; box-shadow: 0 4px 16px rgba(0,0,0,0.06); width: 100%; max-width: 800px; position: relative; transition: all 0.3s; }
-    .search-bar-container.active { box-shadow: 0 8px 30px rgba(0,0,0,0.12); transform: scale(1.02); background: #F9FAFB; }
-    .search-block { flex: 1; display: flex; flex-direction: column; cursor: pointer; padding: 4px 16px; border-radius: 40px; border: 1px solid transparent; position: relative; }
-    .search-block:hover { background: #F3F4F6; }
-    .search-block.active { background: #FFFFFF; border: 1px solid #E5E7EB; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    .search-label { font-size: 12px; font-weight: 700; color: #111827; margin-bottom: 2px; }
-    .search-value { font-size: 14px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .search-value.filled { color: #111827; font-weight: 500; }
-    .search-divider { width: 1px; height: 32px; background: #E5E7EB; margin: 0 8px; }
-    .search-btn { background: #FF5400; color: #FFFFFF; border: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; margin-left: 8px; }
-    .search-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(255, 84, 0, 0.3); }
-
-    /* POPOVERS */
-    .popover { display: none; position: absolute; top: calc(100% + 12px); background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 24px; box-shadow: 0 12px 36px rgba(0,0,0,0.1); padding: 24px; z-index: 200; }
-    .popover.active { display: block; animation: slideDown 0.2s ease forwards; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    
-    #popover-onde { left: 0; width: 360px; }
-    .location-option { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; cursor: pointer; transition: background 0.2s; }
-    .location-option:hover { background: #F3F4F6; }
-    .location-icon { width: 40px; height: 40px; background: #F3F4F6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #4B5563; font-size: 20px; }
-    .location-text { display: flex; flex-direction: column; }
-    .location-title { font-weight: 600; color: #111827; font-size: 14px; }
-    .location-subtitle { font-size: 12px; color: #6B7280; }
-
-    #popover-periodo { left: 30%; width: 320px; }
-    .period-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    .period-option { padding: 12px 16px; border: 1px solid #E5E7EB; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; font-weight: 500; font-size: 14px; }
-    .period-option:hover { background: #F9FAFB; border-color: #D1D5DB; }
-    .period-option.selected { border-color: #111827; border-width: 2px; background: #F9FAFB; }
-    .badge-pop { background: #FEF08A; color: #9A3412; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 700; }
-    .badge-cost { background: #D1FAE5; color: #065F46; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 700; }
-
-    #popover-inicio { left: 60%; width: 340px; }
-    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .calendar-title { font-weight: 700; font-size: 15px; }
-    .cal-nav { background: transparent; border: none; cursor: pointer; padding: 4px; color: #6B7280; }
-    .cal-nav:hover { color: #111827; }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
-    .cal-day-name { font-size: 12px; color: #9CA3AF; font-weight: 600; margin-bottom: 8px; }
-    .cal-day { font-size: 14px; padding: 8px 0; border-radius: 50%; cursor: pointer; color: #111827; font-weight: 500; }
-    .cal-day:hover { background: #F3F4F6; }
-    .cal-day.selected { background: #111827; color: #FFFFFF; }
-
-    /* MAIN CONTENT */
-    main { flex: 1; padding: 20px 40px 80px; max-width: 1440px; margin: 0 auto; width: 100%; }
-    
-    .city-section { margin-bottom: 48px; position: relative; }
-    .city-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; cursor: pointer; }
-    .city-title { font-size: 22px; font-weight: 700; color: #111827; transition: color 0.2s; }
-    .city-header:hover .city-title { color: #FF5400; }
-
-    /* CAROUSEL */
-    .carousel-container { position: relative; margin: 0 -16px; padding: 0 16px; }
-    .carousel-track { display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; padding-bottom: 16px; }
-    .carousel-track::-webkit-scrollbar { display: none; }
-    
-    /* FLOATING ARROWS */
-    .arrow-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: #FFFFFF; border: 1px solid #E5E7EB; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.2s; color: #111827; font-weight: 700; font-size: 18px; }
-    .arrow-btn:hover { transform: translateY(-50%) scale(1.05); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
-    .arrow-btn.left { left: 0px; }
-    .arrow-btn.right { right: 0px; }
-
-    /* PRODUCT CARDS (COPIED FROM RESULTADOS) */
-    .product-card { flex: 0 0 280px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
-    .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #D1D5DB; }
-    
-    .card-media { position: relative; width: 100%; height: 156px; background: #E5E7EB; overflow: hidden; }
-    .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .product-card:hover .card-img { transform: scale(1.03); }
-    
-    .badges-top { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .badge-group { display: flex; gap: 6px; }
-    .badge { padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; backdrop-filter: blur(4px); display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-    .badge-white { background: rgba(255, 255, 255, 0.92); color: #1F2937; }
-    .badge-digital { background: #4F46E5; color: #FFFFFF; font-weight: 700; }
-    .badge-impresso { background: #059669; color: #FFFFFF; font-weight: 700; }
-
-    .card-body { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; }
-    .card-title { font-size: 13px; font-weight: 800; color: #111827; text-transform: uppercase; line-height: 1.3; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-address { font-size: 11px; color: #6B7280; margin-bottom: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    
-    .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
-    .metric { display: flex; flex-direction: column; gap: 2px; }
-    .metric-label { font-size: 11px; color: #6B7280; }
-    .metric-value { font-size: 14px; font-weight: 800; color: #111827; }
-    
-    .screens-row { font-size: 11px; color: #6B7280; margin-bottom: 14px; }
-    .price-row { margin-top: auto; margin-bottom: 14px; display: flex; align-items: baseline; gap: 4px; }
-    .price-amount { font-size: 17px; font-weight: 800; color: #111827; }
-    .price-period { font-size: 12px; color: #6B7280; font-weight: 500; }
-    
-    .btn-add { width: 100%; border: 1px solid #10B981; background: #FFFFFF; color: #10B981; border-radius: 8px; padding: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: center; }
-    .btn-add:hover { background: #F0FDF4; }
-
-    /* OVERLAY */
-    #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(2px); z-index: 50; }
-    #overlay.active { display: block; }
-  
-    
-    /* MOBILE STYLES SCOPED TO CONTAINER */
-    .mobile-pill { display: none; }
-    .mobile-sheet { display: none; }
-
-    .viewport-container.mobile-mode header { padding: 0 20px; height: 64px; }
-    .viewport-container.mobile-mode .header-nav, .viewport-container.mobile-mode .header-actions { display: none; }
-    
-    .viewport-container.mobile-mode .hero-section { display: none; }
-    
-    /* Mobile Fake Search Pill */
-    .viewport-container.mobile-mode .mobile-pill {
-      display: flex; align-items: center; gap: 12px; margin: 16px 20px;
-      background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 100px;
-      padding: 12px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); cursor: pointer;
+    /* ==========================================================================
+       DESIGN SYSTEM AQUI ADS — TOKENS & RESET (LIGHT MODE OBRIGATÓRIO)
+       ========================================================================== */
+    :root {
+      --brand-orange: #FF5400;
+      --brand-orange-hover: #E04800;
+      --brand-orange-light: #FFF4EE;
+      --brand-purple: #4F46E5;
+      --brand-green: #10B981;
+      --brand-green-dark: #059669;
+      --brand-green-light: #ECFDF5;
+      --bg-page: #FFFFFF;
+      --bg-subtle: #F8FAFC;
+      --bg-muted: #F1F5F9;
+      --text-primary: #111827;
+      --text-secondary: #4B5563;
+      --text-muted: #6B7280;
+      --text-light: #9CA3AF;
+      --border-color: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.05);
+      --shadow-md: 0 4px 16px rgba(17, 24, 39, 0.08);
+      --shadow-lg: 0 12px 32px rgba(17, 24, 39, 0.12);
+      --shadow-xl: 0 20px 48px rgba(17, 24, 39, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
     }
-    .mobile-pill-icon { color: #FF5400; font-weight: bold; }
-    .mobile-pill-text { display: flex; flex-direction: column; }
-    .mobile-pill-title { font-size: 13px; font-weight: 700; color: #111827; }
-    .mobile-pill-subtitle { font-size: 11px; color: #6B7280; }
 
-    /* Mobile Sheet */
-    .viewport-container.mobile-mode .mobile-sheet {
-      display: flex; flex-direction: column;
-      position: absolute; top: 100%; left: 0; width: 100%; height: 100%;
-      background: #F8F9FA; z-index: 1000; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .viewport-container.mobile-mode .mobile-sheet.open { transform: translateY(-100%); }
-    
-    .mobile-sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: #FFFFFF; border-bottom: 1px solid #E5E7EB; }
-    .sheet-close { width: 32px; height: 32px; background: #F3F4F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; cursor: pointer; }
-    .sheet-title { font-weight: 700; font-size: 15px; }
-    .sheet-clear { font-size: 13px; font-weight: 600; color: #6B7280; text-decoration: underline; cursor: pointer; }
-    
-    .mobile-sheet-content { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 24px; }
-    
-    .sheet-group { background: #FFFFFF; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .sheet-group label { display: block; font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 16px; }
-    
-    .sheet-input-wrapper { display: flex; align-items: center; gap: 8px; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 12px; padding: 8px; }
-    .sheet-input-wrapper input { flex: 1; border: none; background: transparent; outline: none; font-size: 14px; padding: 8px; }
-    .btn-location { background: #FFFFFF; border-radius: 8px; padding: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; }
-    
-    .mob-period-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .mob-chip { border: 1px solid #E5E7EB; border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-    .mob-chip.active { border-color: #111827; border-width: 2px; padding: 7px 15px; background: #F9FAFB; font-weight: 700; }
-    
-    .mob-date-input { width: 100%; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px; font-size: 14px; background: #F9FAFB; outline: none; }
-    
-    .mobile-sheet-footer { padding: 16px 20px; background: #FFFFFF; border-top: 1px solid #E5E7EB; }
-    .btn-buscar-mob { width: 100%; background: #FF5400; color: #FFFFFF; border: none; border-radius: 12px; padding: 14px; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
 
-    .viewport-container.mobile-mode main { padding: 0 0 80px; }
-    .viewport-container.mobile-mode .city-section { margin-bottom: 32px; }
-    .viewport-container.mobile-mode .city-header { padding: 0 20px; }
-    .viewport-container.mobile-mode .city-title { font-size: 18px; }
-    .viewport-container.mobile-mode .carousel-container { padding: 0 20px; margin: 0; }
-    .viewport-container.mobile-mode .arrow-btn { display: none; }
-
-  
-    /* ESTADOS DESABILITADOS (NAVEGAÇÃO GUIADA) */
-    .search-btn:disabled, .btn-buscar-mob:disabled {
-      background: #E5E7EB !important;
-      color: #9CA3AF !important;
-      cursor: not-allowed !important;
-      box-shadow: none !important;
-      transform: none !important;
+    body {
+      background-color: #F1F5F9;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
     }
-    
-    .sheet-group.disabled {
-      opacity: 0.4;
+
+    /* ==========================================================================
+       BARRA DE CONTROLE DO PROTÓTIPO (TOP DEMO BAR)
+       ========================================================================== */
+    .demo-bar {
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      z-index: 3000;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid #1E293B;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .demo-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .demo-badge {
+      background: rgba(255, 84, 0, 0.2);
+      color: #FF7A33;
+      border: 1px solid rgba(255, 84, 0, 0.4);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+    .demo-title {
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+    .demo-bar-center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .demo-switch {
+      display: flex;
+      background: #1E293B;
+      border-radius: 8px;
+      padding: 3px;
+      gap: 4px;
+      border: 1px solid #334155;
+    }
+    .demo-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .demo-btn:hover {
+      color: #FFFFFF;
+    }
+    .demo-btn.active {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .demo-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .demo-doc-link {
+      text-decoration: none;
+      color: #93C5FD;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+    .demo-doc-link:hover {
+      background: rgba(59, 130, 246, 0.25);
+      color: #BFDBFE;
+    }
+
+    /* ==========================================================================
+       VIEWPORT CONTAINER & MOLDURA MOBILE (390x844 ENCAPSULADA)
+       ========================================================================== */
+    .workspace-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      transition: padding 0.3s ease;
+    }
+    .workspace-stage.is-mobile-stage {
+      padding: 24px 16px 40px;
+      background: radial-gradient(circle at center, #E2E8F0 0%, #CBD5E1 100%);
+    }
+
+    .viewport-container {
+      width: 100%;
+      min-height: calc(100vh - 45px);
+      background: var(--bg-page);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s ease;
+    }
+
+    /* LEI DE ENCAPSULAMENTO MOBILE: 390x844 centralizado com moldura de iPhone */
+    .viewport-container.mobile-mode {
+      width: 390px;
+      max-width: 390px;
+      height: 844px;
+      min-height: 844px;
+      max-height: 844px;
+      margin: 0 auto;
+      border: 12px solid #0F172A;
+      border-radius: 44px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35), 0 0 0 2px #334155;
+      overflow: hidden;
+      flex: none;
+    }
+
+    .mobile-notch {
+      display: none;
+    }
+    .viewport-container.mobile-mode .mobile-notch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 24px 4px;
+      background: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      color: #111827;
+      flex-shrink: 0;
+      z-index: 1200;
+    }
+    .notch-pill {
+      width: 96px;
+      height: 22px;
+      background: #0F172A;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+
+    .viewport-scroll-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+
+    /* ==========================================================================
+       HEADER AQUI ADS (FIEL AO ESPELHO DE PRODUÇÃO)
+       ========================================================================== */
+    .site-header {
+      height: 76px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      background: #FFFFFF;
+      flex-shrink: 0;
+      z-index: 500;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--brand-orange);
+      letter-spacing: -0.03em;
+    }
+    .logo-link span.reg {
+      font-size: 14px;
+      font-weight: 700;
+      margin-left: 1px;
+      transform: translateY(-6px);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 100%;
+    }
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0 4px;
+    }
+    .nav-tab:hover {
+      color: var(--text-primary);
+    }
+    .nav-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--brand-orange);
+    }
+    .nav-tab.active svg {
+      color: var(--brand-orange);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .assistant-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .assistant-link:hover {
+      background: var(--bg-subtle);
+    }
+    .assistant-sparkle {
+      color: #6366F1;
+      font-size: 15px;
+    }
+    .cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: background 0.2s;
+    }
+    .cart-btn:hover {
+      background: var(--bg-subtle);
+    }
+    .cart-badge {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #FFFFFF;
+    }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 6px;
+      background: #F3F4F6;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .user-avatar {
+      width: 26px;
+      height: 26px;
+      background: #E5E7EB;
+      color: #374151;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* Ajustes do Header em Modo Mobile */
+    .viewport-container.mobile-mode .site-header {
+      height: 58px;
+      padding: 0 16px;
+    }
+    .viewport-container.mobile-mode .logo-link {
+      font-size: 21px;
+    }
+    .viewport-container.mobile-mode .header-nav {
+      display: none;
+    }
+    .viewport-container.mobile-mode .assistant-link span:first-child {
+      display: none;
+    }
+    .viewport-container.mobile-mode .user-pill span {
+      display: none;
+    }
+    .viewport-container.mobile-mode .user-pill {
+      padding: 4px;
+    }
+
+    /* ==========================================================================
+       JORNADA GUIADA DE BUSCA — BARRA DE BUSCA DESKTOP
+       ========================================================================== */
+    .hero-search-section {
+      padding: 28px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 400;
+      background: #FFFFFF;
+    }
+
+    .search-bar-container {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: 20px;
+      padding: 8px 10px 8px 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 6px 24px rgba(17, 24, 39, 0.07);
+      width: 100%;
+      max-width: 840px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .search-bar-container.active {
+      border-color: #CBD5E1;
+      box-shadow: 0 12px 36px rgba(17, 24, 39, 0.14);
+    }
+
+    .search-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 14px;
+      border: 1.5px solid transparent;
+      position: relative;
+      transition: all 0.2s;
+      min-width: 0;
+    }
+    .search-block.block-onde {
+      flex: 1.55;
+    }
+    .search-block:hover {
+      background: var(--bg-subtle);
+    }
+    .search-block.active {
+      background: #FFFFFF;
+      border-color: var(--brand-orange);
+      box-shadow: 0 4px 14px rgba(255, 84, 0, 0.12);
+    }
+
+    .search-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .search-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .search-input-desk {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .search-input-desk::placeholder {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .search-value {
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 400;
+    }
+    .search-value.filled {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .search-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border-color);
+      margin: 0 6px;
+      flex-shrink: 0;
+    }
+
+    .search-btn-desk {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      margin-left: 8px;
+      box-shadow: 0 4px 12px rgba(255, 84, 0, 0.25);
+    }
+    .search-btn-desk:hover {
+      background: var(--brand-orange-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255, 84, 0, 0.35);
+    }
+
+    /* ==========================================================================
+       POPOVERS DESKTOP (ETAPA 1: ONDE, ETAPA 2: PERÍODO, ETAPA 3: INÍCIO)
+       ========================================================================== */
+    .popover {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: var(--shadow-xl);
+      padding: 14px;
+      z-index: 600;
+    }
+    .popover.active {
+      display: block;
+      animation: popSlideDown 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes popSlideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Popover 1: Localização */
+    #popover-onde {
+      left: 0;
+      width: 400px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    /* Item discreto e elegante de "Usar minha localização atual" */
+    .use-current-location-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #F1F5F9;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    .use-current-location-item:hover {
+      background: var(--bg-subtle);
+    }
+    .loc-subtle-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #F3F4F6;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .loc-subtle-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .suggestion-item:hover {
+      background: var(--bg-subtle);
+    }
+    .suggestion-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #F3F4F6;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .suggestion-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+    .suggestion-main {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .suggestion-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Popover 2: Período */
+    #popover-periodo {
+      left: 34%;
+      width: 300px;
+      padding: 16px;
+    }
+    .popover-header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .period-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .period-option {
+      padding: 11px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: #FFFFFF;
+    }
+    .period-option:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+    .period-option.selected {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange-light);
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+    .period-radio-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .period-option.selected .period-radio-dot {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange);
+      box-shadow: inset 0 0 0 3px #FFFFFF;
+    }
+
+    /* Popover 3: Início */
+    #popover-inicio {
+      right: 0;
+      width: 320px;
+      padding: 18px;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .calendar-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    .cal-nav {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    .cal-nav:hover {
+      background: var(--border-color);
+      color: var(--text-primary);
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .cal-day-name {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 600;
+      padding-bottom: 6px;
+    }
+    .cal-day {
+      font-size: 13px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .cal-day:hover {
+      background: var(--bg-muted);
+    }
+    .cal-day.selected {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       CATEGORY CHIPS ROW (ESPELHO DE PRODUÇÃO)
+       ========================================================================== */
+    .QuickCategoriesRow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 8px 24px 20px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .cat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .cat-chip:hover {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+    .cat-chip.active {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange-light);
+      color: var(--brand-orange);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       MOBILE HERO SEARCH BAR & FULL-HEIGHT GUIDED SHEET (MOBILE-FIRST)
+       ========================================================================== */
+    .mobile-hero-card {
+      display: none;
+    }
+    .viewport-container.mobile-mode .hero-search-section {
+      display: none;
+    }
+    .viewport-container.mobile-mode .QuickCategoriesRow {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 12px 16px;
+      scrollbar-width: none;
+    }
+    .viewport-container.mobile-mode .QuickCategoriesRow::-webkit-scrollbar {
+      display: none;
+    }
+    .viewport-container.mobile-mode .cat-chip {
+      flex-shrink: 0;
+      padding: 7px 12px;
+      font-size: 12px;
+    }
+
+    .viewport-container.mobile-mode .mobile-hero-card {
+      display: flex;
+      flex-direction: column;
+      margin: 12px 16px 4px;
+    }
+    .mob-fake-search-trigger {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 12px 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.06);
+      transition: border-color 0.2s;
+    }
+    .mob-fake-search-trigger:hover {
+      border-color: var(--brand-orange);
+    }
+    .mob-trigger-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mob-trigger-texts {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+    .mob-trigger-main {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mob-trigger-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT — CARROSSÉIS DE CIDADES E CARDS DE PONTOS
+       ========================================================================== */
+    .main-vitrine {
+      flex: 1;
+      padding: 28px 40px 100px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .viewport-container.mobile-mode .main-vitrine {
+      padding: 16px 0 96px;
+    }
+
+    .city-section {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .viewport-container.mobile-mode .city-section {
+      margin-bottom: 28px;
+    }
+
+    .city-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .viewport-container.mobile-mode .city-header-row {
+      padding: 0 16px;
+      margin-bottom: 12px;
+    }
+
+    .city-title-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      text-align: left;
+    }
+    .city-title-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+    .city-title-btn:hover .city-title-text {
+      color: var(--brand-orange);
+    }
+    .viewport-container.mobile-mode .city-title-text {
+      font-size: 17px;
+    }
+
+    .carousel-nav-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .viewport-container.mobile-mode .carousel-nav-group {
+      display: none;
+    }
+    .carousel-arrow-top {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .carousel-arrow-top:hover {
+      border-color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      padding: 4px 2px 12px;
+    }
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+    .viewport-container.mobile-mode .carousel-track {
+      padding: 4px 16px 12px;
+      gap: 14px;
+    }
+
+    /* CARD DE PONTO DE MÍDIA (SEM BADGE DE DISTÂNCIA NA PRÉ-PÁGINA) */
+    .product-card {
+      flex: 0 0 272px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+    .viewport-container.mobile-mode .product-card {
+      flex: 0 0 256px;
+    }
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 156px;
+      background: #E5E7EB;
+      overflow: hidden;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+    .product-card:hover .card-img {
+      transform: scale(1.04);
+    }
+
+    .badges-top {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .badge-group-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .badge-pill {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+      line-height: 1.1;
+    }
+    .badge-env {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1F2937;
+    }
+    .badge-digital {
+      background: #4F46E5;
+      color: #FFFFFF;
+    }
+    .badge-impresso {
+      background: #10B981;
+      color: #FFFFFF;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-address {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+      padding: 8px 0;
+      border-top: 1px solid #F3F4F6;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .metric-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .metric-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .metric-value {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .screens-row {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .price-row {
+      margin-top: auto;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .price-amount {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .price-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-add-point {
+      flex: 1;
+      border: 1.5px solid var(--brand-green);
+      background: #FFFFFF;
+      color: var(--brand-green-dark);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-add-point:hover {
+      background: var(--brand-green-light);
+    }
+    .btn-add-point.added {
+      background: var(--brand-green);
+      color: #FFFFFF;
+    }
+    .btn-fav {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-fav:hover {
+      color: #EF4444;
+      border-color: #FCA5A5;
+    }
+
+    /* ==========================================================================
+       BOTTOM STICKY CART BAR (ESPELHO DE PRODUÇÃO)
+       ========================================================================== */
+    .bottom-cart-bar {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.06);
+      z-index: 450;
+    }
+    .viewport-container.mobile-mode .bottom-cart-bar {
+      padding: 10px 16px;
+    }
+    .cart-summary-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-summary-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .cart-summary-total {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .btn-continue-orange {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-continue-orange:hover {
+      background: var(--brand-orange-hover);
+    }
+
+    /* ==========================================================================
+       MOBILE FULL-SCREEN GUIDED SEARCH SHEET (DENTRO DO CONTAINER 390x844)
+       ========================================================================== */
+    .mobile-sheet-backdrop {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 1500;
+      backdrop-filter: blur(2px);
+    }
+    .mobile-sheet-backdrop.open {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .mobile-sheet {
+      width: 100%;
+      height: 94%;
+      background: #F8FAFC;
+      border-radius: 24px 24px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.25);
+      animation: sheetUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes sheetUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .mobile-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    .sheet-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    .sheet-header-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .sheet-clear-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .mobile-sheet-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sheet-step-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: 18px;
+      padding: 14px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .sheet-step-card.active-step {
+      border-color: var(--brand-orange);
+      box-shadow: 0 6px 20px rgba(255, 84, 0, 0.08);
+    }
+    .sheet-step-card.locked-step {
+      opacity: 0.5;
       pointer-events: none;
-      filter: grayscale(100%);
-      transition: all 0.3s ease;
+      background: #F1F5F9;
     }
 
+    .sheet-step-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .sheet-step-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .sheet-step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sheet-step-card.completed-step .sheet-step-num {
+      background: var(--brand-green);
+    }
+    .sheet-step-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-green-dark);
+    }
+
+    .mob-input-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+    }
+    .mob-input-box:focus-within {
+      border-color: var(--brand-orange);
+      background: #FFFFFF;
+    }
+    .mob-input-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .mob-suggestions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-height: 185px;
+      overflow-y: auto;
+    }
+
+    /* Etapa 2 Mobile — Seleção de Período Limpa, Elegante e Bem Alinhada */
+    .mob-period-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mob-period-btn {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .mob-period-btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+    .mob-period-btn.selected {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange-light);
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+    .mob-period-btn.selected .period-radio-dot {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange);
+      box-shadow: inset 0 0 0 3px #FFFFFF;
+    }
+
+    .mobile-sheet-footer {
+      padding: 12px 16px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .btn-buscar-mob {
+      width: 100%;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 84, 0, 0.25);
+    }
+    .btn-buscar-mob:disabled {
+      background: #E5E7EB;
+      color: #9CA3AF;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* Overlay para fechar popovers no Desktop */
+    #desk-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      z-index: 350;
+    }
+    #desk-overlay.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
 
+  <!-- BARRA DE CONTROLE DO PROTÓTIPO -->
   <div class="demo-bar">
-    <div>Protótipo Interativo</div>
-    <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2?source=copy_link" target="_blank" style="text-decoration: none; color: #3B82F6; font-weight: 700; background: #DBEAFE; padding: 4px 10px; border-radius: 6px; display: flex; align-items: center; gap: 4px; font-size: 11px;">📘 Ver Documentação</a>
-    <div class="demo-switch">
-      <button class="demo-btn active" id="btnModeDesktop" onclick="setMode('desktop')">💻 Desktop</button>
-      <button class="demo-btn" id="btnModeMobile" onclick="setMode('mobile')">📱 Celular</button>
+    <div class="demo-bar-left">
+      <span class="demo-badge">PROTÓTIPO V2 • ARGON</span>
+      <span class="demo-title">Aqui Ads — Pré-Página de Resultados</span>
     </div>
-  </div>
-  <div class="viewport-container" id="viewportContainer">
 
-
-  <!-- Overlay for clicking outside -->
-  <div id="overlay" onclick="closeAll()"></div>
-
-  <!-- Header -->
-  <header>
-    <a href="#" class="logo-text">Aquiads®</a>
-    <div class="header-nav">
-      <div class="nav-tab active">OOH</div>
-      <div class="nav-tab">Digital</div>
-      <div class="nav-tab">TV</div>
-      <div class="nav-tab">Rádio</div>
-    </div>
-    <div class="header-actions">
-      <div class="user-profile">
-        <span>Assistente de anúncios</span>
-        <div class="user-avatar">🤖</div>
-      </div>
-      <div class="user-profile">
-        <span>Olá, FRANKS</span>
-        <div class="user-avatar">F</div>
+    <div class="demo-bar-center">
+      <div class="demo-switch">
+        <button class="demo-btn active" id="btnModeDesktop" onclick="setViewportMode('desktop')">
+          <span>💻</span> Desktop
+        </button>
+        <button class="demo-btn" id="btnModeMobile" onclick="setViewportMode('mobile')">
+          <span>📱</span> Mobile (390×844)
+        </button>
       </div>
     </div>
-  </header>
 
-  
-  <!-- MOBILE FAKE PILL -->
-  <div class="mobile-pill" onclick="openMobileSheet()">
-    <div class="mobile-pill-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-    </div>
-    <div class="mobile-pill-text">
-      <span class="mobile-pill-title">Onde você quer anunciar?</span>
-      <span class="mobile-pill-subtitle">Qualquer lugar • Qualquer período</span>
+    <div class="demo-bar-right">
+      <a href="resultados.html" id="directResultsLink" class="demo-doc-link" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #6EE7B7;">
+        🗺️ Ir para Página de Resultados
+      </a>
+      <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2" target="_blank" class="demo-doc-link">
+        📘 Ver Diagnóstico no Notion
+      </a>
     </div>
   </div>
 
-  <!-- Hero Search -->
-  <div class="hero-section">
-    <div class="search-bar-container" id="searchBar">
-      
-      <!-- ONDE -->
-      <div class="search-block" id="block-onde" onclick="openPopover('onde')">
-        <span class="search-label">Onde</span>
-        <input type="text" class="search-value search-input" id="input-onde" placeholder="Onde você quer anunciar?" onkeyup="handleOndeKey(event)" onclick="event.stopPropagation(); if(!document.getElementById('popover-onde').classList.contains('active')) openPopover('onde');" autocomplete="off" style="border:none; background:transparent; outline:none; font-size:14px; font-weight:500; color:#111827; padding:0; width:100%;" />
-      </div>
-      <div class="search-divider"></div>
-      
-      <!-- PERIODO -->
-      <div class="search-block" id="block-periodo" onclick="openPopover('periodo')">
-        <span class="search-label">Período</span>
-        <span class="search-value" id="val-periodo">Adicione um período</span>
-      </div>
-      <div class="search-divider"></div>
-      
-      <!-- INICIO -->
-      <div class="search-block" id="block-inicio" onclick="openPopover('inicio')">
-        <span class="search-label">Início</span>
-        <span class="search-value" id="val-inicio">Quando começar?</span>
-      </div>
-      
-      <!-- BOTÃO BUSCAR -->
-      <button class="search-btn" disabled onclick="executarBusca()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      </button>
+  <!-- PALCO DO VIEWPORT (ENCAPSULA MOLDURA 390x844 NO MOBILE) -->
+  <div class="workspace-stage" id="workspaceStage">
+    <div class="viewport-container" id="viewportContainer">
 
-      <!-- POPOVERS -->
-      
-      <!-- POPOVER ONDE -->
-      <div class="popover" id="popover-onde">
-        <div class="location-option" onclick="setOnde('Sua localização atual', true)">
-          <div class="location-icon">📍</div>
-          <div class="location-text">
-            <span class="location-title">Usar localização atual</span>
-            <span class="location-subtitle">Busque pontos próximos a você</span>
+      <!-- Barra de Status iOS simulada no modo Mobile -->
+      <div class="mobile-notch">
+        <span>9:41</span>
+        <div class="notch-pill"></div>
+        <span>5G 100%</span>
+      </div>
+
+      <!-- Área de rolagem interna da tela -->
+      <div class="viewport-scroll-area" id="viewportScrollArea">
+
+        <!-- Overlay Desktop para fechar Popovers -->
+        <div id="desk-overlay" onclick="closeAllPopovers()"></div>
+
+        <!-- HEADER OFICIAL AQUI ADS -->
+        <header class="site-header">
+          <a href="index.html" class="logo-link">
+            Aquiads<span class="reg">®</span>
+          </a>
+
+          <nav class="header-nav">
+            <a class="nav-tab active">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+              OOH
+            </a>
+            <a class="nav-tab">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Digital
+            </a>
+            <a class="nav-tab">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+              TV
+            </a>
+            <a class="nav-tab">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+              Rádio
+            </a>
+          </nav>
+
+          <div class="header-actions">
+            <div class="assistant-link">
+              <span>Assistente de anúncios</span>
+              <span class="assistant-sparkle">✨</span>
+            </div>
+            <button class="cart-btn" onclick="irParaResultados()" title="Carrinho">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              <span class="cart-badge" id="headerCartBadge">0</span>
+            </button>
+            <div class="user-pill">
+              <div class="user-avatar">F</div>
+              <span>Olá, FRANKS!</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- ==================================================================
+             BARRA DE BUSCA COMPACTA NO HERO MOBILE (MODO MOBILE 390x844)
+             ================================================================== -->
+        <div class="mobile-hero-card">
+          <div class="mob-fake-search-trigger" onclick="openMobileSheet()">
+            <div class="mob-trigger-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="mob-trigger-texts">
+              <span class="mob-trigger-main" id="mobTriggerTitle">Onde você quer anunciar?</span>
+              <span class="mob-trigger-sub" id="mobTriggerSub">Escolher período • Escolher data</span>
+            </div>
           </div>
         </div>
-        <div style="margin: 12px 0; border-bottom: 1px solid #E5E7EB;"></div>
-        <div style="font-size: 12px; font-weight: 700; color: #9CA3AF; margin-bottom: 12px;">BUSCAS RECENTES</div>
-        <div class="location-option" onclick="setOnde('São Paulo, SP')">
-          <div class="location-icon" style="border-radius: 50%;">🕒</div>
-          <div class="location-text">
-            <span class="location-title">São Paulo, SP</span>
+
+        <!-- ==================================================================
+             HERO SEARCH BAR (MODO DESKTOP)
+             ================================================================== -->
+        <section class="hero-search-section">
+          <div class="search-bar-container" id="searchBar">
+            <!-- ETAPA 1: ONDE -->
+            <div class="search-block block-onde" id="block-onde" onclick="openPopover('onde')">
+              <div class="search-label-row">
+                <span class="search-label">Onde</span>
+              </div>
+              <input
+                type="text"
+                class="search-input-desk"
+                id="input-onde"
+                placeholder="Digite endereço, bairro ou cidade"
+                autocomplete="off"
+                oninput="handleDesktopAddressInput(this.value)"
+                onkeydown="handleDesktopAddressKey(event)"
+                onclick="event.stopPropagation(); openPopover('onde');"
+              />
+            </div>
+
+            <div class="search-divider"></div>
+
+            <!-- ETAPA 2: PERÍODO -->
+            <div class="search-block" id="block-periodo" onclick="openPopover('periodo')">
+              <div class="search-label-row">
+                <span class="search-label">Período</span>
+              </div>
+              <span class="search-value" id="val-periodo">Selecione a duração</span>
+            </div>
+
+            <div class="search-divider"></div>
+
+            <!-- ETAPA 3: INÍCIO -->
+            <div class="search-block" id="block-inicio" onclick="openPopover('inicio')">
+              <div class="search-label-row">
+                <span class="search-label">Início</span>
+              </div>
+              <span class="search-value" id="val-inicio">Quando começar?</span>
+            </div>
+
+            <!-- BOTÃO DE BUSCA -->
+            <button class="search-btn-desk" id="btnSearchDesk" onclick="executarBuscaGuiada()" title="Buscar pontos">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+
+            <!-- ==============================================================
+                 POPOVER 1: ONDE (LOCALIZAÇÃO ATUAL DISCRETA + AUTOCOMPLETE LIMPO)
+                 ============================================================== -->
+            <div class="popover" id="popover-onde" onclick="event.stopPropagation()">
+              <!-- Primeiro item discreto: Usar minha localização atual -->
+              <button type="button" class="use-current-location-item" onclick="useCurrentLocation(false)">
+                <div class="loc-subtle-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                </div>
+                <span class="loc-subtle-text">Usar minha localização atual</span>
+              </button>
+
+              <!-- Lista natural e limpa de sugestões -->
+              <div id="deskSuggestionsContainer"></div>
+            </div>
+
+            <!-- ==============================================================
+                 POPOVER 2: PERÍODO DE VEICULAÇÃO
+                 ============================================================== -->
+            <div class="popover" id="popover-periodo" onclick="event.stopPropagation()">
+              <div class="popover-header-title">Período de veiculação</div>
+              <div class="period-grid">
+                <div class="period-option" data-weeks="1" onclick="selectPeriodo('1 semana', 1, this)">
+                  <span>1 semana</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="2" onclick="selectPeriodo('2 semanas', 2, this)">
+                  <span>2 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="4" onclick="selectPeriodo('4 semanas', 4, this)">
+                  <span>4 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="12" onclick="selectPeriodo('12 semanas', 12, this)">
+                  <span>12 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="24" onclick="selectPeriodo('24 semanas', 24, this)">
+                  <span>24 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==============================================================
+                 POPOVER 3: DATA DE INÍCIO DA CAMPANHA (APENAS CALENDÁRIO LIMPO)
+                 ============================================================== -->
+            <div class="popover" id="popover-inicio" onclick="event.stopPropagation()">
+              <div class="calendar-header">
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(-1)">◀</button>
+                <span class="calendar-title" id="cal-month-year">Outubro 2026</span>
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(1)">▶</button>
+              </div>
+              <div class="cal-grid" id="cal-days"></div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CHIPS DE AMBIENTES (FIEL À PRODUÇÃO) -->
+        <div class="QuickCategoriesRow">
+          <button class="cat-chip active" onclick="filterEnvironment('todos', this)">
+            <span>✨</span> todos os ambientes
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('elevadores comerciais', this)">
+            <span>🏢</span> elevador comercial
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('elevadores residenciais', this)">
+            <span>🏠</span> elevador residencial
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('ponto de ônibus', this)">
+            <span>🚌</span> ponto de ônibus
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('academias', this)">
+            <span>🏋️</span> academias
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('shopping', this)">
+            <span>🛍️</span> shopping
+          </button>
+        </div>
+
+        <!-- VITRINE DE PONTOS POR CIDADE -->
+        <main class="main-vitrine" id="mainVitrine"></main>
+
+        <!-- BARRA INFERIOR FIXA DO CARRINHO -->
+        <div class="bottom-cart-bar">
+          <div class="cart-summary-info">
+            <span class="cart-summary-count" id="cartCountText">Nenhum produto selecionado</span>
+            <span class="cart-summary-total" id="cartTotalText">Total R$ 0,00</span>
+          </div>
+          <button class="btn-continue-orange" onclick="irParaResultados()">
+            <span>continuar</span>
+            <span>›</span>
+          </button>
+        </div>
+
+      </div><!-- /viewport-scroll-area -->
+
+      <!-- ====================================================================
+           MODAL/SHEET GUIADO MOBILE (DENTRO DA MOLDURA 390x844)
+           ==================================================================== -->
+      <div class="mobile-sheet-backdrop" id="mobileSheetBackdrop" onclick="closeMobileSheet()">
+        <div class="mobile-sheet" onclick="event.stopPropagation()">
+          <div class="mobile-sheet-header">
+            <button type="button" class="sheet-close-btn" onclick="closeMobileSheet()">✕</button>
+            <span class="sheet-header-title">Buscar pontos</span>
+            <button type="button" class="sheet-clear-btn" onclick="resetGuidedSearch()">Limpar</button>
+          </div>
+
+          <div class="mobile-sheet-body">
+            <!-- ETAPA 1 MOBILE: ONDE -->
+            <div class="sheet-step-card active-step" id="mobStepCard1">
+              <div class="sheet-step-head">
+                <div class="sheet-step-title">
+                  <span class="sheet-step-num">1</span>
+                  <span>Onde quer anunciar?</span>
+                </div>
+                <span class="sheet-step-status" id="mobStepStatus1"></span>
+              </div>
+
+              <div class="mob-input-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input
+                  type="text"
+                  id="mob-input-onde"
+                  placeholder="Digite endereço, bairro ou cidade"
+                  autocomplete="off"
+                  oninput="handleMobileAddressInput(this.value)"
+                />
+              </div>
+
+              <!-- Primeiro item discreto dentro da etapa Onde no Mobile -->
+              <button type="button" class="use-current-location-item" onclick="useCurrentLocation(true)">
+                <div class="loc-subtle-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                </div>
+                <span class="loc-subtle-text">Usar minha localização atual</span>
+              </button>
+
+              <div class="mob-suggestions-list" id="mobSuggestionsContainer"></div>
+            </div>
+
+            <!-- ETAPA 2 MOBILE: PERÍODO (REFORMULADO, LIMPO E ALINHADO) -->
+            <div class="sheet-step-card locked-step" id="mobStepCard2">
+              <div class="sheet-step-head">
+                <div class="sheet-step-title">
+                  <span class="sheet-step-num">2</span>
+                  <span>Período de veiculação</span>
+                </div>
+                <span class="sheet-step-status" id="mobStepStatus2"></span>
+              </div>
+
+              <div class="mob-period-list">
+                <button type="button" class="mob-period-btn" data-weeks="1" onclick="selectPeriodo('1 semana', 1, this)">
+                  <span>1 semana</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="2" onclick="selectPeriodo('2 semanas', 2, this)">
+                  <span>2 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="4" onclick="selectPeriodo('4 semanas', 4, this)">
+                  <span>4 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="12" onclick="selectPeriodo('12 semanas', 12, this)">
+                  <span>12 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="24" onclick="selectPeriodo('24 semanas', 24, this)">
+                  <span>24 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ETAPA 3 MOBILE: DATA DE INÍCIO (APENAS CALENDÁRIO LIMPO, SEM SUGESTÕES) -->
+            <div class="sheet-step-card locked-step" id="mobStepCard3">
+              <div class="sheet-step-head">
+                <div class="sheet-step-title">
+                  <span class="sheet-step-num">3</span>
+                  <span>Data de início</span>
+                </div>
+                <span class="sheet-step-status" id="mobStepStatus3"></span>
+              </div>
+
+              <div class="calendar-header" style="margin-top: 4px;">
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(-1)">◀</button>
+                <span class="calendar-title" id="mob-cal-month-year">Outubro 2026</span>
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(1)">▶</button>
+              </div>
+              <div class="cal-grid" id="mob-cal-days"></div>
+            </div>
+          </div>
+
+          <div class="mobile-sheet-footer">
+            <button type="button" class="btn-buscar-mob" id="btnSearchMob" disabled onclick="executarBuscaGuiada()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span id="btnSearchMobText">Buscar pontos</span>
+            </button>
           </div>
         </div>
-        <div class="location-option" onclick="setOnde('Rio de Janeiro, RJ')">
-          <div class="location-icon" style="border-radius: 50%;">🕒</div>
-          <div class="location-text">
-            <span class="location-title">Rio de Janeiro, RJ</span>
-          </div>
-        </div>
       </div>
 
-      <!-- POPOVER PERIODO -->
-      <div class="popover" id="popover-periodo">
-        <div class="period-grid">
-          <div class="period-option" onclick="setPeriodo('1 semana', 1)">1 semana</div>
-          <div class="period-option" onclick="setPeriodo('2 semanas', 2)">2 semanas</div>
-          <div class="period-option" onclick="setPeriodo('4 semanas', 4)">
-            4 semanas <span class="badge-pop">Mais popular</span>
-          </div>
-          <div class="period-option" onclick="setPeriodo('12 semanas', 12)">12 semanas</div>
-          <div class="period-option" onclick="setPeriodo('24 semanas', 24)">
-            24 semanas <span class="badge-cost">Melhor custo</span>
-          </div>
-        </div>
-      </div>
+    </div><!-- /viewport-container -->
+  </div><!-- /workspace-stage -->
 
-      <!-- POPOVER INICIO -->
-      <div class="popover" id="popover-inicio">
-        <div class="calendar-header">
-          <button class="cal-nav" onclick="event.stopPropagation(); prevMonth()">◀</button>
-          <span class="calendar-title" id="cal-month-year">Novembro 2026</span>
-          <button class="cal-nav" onclick="event.stopPropagation(); nextMonth()">▶</button>
-        </div>
-        <div class="cal-grid" id="cal-days">
-          <!-- Calendar injected here -->
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- MAIN -->
-  <main id="main-content">
-    <!-- Cities injected here -->
-  </main>
-  <!-- MOBILE SEARCH SHEET -->
-  <div class="mobile-sheet" id="mobileSheet">
-    <div class="mobile-sheet-header">
-      <div class="sheet-close" onclick="closeMobileSheet()">✕</div>
-      <div class="sheet-title">Buscar pontos</div>
-      <div class="sheet-clear" onclick="limparBusca()">Limpar</div>
-    </div>
-    
-    <div class="mobile-sheet-content">
-      <!-- ONDE -->
-      <div class="sheet-group">
-        <label>Onde</label>
-        <div class="sheet-input-wrapper">
-          <input type="text" id="mob-onde" placeholder="Sua localização atual, cidade ou endereço" oninput="syncMobile('onde', this.value)">
-          <div class="btn-location" onclick="setOnde('Minha localização atual')">📍</div>
-        </div>
-      </div>
-
-      <!-- PERÍODO -->
-      <div class="sheet-group disabled" id="mob-group-periodo">
-        <label>Período</label>
-        <div class="mob-period-chips">
-          <div class="mob-chip" onclick="setPeriodo('1 semana', 1); selectMobChip(this)">1 semana</div>
-          <div class="mob-chip" onclick="setPeriodo('2 semanas', 2); selectMobChip(this)">2 semanas</div>
-          <div class="mob-chip" onclick="setPeriodo('4 semanas', 4); selectMobChip(this)">4 semanas</div>
-          <div class="mob-chip" onclick="setPeriodo('12 semanas', 12); selectMobChip(this)">12 semanas</div>
-          <div class="mob-chip" onclick="setPeriodo('24 semanas', 24); selectMobChip(this)">24 semanas</div>
-        </div>
-      </div>
-
-      <!-- INÍCIO -->
-      <div class="sheet-group disabled" id="mob-group-inicio">
-        <label>Quando começar?</label>
-        <input type="date" id="mob-inicio" class="mob-date-input" onchange="syncMobile('inicio', this.value)">
-      </div>
-    </div>
-    
-    <div class="mobile-sheet-footer">
-      <button class="btn-buscar-mob" disabled onclick="executarBusca()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        Buscar
-      </button>
-    </div>
-  </div>
-
-
-  
   <script>
-    // ESTADO DA BUSCA
-    const searchState = { onde: '', periodoStr: '', periodoSemanas: 0, inicio: '' };
-    const isMobileMode = () => document.getElementById('viewportContainer').classList.contains('mobile-mode');
+    /* ==========================================================================
+       ESTADO GLOBAL E CATÁLOGO DE ENDEREÇOS E PONTOS
+       ========================================================================== */
+    const searchState = {
+      onde: '',
+      periodoStr: '',
+      periodoSemanas: 2,
+      periodoSelecionado: false,
+      inicio: '',
+      ambienteFiltro: 'todos',
+      mode: 'desktop'
+    };
 
-    
-    function validateGuidedNav() {
-      const isOndeValid = searchState.onde && searchState.onde.trim() !== '';
-      const isPeriodoValid = searchState.periodoSemanas > 0;
-      const isInicioValid = searchState.inicio && searchState.inicio.trim() !== '';
+    const cartState = {
+      items: []
+    };
 
-      const btnDesk = document.querySelector('.search-btn');
-      if (btnDesk) {
-        if (isOndeValid && isPeriodoValid && isInicioValid) btnDesk.removeAttribute('disabled');
-        else btnDesk.setAttribute('disabled', 'true');
+    // Lista limpa e natural de sugestões de endereço (sem rótulos internos)
+    const addressDatabase = [
+      {
+        main: 'Av. Paulista, 1000',
+        sub: 'Bela Vista, São Paulo - SP',
+        full: 'Av. Paulista, 1000 - Bela Vista, São Paulo'
+      },
+      {
+        main: 'Rua Augusta, 1200',
+        sub: 'Consolação, São Paulo - SP',
+        full: 'Rua Augusta, 1200 - Consolação, São Paulo'
+      },
+      {
+        main: 'Av. Brigadeiro Faria Lima, 2232',
+        sub: 'Pinheiros, São Paulo - SP',
+        full: 'Av. Brigadeiro Faria Lima, 2232 - Pinheiros, São Paulo'
+      },
+      {
+        main: 'Av. Otaviano Alves de Lima, 572',
+        sub: 'Freguesia do Ó, São Paulo - SP',
+        full: 'Av. Otaviano Alves de Lima, 572 - São Paulo'
+      },
+      {
+        main: 'Av. das Américas, 4666',
+        sub: 'Barra da Tijuca, Rio de Janeiro - RJ',
+        full: 'Av. das Américas, 4666 - Barra da Tijuca, Rio de Janeiro'
+      },
+      {
+        main: 'Pinheiros',
+        sub: 'São Paulo - SP',
+        full: 'Pinheiros, São Paulo - SP'
+      },
+      {
+        main: 'Vila Mariana',
+        sub: 'São Paulo - SP',
+        full: 'Vila Mariana, São Paulo - SP'
+      },
+      {
+        main: 'Moema',
+        sub: 'São Paulo - SP',
+        full: 'Moema, São Paulo - SP'
+      },
+      {
+        main: 'Barra da Tijuca',
+        sub: 'Rio de Janeiro - RJ',
+        full: 'Barra da Tijuca, Rio de Janeiro - RJ'
+      },
+      {
+        main: 'Shopping Parque da Cidade',
+        sub: 'Av. das Nações Unidas, 14401 - São Paulo, SP',
+        full: 'Shopping Parque da Cidade - Av. das Nações Unidas, 14401'
       }
+    ];
 
-      const btnMob = document.querySelector('.btn-buscar-mob');
-      if (btnMob) {
-        if (isOndeValid && isPeriodoValid && isInicioValid) btnMob.removeAttribute('disabled');
-        else btnMob.setAttribute('disabled', 'true');
+    // Catálogo de pontos para as 5 capitais do Espelho de Produção
+    const citiesCatalog = [
+      {
+        city: 'São Paulo',
+        headerLabel: 'Pontos em São Paulo',
+        items: [
+          {
+            id: 'sp-1',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'digital',
+            title: 'AV OTAVIANO ALVES DE LIMA, 572',
+            address: 'Avenida Otaviano Alves de Lima - 572, Freguesia do Ó',
+            exibs: '10,25 mil',
+            reach: '2,38 mil',
+            freq: '4',
+            screens: 1,
+            weeklyPrice: 2585.70,
+            img: 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-2',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'impresso',
+            title: 'AV OTAVIANO ALVES DE LIMA - CA...',
+            address: 'Av. Otaviano Alves de Lima - 572, Casa Verde',
+            exibs: '14,50 mil',
+            reach: '2,38 mil',
+            freq: '4',
+            screens: 1,
+            weeklyPrice: 986.70,
+            img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-3',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'PROGETTO ATÍLIO',
+            address: 'Rua Atílio Piffer - 120, Casa Verde - São Paulo',
+            exibs: '9,74 mil',
+            reach: '2,38 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 132.48,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-4',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'EDIFÍCIO PAULISTA CORPORATE',
+            address: 'Avenida Paulista - 1842, Bela Vista - São Paulo',
+            exibs: '18,50 mil',
+            reach: '5,10 mil',
+            freq: '4',
+            screens: 4,
+            weeklyPrice: 710.00,
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-5',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'SHOPPING CIDADE SÃO PAULO',
+            address: 'Av. Paulista - 1230, Bela Vista - São Paulo',
+            exibs: '35,00 mil',
+            reach: '12,40 mil',
+            freq: '3',
+            screens: 6,
+            weeklyPrice: 1945.00,
+            img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+          }
+        ]
+      },
+      {
+        city: 'Rio de Janeiro',
+        headerLabel: 'Pontos no Rio de Janeiro',
+        items: [
+          {
+            id: 'rj-1',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'digital',
+            title: 'AV NOSSA SENHORA DE COPACABANA, 680',
+            address: 'Av. Nossa Sra. de Copacabana - 680, Copacabana',
+            exibs: '22,40 mil',
+            reach: '8,10 mil',
+            freq: '3',
+            screens: 1,
+            weeklyPrice: 1890.00,
+            img: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-2',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'CEO BARRA CORPORATE',
+            address: 'Av. das Américas - 3434, Barra da Tijuca',
+            exibs: '16,80 mil',
+            reach: '4,90 mil',
+            freq: '3',
+            screens: 5,
+            weeklyPrice: 820.00,
+            img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-3',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'BARRASHOPPING TOTEM CENTRAL',
+            address: 'Av. das Américas - 4666, Barra da Tijuca',
+            exibs: '48,20 mil',
+            reach: '19,30 mil',
+            freq: '2',
+            screens: 8,
+            weeklyPrice: 2450.00,
+            img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-4',
+            env: 'academias',
+            envIcon: '🏋️',
+            format: 'digital',
+            title: 'BODYTECH LEBLON',
+            address: 'Rua Humberto de Campos - 900, Leblon',
+            exibs: '11,20 mil',
+            reach: '3,40 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 640.00,
+            img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+          }
+        ]
+      },
+      {
+        city: 'Curitiba',
+        headerLabel: 'Pontos em Curitiba',
+        items: [
+          {
+            id: 'ct-1',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'WORLD BUSINESS BATEL',
+            address: 'Av. do Batel - 1868, Batel - Curitiba',
+            exibs: '12,10 mil',
+            reach: '3,80 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 540.00,
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-2',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'digital',
+            title: 'ESTAÇÃO TUBO PRAÇA DO JAPÃO',
+            address: 'Av. Sete de Setembro - 4920, Batel',
+            exibs: '19,40 mil',
+            reach: '7,20 mil',
+            freq: '3',
+            screens: 2,
+            weeklyPrice: 1350.00,
+            img: 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-3',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'RESIDENCIAL ECOVILLE PARK',
+            address: 'Rua Prof. Pedro Viriato Parigot de Souza - 1400',
+            exibs: '8,40 mil',
+            reach: '2,10 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 165.00,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-4',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'PÁTIO BATEL MÍDIA DIGITAL',
+            address: 'Av. do Batel - 1868, Batel - Curitiba',
+            exibs: '29,00 mil',
+            reach: '10,50 mil',
+            freq: '3',
+            screens: 6,
+            weeklyPrice: 1780.00,
+            img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+          }
+        ]
+      },
+      {
+        city: 'Porto Alegre',
+        headerLabel: 'Pontos em Porto Alegre',
+        items: [
+          {
+            id: 'poa-1',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'CARLOS GOMES CENTER',
+            address: 'Av. Sen. Tarso Dutra - 565, Petrópolis',
+            exibs: '14,20 mil',
+            reach: '4,10 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 590.00,
+            img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'poa-2',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'MOINHOS DE VENTO PRIVILEGE',
+            address: 'Rua Padre Chagas - 320, Moinhos de Vento',
+            exibs: '7,90 mil',
+            reach: '1,95 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 148.00,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'poa-3',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'IGUATEMI PORTO ALEGRE',
+            address: 'Av. João Wallig - 1800, Passo d\'Areia',
+            exibs: '38,50 mil',
+            reach: '14,20 mil',
+            freq: '3',
+            screens: 8,
+            weeklyPrice: 1920.00,
+            img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80'
+          }
+        ]
+      },
+      {
+        city: 'Brasília',
+        headerLabel: 'Pontos em Brasília',
+        items: [
+          {
+            id: 'bsb-1',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'BRASÍLIA SHOPPING TOWERS',
+            address: 'SCN Quadra 05 Bloco A - Asa Norte',
+            exibs: '17,60 mil',
+            reach: '5,40 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 740.00,
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'bsb-2',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'RESIDENCIAL SUDOESTE PREMIUM',
+            address: 'SQSW 303 Bloco B - Setor Sudoeste',
+            exibs: '9,10 mil',
+            reach: '2,30 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 158.00,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'bsb-3',
+            env: 'academias',
+            envIcon: '🏋️',
+            format: 'digital',
+            title: 'BODYTECH LAGO SUL',
+            address: 'SHIS QI 05 Bloco F - Lago Sul, Brasília',
+            exibs: '11,80 mil',
+            reach: '3,60 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 680.00,
+            img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+          }
+        ]
       }
+    ];
 
-      const grpPeriodo = document.getElementById('mob-group-periodo');
-      if (grpPeriodo) {
-        if (isOndeValid) grpPeriodo.classList.remove('disabled');
-        else grpPeriodo.classList.add('disabled');
-      }
-      
-      const grpInicio = document.getElementById('mob-group-inicio');
-      if (grpInicio) {
-        if (isOndeValid && isPeriodoValid) grpInicio.classList.remove('disabled');
-        else grpInicio.classList.add('disabled');
-      }
-    }
+    /* ==========================================================================
+       RENDERIZAÇÃO DE SUGESTÕES DE ENDEREÇO (NATURAL E LIMPA)
+       ========================================================================== */
+    function renderAddressSuggestions(query = '') {
+      const q = query.trim().toLowerCase();
+      let filtered = addressDatabase;
 
-    // DESKTOP POPOVERS
-    function closeAll() {
-      document.querySelectorAll('.popover').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.search-block').forEach(b => b.classList.remove('active'));
-      document.getElementById('searchBar').classList.remove('active');
-      document.getElementById('overlay').classList.remove('active');
-    }
-
-    function openPopover(step) {
-      if (isMobileMode()) return;
-      closeAll();
-      document.getElementById('searchBar').classList.add('active');
-      document.getElementById('overlay').classList.add('active');
-      document.getElementById('block-' + step).classList.add('active');
-      document.getElementById('popover-' + step).classList.add('active');
-      
-      if (step === 'inicio') {
-        renderCalendar();
-      }
-    }
-
-    function handleOndeKey(e) {
-      const val = e.target.value;
-      searchState.onde = val;
-      validateGuidedNav();
-      if(e.key === 'Enter' && val.trim() !== '') {
-        setTimeout(() => openPopover('periodo'), 150);
-      }
-    }
-
-    function setOnde(val) {
-      searchState.onde = val;
-      // desktop
-      const deskEl = document.getElementById('input-onde');
-      if (deskEl) deskEl.value = val;
-      // mobile
-      const mobEl = document.getElementById('mob-onde');
-      if (mobEl) mobEl.value = val;
-      
-      // Update fake pill text so it looks synced
-      const pillTitle = document.querySelector('.mobile-pill-title');
-      if (pillTitle) pillTitle.textContent = val;
-
-      validateGuidedNav();
-      if (!isMobileMode()) {
-        setTimeout(() => openPopover('periodo'), 150);
-      } else {
-        const sheet = document.getElementById('mobileSheet');
-        if (sheet && !sheet.classList.contains('open')) {
-          setTimeout(() => openMobileSheet(), 150);
+      if (q.length > 0) {
+        filtered = addressDatabase.filter(item =>
+          item.main.toLowerCase().includes(q) ||
+          item.sub.toLowerCase().includes(q)
+        );
+        const hasNumber = /\d/.test(q);
+        if (!hasNumber && q.length >= 3) {
+          const prettyQuery = query.trim().replace(/\b\w/g, l => l.toUpperCase());
+          filtered = [
+            {
+              main: `${prettyQuery}, 1000`,
+              sub: 'São Paulo - SP',
+              full: `${prettyQuery}, 1000 - São Paulo, SP`
+            },
+            {
+              main: `${prettyQuery}, 500`,
+              sub: 'São Paulo - SP',
+              full: `${prettyQuery}, 500 - São Paulo, SP`
+            },
+            ...filtered
+          ];
         }
       }
+
+      const htmlList = filtered.map(item => buildSuggestionRowHTML(item)).join('');
+
+      const deskContainer = document.getElementById('deskSuggestionsContainer');
+      if (deskContainer) deskContainer.innerHTML = htmlList;
+
+      const mobContainer = document.getElementById('mobSuggestionsContainer');
+      if (mobContainer) {
+        mobContainer.innerHTML = filtered.slice(0, 6).map(item => buildSuggestionRowHTML(item)).join('');
+      }
     }
 
-    function setPeriodo(str, num, el = null) {
-      searchState.periodoStr = str;
-      searchState.periodoSemanas = num;
-      
-      // desktop
-      const deskEl = document.getElementById('val-periodo');
-      if (deskEl) {
-        deskEl.textContent = str;
-        deskEl.classList.add('filled');
+    function buildSuggestionRowHTML(item) {
+      const safeFull = item.full.replace(/'/g, "\\'");
+      return `
+        <div class="suggestion-item" onclick="selectAddress('${safeFull}')">
+          <div class="suggestion-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="suggestion-info">
+            <span class="suggestion-main">${item.main}</span>
+            <span class="suggestion-sub">${item.sub}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ==========================================================================
+       CONTROLE DA JORNADA GUIADA (3 ETAPAS SEQUENCIAIS)
+       ========================================================================== */
+    function handleDesktopAddressInput(val) {
+      searchState.onde = val;
+      renderAddressSuggestions(val);
+      updateGuidedProgressUI();
+    }
+
+    function handleDesktopAddressKey(e) {
+      if (e.key === 'Enter' && searchState.onde.trim() !== '') {
+        e.preventDefault();
+        openPopover('periodo');
       }
-      
-      if (!isMobileMode()) {
-        document.querySelectorAll('.period-option').forEach(opt => opt.classList.remove('selected'));
-        if (el) el.classList.add('selected');
-        else if (event && event.currentTarget) event.currentTarget.classList.add('selected');
-        
-        renderCarousels();
-        setTimeout(() => openPopover('inicio'), 150);
+    }
+
+    function handleMobileAddressInput(val) {
+      searchState.onde = val;
+      const deskIn = document.getElementById('input-onde');
+      if (deskIn) deskIn.value = val;
+      renderAddressSuggestions(val);
+      updateGuidedProgressUI();
+    }
+
+    function useCurrentLocation(fromMobile) {
+      const locString = 'Av. Brig. Faria Lima, 3477 - Itaim Bibi, São Paulo';
+      selectAddress(locString, fromMobile);
+    }
+
+    function selectAddress(addressStr, forceOpenMobile = false) {
+      searchState.onde = addressStr;
+
+      const deskInput = document.getElementById('input-onde');
+      if (deskInput) deskInput.value = addressStr;
+
+      const mobInput = document.getElementById('mob-input-onde');
+      if (mobInput) mobInput.value = addressStr;
+
+      updateGuidedProgressUI();
+
+      if (searchState.mode === 'mobile' || forceOpenMobile) {
+        const backdrop = document.getElementById('mobileSheetBackdrop');
+        if (!backdrop.classList.contains('open')) {
+          openMobileSheet();
+        }
+        document.getElementById('mobStepCard1').classList.remove('active-step');
+        document.getElementById('mobStepCard2').classList.add('active-step');
       } else {
-        document.querySelectorAll('.mob-chip').forEach(opt => opt.classList.remove('active'));
-        if (el) el.classList.add('active');
-        else if (event && event.currentTarget) event.currentTarget.classList.add('active');
-        
-        renderCarousels();
-      }
-      validateGuidedNav();
-      
-      if (isMobileMode()) {
-        setTimeout(() => {
-          const mobIni = document.getElementById('mob-inicio');
-          if (mobIni && typeof mobIni.showPicker === 'function') {
-            try { mobIni.showPicker(); } catch(e) { mobIni.focus(); }
-          } else if (mobIni) {
-            mobIni.focus();
-          }
-        }, 100);
+        setTimeout(() => openPopover('periodo'), 120);
       }
     }
 
-    // CALENDÁRIO DESKTOP
-    let currentDate = new Date(2026, 10, 1);
-    let selectedDate = null;
-    const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-    
-    function renderCalendar() {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-      document.getElementById('cal-month-year').textContent = months[month] + ' ' + year;
-      
-      const grid = document.getElementById('cal-days');
-      grid.innerHTML = '';
-      
-      ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].forEach(day => {
-        grid.innerHTML += `<div class="cal-day-name">${day}</div>`;
+    function selectPeriodo(label, weeks, el) {
+      searchState.periodoStr = label;
+      searchState.periodoSemanas = weeks;
+      searchState.periodoSelecionado = true;
+
+      const valPeriodo = document.getElementById('val-periodo');
+      if (valPeriodo) {
+        valPeriodo.textContent = label;
+        valPeriodo.classList.add('filled');
+      }
+
+      document.querySelectorAll('.period-option, .mob-period-btn').forEach(btn => {
+        if (Number(btn.dataset.weeks) === weeks) btn.classList.add('selected');
+        else btn.classList.remove('selected');
       });
-      
+
+      renderVitrine();
+      updateCartBarUI();
+      updateGuidedProgressUI();
+
+      if (searchState.mode === 'mobile') {
+        document.getElementById('mobStepCard2').classList.remove('active-step');
+        document.getElementById('mobStepCard3').classList.add('active-step');
+        renderCalendars();
+      } else {
+        setTimeout(() => openPopover('inicio'), 140);
+      }
+    }
+
+    // Calendário Limpo (Desktop e Mobile)
+    let calCurrentDate = new Date(2026, 9, 1); // Outubro 2026
+    let calSelectedDate = null;
+    const monthNames = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+
+    function renderSingleCalendar(titleId, gridId) {
+      const year = calCurrentDate.getFullYear();
+      const month = calCurrentDate.getMonth();
+      const titleEl = document.getElementById(titleId);
+      if (titleEl) titleEl.textContent = `${monthNames[month]} ${year}`;
+
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].forEach(d => {
+        grid.innerHTML += `<div class="cal-day-name">${d}</div>`;
+      });
+
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
-      
+
       for (let i = 0; i < firstDay; i++) {
         grid.innerHTML += `<div></div>`;
       }
-      
+
       for (let d = 1; d <= daysInMonth; d++) {
-        const isSelected = selectedDate && selectedDate.getDate() === d && selectedDate.getMonth() === month && selectedDate.getFullYear() === year;
-        grid.innerHTML += `<div class="cal-day ${isSelected ? 'selected' : ''}" onclick="event.stopPropagation(); selectDate(${year}, ${month}, ${d})">${d}</div>`;
+        const isSel = calSelectedDate &&
+          calSelectedDate.getDate() === d &&
+          calSelectedDate.getMonth() === month &&
+          calSelectedDate.getFullYear() === year;
+        grid.innerHTML += `
+          <div class="cal-day ${isSel ? 'selected' : ''}" onclick="selectDate(${year}, ${month}, ${d})">
+            ${d}
+          </div>
+        `;
       }
     }
 
-    function prevMonth() { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); }
-    function nextMonth() { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); }
+    function renderCalendars() {
+      renderSingleCalendar('cal-month-year', 'cal-days');
+      renderSingleCalendar('mob-cal-month-year', 'mob-cal-days');
+    }
+
+    function changeCalendarMonth(delta) {
+      calCurrentDate.setMonth(calCurrentDate.getMonth() + delta);
+      renderCalendars();
+    }
 
     function selectDate(y, m, d) {
-      selectedDate = new Date(y, m, d);
-      const str = `${String(d).padStart(2,'0')}/${String(m+1).padStart(2,'0')}/${y}`;
-      searchState.inicio = str;
-      const el = document.getElementById('val-inicio');
-      if (el) {
-        el.textContent = str;
-        el.classList.add('filled');
+      calSelectedDate = new Date(y, m, d);
+      const formatted = `${String(d).padStart(2, '0')}/${String(m + 1).padStart(2, '0')}/${y}`;
+      searchState.inicio = formatted;
+
+      const valInicio = document.getElementById('val-inicio');
+      if (valInicio) {
+        valInicio.textContent = formatted;
+        valInicio.classList.add('filled');
       }
-      closeAll();
-      validateGuidedNav();
+
+      renderCalendars();
+      if (searchState.mode !== 'mobile') {
+        closeAllPopovers();
+      }
+      updateGuidedProgressUI();
     }
 
-    // MOBILE LOGIC
-    function openMobileSheet() {
-      document.getElementById('viewportContainer').style.overflow = 'hidden';
-      document.getElementById('mobileSheet').classList.add('open');
-    }
-    function closeMobileSheet() {
-      document.getElementById('viewportContainer').style.overflow = 'auto';
-      document.getElementById('mobileSheet').classList.remove('open');
-    }
-    function selectMobChip(el) {
-      // handled inside setPeriodo now
-    }
-    function syncMobile(field, value) {
-      searchState[field] = value;
-      if (field === 'onde') {
-        const deskEl = document.getElementById('input-onde');
-        if (deskEl) deskEl.value = value;
+    function updateGuidedProgressUI() {
+      const hasOnde = searchState.onde && searchState.onde.trim().length > 0;
+      const hasPeriodo = searchState.periodoSelecionado;
+      const hasInicio = searchState.inicio && searchState.inicio.trim().length > 0;
+
+      // Mobile Hero Trigger & Sheet Cards
+      const mobTitle = document.getElementById('mobTriggerTitle');
+      const mobSub = document.getElementById('mobTriggerSub');
+
+      if (mobTitle) {
+        mobTitle.textContent = hasOnde ? searchState.onde : 'Onde você quer anunciar?';
       }
-      validateGuidedNav();
-    }
-    function limparBusca() {
-      document.getElementById('mob-onde').value = '';
-      document.querySelectorAll('.mob-chip').forEach(c => c.classList.remove('active'));
-      document.getElementById('mob-inicio').value = '';
-      searchState = { onde: '', periodoStr: '', periodoSemanas: 0, inicio: '' };
-      
-      const deskEl = document.getElementById('input-onde');
-      if (deskEl) deskEl.value = '';
-      const deskPer = document.getElementById('val-periodo');
-      if (deskPer) { deskPer.textContent = 'Adicione um período'; deskPer.classList.remove('filled'); }
-      const deskIni = document.getElementById('val-inicio');
-      if (deskIni) { deskIni.textContent = 'Quando começar?'; deskIni.classList.remove('filled'); }
-      validateGuidedNav();
+      if (mobSub) {
+        const pTxt = hasPeriodo ? searchState.periodoStr : 'Escolher período';
+        const iTxt = hasInicio ? `Início ${searchState.inicio}` : 'Escolher data';
+        mobSub.textContent = `${pTxt} • ${iTxt}`;
+      }
+
+      const card1 = document.getElementById('mobStepCard1');
+      const card2 = document.getElementById('mobStepCard2');
+      const card3 = document.getElementById('mobStepCard3');
+
+      card1.classList.toggle('completed-step', hasOnde);
+      document.getElementById('mobStepStatus1').textContent = hasOnde ? '✓' : '';
+
+      if (hasOnde) {
+        card2.classList.remove('locked-step');
+      } else {
+        card2.classList.add('locked-step');
+      }
+      card2.classList.toggle('completed-step', hasPeriodo);
+      document.getElementById('mobStepStatus2').textContent = hasPeriodo ? `✓ ${searchState.periodoStr}` : '';
+
+      if (hasOnde && hasPeriodo) {
+        card3.classList.remove('locked-step');
+      } else {
+        card3.classList.add('locked-step');
+      }
+      card3.classList.toggle('completed-step', hasInicio);
+      document.getElementById('mobStepStatus3').textContent = hasInicio ? `✓ ${searchState.inicio}` : '';
+
+      const btnMob = document.getElementById('btnSearchMob');
+      const btnMobText = document.getElementById('btnSearchMobText');
+      if (hasOnde && hasPeriodo && hasInicio) {
+        btnMob.removeAttribute('disabled');
+        btnMobText.textContent = 'Buscar pontos';
+      } else {
+        btnMob.setAttribute('disabled', 'true');
+        btnMobText.textContent = 'Buscar pontos';
+      }
     }
 
-    // EXECUÇÃO
-    function executarBusca() {
-      if (!searchState.onde || searchState.onde.trim() === '') {
-        if (isMobileMode()) {
-            alert('Por favor, informe onde deseja anunciar.');
-        } else {
-            openPopover('onde');
-        }
+    function resetGuidedSearch() {
+      searchState.onde = '';
+      searchState.periodoStr = '';
+      searchState.periodoSemanas = 2;
+      searchState.periodoSelecionado = false;
+      searchState.inicio = '';
+      calSelectedDate = null;
+
+      document.getElementById('input-onde').value = '';
+      document.getElementById('mob-input-onde').value = '';
+      const vp = document.getElementById('val-periodo');
+      vp.textContent = 'Selecione a duração';
+      vp.classList.remove('filled');
+
+      const vi = document.getElementById('val-inicio');
+      vi.textContent = 'Quando começar?';
+      vi.classList.remove('filled');
+
+      document.querySelectorAll('.period-option, .mob-period-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('mobStepCard1').classList.add('active-step');
+      document.getElementById('mobStepCard2').classList.remove('active-step');
+      document.getElementById('mobStepCard3').classList.remove('active-step');
+
+      renderAddressSuggestions('');
+      renderCalendars();
+      renderVitrine();
+      updateGuidedProgressUI();
+    }
+
+    /* ==========================================================================
+       POPOVERS DESKTOP & SHEET MOBILE
+       ========================================================================== */
+    function closeAllPopovers() {
+      document.querySelectorAll('.popover').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.search-block').forEach(b => b.classList.remove('active'));
+      document.getElementById('searchBar').classList.remove('active');
+      document.getElementById('desk-overlay').classList.remove('active');
+    }
+
+    function openPopover(step) {
+      if (searchState.mode === 'mobile') {
+        openMobileSheet();
         return;
       }
-      window.location.href = 'resultados.html';
+      closeAllPopovers();
+      document.getElementById('searchBar').classList.add('active');
+      document.getElementById('desk-overlay').classList.add('active');
+      document.getElementById('block-' + step).classList.add('active');
+      document.getElementById('popover-' + step).classList.add('active');
+
+      if (step === 'onde') {
+        renderAddressSuggestions(searchState.onde);
+        document.getElementById('input-onde').focus();
+      } else if (step === 'inicio') {
+        renderCalendars();
+      }
     }
 
-    // CARROSSEIS
-    const cities = ["São Paulo", "Rio de Janeiro", "Curitiba", "Porto Alegre", "Brasília"];
-    const baseProducts = [
-      { id: 1, title: 'Abrigo de Ônibus', addr: 'Av. Paulista, 1578', exibs: '12,5 mil', reach: '8,2 mil', freq: '1.5', format: 'impresso', screens: 1, basePrice: 1200 },
-      { id: 2, title: 'Elevador Residencial', addr: 'Rua Augusta, 400', exibs: '4,1 mil', reach: '1,2 mil', freq: '3.4', format: 'digital', screens: 4, basePrice: 350 },
-      { id: 3, title: 'Painel Digital', addr: 'Shopping JK Iguatemi', exibs: '45 mil', reach: '22 mil', freq: '2.0', format: 'digital', screens: 1, basePrice: 5000 },
-      { id: 4, title: 'Relógio de Rua', addr: 'Av. Faria Lima, 2232', exibs: '25 mil', reach: '15 mil', freq: '1.6', format: 'digital', screens: 2, basePrice: 2800 },
-      { id: 5, title: 'Mídia Aeroporto', addr: 'Aeroporto de Congonhas', exibs: '80 mil', reach: '60 mil', freq: '1.3', format: 'digital', screens: 10, basePrice: 12000 }
-    ];
+    function openMobileSheet() {
+      renderAddressSuggestions(searchState.onde);
+      renderCalendars();
+      document.getElementById('mobileSheetBackdrop').classList.add('open');
+    }
 
-    function renderCarousels() {
-      const main = document.getElementById('main-content');
-      if (!main) return;
-      main.innerHTML = '';
-      
-      const sem = searchState.periodoSemanas || 1;
+    function closeMobileSheet() {
+      document.getElementById('mobileSheetBackdrop').classList.remove('open');
+    }
 
-      cities.forEach(city => {
-        let html = `
-          <div class="city-section">
-            <div class="city-header" onclick="setOnde('Pontos em ${city}')">
-              <div class="city-title">Pontos em ${city}</div>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    /* ==========================================================================
+       RENDERIZAÇÃO DA VITRINE POR CIDADES (SEM DISTÂNCIA NOS CARDS)
+       ========================================================================== */
+    function filterEnvironment(env, btnEl) {
+      searchState.ambienteFiltro = env;
+      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderVitrine();
+    }
+
+    function renderVitrine() {
+      const container = document.getElementById('mainVitrine');
+      if (!container) return;
+
+      const weeks = searchState.periodoSemanas || 2;
+      const periodLabel = weeks === 1 ? '/ 1 semana' : `/ ${weeks} semanas`;
+      let fullHTML = '';
+
+      citiesCatalog.forEach((cityGroup, idx) => {
+        const filteredItems = searchState.ambienteFiltro === 'todos'
+          ? cityGroup.items
+          : cityGroup.items.filter(item => item.env === searchState.ambienteFiltro);
+
+        if (filteredItems.length === 0) return;
+
+        const trackId = `carousel-track-${idx}`;
+        fullHTML += `
+          <section class="city-section">
+            <div class="city-header-row">
+              <button type="button" class="city-title-btn" onclick="selectAddress('${cityGroup.city}')">
+                <span class="city-title-text">${cityGroup.headerLabel}</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+              <div class="carousel-nav-group">
+                <button type="button" class="carousel-arrow-top" onclick="scrollCarousel('${trackId}', -320)">‹</button>
+                <button type="button" class="carousel-arrow-top" onclick="scrollCarousel('${trackId}', 320)">›</button>
+              </div>
             </div>
-            <div class="carousel-container">
-              <div class="arrow-btn left" onclick="scrollTrack(this, -300)">‹</div>
-              <div class="carousel-track">
+            <div class="carousel-track" id="${trackId}">
         `;
 
-        for (let i = 0; i < 6; i++) {
-          const p = baseProducts[i % 5];
-          const price = p.basePrice * sem;
-          const fmtPrice = price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-          const fmtPeriod = sem === 1 ? '/ semana' : `/ ${sem} semanas`;
-          
-          html += `
-            <div class="product-card" onclick="setOnde('${city}')">
+        filteredItems.forEach(item => {
+          const totalPrice = item.weeklyPrice * weeks;
+          const formattedPrice = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+          const isAdded = cartState.items.includes(item.id);
+          const formatBadgeClass = item.format === 'digital' ? 'badge-digital' : 'badge-impresso';
+          const formatIcon = item.format === 'digital' ? '🖥️ ' : '';
+
+          fullHTML += `
+            <article class="product-card" onclick="selectAddress('${item.title} - ${cityGroup.city}')">
               <div class="card-media">
-                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=400&q=80" class="card-img" alt="Foto">
+                <img src="${item.img}" class="card-img" alt="${item.title}" loading="lazy">
                 <div class="badges-top">
-                  <div class="badge-group">
-                    <div class="badge badge-white">📍 ${city}</div>
-                    <div class="badge ${p.format === 'digital' ? 'badge-digital' : 'badge-impresso'}">${p.format}</div>
+                  <div class="badge-group-left">
+                    <span class="badge-pill badge-env">${item.envIcon} ${item.env}</span>
+                    <span class="badge-pill ${formatBadgeClass}">${formatIcon}${item.format}</span>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <div class="card-title">${p.title}</div>
-                <div class="card-address">${p.addr}</div>
+                <h3 class="card-title" title="${item.title}">${item.title}</h3>
+                <p class="card-address" title="${item.address}">${item.address}</p>
+
                 <div class="metrics-grid">
-                  <div class="metric"><span class="metric-label">Exibições ▷</span><span class="metric-value">${p.exibs}</span></div>
-                  <div class="metric"><span class="metric-label">Alcance 👤</span><span class="metric-value">${p.reach}</span></div>
-                  <div class="metric"><span class="metric-label">Freq. 🔄</span><span class="metric-value">${p.freq}</span></div>
+                  <div class="metric-col">
+                    <span class="metric-label">exibições ▷</span>
+                    <span class="metric-value">${item.exibs}</span>
+                  </div>
+                  <div class="metric-col">
+                    <span class="metric-label">alcance 👤</span>
+                    <span class="metric-value">${item.reach}</span>
+                  </div>
+                  <div class="metric-col">
+                    <span class="metric-label">frequência 🔄</span>
+                    <span class="metric-value">${item.freq}</span>
+                  </div>
                 </div>
-                <div class="screens-row">Qtd. de telas: ${p.screens}</div>
+
+                <div class="screens-row">Telas: ${item.screens}</div>
+
                 <div class="price-row">
-                  <span class="price-amount">${fmtPrice}</span>
-                  <span class="price-period">${fmtPeriod}</span>
+                  <span class="price-amount">${formattedPrice}</span>
+                  <span class="price-period">${periodLabel}</span>
                 </div>
-                <div class="btn-add">adicionar ponto</div>
+
+                <div class="card-actions-row" onclick="event.stopPropagation()">
+                  <button type="button" class="btn-add-point ${isAdded ? 'added' : ''}" onclick="toggleCartItem('${item.id}')">
+                    <span>${isAdded ? '✓ ponto adicionado' : '🛒 adicionar ponto'}</span>
+                  </button>
+                  <button type="button" class="btn-fav" title="Favoritar ponto" onclick="this.style.color = this.style.color === 'rgb(239, 68, 68)' ? '' : '#EF4444'">
+                    ♡
+                  </button>
+                </div>
               </div>
-            </div>
+            </article>
           `;
-        }
+        });
 
-        html += `
-              </div>
-              <div class="arrow-btn right" onclick="scrollTrack(this, 300)">›</div>
+        fullHTML += `
             </div>
-          </div>
+          </section>
         `;
-        main.innerHTML += html;
       });
+
+      container.innerHTML = fullHTML;
     }
 
-    function scrollTrack(btn, amount) {
-      const track = btn.parentElement.querySelector('.carousel-track');
-      track.scrollBy({ left: amount, behavior: 'smooth' });
+    function scrollCarousel(trackId, amount) {
+      const track = document.getElementById(trackId);
+      if (track) track.scrollBy({ left: amount, behavior: 'smooth' });
     }
 
-    // VIEWPORT SWITCHER
-    function setMode(mode) {
+    function toggleCartItem(itemId) {
+      const idx = cartState.items.indexOf(itemId);
+      if (idx >= 0) cartState.items.splice(idx, 1);
+      else cartState.items.push(itemId);
+
+      renderVitrine();
+      updateCartBarUI();
+    }
+
+    function updateCartBarUI() {
+      const weeks = searchState.periodoSemanas || 2;
+      let sum = 0;
+      citiesCatalog.forEach(group => {
+        group.items.forEach(item => {
+          if (cartState.items.includes(item.id)) {
+            sum += item.weeklyPrice * weeks;
+          }
+        });
+      });
+
+      const count = cartState.items.length;
+      document.getElementById('headerCartBadge').textContent = count;
+      document.getElementById('cartCountText').textContent =
+        count === 0 ? 'Nenhum produto selecionado' :
+        count === 1 ? '1 produto selecionado' : `${count} produtos selecionados`;
+      document.getElementById('cartTotalText').textContent =
+        `Total ${sum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+    }
+
+    /* ==========================================================================
+       NAVEGAÇÃO PARA PÁGINA DE RESULTADOS E ALTERNÂNCIA DE VIEWPORT
+       ========================================================================== */
+    function executarBuscaGuiada() {
+      if (!searchState.onde || searchState.onde.trim() === '') {
+        openPopover('onde');
+        return;
+      }
+      if (!searchState.periodoSelecionado) {
+        openPopover('periodo');
+        return;
+      }
+      if (!searchState.inicio || searchState.inicio.trim() === '') {
+        openPopover('inicio');
+        return;
+      }
+      irParaResultados();
+    }
+
+    function irParaResultados() {
+      const params = new URLSearchParams({
+        onde: searchState.onde || 'Av. Paulista, 1000 - Bela Vista, São Paulo',
+        periodo: searchState.periodoStr || '2 semanas',
+        semanas: String(searchState.periodoSemanas || 2),
+        inicio: searchState.inicio || '26/10/2026',
+        mode: searchState.mode,
+        cart: String(cartState.items.length)
+      });
+      try {
+        sessionStorage.setItem('aquiads_search_state', JSON.stringify({
+          onde: searchState.onde || 'Av. Paulista, 1000 - Bela Vista, São Paulo',
+          periodo: searchState.periodoStr || '2 semanas',
+          semanas: searchState.periodoSemanas || 2,
+          inicio: searchState.inicio || '26/10/2026',
+          mode: searchState.mode,
+          cartCount: cartState.items.length
+        }));
+      } catch (e) {}
+
+      window.location.href = `resultados.html?${params.toString()}`;
+    }
+
+    function setViewportMode(mode) {
+      searchState.mode = mode;
+      const stage = document.getElementById('workspaceStage');
       const container = document.getElementById('viewportContainer');
       const btnDesk = document.getElementById('btnModeDesktop');
       const btnMob = document.getElementById('btnModeMobile');
+      const directLink = document.getElementById('directResultsLink');
 
       if (mode === 'mobile') {
+        stage.classList.add('is-mobile-stage');
         container.classList.add('mobile-mode');
         btnMob.classList.add('active');
         btnDesk.classList.remove('active');
+        closeAllPopovers();
       } else {
+        stage.classList.remove('is-mobile-stage');
         container.classList.remove('mobile-mode');
         btnDesk.classList.add('active');
         btnMob.classList.remove('active');
         closeMobileSheet();
       }
+
+      if (directLink) {
+        directLink.href = `resultados.html?mode=${mode}`;
+      }
     }
 
-    renderCarousels();
+    // Inicialização
+    (function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialMode = urlParams.get('mode');
+      if (initialMode === 'mobile') {
+        setViewportMode('mobile');
+      }
+      renderAddressSuggestions('');
+      renderCalendars();
+      renderVitrine();
+      updateGuidedProgressUI();
+      updateCartBarUI();
+    })();
   </script>
-
-  </div>
 </body>
 </html>
