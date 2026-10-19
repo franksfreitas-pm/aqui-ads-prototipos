@@ -1,0 +1,852 @@
+/* ==========================================================================
+   Aqui Ads - Espelho Fiel de Produção (Light Mode) + Melhorias no Mapa
+   ========================================================================== */
+
+/* Garantia de renderização para Web Components do Astro */
+astro-island {
+  display: contents;
+}
+
+/* Base e Tipografia */
+html, body {
+  font-family: 'Rethink Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #282E38;
+  background-color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Ícones Unicons (Suporte total para classes sem o prefixo .uil isolado)
+   ========================================================================== */
+[class^="uil-"],
+[class*=" uil-"],
+[class^="uil-"]:before,
+[class*=" uil-"]:before {
+  font-family: 'unicons-line' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ícones customizados do ecossistema Eletromidia (elt-*) */
+.elt-beauty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+}
+.elt-beauty::before {
+  content: "✦";
+  font-size: 12px;
+  line-height: 1;
+  color: #FF4F00;
+}
+
+/* ==========================================================================
+   Header, Barra de Busca em Pílula (#header-search-floatter) e Chips (#tour-filter)
+   ========================================================================== */
+header.sticky {
+  border-bottom: 1px solid #EDF2F8;
+  box-shadow: 0 2px 12px rgba(40, 46, 56, 0.04);
+}
+
+.header-button {
+  border: 1px solid #DFE7EF !important;
+  border-radius: 9999px !important;
+  padding: 6px 14px !important;
+  background: #FFFFFF !important;
+  transition: all 0.2s ease;
+}
+.header-button:hover {
+  background: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* Pílula de Busca Oficial Aqui Ads */
+#header-search-floatter {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.searchbar-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40 !important;
+}
+
+.search {
+  width: 688px;
+  max-width: calc(100vw - 48px);
+  margin: 0 auto;
+}
+
+.search--container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 62px;
+  background: #FFFFFF;
+  border: 1px solid #DFE7EF;
+  border-radius: 9999px;
+  padding: 6px 10px 6px 24px;
+  box-shadow: 0 4px 16px rgba(40, 46, 56, 0.07);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.search--container:hover,
+.search--container:focus-within {
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 20px rgba(40, 46, 56, 0.11);
+}
+
+.search--container .integrated-search {
+  padding-top: 2px !important;
+}
+
+.search--container label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #282E38 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 2px !important;
+  display: block;
+}
+
+.search--container .p-inputtext {
+  border: none !important;
+  background: transparent !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #37404C !important;
+  padding: 0 28px 0 0 !important;
+  height: 22px !important;
+  line-height: 22px !important;
+  outline: none !important;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search--container .clear-address-btn {
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: #94A3B8 !important;
+  background: transparent !important;
+  border: none !important;
+}
+.search--container .clear-address-btn:hover {
+  color: #282E38 !important;
+}
+
+.search--container .integrated-dropdown {
+  padding: 2px 12px !important;
+  justify-content: center;
+}
+
+.search--container #duration {
+  margin-top: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.search--container .p-dropdown-value {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #37404C !important;
+}
+
+.search--container .integrated-date {
+  padding: 2px 12px !important;
+  justify-content: center;
+}
+
+.search--container .p-input-icon-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search--container .p-input-icon-right > i {
+  position: absolute;
+  right: 4px;
+  pointer-events: none;
+}
+
+.search--container button[type="submit"].p-button {
+  background: #FF4F00 !important;
+  color: #FFFFFF !important;
+  border-radius: 9999px !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 79, 0, 0.28);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.search--container button[type="submit"].p-button:hover {
+  background: #E04500 !important;
+  transform: scale(1.04);
+}
+
+/* Container de Filtros (#tour-filter) */
+.filter-container {
+  margin-top: 12px !important;
+  margin-bottom: 14px !important;
+}
+
+.ambience-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 15px;
+  border-radius: 9999px;
+  font-family: 'Rethink Sans', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #282E38;
+  background-color: #F1F5F9;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1.3;
+  user-select: none;
+}
+
+.ambience-chip:hover {
+  background-color: #E2E8F0;
+}
+
+.ambience-chip--active {
+  background-color: #282E38 !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+}
+
+.ambience-chip--more {
+  background-color: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #282E38 !important;
+}
+.ambience-chip--more:hover {
+  background-color: #F8FAFC !important;
+  border-color: #94A3B8 !important;
+}
+
+/* ==========================================================================
+   Cards de Produto (.carditem) - Fidelidade 100% Produção Aqui Ads
+   ========================================================================== */
+.carditem {
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.carditem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(40, 46, 56, 0.09);
+}
+
+.carditem.is-card-highlighted > div {
+  border-color: #FF4F00 !important;
+}
+
+/* Chips sobre a foto do card (.p-chip) */
+.p-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #282E38;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  line-height: 16px !important;
+  font-weight: 600 !important;
+  max-height: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.p-chip-icon {
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+/* Botão Adicionar Ponto (.add-to-cart) */
+.add-to-cart {
+  height: 38px;
+  border-radius: 6px !important;
+  border: 1.5px solid #3A9F3A !important;
+  background-color: #FFFFFF !important;
+  color: #3A9F3A !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  padding: 0 12px !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.add-to-cart:hover {
+  background-color: #F0FDF4 !important;
+  border-color: #2E852E !important;
+}
+
+.add-to-cart.is-added,
+.carditem[isaddedtocart="true"] .add-to-cart {
+  background-color: #3A9F3A !important;
+  color: #FFFFFF !important;
+  border-color: #3A9F3A !important;
+}
+
+.add-to-cart.is-added:hover,
+.carditem[isaddedtocart="true"] .add-to-cart:hover {
+  background-color: #2F852F !important;
+}
+
+/* Botão Ver Mais (.load-more-products) */
+.load-more-products {
+  height: 44px;
+  border-radius: 8px !important;
+  border: 1.5px solid #282E38 !important;
+  background: #FFFFFF !important;
+  color: #282E38 !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.load-more-products:hover {
+  background: #282E38 !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Layout Split-Screen Original vs Modo Mapa 100% (Com Margens e Respiros)
+   ========================================================================== */
+
+/* No Split-Screen, preservamos EXATAMENTE a proporção original de produção:
+   lg:grid-cols-[minmax(0,890px)_minmax(0,1fr)] com max-w-[1280px] */
+#map-sticky-wrapper {
+  top: 205px !important;
+  height: calc(100vh - 285px) !important;
+  min-height: 520px !important;
+  transition: height 0.3s ease;
+}
+
+/* Modo Mapa 100% (Estilo Airbnb: respeita container max-w-[1280px], margens laterais, bordas arredondadas e termina sempre acima da barra fixa inferior) */
+body.is-map-100-mode {
+  overflow: hidden !important;
+}
+
+.results-ooh-layout.map-expanded-mode {
+  display: block !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-bottom: 24px !important;
+}
+
+.results-ooh-layout.map-expanded-mode #list-column-wrapper {
+  display: none !important;
+}
+
+.results-ooh-layout.map-expanded-mode #map-sticky-wrapper {
+  display: block !important;
+  position: relative !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: var(--expanded-map-height, calc(100vh - 285px)) !important;
+  min-height: 260px !important;
+  max-height: none !important;
+  margin-bottom: 24px !important;
+}
+
+/* Ocultar seções extras abaixo do mapa quando em Modo Mapa 100% para manter respiro limpo sem scroll desnecessário */
+.results-ooh-layout.map-expanded-mode + div,
+body.is-map-100-mode .results-ooh-layout + div {
+  display: none !important;
+}
+
+/* Cursor customizado durante o desenho à mão livre (Freehand Lasso) */
+body.is-drawing-on-map #mapa,
+body.is-drawing-on-map #mapa canvas.maplibregl-canvas {
+  cursor: crosshair !important;
+}
+
+/* Botão Expandir / Voltar para Lista (#map-expand-floating-button) */
+.map-expand-floating-btn {
+  height: 36px;
+  padding: 0 14px;
+  z-index: 30 !important;
+}
+
+/* Ocultar permanentemente o botão legado "Pesquisar nessa área" */
+button[aria-label="Pesquisar nessa área"] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Pinos e Clusters no Mapa (MapLibre GL DOM Markers de Alta Performance)
+   ========================================================================== */
+#mapa {
+  background-color: #EEF2F6;
+}
+
+/* Filtro Light Mode elegante sobre tiles Esri ArcGIS World_Street_Map
+   (Exibe 100% dos nomes de ruas da Vila Olímpia em file:// sem bloqueio 403 e sem marca d'água) */
+#mapa canvas.maplibregl-canvas {
+  filter: saturate(0.25) brightness(1.04) contrast(0.95);
+}
+
+/* Wrapper âncora do MapLibre: NUNCA sobrescrever transform aqui para não perder translate(Xpx, Ypx)! */
+.aqui-marker-anchor {
+  z-index: 10;
+}
+
+.aqui-marker-anchor:hover {
+  z-index: 60 !important;
+}
+
+.aqui-marker-anchor.is-highlighted-anchor {
+  z-index: 120 !important;
+}
+
+/* Cluster Bubble (filho interno do .aqui-marker-anchor) */
+.aqui-cluster-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #FF4F00;
+  color: #FFFFFF;
+  font-family: 'Rethink Sans', 'Inter', sans-serif;
+  font-weight: 800;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 4px 14px rgba(255, 79, 0, 0.38), 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  user-select: none;
+  transform-origin: center center;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 10;
+}
+
+.aqui-cluster-marker::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 79, 0, 0.35);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.aqui-cluster-marker:hover {
+  transform: scale(1.12);
+  background: #E04500;
+  z-index: 40;
+}
+
+/* Destaque do Cluster quando um Card filho recebe Hover na Lista! */
+.aqui-cluster-marker.is-cluster-highlighted {
+  transform: scale(1.26) !important;
+  background: #282E38 !important;
+  border-color: #FF4F00 !important;
+  box-shadow: 0 0 0 6px rgba(255, 79, 0, 0.32), 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  z-index: 100 !important;
+}
+
+.aqui-cluster-marker.is-cluster-highlighted::after {
+  inset: -11px;
+  border: 2.5px solid #FF4F00;
+  animation: clusterPulseRing 1.1s infinite ease-out;
+}
+
+@keyframes clusterPulseRing {
+  0% { transform: scale(0.92); opacity: 1; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* Tooltip flutuante sobre o Cluster quando um card filho é destacado na lista */
+.cluster-hover-callout {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #282E38;
+  color: #FFFFFF;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid #FF4F00;
+  pointer-events: none;
+  z-index: 120;
+  animation: fadeInCallout 0.16s ease-out;
+}
+
+.cluster-hover-callout::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #FF4F00 transparent transparent transparent;
+}
+
+/* Badge de pontos adicionados dentro do cluster */
+.cluster-cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #3A9F3A;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Pino Individual Desagrupado */
+.aqui-pin-marker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  color: #282E38;
+  font-family: 'Rethink Sans', 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  border: 2px solid #FF4F00;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  z-index: 15;
+}
+
+.aqui-pin-marker::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #FF4F00 transparent transparent transparent;
+}
+
+.aqui-pin-marker .pin-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #FF4F00;
+  flex-shrink: 0;
+}
+
+.aqui-pin-marker:hover,
+.aqui-pin-marker.is-pin-highlighted {
+  transform: scale(1.25) translateY(-3px) !important;
+  background: #282E38 !important;
+  color: #FFFFFF !important;
+  border-color: #282E38 !important;
+  box-shadow: 0 0 0 5px rgba(255, 79, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.28) !important;
+  z-index: 110 !important;
+}
+
+.aqui-pin-marker:hover::after,
+.aqui-pin-marker.is-pin-highlighted::after {
+  border-top-color: #282E38 !important;
+}
+
+.aqui-pin-marker:hover .pin-dot,
+.aqui-pin-marker.is-pin-highlighted .pin-dot {
+  background: #FF4F00;
+}
+
+/* Pino quando já está adicionado ao carrinho */
+.aqui-pin-marker.is-in-cart {
+  background: #3A9F3A !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 3px 12px rgba(58, 159, 58, 0.4);
+}
+.aqui-pin-marker.is-in-cart::after {
+  border-top-color: #3A9F3A !important;
+}
+.aqui-pin-marker.is-in-cart .pin-dot {
+  background: #FFFFFF;
+}
+
+/* Callout sobre pino individual quando destacado via hover na lista */
+.pin-hover-callout {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #282E38;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+  border: 1px solid #FF4F00;
+  pointer-events: none;
+  z-index: 130;
+  animation: fadeInCallout 0.15s ease-out;
+}
+
+@keyframes fadeInCallout {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ==========================================================================
+   Smart Actions Bar (Exclusiva do Modo Mapa 100%)
+   ========================================================================== */
+#map-smart-actions-bar {
+  display: none;
+}
+
+.results-ooh-layout.map-expanded-mode #map-smart-actions-bar {
+  display: flex;
+}
+
+.smart-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 9999px;
+  font-family: 'Rethink Sans', 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: #FFFFFF;
+  color: #282E38;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 8px rgba(40, 46, 56, 0.08);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.smart-action-btn:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+}
+
+.smart-action-btn.is-active-tool {
+  background: #282E38 !important;
+  color: #FFFFFF !important;
+  border-color: #282E38 !important;
+  box-shadow: 0 4px 12px rgba(40, 46, 56, 0.22);
+}
+
+.smart-action-btn--primary {
+  background: #FF4F00 !important;
+  color: #FFFFFF !important;
+  border-color: #FF4F00 !important;
+  box-shadow: 0 3px 10px rgba(255, 79, 0, 0.28);
+}
+
+.smart-action-btn--primary:hover {
+  background: #E04500 !important;
+  border-color: #E04500 !important;
+}
+
+.smart-action-btn--success {
+  background: #3A9F3A !important;
+  color: #FFFFFF !important;
+  border-color: #3A9F3A !important;
+}
+
+/* ==========================================================================
+   Popup de Pino no Mapa (Mini-Card Padrão Aqui Ads)
+   ========================================================================== */
+.maplibregl-popup {
+  z-index: 150 !important;
+}
+
+.maplibregl-popup-content {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(40, 46, 56, 0.22) !important;
+  border: 1px solid #E2E8F0;
+  width: 280px !important;
+  font-family: 'Rethink Sans', 'Inter', sans-serif;
+}
+
+.maplibregl-popup-close-button {
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #282E38 !important;
+  font-size: 16px !important;
+  font-weight: 700;
+  top: 8px !important;
+  right: 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+/* ==========================================================================
+   Barra Fixa Inferior (.actions-bar-results e #resultpage_next-button)
+   ========================================================================== */
+.actions-bar-results {
+  box-shadow: 0 -4px 16px rgba(40, 46, 56, 0.06);
+  z-index: 45 !important;
+}
+
+#resultpage_next-button {
+  height: 44px;
+  padding: 0 24px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #FF4F00 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#resultpage_next-button:disabled,
+#resultpage_next-button.p-disabled {
+  background: #E2E8F0 !important;
+  color: #94A3B8 !important;
+  cursor: not-allowed !important;
+}
+
+#resultpage_next-button:not(:disabled):hover {
+  background: #E04500 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 79, 0, 0.3);
+}
+
+/* Swiper Horizontal (Explore outros ambientes) */
+.explore-ambiences-swiper .swiper-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+.explore-ambiences-swiper .swiper-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.explore-ambiences-swiper .swiper-wrapper::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+/* ==========================================================================
+   Viewer Topbar (Hub Oficial de Protótipos + Link de Documentação Notion)
+   ========================================================================== */
+.viewer-topbar {
+  width: 100%;
+  min-height: 36px;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Rethink Sans', 'Inter', sans-serif;
+  font-size: 12px;
+  color: #64748B;
+  z-index: 60;
+  position: relative;
+}
+
+.viewer-topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.viewer-topbar__hub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #334155;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  transition: all 0.15s ease;
+}
+
+.viewer-topbar__hub-link:hover {
+  border-color: #FF4F00;
+  color: #FF4F00;
+}
+
+.viewer-topbar__doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #DBEAFE;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.viewer-topbar__doc-btn:hover {
+  background-color: #BFDBFE;
+  color: #1E40AF;
+}
