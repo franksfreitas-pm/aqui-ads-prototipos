@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governança de Eventos e Propriedades - Aqui Ads</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aqui: {
+                            orange: '#f97316', // orange-500
+                            orangedark: '#ea580c', // orange-600
+                            blue: '#1e293b', // slate-800
+                            bluedark: '#0f172a' // slate-900
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Viewer Topbar (Padrão GitHub Pages Aqui Ads) */
+        .demo-bar {
+            background: #0f172a;
+            border-bottom: 1px solid #1e293b;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #cbd5e1;
+            z-index: 2000;
+        }
+        .demo-bar-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .demo-bar-btn {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 700;
+            background: #2563eb;
+            padding: 5px 12px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            transition: background 0.15s ease;
+        }
+        .demo-bar-btn:hover {
+            background: #1d4ed8;
+        }
+        .demo-bar-back {
+            text-decoration: none;
+            color: #94a3b8;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.15s ease;
+        }
+        .demo-bar-back:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-aqui-blue font-sans antialiased min-h-screen">
+    <!-- Viewer Topbar Global (Documentação & Hub) -->
+    <div class="demo-bar">
+        <div class="flex items-center gap-3">
+            <a href="../../index.html" class="demo-bar-back" title="Voltar para o Hub de Protótipos">← Hub de Protótipos</a>
+            <span class="text-slate-600">|</span>
+            <span class="font-semibold text-slate-300">Painel Interativo de Auditoria e Governança do Mixpanel</span>
+        </div>
+        <div class="demo-bar-links">
+            <a href="https://app.notion.com/p/Auditoria-Completa-do-Mixpanel-Lexicon-Aqui-Ads-3fa9587e413780c0b288e2209bbd2a7b?source=copy_link" target="_blank" rel="noopener noreferrer" class="demo-bar-btn">
+                📘 Ler Diagnóstico Completo no Notion
+            </a>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center">
+                <span class="text-xl font-extrabold tracking-tight cursor-pointer" onclick="window.location.reload()">
+                    <span class="text-aqui-orange">Aqui</span><span class="text-aqui-bluedark">Ads</span> <span class="text-gray-300 font-light mx-2">|</span> <span class="text-gray-600 font-semibold text-base sm:text-lg">Governança de Eventos e Propriedades</span>
+                </span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2.5">
+                <div id="save-status" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+                    <svg class="w-3.5 h-3.5 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Sincronizado na nuvem ✓
+                </div>
+                <a href="https://app.notion.com/p/Auditoria-Completa-do-Mixpanel-Lexicon-Aqui-Ads-3fa9587e413780c0b288e2209bbd2a7b?source=copy_link" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md border border-blue-200 transition inline-flex items-center gap-1.5">
+                    <span>📄</span> Diagnóstico no Notion
+                </a>
+                <div class="flex gap-2">
+                    <button id="export-json-btn" class="text-xs font-bold text-white bg-aqui-orange hover:bg-aqui-orangedark px-3 py-1.5 rounded-md shadow-sm transition">Baixar Decisões (JSON)</button>
+                    <button id="export-csv-btn" class="text-xs font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md border border-gray-200 transition">Exportar CSV</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="app" class="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="flex items-center justify-center min-h-[50vh]">
+            <div class="flex flex-col items-center gap-3">
+                <svg class="animate-spin h-8 w-8 text-aqui-orange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="text-gray-500 font-medium">Carregando eventos e sincronizando decisões da nuvem...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
