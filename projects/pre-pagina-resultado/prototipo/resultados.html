@@ -1214,12 +1214,16 @@
 
           <div class="filters-toolbar">
             <div class="filters-chips-scroll">
-              <button class="filter-pill active" onclick="filterResults('todos', this)">Todos</button>
-              <button class="filter-pill" onclick="filterResults('elevadores comerciais', this)">elevadores comerciais</button>
-              <button class="filter-pill" onclick="filterResults('elevadores residenciais', this)">elevadores residenciais</button>
-              <button class="filter-pill" onclick="filterResults('ponto de ônibus', this)">ponto de ônibus</button>
-              <button class="filter-pill" onclick="filterResults('shopping', this)">shopping</button>
-              <button class="filter-pill" onclick="filterResults('academia', this)">academia</button>
+              <button class="filter-pill active" data-env="todos" onclick="filterResults('todos', this)">Todos</button>
+              <button class="filter-pill" data-env="elevadores comerciais" onclick="filterResults('elevadores comerciais', this)">elevadores comerciais</button>
+              <button class="filter-pill" data-env="elevadores residenciais" onclick="filterResults('elevadores residenciais', this)">elevadores residenciais</button>
+              <button class="filter-pill" data-env="ponto de ônibus" onclick="filterResults('ponto de ônibus', this)">pontos de ônibus</button>
+              <button class="filter-pill" data-env="shopping" onclick="filterResults('shopping', this)">shoppings</button>
+              <button class="filter-pill" data-env="academias" onclick="filterResults('academias', this)">academias</button>
+              <button class="filter-pill" data-env="supermercados" onclick="filterResults('supermercados', this)">supermercados</button>
+              <button class="filter-pill" data-env="estação de trem" onclick="filterResults('estação de trem', this)">estações de trem</button>
+              <button class="filter-pill" data-env="estabelecimentos comerciais" onclick="filterResults('estabelecimentos comerciais', this)">estabelecimentos comerciais</button>
+              <button class="filter-pill" data-env="aeroportos" onclick="filterResults('aeroportos', this)">aeroportos</button>
               <button class="filter-pill">Mais filtros</button>
             </div>
 
@@ -1525,7 +1529,7 @@
       },
       {
         id: 'r9',
-        env: 'academia',
+        env: 'academias',
         envIcon: '🏋️',
         format: 'digital',
         dist: '280 m',
@@ -1567,6 +1571,66 @@
         screens: 3,
         weeklyPrice: 162.00,
         img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r12',
+        env: 'supermercados',
+        envIcon: '🛒',
+        format: 'digital',
+        dist: '390 m',
+        title: 'PÃO DE AÇÚCAR JARDIM PAULISTA',
+        address: 'Av. Brigadeiro Luís Antônio - 3126, Jardins',
+        exibs: '15,80 mil',
+        reach: '5,90 mil',
+        freq: '3',
+        screens: 3,
+        weeklyPrice: 520.00,
+        img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r13',
+        env: 'estação de trem',
+        envIcon: '🚆',
+        format: 'digital',
+        dist: '420 m',
+        title: 'ESTAÇÃO PINHEIROS - LINHA 9 ESMERALDA',
+        address: 'Av. das Nações Unidas - Pinheiros, São Paulo',
+        exibs: '64,20 mil',
+        reach: '28,40 mil',
+        freq: '3',
+        screens: 4,
+        weeklyPrice: 1490.00,
+        img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r14',
+        env: 'estabelecimentos comerciais',
+        envIcon: '🏪',
+        format: 'digital',
+        dist: '450 m',
+        title: 'PADARIA BELLA PAULISTA',
+        address: 'Rua Haddock Lobo - 354, Cerqueira César',
+        exibs: '12,40 mil',
+        reach: '4,20 mil',
+        freq: '3',
+        screens: 2,
+        weeklyPrice: 390.00,
+        img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 'r15',
+        env: 'aeroportos',
+        envIcon: '✈️',
+        format: 'digital',
+        dist: '1,2 km',
+        title: 'AEROPORTO DE CONGONHAS - EMBARQUE',
+        address: 'Av. Washington Luís - Vila Congonhas, São Paulo',
+        exibs: '82,00 mil',
+        reach: '39,50 mil',
+        freq: '2',
+        screens: 8,
+        weeklyPrice: 3290.00,
+        img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
       }
     ];
 
@@ -1745,6 +1809,7 @@
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed.onde) resultsState.onde = parsed.onde;
+          if (parsed.ambiente) resultsState.filter = parsed.ambiente;
           if (parsed.periodo) resultsState.periodo = parsed.periodo;
           if (parsed.semanas) resultsState.semanas = Number(parsed.semanas);
           if (parsed.inicio) resultsState.inicio = parsed.inicio;
@@ -1755,11 +1820,18 @@
 
       const params = new URLSearchParams(window.location.search);
       if (params.get('onde')) resultsState.onde = params.get('onde');
+      if (params.get('ambiente')) resultsState.filter = params.get('ambiente');
       if (params.get('periodo')) resultsState.periodo = params.get('periodo');
       if (params.get('semanas')) resultsState.semanas = Number(params.get('semanas'));
       if (params.get('inicio')) resultsState.inicio = params.get('inicio');
       if (params.get('mode')) resultsState.mode = params.get('mode');
       if (params.get('cart')) resultsState.cartCount = Number(params.get('cart'));
+
+      if (resultsState.filter) {
+        document.querySelectorAll('.filter-pill[data-env]').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-env') === resultsState.filter);
+        });
+      }
 
       document.getElementById('resOndeVal').textContent = resultsState.onde;
       document.getElementById('resPeriodoVal').textContent = resultsState.periodo;

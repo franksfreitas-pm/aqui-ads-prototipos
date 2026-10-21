@@ -1179,6 +1179,161 @@
     }
 
     /* ==========================================================================
+       CARD FINAL DO CARROSSEL ("VER TUDO" — INSPIRADO NO AIRBNB / NETFLIX)
+       ========================================================================== */
+    .see-all-card {
+      flex: 0 0 236px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF8F5 100%);
+      border: 1.5px dashed #FDBA8C;
+      border-radius: 16px;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .viewport-container.mobile-mode .see-all-card {
+      flex: 0 0 216px;
+      padding: 16px;
+    }
+    .see-all-card:hover {
+      transform: translateY(-3px);
+      border-style: solid;
+      border-color: var(--brand-orange);
+      background: #FFF4EE;
+      box-shadow: var(--shadow-md);
+    }
+    .see-all-stack {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .see-all-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2.5px solid #FFFFFF;
+      box-shadow: 0 4px 10px rgba(17, 24, 39, 0.12);
+      margin-left: -14px;
+      background: #E5E7EB;
+    }
+    .see-all-thumb:first-child {
+      margin-left: 0;
+    }
+    .see-all-count-pill {
+      margin-left: auto;
+      background: #FFFFFF;
+      border: 1px solid #FED7AA;
+      color: var(--brand-orange);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 999px;
+    }
+    .see-all-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: auto 0;
+    }
+    .see-all-kicker {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--brand-orange);
+    }
+    .see-all-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .see-all-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .see-all-cta {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .see-all-card:hover .see-all-cta {
+      background: var(--brand-orange-hover);
+    }
+    .see-all-arrow-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    /* Sub-barra de filtros avançados (Formato Digital/Impresso e Ordenação) */
+    .more-filters-bar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 24px 14px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+    .more-filters-bar.open {
+      display: flex;
+    }
+    .sub-filter-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      padding: 4px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      font-size: 12px;
+    }
+    .sub-filter-label {
+      font-weight: 700;
+      color: var(--text-secondary);
+      padding: 0 4px;
+    }
+    .sub-filter-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sub-filter-btn.active {
+      background: var(--text-primary);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
        BOTTOM STICKY CART BAR (ESPELHO DE PRODUÇÃO)
        ========================================================================== */
     .bottom-cart-bar {
@@ -1686,26 +1841,57 @@
           </div>
         </section>
 
-        <!-- CHIPS DE AMBIENTES (FIEL À PRODUÇÃO) -->
+        <!-- CHIPS DE AMBIENTES EXPANDIDOS (PADRONIZADOS NO PLURAL + MAIS FILTROS) -->
         <div class="QuickCategoriesRow">
           <button class="cat-chip active" onclick="filterEnvironment('todos', this)">
             <span>✨</span> todos os ambientes
           </button>
           <button class="cat-chip" onclick="filterEnvironment('elevadores comerciais', this)">
-            <span>🏢</span> elevador comercial
+            <span>🏢</span> elevadores comerciais
           </button>
           <button class="cat-chip" onclick="filterEnvironment('elevadores residenciais', this)">
-            <span>🏠</span> elevador residencial
+            <span>🏠</span> elevadores residenciais
           </button>
           <button class="cat-chip" onclick="filterEnvironment('ponto de ônibus', this)">
-            <span>🚌</span> ponto de ônibus
+            <span>🚌</span> pontos de ônibus
           </button>
           <button class="cat-chip" onclick="filterEnvironment('academias', this)">
             <span>🏋️</span> academias
           </button>
           <button class="cat-chip" onclick="filterEnvironment('shopping', this)">
-            <span>🛍️</span> shopping
+            <span>🛍️</span> shoppings
           </button>
+          <button class="cat-chip" onclick="filterEnvironment('supermercados', this)">
+            <span>🛒</span> supermercados
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('estação de trem', this)">
+            <span>🚆</span> estações de trem
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('estabelecimentos comerciais', this)">
+            <span>🏪</span> estabelecimentos comerciais
+          </button>
+          <button class="cat-chip" onclick="filterEnvironment('aeroportos', this)">
+            <span>✈️</span> aeroportos
+          </button>
+          <button class="cat-chip" id="btnToggleMoreFilters" onclick="toggleMoreFiltersBar(this)">
+            <span>⚙️</span> mais filtros
+          </button>
+        </div>
+
+        <!-- SUB-BARRA DE MAIS FILTROS (FORMATO E FAIXA DE INVESTIMENTO) -->
+        <div class="more-filters-bar" id="moreFiltersBar">
+          <div class="sub-filter-group">
+            <span class="sub-filter-label">Formato:</span>
+            <button type="button" class="sub-filter-btn active" onclick="filterFormat('todos', this)">Todos</button>
+            <button type="button" class="sub-filter-btn" onclick="filterFormat('digital', this)">🖥️ Digital</button>
+            <button type="button" class="sub-filter-btn" onclick="filterFormat('impresso', this)">🖼️ Impresso</button>
+          </div>
+          <div class="sub-filter-group">
+            <span class="sub-filter-label">Investimento semanal:</span>
+            <button type="button" class="sub-filter-btn active" onclick="filterMaxPrice(0, this)">Qualquer valor</button>
+            <button type="button" class="sub-filter-btn" onclick="filterMaxPrice(600, this)">Até R$ 600/sem</button>
+            <button type="button" class="sub-filter-btn" onclick="filterMaxPrice(1500, this)">Até R$ 1.500/sem</button>
+          </div>
         </div>
 
         <!-- VITRINE DE PONTOS POR CIDADE -->
@@ -1845,6 +2031,8 @@
       periodoSelecionado: false,
       inicio: '',
       ambienteFiltro: 'todos',
+      formatoFiltro: 'todos',
+      maxWeeklyPrice: 0,
       mode: 'desktop'
     };
 
@@ -1911,6 +2099,7 @@
       {
         city: 'São Paulo',
         headerLabel: 'Pontos em São Paulo',
+        totalAvailable: 148,
         items: [
           {
             id: 'sp-1',
@@ -1981,12 +2170,69 @@
             screens: 6,
             weeklyPrice: 1945.00,
             img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-6',
+            env: 'estação de trem',
+            envIcon: '🚆',
+            format: 'digital',
+            title: 'ESTAÇÃO PINHEIROS - LINHA 9 ESMERALDA',
+            address: 'Av. das Nações Unidas - Pinheiros, São Paulo',
+            exibs: '64,20 mil',
+            reach: '28,40 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 1490.00,
+            img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-7',
+            env: 'supermercados',
+            envIcon: '🛒',
+            format: 'digital',
+            title: 'PÃO DE AÇÚCAR JARDIM PAULISTA',
+            address: 'Av. Brigadeiro Luís Antônio - 3126, Jardins',
+            exibs: '15,80 mil',
+            reach: '5,90 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 520.00,
+            img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-8',
+            env: 'estabelecimentos comerciais',
+            envIcon: '🏪',
+            format: 'digital',
+            title: 'PADARIA BELLA PAULISTA',
+            address: 'Rua Haddock Lobo - 354, Cerqueira César',
+            exibs: '12,40 mil',
+            reach: '4,20 mil',
+            freq: '3',
+            screens: 2,
+            weeklyPrice: 390.00,
+            img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-9',
+            env: 'aeroportos',
+            envIcon: '✈️',
+            format: 'digital',
+            title: 'AEROPORTO DE CONGONHAS - EMBARQUE',
+            address: 'Av. Washington Luís - Vila Congonhas, São Paulo',
+            exibs: '82,00 mil',
+            reach: '39,50 mil',
+            freq: '2',
+            screens: 8,
+            weeklyPrice: 3290.00,
+            img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
           }
         ]
       },
       {
         city: 'Rio de Janeiro',
         headerLabel: 'Pontos no Rio de Janeiro',
+        totalAvailable: 96,
         items: [
           {
             id: 'rj-1',
@@ -2043,12 +2289,41 @@
             screens: 3,
             weeklyPrice: 640.00,
             img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-5',
+            env: 'supermercados',
+            envIcon: '🛒',
+            format: 'digital',
+            title: 'ZONA SUL IPANEMA',
+            address: 'Rua Visconde de Pirajá - 504, Ipanema',
+            exibs: '19,40 mil',
+            reach: '7,10 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 580.00,
+            img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-6',
+            env: 'aeroportos',
+            envIcon: '✈️',
+            format: 'digital',
+            title: 'AEROPORTO SANTOS DUMONT - SAGUÃO',
+            address: 'Praça Senador Salgado Filho - Centro, Rio de Janeiro',
+            exibs: '71,00 mil',
+            reach: '31,20 mil',
+            freq: '2',
+            screens: 6,
+            weeklyPrice: 2890.00,
+            img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
           }
         ]
       },
       {
         city: 'Curitiba',
         headerLabel: 'Pontos em Curitiba',
+        totalAvailable: 68,
         items: [
           {
             id: 'ct-1',
@@ -2105,12 +2380,27 @@
             screens: 6,
             weeklyPrice: 1780.00,
             img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-5',
+            env: 'estabelecimentos comerciais',
+            envIcon: '🏪',
+            format: 'digital',
+            title: 'MERCADOTECA BATEL',
+            address: 'Rua Paulo Gorski - 1309, Mossunguê',
+            exibs: '11,30 mil',
+            reach: '4,10 mil',
+            freq: '3',
+            screens: 2,
+            weeklyPrice: 410.00,
+            img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80'
           }
         ]
       },
       {
         city: 'Porto Alegre',
         headerLabel: 'Pontos em Porto Alegre',
+        totalAvailable: 54,
         items: [
           {
             id: 'poa-1',
@@ -2153,12 +2443,27 @@
             screens: 8,
             weeklyPrice: 1920.00,
             img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'poa-4',
+            env: 'supermercados',
+            envIcon: '🛒',
+            format: 'digital',
+            title: 'ZAFFARI HIGIENÓPOLIS',
+            address: 'Av. Plínio Brasil Milano - 1000, Higienópolis',
+            exibs: '21,10 mil',
+            reach: '7,80 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 560.00,
+            img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
           }
         ]
       },
       {
         city: 'Brasília',
         headerLabel: 'Pontos em Brasília',
+        totalAvailable: 49,
         items: [
           {
             id: 'bsb-1',
@@ -2201,6 +2506,20 @@
             screens: 3,
             weeklyPrice: 680.00,
             img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'bsb-4',
+            env: 'aeroportos',
+            envIcon: '✈️',
+            format: 'digital',
+            title: 'AEROPORTO INTERNACIONAL DE BRASÍLIA',
+            address: 'Lago Sul - Terminal 1, Brasília',
+            exibs: '68,00 mil',
+            reach: '29,40 mil',
+            freq: '2',
+            screens: 6,
+            weeklyPrice: 2650.00,
+            img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
           }
         ]
       }
@@ -2539,9 +2858,57 @@
        ========================================================================== */
     function filterEnvironment(env, btnEl) {
       searchState.ambienteFiltro = env;
-      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.QuickCategoriesRow .cat-chip:not(#btnToggleMoreFilters)').forEach(c => c.classList.remove('active'));
       if (btnEl) btnEl.classList.add('active');
       renderVitrine();
+    }
+
+    function toggleMoreFiltersBar(btnEl) {
+      const bar = document.getElementById('moreFiltersBar');
+      if (!bar) return;
+      bar.classList.toggle('open');
+      if (btnEl) btnEl.classList.toggle('active', bar.classList.contains('open'));
+    }
+
+    function filterFormat(fmt, btnEl) {
+      searchState.formatoFiltro = fmt;
+      const parent = btnEl ? btnEl.parentElement : null;
+      if (parent) parent.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderVitrine();
+    }
+
+    function filterMaxPrice(maxVal, btnEl) {
+      searchState.maxWeeklyPrice = maxVal;
+      const parent = btnEl ? btnEl.parentElement : null;
+      if (parent) parent.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderVitrine();
+    }
+
+    function verTudoCarrossel(city, envFiltro) {
+      searchState.onde = city;
+      const params = new URLSearchParams({
+        onde: city,
+        ambiente: envFiltro || searchState.ambienteFiltro || 'todos',
+        periodo: searchState.periodoStr || '2 semanas',
+        semanas: String(searchState.periodoSemanas || 2),
+        inicio: searchState.inicio || '26/10/2026',
+        mode: searchState.mode,
+        cart: String(cartState.items.length)
+      });
+      try {
+        sessionStorage.setItem('aquiads_search_state', JSON.stringify({
+          onde: city,
+          ambiente: envFiltro || searchState.ambienteFiltro || 'todos',
+          periodo: searchState.periodoStr || '2 semanas',
+          semanas: searchState.periodoSemanas || 2,
+          inicio: searchState.inicio || '26/10/2026',
+          mode: searchState.mode,
+          cartCount: cartState.items.length
+        }));
+      } catch (e) {}
+      window.location.href = `resultados.html?${params.toString()}`;
     }
 
     function renderVitrine() {
@@ -2553,17 +2920,33 @@
       let fullHTML = '';
 
       citiesCatalog.forEach((cityGroup, idx) => {
-        const filteredItems = searchState.ambienteFiltro === 'todos'
-          ? cityGroup.items
-          : cityGroup.items.filter(item => item.env === searchState.ambienteFiltro);
+        const filteredItems = cityGroup.items.filter(item => {
+          const matchEnv = searchState.ambienteFiltro === 'todos' || item.env === searchState.ambienteFiltro;
+          const matchFmt = searchState.formatoFiltro === 'todos' || item.format === searchState.formatoFiltro;
+          const matchPrice = !searchState.maxWeeklyPrice || item.weeklyPrice <= searchState.maxWeeklyPrice;
+          return matchEnv && matchFmt && matchPrice;
+        });
 
         if (filteredItems.length === 0) return;
 
         const trackId = `carousel-track-${idx}`;
+        const activeEnvLabel = searchState.ambienteFiltro === 'todos'
+          ? 'todos os ambientes'
+          : searchState.ambienteFiltro;
+        const seeAllTitle = searchState.ambienteFiltro === 'todos'
+          ? `Ver todos os pontos em ${cityGroup.city}`
+          : `Ver ${searchState.ambienteFiltro} em ${cityGroup.city}`;
+        const seeAllCount = searchState.ambienteFiltro === 'todos'
+          ? `+${cityGroup.totalAvailable || 60} pontos`
+          : `+${Math.max(12, filteredItems.length * 9)} pontos`;
+        const stackImgs = filteredItems.slice(0, 3).map(it =>
+          `<img src="${it.img}" class="see-all-thumb" alt="${it.title}" loading="lazy">`
+        ).join('');
+
         fullHTML += `
           <section class="city-section">
             <div class="city-header-row">
-              <button type="button" class="city-title-btn" onclick="selectAddress('${cityGroup.city}')">
+              <button type="button" class="city-title-btn" onclick="verTudoCarrossel('${cityGroup.city}', '${searchState.ambienteFiltro}')">
                 <span class="city-title-text">${cityGroup.headerLabel}</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
               </button>
@@ -2632,7 +3015,23 @@
           `;
         });
 
+        /* Card final do carrossel (inspirado no Airbnb/Netflix) que aciona o filtro na página de resultados */
         fullHTML += `
+            <article class="see-all-card" onclick="verTudoCarrossel('${cityGroup.city}', '${searchState.ambienteFiltro}')" title="Abrir Página de Resultados filtrada para ${cityGroup.city}">
+              <div class="see-all-stack">
+                ${stackImgs}
+                <span class="see-all-count-pill">${seeAllCount}</span>
+              </div>
+              <div class="see-all-body">
+                <span class="see-all-kicker">Explorar no mapa • ${activeEnvLabel}</span>
+                <h3 class="see-all-title">${seeAllTitle}</h3>
+                <p class="see-all-sub">Abra o mapa interativo com todos os pontos filtrados nesta região.</p>
+              </div>
+              <div class="see-all-cta">
+                <span>Ver tudo</span>
+                <span class="see-all-arrow-circle">→</span>
+              </div>
+            </article>
             </div>
           </section>
         `;
