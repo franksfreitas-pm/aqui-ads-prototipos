@@ -476,10 +476,44 @@
       background: #FFFFFF;
       border: 1.5px solid #10B981;
       border-radius: 9999px;
-      padding: 4px 6px 4px 12px;
+      padding: 4px 12px;
       gap: 12px;
       box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
       animation: fadeIn 0.2s ease;
+    }
+    .combo-daily-container {
+      display: inline-flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1.5px solid #FF4F00;
+      border-radius: 9999px;
+      padding: 4px 12px;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(255, 79, 0, 0.16);
+      animation: fadeIn 0.2s ease;
+    }
+    .daily-pill {
+      display: inline-flex;
+      align-items: center;
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 9999px;
+      padding: 6px 16px;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(234, 88, 12, 0.08);
+      animation: fadeIn 0.2s ease;
+    }
+    .daily-pill-text {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: #C2410C;
+      font-weight: 500;
+    }
+    .daily-pill-text strong {
+      color: #9A3412;
+      font-weight: 800;
     }
     .combo-badge-juros {
       background-color: #10B981;
@@ -487,6 +521,16 @@
       font-size: 10px;
       font-weight: 800;
       padding: 2.5px 7px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .combo-badge-daily {
+      background-color: #FF4F00;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2.5px 8px;
       border-radius: 9999px;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -541,16 +585,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
     .cockpit-sub-bar {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       padding-top: 6px;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
     .cockpit-floating-restore {
@@ -650,46 +694,55 @@
   <header class="cockpit-top-bar" id="cockpitBar">
     <div class="cockpit-top-inner">
       <!-- 1. Identificação e Dispositivo -->
-      <div class="flex items-center gap-3">
-        <a href="../../index.html" class="cockpit-pill-btn hover:bg-white/20 text-gray-300" style="text-decoration: none;" title="Voltar ao Catálogo Geral">← Catálogo</a>
-        <div class="h-4 w-px bg-white/20"></div>
+      <div class="flex items-center gap-3 flex-wrap">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-[#FF4F00] animate-pulse"></span>
-          <span class="text-xs font-black text-white tracking-wide uppercase">PAINEL DE TESTE A/B</span>
+          <span class="text-xs font-black text-white tracking-wide uppercase">SIMULADOR DIRETORIA — BARRA FIXA</span>
         </div>
         <div class="h-4 w-px bg-white/20"></div>
         <div class="flex items-center gap-1.5">
-          <span class="text-[11px] font-bold text-gray-400 uppercase">Dispositivo:</span>
+          <span class="text-[11px] font-bold text-gray-400 uppercase">Tela:</span>
           <button id="devDesk" onclick="switchDevice('desktop')" class="cockpit-pill-btn active-device">
-            🖥️ Desktop (Tela Cheia)
+            🖥️ Desktop
           </button>
           <button id="devMob" onclick="switchDevice('mobile')" class="cockpit-pill-btn">
-            📱 Mobile (Simulador iPhone 15)
+            📱 Mobile (iPhone 15)
           </button>
         </div>
-      </div>
-
-      <!-- 2. Seleção de Propostas -->
-      <div class="flex items-center gap-1.5 flex-wrap">
-        <span class="text-[11px] font-bold text-gray-400 uppercase">Proposta:</span>
-        <button id="p0" onclick="selectProposal('0')" class="cockpit-pill-btn">
-          0. Atual (Sem Info)
-        </button>
-        <button id="p1" onclick="selectProposal('1')" class="cockpit-pill-btn">
-          1. Métricas Técnicas
-        </button>
-        <button id="p2" onclick="selectProposal('2')" class="cockpit-pill-btn">
-          2. Parcelamento Direto
-        </button>
-        <button id="p3" onclick="selectProposal('3')" class="cockpit-pill-btn active-combo">
-          ⭐ 3. Combo (Parcelamento + Métricas)
-        </button>
       </div>
 
       <!-- 3. Botão Minimizar -->
       <button onclick="toggleCockpitCollapse()" class="cockpit-pill-btn hover:bg-white/20 text-gray-300" title="Ocultar painel para ver tela 100% limpa">
         ▲ Minimizar
       </button>
+    </div>
+
+    <!-- 2. Seleção de Propostas da Barra Fixa -->
+    <div class="cockpit-sub-bar">
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <span class="text-[11px] font-bold text-gray-400 uppercase mr-1">Barra Fixa:</span>
+        <button id="p0" onclick="selectProposal('0')" class="cockpit-pill-btn">
+          0. Atual (Controle)
+        </button>
+        <button id="p1" onclick="selectProposal('1')" class="cockpit-pill-btn">
+          1. Só Alcance + Telas
+        </button>
+        <button id="p2" onclick="selectProposal('2')" class="cockpit-pill-btn">
+          2. Só Parcelamento (3x)
+        </button>
+        <button id="p3" onclick="selectProposal('3')" class="cockpit-pill-btn">
+          ⭐ 3. Parcela (3x) + Alcance
+        </button>
+        <button id="p4" onclick="selectProposal('4')" class="cockpit-pill-btn">
+          4. Só Valor por Dia
+        </button>
+        <button id="p5" onclick="selectProposal('5')" class="cockpit-pill-btn active-combo">
+          🔥 5. Valor por Dia + Alcance
+        </button>
+        <button id="p6" onclick="selectProposal('6')" class="cockpit-pill-btn">
+          💎 6. Visão Completa (Dia + 3x + Alcance)
+        </button>
+      </div>
     </div>
   </header>
 
@@ -905,36 +958,41 @@
       <div class="flex items-center justify-between border-b border-gray-100 pb-3">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-black">✓</div>
-          <h3 class="font-extrabold text-gray-900 text-base">Configuração da Campanha</h3>
+          <h3 class="font-extrabold text-gray-900 text-base">Resumo da Seleção na Página de Resultados</h3>
         </div>
         <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
       </div>
 
-      <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-col gap-2 text-xs">
+      <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-col gap-2.5 text-xs">
         <div class="flex justify-between items-center">
-          <span class="text-gray-500 font-medium">Pontos selecionados:</span>
+          <span class="text-gray-500 font-medium">Pontos adicionados ao carrinho:</span>
           <strong id="modalItemsCount" class="text-gray-900 font-bold">2 pontos de mídia</strong>
         </div>
         <div class="flex justify-between items-center">
-          <span class="text-gray-500 font-medium">Valor total à vista:</span>
+          <span class="text-gray-500 font-medium">Investimento por dia (14 dias):</span>
+          <strong id="modalDailyValue" class="text-[#FF4F00] font-extrabold text-xs">R$ 81,94 / dia</strong>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-gray-500 font-medium">Parcelamento facilitado:</span>
+          <strong id="modalInstallments" class="text-emerald-700 font-extrabold text-xs">em até 3x de R$ 382,40 sem juros</strong>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-gray-500 font-medium">Valor total do período (2 semanas):</span>
           <strong id="modalTotalValue" class="text-gray-900 font-bold text-sm">R$ 1.147,19</strong>
         </div>
+        <div class="h-px bg-gray-200 my-0.5"></div>
         <div class="flex justify-between items-center">
-          <span class="text-gray-500 font-medium">Condição facilitada:</span>
-          <strong id="modalInstallments" class="text-emerald-700 font-extrabold text-xs">3x de R$ 382,40 sem juros</strong>
-        </div>
-        <div class="flex justify-between items-center">
-          <span class="text-gray-500 font-medium">Alcance estimado:</span>
+          <span class="text-gray-500 font-medium">Alcance estimado da campanha:</span>
           <strong id="modalReach" class="text-blue-700 font-bold">~890,3 mil pessoas</strong>
         </div>
         <div class="flex justify-between items-center">
-          <span class="text-gray-500 font-medium">Telas ativas:</span>
+          <span class="text-gray-500 font-medium">Telas / faces ativas:</span>
           <strong id="modalScreens" class="text-purple-700 font-bold">3 telas</strong>
         </div>
       </div>
 
       <p class="text-[11px] text-gray-500 leading-relaxed">
-        Este protótipo demonstra o impacto das <strong>condições facilitadas de parcelamento</strong> e <strong>métricas de alcance</strong> diretamente na barra fixa para acelerar a tomada de decisão do anunciante.
+        Este simulador compara o efeito da ancoragem por <strong>custo diário (R$/dia)</strong>, <strong>parcelamento em até 3x sem juros</strong> e <strong>métricas de alcance</strong> na barra fixa da página de resultados para reduzir a fricção de entrada no checkout.
       </p>
 
       <div class="flex justify-end gap-2 pt-2 border-t border-gray-100">
@@ -961,9 +1019,10 @@
     };
 
     // Estado Geral
-    let currentDevice = 'desktop'; // 'desktop' | 'mobile'
-    let currentProposal = '3';     // '0' | '1' | '2' | '3'
-    let currentMobileFormat = 'ribbon'; // 'ribbon' (A) | 'stacked' (B) | 'badge' (C)
+    let currentDevice = 'desktop';     // 'desktop' | 'mobile'
+    let currentProposal = '5';         // '0' | '1' | '2' | '3' | '4' | '5' | '6'
+    let currentCardPriceMode = 'period'; // 'period' (2 semanas) | 'daily' (por dia - AQ-8932)
+    let currentMobileFormat = 'ribbon';
 
     function toggleProduct(id) {
       catalogData[id].selected = !catalogData[id].selected;
@@ -994,11 +1053,11 @@
 
     function selectProposal(p) {
       currentProposal = p;
-      ['0','1','2','3'].forEach(id => {
+      ['0','1','2','3','4','5','6'].forEach(id => {
         const btn = document.getElementById('p' + id);
         if (btn) {
           if (id === p) {
-            btn.className = id === '3' ? 'cockpit-pill-btn active-combo' : 'cockpit-pill-btn active';
+            btn.className = (id === '3' || id === '5' || id === '6') ? 'cockpit-pill-btn active-combo' : 'cockpit-pill-btn active';
           } else {
             btn.className = 'cockpit-pill-btn';
           }
@@ -1007,13 +1066,13 @@
       renderAll();
     }
 
-
     function calculateTotals() {
       let total = 0;
       let count = 0;
       let reach = 0;
       let screens = 0;
       let impressions = 0;
+      const periodDays = 14; // 2 semanas canônicas
 
       Object.values(catalogData).forEach(p => {
         if (p.selected) {
@@ -1027,11 +1086,12 @@
 
       const formattedTotal = total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const installment3x = (total / 3).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const dailyValue = (total / periodDays).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const formattedReach = reach >= 1000000 
         ? (reach / 1000000).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' mi'
         : (reach / 1000).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' mil';
 
-      return { total, count, reach, screens, formattedTotal, installment3x, formattedReach };
+      return { total, count, reach, screens, periodDays, formattedTotal, installment3x, dailyValue, formattedReach };
     }
 
     // Renderização dos Cards Desktop
@@ -1042,6 +1102,21 @@
 
       Object.entries(catalogData).forEach(([id, p]) => {
         const isSel = p.selected;
+        const cardDaily = (p.price / 14).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const cardTotal = p.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const priceHtml = currentCardPriceMode === 'daily'
+          ? `<div>
+               <div class="flex items-baseline gap-1">
+                 <span class="text-xs font-extrabold text-[#FF4F00]">R$ ${cardDaily}</span>
+                 <span class="text-[10px] font-bold text-gray-600">/ dia</span>
+               </div>
+               <span class="text-[10px] text-gray-400 block leading-tight">Total: R$ ${cardTotal} (2 sem)</span>
+             </div>`
+          : `<div>
+               <span class="text-xs font-extrabold text-gray-900">R$ ${cardTotal}</span>
+               <span class="text-[10px] text-gray-400">/ 2 sem</span>
+             </div>`;
+
         const card = document.createElement('div');
         card.className = 'product-card ' + (isSel ? 'is-selected' : '');
         card.innerHTML = `
@@ -1079,10 +1154,7 @@
               </div>
             </div>
             <div class="flex items-center justify-between pt-1">
-              <div>
-                <span class="text-xs font-extrabold text-gray-900">R$ ${p.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                <span class="text-[10px] text-gray-400">/ 2 sem</span>
-              </div>
+              ${priceHtml}
               <button onclick="toggleProduct(${id})" class="text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 ${isSel ? 'bg-emerald-600 text-white shadow-xs' : 'border border-gray-300 text-gray-700 hover:border-gray-900'}">
                 ${isSel ? 'ponto adicionado ✓' : 'adicionar ponto 🛒'}
               </button>
@@ -1101,6 +1173,21 @@
 
       Object.entries(catalogData).forEach(([id, p]) => {
         const isSel = p.selected;
+        const cardDaily = (p.price / 14).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const cardTotal = p.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const priceHtml = currentCardPriceMode === 'daily'
+          ? `<div>
+               <div class="flex items-baseline gap-1">
+                 <span class="text-xs font-extrabold text-[#FF4F00]">R$ ${cardDaily}</span>
+                 <span class="text-[10px] font-bold text-gray-600">/ dia</span>
+               </div>
+               <span class="text-[10px] text-gray-400 block leading-tight">Total: R$ ${cardTotal} (2 semanas)</span>
+             </div>`
+          : `<div>
+               <span class="text-xs font-extrabold text-gray-900">R$ ${cardTotal}</span>
+               <span class="text-[10px] text-gray-400">/ 2 semanas</span>
+             </div>`;
+
         const card = document.createElement('div');
         card.className = 'bg-white mx-3 my-2 rounded-2xl overflow-hidden border border-gray-200 shadow-sm';
         card.style.cssText = 'flex-shrink: 0; display: block; margin-bottom: 12px;';
@@ -1139,10 +1226,7 @@
               </div>
             </div>
             <div class="flex items-center justify-between pt-1">
-              <div>
-                <span class="text-xs font-extrabold text-gray-900">R$ ${p.price.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                <span class="text-[10px] text-gray-400">/ 2 semanas</span>
-              </div>
+              ${priceHtml}
               <button onclick="toggleProduct(${id})" class="text-xs font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 ${isSel ? 'bg-emerald-600 text-white' : 'border border-gray-300 text-gray-700'}">
                 ${isSel ? 'ponto adicionado ✓' : 'adicionar ponto 🛒'}
               </button>
@@ -1161,7 +1245,22 @@
       const slot = document.getElementById('deskCentralSlot');
       if (currentProposal === '0') {
         slot.innerHTML = '';
-      } else if (currentProposal === '1') {
+        return;
+      }
+
+      if (data.count === 0) {
+        slot.innerHTML = `
+          <div class="metric-bubble-group">
+            <div class="metric-bubble-item text-gray-500">
+              <i class="uil uil-info-circle text-[#FF4F00] text-sm"></i>
+              <span>Adicione pontos ao carrinho para simular <strong>investimento por dia</strong>, <strong>parcelamento em até 3x</strong> e <strong>alcance</strong></span>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (currentProposal === '1') {
         slot.innerHTML = `
           <div class="metric-bubble-group">
             <div class="metric-bubble-item" title="Alcance total estimado">
@@ -1207,39 +1306,102 @@
             </div>
           </div>
         `;
+      } else if (currentProposal === '4') {
+        slot.innerHTML = `
+          <div class="daily-pill">
+            <div class="daily-pill-text">
+              <i class="uil uil-calender text-[#FF4F00] text-base"></i>
+              <span>Investimento diário: <strong>R$ ${data.dailyValue} / dia</strong></span>
+            </div>
+            <div class="payment-brand-icons" style="border-left-color: #FED7AA;">
+              <span class="text-[10px] font-bold text-orange-800 uppercase tracking-wider">Período: ${data.periodDays} dias (2 sem)</span>
+            </div>
+          </div>
+        `;
+      } else if (currentProposal === '5') {
+        slot.innerHTML = `
+          <div class="combo-daily-container">
+            <div class="flex items-center gap-1.5">
+              <span class="combo-badge-daily">POR DIA</span>
+              <span class="combo-parcel-text"><strong>R$ ${data.dailyValue} / dia</strong> <span class="text-[11px] text-gray-400">(${data.periodDays} dias)</span></span>
+            </div>
+            <div class="combo-divider"></div>
+            <div class="combo-metrics-side">
+              <div class="combo-metric-badge">
+                <i class="uil uil-users-alt text-blue-600 text-sm"></i>
+                <span>Alcance: <strong>~${data.formattedReach} pessoas</strong></span>
+              </div>
+              <div class="combo-metric-badge">
+                <i class="uil uil-tv-retro text-purple-600 text-sm"></i>
+                <span>Telas: <strong>${data.screens} ativas</strong></span>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (currentProposal === '6') {
+        slot.innerHTML = `
+          <div class="combo-daily-container">
+            <div class="flex items-center gap-1.5">
+              <span class="combo-badge-daily">POR DIA</span>
+              <span class="combo-parcel-text"><strong>R$ ${data.dailyValue} / dia</strong></span>
+            </div>
+            <div class="combo-divider"></div>
+            <div class="flex items-center gap-1.5">
+              <span class="combo-badge-juros">3x SEM JUROS</span>
+              <span class="combo-parcel-text">de <strong>R$ ${data.installment3x}</strong></span>
+            </div>
+            <div class="combo-divider"></div>
+            <div class="combo-metrics-side">
+              <div class="combo-metric-badge">
+                <i class="uil uil-users-alt text-blue-600 text-sm"></i>
+                <span>Alcance: <strong>~${data.formattedReach} pessoas</strong></span>
+              </div>
+            </div>
+          </div>
+        `;
       }
     }
 
-    // Renderização das 9 Versões Mobile
+    // Renderização das Versões Mobile
     function renderMobileBar(data) {
       const mobBar = document.getElementById('mobileBottomBar');
       if (!mobBar) return;
 
       document.getElementById('mobBadgeCount').innerText = data.count;
 
+      const baseBottomRow = `
+        <div class="flex items-center justify-between px-4 py-2.5 bg-white">
+          <div class="flex flex-col">
+            <span class="text-[11px] text-gray-500 font-medium leading-none">${data.count} produtos selecionados</span>
+            <div class="flex items-baseline gap-1 mt-0.5">
+              <span class="text-xs text-gray-500 font-medium">Total</span>
+              <span class="text-sm font-black text-gray-900 leading-tight">R$ ${data.formattedTotal}</span>
+            </div>
+          </div>
+          <button onclick="handleContinue()" class="btn-official-continue text-xs font-bold px-5 py-2.5 h-10 rounded-xl">
+            <span>continuar</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      `;
+
       // PROPOSTA 0: ATUAL (CONTROLE)
       if (currentProposal === '0') {
+        mobBar.innerHTML = baseBottomRow;
+        return;
+      }
+
+      if (data.count === 0) {
         mobBar.innerHTML = `
-          <div class="flex items-center justify-between px-4 py-3 bg-white">
-            <div class="flex flex-col">
-              <span class="text-[11px] text-gray-500 font-medium leading-none">${data.count} produtos selecionados</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span class="text-xs text-gray-500 font-medium">Total</span>
-                <span class="text-sm font-black text-gray-900 leading-tight">R$ ${data.formattedTotal}</span>
-              </div>
-            </div>
-            <button onclick="handleContinue()" class="btn-official-continue text-xs font-bold px-5 py-2.5 h-10 rounded-xl">
-              <span>continuar</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
+          <div class="bg-gray-50 border-b border-gray-200 px-4 py-1.5 flex items-center justify-center text-[10.5px] text-gray-500 font-medium">
+            <span>Adicione pontos ao carrinho para simular valor por dia e alcance</span>
           </div>
+          ${baseBottomRow}
         `;
         return;
       }
 
-      // ==========================================
-      // PROPOSTA 1: MÉTRICAS TÉCNICAS (FAIXA SUPERIOR)
-      // ==========================================
+      // PROPOSTA 1: SÓ ALCANCE + TELAS (FAIXA SUPERIOR)
       if (currentProposal === '1') {
         mobBar.innerHTML = `
           <div class="bg-blue-50/95 border-b border-blue-100 px-4 py-1.5 flex items-center justify-between text-[11px]">
@@ -1252,24 +1414,12 @@
               <span>Telas: <strong>${data.screens} ativas</strong></span>
             </div>
           </div>
-          <div class="flex items-center justify-between px-4 py-2.5 bg-white">
-            <div class="flex flex-col">
-              <span class="text-[11px] text-gray-500 font-medium leading-none">${data.count} produtos selecionados</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span class="text-xs text-gray-500 font-medium">Total</span>
-                <span class="text-sm font-black text-gray-900 leading-tight">R$ ${data.formattedTotal}</span>
-              </div>
-            </div>
-            <button onclick="handleContinue()" class="btn-official-continue text-xs font-bold px-5 py-2.5 h-10 rounded-xl">
-              <span>continuar</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
+          ${baseBottomRow}
         `;
         return;
       }
 
-      // PROPOSTA 2: PARCELAMENTO DIRETO (FAIXA SUPERIOR)
+      // PROPOSTA 2: SÓ PARCELAMENTO (3x) (FAIXA SUPERIOR)
       if (currentProposal === '2') {
         mobBar.innerHTML = `
           <div class="bg-emerald-50/95 border-b border-emerald-100 px-4 py-1.5 flex items-center justify-between text-[11px]">
@@ -1281,24 +1431,12 @@
               <span>💳 Cartões ou Pix</span>
             </div>
           </div>
-          <div class="flex items-center justify-between px-4 py-2.5 bg-white">
-            <div class="flex flex-col">
-              <span class="text-[11px] text-gray-500 font-medium leading-none">${data.count} produtos selecionados</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span class="text-xs text-gray-500 font-medium">Total</span>
-                <span class="text-sm font-black text-gray-900 leading-tight">R$ ${data.formattedTotal}</span>
-              </div>
-            </div>
-            <button onclick="handleContinue()" class="btn-official-continue text-xs font-bold px-5 py-2.5 h-10 rounded-xl">
-              <span>continuar</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
+          ${baseBottomRow}
         `;
         return;
       }
 
-      // PROPOSTA 3: COMBO (PARCELAS + MÉTRICAS) (FAIXA SUPERIOR)
+      // PROPOSTA 3: COMBO (PARCELA 3x + ALCANCE) (FAIXA SUPERIOR)
       if (currentProposal === '3') {
         mobBar.innerHTML = `
           <div class="bg-emerald-50/95 border-b border-emerald-100 px-4 py-1.5 flex items-center justify-between text-[11px]">
@@ -1311,19 +1449,61 @@
               <span>Alcance: <strong class="text-gray-900 font-bold">~${data.formattedReach}</strong></span>
             </div>
           </div>
-          <div class="flex items-center justify-between px-4 py-2.5 bg-white">
-            <div class="flex flex-col">
-              <span class="text-[11px] text-gray-500 font-medium leading-none">${data.count} produtos selecionados</span>
-              <div class="flex items-baseline gap-1 mt-0.5">
-                <span class="text-xs text-gray-500 font-medium">Total</span>
-                <span class="text-sm font-black text-gray-900 leading-tight">R$ ${data.formattedTotal}</span>
-              </div>
+          ${baseBottomRow}
+        `;
+        return;
+      }
+
+      // PROPOSTA 4: SÓ VALOR POR DIA (FAIXA SUPERIOR)
+      if (currentProposal === '4') {
+        mobBar.innerHTML = `
+          <div class="bg-orange-50/95 border-b border-orange-100 px-4 py-1.5 flex items-center justify-between text-[11px]">
+            <div class="flex items-center gap-1.5 text-orange-900 font-bold">
+              <span class="bg-[#FF4F00] text-white text-[9px] px-1.5 py-0.2 rounded font-extrabold uppercase">Por dia</span>
+              <span>R$ ${data.dailyValue} / dia</span>
             </div>
-            <button onclick="handleContinue()" class="btn-official-continue text-xs font-bold px-5 py-2.5 h-10 rounded-xl">
-              <span>continuar</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
+            <div class="flex items-center gap-1 text-gray-600 font-semibold text-[10.5px]">
+              <span>📅 ${data.periodDays} dias (2 sem)</span>
+            </div>
           </div>
+          ${baseBottomRow}
+        `;
+        return;
+      }
+
+      // PROPOSTA 5: COMBO (VALOR POR DIA + ALCANCE) (FAIXA SUPERIOR)
+      if (currentProposal === '5') {
+        mobBar.innerHTML = `
+          <div class="bg-orange-50/95 border-b border-orange-100 px-4 py-1.5 flex items-center justify-between text-[11px]">
+            <div class="flex items-center gap-1.5 text-orange-950 font-bold">
+              <span class="bg-[#FF4F00] text-white text-[9px] px-1.5 py-0.2 rounded font-extrabold uppercase">Por dia</span>
+              <span>R$ ${data.dailyValue} / dia <span class="text-[9.5px] font-medium text-gray-500">(${data.periodDays}d)</span></span>
+            </div>
+            <div class="flex items-center gap-1 text-gray-600 font-semibold text-[10.5px]">
+              <span class="text-blue-600">👤</span>
+              <span>Alcance: <strong class="text-gray-900 font-bold">~${data.formattedReach}</strong></span>
+            </div>
+          </div>
+          ${baseBottomRow}
+        `;
+        return;
+      }
+
+      // PROPOSTA 6: VISÃO COMPLETA (DIA + 3X + ALCANCE)
+      if (currentProposal === '6') {
+        mobBar.innerHTML = `
+          <div class="bg-orange-50/95 border-b border-orange-100 px-3.5 py-1.5 flex items-center justify-between text-[10.5px]">
+            <div class="flex items-center gap-1.5 font-bold text-gray-900">
+              <span class="bg-[#FF4F00] text-white text-[8.5px] px-1.5 py-0.2 rounded font-extrabold uppercase">R$ ${data.dailyValue}/dia</span>
+              <span class="text-gray-300">•</span>
+              <span class="text-emerald-700 font-extrabold">3x R$ ${data.installment3x}</span>
+            </div>
+            <div class="flex items-center gap-1 text-gray-700 font-semibold text-[10px]">
+              <span class="text-blue-600">👤</span>
+              <span><strong>~${data.formattedReach}</strong></span>
+            </div>
+          </div>
+          ${baseBottomRow}
         `;
         return;
       }
@@ -1333,8 +1513,9 @@
     function handleContinue() {
       const data = calculateTotals();
       document.getElementById('modalItemsCount').innerText = data.count + ' pontos de mídia';
+      document.getElementById('modalDailyValue').innerText = 'R$ ' + data.dailyValue + ' / dia';
       document.getElementById('modalTotalValue').innerText = 'R$ ' + data.formattedTotal;
-      document.getElementById('modalInstallments').innerText = '3x de R$ ' + data.installment3x + ' sem juros';
+      document.getElementById('modalInstallments').innerText = 'em até 3x de R$ ' + data.installment3x + ' sem juros';
       document.getElementById('modalReach').innerText = '~' + data.formattedReach + ' pessoas';
       document.getElementById('modalScreens').innerText = data.screens + ' telas';
       const m = document.getElementById('checkoutModal');
