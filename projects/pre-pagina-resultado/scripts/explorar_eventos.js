@@ -2,8 +2,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const https = require('https');
 
 const projectId = '3387295';
-const username = 'Antigravity_Assistant.da9305.mp-service-account';
-const password = 'cmUIJay6BSYyAc5x5M3OvZyeY2OfVL2i';
+const username = 'Antigravity.30ed2c.mp-service-account';
+const password = 'f69cyHSkAVg1US2dhcWNILTgM853VuLv';
 const auth = Buffer.from(username + ':' + password).toString('base64');
 
 function mixpanelJQL(script) {
