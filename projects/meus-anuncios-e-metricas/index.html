@@ -370,57 +370,6 @@
             <button type="button" onclick="showToast('Filtrando ambiente: academia')" class="plp-ambience-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-[#282E38] border border-[#DFE7EF] hover:border-[#241e17] cursor-pointer transition">academia</button>
             <button type="button" onclick="showToast('Abrindo modal de mais filtros...')" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#F8F9FA] text-[#282E38] border border-[#DFE7EF] hover:border-[#241e17] cursor-pointer transition">mais filtros</button>
           </div>
-
-          <!-- BARRA DE AVISO DELICADA E INTEGRADA NO DS / PALETA AQUI ADS -->
-          <div class="max-w-[1280px] mx-auto mt-3.5">
-            <!-- Estado 1 (Padrão): Campanha no Ar • Ver Métricas -->
-            <div id="home-notice-active" class="bg-[#FFF7ED] border border-[#FF4F00]/25 rounded-lg px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
-              <div class="flex flex-wrap items-center gap-2 text-[#282E38]">
-                <span class="inline-flex items-center gap-1 bg-white border border-[#FF4F00]/30 text-[#FF4F00] text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#3A9F3A]"></span> no ar
-                </span>
-                <span>
-                  Sua campanha <strong class="font-bold text-[#0A0A0A]">BH - PÁTIO SAVASSI - ELEVADORE (#750598)</strong> está em veiculação <span class="text-[#64748B]">• 23.205 exibições entregues</span>
-                </span>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="openCampaignDetail('750598', 'metricas')" class="text-[#FF4F00] hover:underline font-bold text-xs flex items-center gap-1 cursor-pointer whitespace-nowrap">
-                  acompanhar métricas ➔
-                </button>
-                <span class="text-orange-200">|</span>
-                <button onclick="showScreen('screen-list'); switchTopTab('planos');" class="text-[#64748B] hover:text-[#282E38] text-[11px] font-semibold transition cursor-pointer whitespace-nowrap">
-                  meus anúncios
-                </button>
-                <button onclick="switchHomeNoticeScenario('pending')" class="text-[#8c97a6] hover:text-[#282E38] text-[10px] px-1.5 py-0.5 rounded border border-transparent hover:border-orange-200 transition cursor-pointer" title="Alternar simulação: campanha pendente de arte">
-                  ⇄
-                </button>
-              </div>
-            </div>
-
-            <!-- Estado 2 (Alternativo): Campanha Pendente de Arte -->
-            <div id="home-notice-pending" class="hidden bg-[#FFFBEB] border border-amber-300/60 rounded-lg px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
-              <div class="flex flex-wrap items-center gap-2 text-[#282E38]">
-                <span class="inline-flex items-center gap-1 bg-white border border-amber-300 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> arte pendente
-                </span>
-                <span>
-                  Sua campanha <strong class="font-bold text-[#0A0A0A]">Ed. Comercial liv635 (#750708)</strong> aguarda o envio da arte para iniciar a veiculação
-                </span>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="goToUploadArteScreen('750708')" class="text-[#FF4F00] hover:underline font-bold text-xs flex items-center gap-1 cursor-pointer whitespace-nowrap">
-                  enviar arte agora ➔
-                </button>
-                <span class="text-amber-200">|</span>
-                <button onclick="showScreen('screen-list'); switchTopTab('planos');" class="text-[#64748B] hover:text-[#282E38] text-[11px] font-semibold transition cursor-pointer whitespace-nowrap">
-                  meus anúncios
-                </button>
-                <button onclick="switchHomeNoticeScenario('active')" class="text-[#8c97a6] hover:text-[#282E38] text-[10px] px-1.5 py-0.5 rounded border border-transparent hover:border-amber-200 transition cursor-pointer" title="Alternar simulação: campanha no ar">
-                  ⇄
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- CORPO PRINCIPAL DA PÁGINA DE RESULTADOS: GRID DE 3 COLUNAS (890px) + MAPA STICKY LATERAL -->
