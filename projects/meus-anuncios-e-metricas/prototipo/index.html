@@ -174,15 +174,15 @@
             <img src="https://aqui.globo/images/header/ooh.svg" alt="OOH" class="w-7 h-7 object-contain">
             <span>OOH</span>
           </button>
-          <button type="button" onclick="showToast('Alternando para vitrine Digital | Globo...')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+          <button type="button" onclick="showToast('Alternando para página de resultados Digital | Globo...')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
             <img src="https://aqui.globo/images/header/digital.svg" alt="Digital" class="w-7 h-7 object-contain">
             <span>Digital</span>
           </button>
-          <button type="button" onclick="showToast('Alternando para vitrine TV...')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+          <button type="button" onclick="showToast('Alternando para página de resultados TV...')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
             <img src="https://aqui.globo/images/header/tv.svg" alt="TV" class="w-7 h-7 object-contain">
             <span>TV</span>
           </button>
-          <button type="button" onclick="showToast('Alternando para vitrine Rádio...')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+          <button type="button" onclick="showToast('Alternando para página de resultados Rádio...')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
             <img src="https://aqui.globo/images/header/radio.svg" alt="Rádio" class="w-7 h-7 object-contain">
             <span>Rádio</span>
           </button>
@@ -790,7 +790,7 @@
         <div class="sticky bottom-0 z-20 w-full border-t border-gray-200 bg-white py-3 px-4 sm:px-6 lg:px-10 shadow-[0_-4px_12px_rgba(0,0,0,0.04)]">
           <div class="max-w-[1280px] mx-auto flex items-center justify-between">
             <div class="text-xs text-[#64748B]">
-              <span id="plp-cart-summary">Nenhum novo ponto selecionado na vitrine</span>
+              <span id="plp-cart-summary">Nenhum novo ponto selecionado na página de resultados</span>
             </div>
             <button id="resultpage_next-button" type="button" onclick="showToast('Avançando para o resumo da campanha...')" class="px-5 py-2 rounded-lg bg-gray-200 text-gray-500 font-bold text-xs flex items-center gap-2 cursor-pointer transition">
               <span>continuar</span>
@@ -1052,7 +1052,7 @@
                   <span class="text-xs font-extrabold text-gray-900 ml-auto">R$ 1.240,00</span>
                 </div>
               </div>
-              <button onclick="showToast('Datas atualizadas para 29/10 a 11/11! Redirecionando ao checkout...')" class="mt-4 w-full py-2 px-3 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold cursor-pointer">
+              <button onclick="openCheckoutForItem('Plano Savassi + Funcionários (8 prédios)', 'R$ 1.240,00', 'Campanha Out of Home', 'screen-list')" class="mt-4 w-full py-2 px-3 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold cursor-pointer">
                 📅 Atualizar datas e retomar →
               </button>
             </div>
@@ -1072,7 +1072,7 @@
                   <span class="text-xs font-extrabold text-gray-900 ml-auto">R$ 1.890,00</span>
                 </div>
               </div>
-              <button onclick="showToast('Rascunho aberto no carrinho!')" class="mt-4 w-full py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold cursor-pointer">
+              <button onclick="openCheckoutForItem('Black Friday BH • OOH + g1 / ge', 'R$ 1.890,00', 'Campanha Híbrida (OOH + Digital)', 'screen-list')" class="mt-4 w-full py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold cursor-pointer">
                 Continuar para pagamento →
               </button>
             </div>
@@ -1091,7 +1091,7 @@
                   <span class="text-xs font-extrabold text-gray-900 ml-auto">R$ 1.600,00</span>
                 </div>
               </div>
-              <button onclick="showToast('Rascunho aberto no carrinho!')" class="mt-4 w-full py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold cursor-pointer">
+              <button onclick="openCheckoutForItem('Campanha Fim de Ano • Portais Globo', 'R$ 1.600,00', 'Campanha Digital | Globo', 'screen-list')" class="mt-4 w-full py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold cursor-pointer">
                 Continuar para pagamento →
               </button>
             </div>
@@ -1818,18 +1818,8 @@
         <!-- ABA 2: ARTE (FIEL AOS PRINTS 07 E 08 - APROVADA E PENDENTE)       -->
         <!-- ================================================================= -->
         <section id="dtab-panel-arte" class="detail-tab-panel hidden">
-          <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="mb-5">
             <h3 class="text-lg font-bold text-gray-900">Arte</h3>
-            <!-- Seletor de Estado da Aba Arte para Validação Rápida -->
-            <div class="flex items-center gap-1.5 bg-gray-100 p-1 rounded-lg text-[11px]">
-              <span class="text-gray-500 px-2 font-medium">Simular estado:</span>
-              <button onclick="setArteState('aprovada')" id="arte-state-aprovada" class="px-2.5 py-1 rounded-md font-bold bg-white text-gray-900 shadow-2xs cursor-pointer">
-                ✓ Arte Aprovada (Print 07)
-              </button>
-              <button onclick="setArteState('pendente')" id="arte-state-pendente" class="px-2.5 py-1 rounded-md font-semibold text-gray-600 hover:text-gray-900 cursor-pointer">
-                ⚠️ Arte Pendente (Print 08)
-              </button>
-            </div>
           </div>
 
           <!-- ESTADO A: ARTE APROVADA COM MOLDURA ELETROMIDIA (PRINT 07) -->
@@ -2046,149 +2036,908 @@
       </main>
 
       <!-- ===================================================================== -->
-      <!-- TELA DEDICADA: SUBIR IMAGEM / ENVIAR ARTE (VIEW-UPLOAD-ARTE)          -->
+      <!-- TELA DEDICADA: FLUXO OFICIAL DE ENVIO DE ARTE (05_envio_de_arte.html) -->
       <!-- ===================================================================== -->
-      <main id="view-upload-arte" class="view-section flex-1 max-w-[1060px] w-full mx-auto px-6 md:px-10 py-6 responsive-main-padding">
-        <!-- Botão Voltar -->
-        <div class="mb-5">
-          <button onclick="backFromUploadArte()" class="px-3.5 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer">
-            <span>‹</span> voltar
-          </button>
-        </div>
+      <main id="view-upload-arte" class="view-section flex-1 w-full bg-[#F8FAFC] relative">
 
-        <!-- Cabeçalho da Tela de Subir Imagem -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-gray-200">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full">⚠️ Aguardando envio de criativo</span>
-              <span id="upload-screen-campaign-id" class="text-xs font-bold text-gray-400">#750708</span>
+        <!-- =================================================================== -->
+        <!-- SUB-VIEW 1: SELEÇÃO DO CAMINHO DE ARTE + URL DE DESTINO CONDICIONAL -->
+        <!-- =================================================================== -->
+        <section id="art-subview-selecao" class="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-28">
+          <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full">⚠️ Aguardando envio de criativo</span>
+                <span id="upload-screen-campaign-id" class="text-xs font-bold text-gray-400">#750708</span>
+                <span class="text-xs text-gray-400">•</span>
+                <span id="upload-screen-campaign-title" class="text-xs font-bold text-gray-700">Ed. Comercial liv635</span>
+              </div>
+              <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Configure os detalhes do seu anúncio</h1>
+              <p class="text-xs text-gray-500 mt-0.5">
+                Prazo contratado: <span id="upload-screen-campaign-period" class="font-medium text-gray-700">26/10/2026 a 22/11/2026 (28 dias)</span>
+              </p>
             </div>
-            <h2 class="text-xl font-extrabold text-gray-900 tracking-tight">Enviar arte da campanha</h2>
-            <p class="text-xs text-gray-600 mt-0.5">
-              Campanha: <strong id="upload-screen-campaign-title" class="text-gray-900">Ed. Comercial liv635</strong> • Prazo contratado: <span id="upload-screen-campaign-period" class="font-medium text-gray-800">26/10/2026 a 22/11/2026 (28 dias)</span>
-            </p>
-          </div>
-
-          <div class="flex items-center gap-2">
             <button onclick="openCampaignDetail(uploadingCampaignId, 'locais')" class="px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
               📍 ver locais contratados
             </button>
           </div>
-        </div>
 
-        <!-- Seletor do Formato Contratado -->
-        <div class="mb-6">
-          <label class="block text-xs font-bold text-gray-800 mb-2">1. Selecione o formato contratado para enviar o arquivo</label>
-          <div class="flex flex-wrap items-center gap-2.5">
-            <button onclick="selectUploadFormat('comercial')" id="up-fmt-comercial" class="px-4 py-2.5 rounded-xl border-2 border-[#FF5A00] bg-orange-50/40 text-left flex items-center gap-3 cursor-pointer transition">
-              <span class="text-lg">🏢</span>
+          <h2 class="text-sm font-bold text-gray-800 mb-3">A arte que será exibida na campanha</h2>
+
+          <!-- Grid dos 3 Cards de Escolha -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <!-- Card 1: Enviar minha arte -->
+            <div id="card-opt-upload" onclick="selectArtOption('upload')" class="cursor-pointer rounded-2xl border-2 border-[#FF5A00] bg-orange-50/10 p-6 flex flex-col justify-between transition hover:shadow-md">
               <div>
-                <p class="text-xs font-bold text-gray-900">Elevadores Comerciais / Residenciais</p>
-                <p class="text-[10px] text-gray-500">Dimensão obrigatória: <strong class="text-gray-800">900x600 px</strong> (Horizontal • JPG, PNG ou MP4)</p>
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-[#FF5A00] flex items-center justify-center mb-4 font-bold text-lg">↑</div>
+                <h3 class="text-base font-bold text-gray-900 mb-1">Enviar minha arte</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Faça upload dos arquivos que você já possui.</p>
               </div>
-              <span id="up-fmt-badge" class="ml-2 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">Pendente</span>
+              <div>
+                <span class="inline-block px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-[11px] font-semibold mb-3">Sem custo</span>
+                <p class="text-[11px] text-gray-400 flex items-center gap-1">
+                  <span>ⓘ</span>
+                  <span>Requer seguir as especificações de formato</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Card 2: Utilizar modelos prontos -->
+            <div id="card-opt-templates" onclick="selectArtOption('templates')" class="cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 flex flex-col justify-between transition hover:shadow-md">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-[#FF5A00] flex items-center justify-center mb-4 font-bold text-lg">⊞</div>
+                <h3 class="text-base font-bold text-gray-900 mb-1">Utilizar modelos prontos</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Personalize modelos pré-configurados de acordo com a sua necessidade.</p>
+              </div>
+              <div>
+                <span class="inline-block px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-[11px] font-semibold mb-3">Gratuito</span>
+                <p class="text-[11px] text-gray-400 flex items-center gap-1">
+                  <span>✨</span>
+                  <span>Rápido, prático e já nos tamanhos corretos</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Card 3: Contratar uma arte -->
+            <div id="card-opt-hire" onclick="selectArtOption('hire')" class="cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 flex flex-col justify-between transition hover:shadow-md">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-[#FF5A00] flex items-center justify-center mb-4 font-bold text-lg">✎</div>
+                <h3 class="text-base font-bold text-gray-900 mb-1">Contratar uma arte</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-4">Contrate uma arte profissional para o seu anúncio.</p>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs text-gray-400 line-through">R$ 200,00</span>
+                  <span class="text-sm font-extrabold text-gray-900">R$ 99,00</span>
+                  <span class="px-2 py-0.5 rounded-full bg-orange-100 text-[#FF5A00] text-[10px] font-bold">50% OFF</span>
+                </div>
+                <p class="text-[11px] text-gray-400 flex items-center gap-1">
+                  <span>🛡</span>
+                  <span>Produzida por especialistas em mídia</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco Condicional: URL de Destino (Exibido quando a campanha possui Digital) -->
+          <div id="block-url-destino" class="mb-6">
+            <h3 class="text-sm font-bold text-gray-800 mb-1">URL de destino</h3>
+            <p class="text-xs text-gray-500 mb-3">Para onde o público será direcionado ao clicar nos seus anúncios digitais</p>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400 text-sm">🔗</span>
+              <input id="input-url-destino" type="url" value="https://www.seusite.com.br/promocao" placeholder="https://www.seusite.com.br/sua-pagina" class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-800 focus:outline-none focus:border-[#FF5A00]" />
+            </div>
+            <p class="text-[11px] text-gray-400 mt-1.5">Inclua o endereço completo começando com https://</p>
+          </div>
+
+          <!-- Barra Inferior Fixa (Sub-view 1) -->
+          <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3.5 flex items-center justify-between z-30">
+            <button onclick="backFromUploadArte()" class="px-5 py-2 rounded-lg border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">
+              voltar
+            </button>
+            <button onclick="proceedFromArtSelection()" class="px-6 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-xs font-bold flex items-center gap-2 shadow-sm cursor-pointer">
+              <span>avançar</span>
+              <span>→</span>
             </button>
           </div>
-        </div>
+        </section>
 
-        <!-- Grid Principal: Área Tracejada de Upload + Pré-visualização na Moldura Eletromidia -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-8">
-          <!-- Coluna Esquerda: Dropzone para Subir Imagem (7 cols) -->
-          <div class="lg:col-span-7 flex flex-col justify-between bg-white rounded-xl p-6 border border-gray-200">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-bold text-gray-900">2. Subir imagem ou vídeo do anúncio</h3>
-                <span class="text-[11px] font-semibold text-gray-500">900x600 px • Máx. 15MB</span>
+        <!-- =================================================================== -->
+        <!-- SUB-VIEW 2: MESA DE UPLOAD DE ARQUIVOS E PREVIEW (GLOBO / OOH)      -->
+        <!-- =================================================================== -->
+        <section id="art-subview-upload" class="hidden max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-28">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Coluna Esquerda: Sanfona de Arquivos por Formato (4 cols) -->
+            <div class="lg:col-span-4 bg-white rounded-2xl border border-gray-200 p-5 h-fit">
+              <h2 class="text-base font-bold text-gray-900">Arquivos</h2>
+              <p class="text-xs text-gray-500 mt-0.5 mb-5">Envie seus arquivos nos formatos solicitados abaixo para criarmos seu anúncio.</p>
+
+              <!-- Sanfona 1: Digital (Display) -->
+              <div id="accordion-digital" class="border border-gray-200 rounded-xl mb-3 overflow-hidden">
+                <button onclick="toggleArtAccordion('acc-body-digital')" class="w-full px-4 py-3 bg-white flex items-center justify-between text-left cursor-pointer">
+                  <div class="flex items-center gap-2">
+                    <span class="text-gray-600">🖥</span>
+                    <span class="text-xs font-bold text-gray-800">Digital (Display)</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span id="badge-digital-status" class="text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-semibold">0/02 concluídos</span>
+                    <span class="text-gray-400 text-xs">⌃</span>
+                  </div>
+                </button>
+                <div id="acc-body-digital" class="px-4 pb-4 pt-1 border-t border-gray-100 space-y-2.5 bg-[#FAFAFA]">
+                  <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-bold text-gray-800">Billboard</p>
+                      <p class="text-[11px] text-gray-400">970x250 px</p>
+                    </div>
+                    <button id="btn-up-billboard" onclick="openArtUploadModal('digital', 'Billboard', '970', '250')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                      <span>enviar arquivo</span><span>↑</span>
+                    </button>
+                  </div>
+                  <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-bold text-gray-800">Maxiboard</p>
+                      <p class="text-[11px] text-gray-400">970x150 px</p>
+                    </div>
+                    <button onclick="openArtUploadModal('digital', 'Maxiboard', '970', '150')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                      <span>enviar arquivo</span><span>↑</span>
+                    </button>
+                  </div>
+                  <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-bold text-gray-800">Retângulo Médio</p>
+                      <p class="text-[11px] text-gray-400">300x250 px</p>
+                    </div>
+                    <button onclick="openArtUploadModal('digital', 'Retângulo Médio', '300', '250')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                      <span>enviar arquivo</span><span>↑</span>
+                    </button>
+                  </div>
+                  <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-bold text-gray-800">Half Page</p>
+                      <p class="text-[11px] text-gray-400">300x600 px</p>
+                    </div>
+                    <button onclick="openArtUploadModal('digital', 'Half Page', '300', '600')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                      <span>enviar arquivo</span><span>↑</span>
+                    </button>
+                  </div>
+                  <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-bold text-gray-800">Banner Mobile Pequeno</p>
+                      <p class="text-[11px] text-gray-400">320x50 px</p>
+                    </div>
+                    <button onclick="openArtUploadModal('digital', 'Banner Mobile Pequeno', '320', '50')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                      <span>enviar arquivo</span><span>↑</span>
+                    </button>
+                  </div>
+                  <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-bold text-gray-800">Banner Mobile Médio</p>
+                      <p class="text-[11px] text-gray-400">320x100 px</p>
+                    </div>
+                    <button onclick="openArtUploadModal('digital', 'Banner Mobile Médio', '320', '100')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                      <span>enviar arquivo</span><span>↑</span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <!-- Área Tracejada Interativa -->
-              <div onclick="previewSelectedCreative()" id="upload-dropzone-box" class="border-2 border-dashed border-gray-300 hover:border-[#FF5A00] bg-[#F8FAFC] hover:bg-orange-50/30 rounded-2xl p-8 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[230px]">
-                <div id="upload-dropzone-icon" class="w-12 h-12 rounded-full bg-orange-100 text-[#FF5A00] flex items-center justify-center mb-3 font-black text-lg">
-                  ↑
-                </div>
-                <p id="upload-dropzone-title" class="text-xs md:text-sm font-bold text-gray-900 mb-1">
-                  Arraste sua imagem aqui ou clique para selecionar do computador
-                </p>
-                <p id="upload-dropzone-sub" class="text-[11px] text-gray-500 max-w-sm">
-                  Formatos aceitos: <strong class="text-gray-700">JPG, PNG ou MP4</strong> • Dimensão exata: <strong class="text-gray-700">900x600 px</strong>
-                </p>
-                <span id="upload-file-pill" class="mt-4 px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 text-xs font-bold text-gray-800 shadow-2xs">
-                  Selecionar arquivo do computador...
-                </span>
-              </div>
-
-              <!-- Checklist de Validação Técnica -->
-              <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
-                <div class="bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700">
-                  <span id="chk-dim" class="text-gray-400 font-bold">✓</span>
-                  <span>Resolução <strong>900x600 px</strong></span>
-                </div>
-                <div class="bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700">
-                  <span id="chk-fmt" class="text-gray-400 font-bold">✓</span>
-                  <span>Formato <strong>JPG / PNG / MP4</strong></span>
-                </div>
-                <div class="bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700">
-                  <span id="chk-mod" class="text-gray-400 font-bold">✓</span>
-                  <span>Aprovação em <strong>até 24h</strong></span>
+              <!-- Sanfona 2: OOH -->
+              <div id="accordion-ooh" class="border border-gray-200 rounded-xl overflow-hidden">
+                <button onclick="toggleArtAccordion('acc-body-ooh')" class="w-full px-4 py-3 bg-white flex items-center justify-between text-left cursor-pointer">
+                  <div class="flex items-center gap-2">
+                    <span class="text-gray-600">🏢</span>
+                    <span class="text-xs font-bold text-gray-800">OOH</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span id="badge-ooh-status" class="text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-semibold">0/01 concluídos</span>
+                    <span class="text-gray-400 text-xs">⌃</span>
+                  </div>
+                </button>
+                <div id="acc-body-ooh" class="px-4 pb-4 pt-2 border-t border-gray-100 bg-[#FAFAFA]">
+                  <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-gray-800">800x600 px</span>
+                      <button id="btn-up-ooh" onclick="openArtUploadModal('ooh', 'Elevadores Residenciais / Comerciais', '800', '600')" class="px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer">
+                        <span>enviar arquivo</span><span>↑</span>
+                      </button>
+                    </div>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-gray-100 text-[10px] font-medium text-gray-600">🏢 Residenciais / Comerciais</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Rodapé de Ação da Coluna de Upload -->
-            <div class="mt-6 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
-              <button onclick="backFromUploadArte()" class="px-4 py-2.5 rounded-lg border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50 cursor-pointer">
-                cancelar
-              </button>
-              <button onclick="confirmUploadArteFromScreen()" id="btn-confirm-upload-screen" class="px-5 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition cursor-pointer">
-                <span>✓</span> confirmar envio da arte
-              </button>
+            <!-- Coluna Direita: Personalize seu anúncio e Previews (8 cols) -->
+            <div class="lg:col-span-8 bg-white rounded-2xl border border-gray-200 p-6">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div>
+                  <span class="text-[11px] text-gray-400 font-semibold" id="upload-workbench-camp-label">#750708 • Ed. Comercial liv635</span>
+                  <h2 class="text-lg font-bold text-gray-900">Personalize seu anúncio</h2>
+                </div>
+                <button onclick="showToast('Dica: use fontes legíveis, alto contraste e deixe a barra inferior de 62px livre no OOH.')" class="px-3 py-1.5 rounded-lg border border-orange-200 bg-orange-50/50 text-[#FF5A00] text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
+                  <span>💡</span><span>dicas de criação</span>
+                </button>
+              </div>
+
+              <!-- Abas de Pré-visualização (Digital vs Residenciais/OOH) -->
+              <div class="flex items-center gap-6 border-b border-gray-200 mb-6">
+                <button id="tab-prev-digital" onclick="switchUploadPreviewTab('digital')" class="pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] flex items-center gap-1.5 cursor-pointer">
+                  <span>🖥</span><span>Digital</span>
+                </button>
+                <button id="tab-prev-ooh" onclick="switchUploadPreviewTab('ooh')" class="pb-2.5 text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1.5 cursor-pointer">
+                  <span>🏢</span><span>residenciais</span>
+                </button>
+              </div>
+
+              <!-- Preview Container 1: Digital (Portal g1.globo.com) -->
+              <div id="preview-box-digital" class="bg-[#F3F4F6] rounded-xl p-6 flex flex-col items-center">
+                <div class="w-full max-w-2xl bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                  <div class="bg-gray-100 px-3 py-1.5 border-b border-gray-200 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <div class="ml-2 flex-1 bg-white rounded px-3 py-0.5 text-[10px] text-gray-400 text-center">g1.globo.com</div>
+                  </div>
+                  <div class="bg-[#C4170C] text-white px-4 py-2 flex items-center justify-between">
+                    <span class="text-xs font-medium">≡ menu</span>
+                    <span class="text-base font-black tracking-tight">g1</span>
+                    <span class="text-xs">🔍</span>
+                  </div>
+                  <div class="p-4 flex flex-col items-center">
+                    <span class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">PUBLICIDADE</span>
+                    <div id="preview-slot-digital" onclick="openArtUploadModal('digital', 'Billboard', '970', '250')" class="w-full h-28 bg-gray-100 border-2 border-dashed border-gray-300 hover:border-[#FF5A00] rounded-lg flex flex-col items-center justify-center text-gray-400 text-xs font-medium cursor-pointer transition">
+                      <span id="preview-slot-digital-text">Seu anúncio Digital (970x250 px) aparecerá aqui</span>
+                    </div>
+                    <div class="w-full mt-5 space-y-2">
+                      <div class="h-3 bg-gray-200 rounded w-3/4"></div>
+                      <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                      <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="h-20 bg-gray-100 rounded"></div>
+                        <div class="space-y-2">
+                          <div class="h-2.5 bg-gray-200 rounded w-full"></div>
+                          <div class="h-2.5 bg-gray-200 rounded w-5/6"></div>
+                          <div class="h-2.5 bg-gray-200 rounded w-2/3"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-4">Imagem meramente ilustrativa para demonstrar a aplicação do criativo.</p>
+              </div>
+
+              <!-- Preview Container 2: OOH Residenciais (800x600px com barra reservada 62px) -->
+              <div id="preview-box-ooh" class="hidden bg-[#F3F4F6] rounded-xl p-6 flex flex-col items-center">
+                <div class="w-full max-w-md bg-[#2A2D34] p-4 rounded-2xl shadow-md">
+                  <div id="preview-slot-ooh" onclick="openArtUploadModal('ooh', 'Elevadores Residenciais / Comerciais', '800', '600')" class="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden flex flex-col justify-between border border-gray-300 cursor-pointer relative">
+                    <div id="preview-ooh-empty" class="flex-1 flex flex-col items-center justify-center text-gray-500 text-xs font-medium p-6 text-center">
+                      <span>Área do Criativo OOH (800x600 px)</span>
+                      <span class="text-[11px] text-gray-400 mt-1">Clique aqui ou em "enviar arquivo" ao lado</span>
+                    </div>
+                    <div id="preview-ooh-filled" class="hidden flex-1 relative overflow-hidden bg-amber-900">
+                      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Criativo OOH Carregado" class="w-full h-full object-cover opacity-90">
+                      <div class="absolute inset-0 bg-gradient-to-r from-amber-950/85 via-amber-900/50 to-transparent p-4 flex flex-col justify-between text-white">
+                        <div>
+                          <p class="text-[9px] uppercase tracking-widest text-amber-200 font-bold">Campanha OOH</p>
+                          <p class="text-xs font-extrabold leading-tight">SEU ANÚNCIO EM DESTAQUE<br>NOS ELEVADORES</p>
+                        </div>
+                        <div class="bg-black/40 border border-white/30 rounded px-2 py-1 w-fit">
+                          <p class="text-[9px] font-bold">800x600 px • VALIDADO ✓</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="h-10 bg-[#3B3F46] text-white px-4 flex items-center justify-between text-[11px]">
+                      <span class="font-bold tracking-wider">ÁREA RESERVADA (62px)</span>
+                      <span class="font-extrabold text-[#FF5A00]">[EM] <span class="text-white font-semibold">eletromidia</span></span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-4">Imagem meramente ilustrativa para demonstrar a aplicação do criativo.</p>
+              </div>
             </div>
           </div>
 
-          <!-- Coluna Direita: Pré-visualização na Moldura Eletromidia (5 cols) -->
-          <div class="lg:col-span-5 bg-white rounded-xl p-6 border border-gray-200 flex flex-col items-center justify-between">
-            <div class="w-full flex items-center justify-between mb-3">
-              <span class="text-xs font-bold text-gray-900">Pré-visualização na tela OOH</span>
-              <span id="upload-preview-status" class="bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-0.5 rounded">Aguardando arquivo</span>
+          <!-- Barra Inferior Fixa (Sub-view 2: Upload) -->
+          <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 z-30">
+            <div class="flex items-center gap-3">
+              <button onclick="goToArtSubview('art-subview-selecao')" class="px-4 py-2 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">
+                ← voltar para opções
+              </button>
+              <button onclick="openCampaignDetail(uploadingCampaignId, 'locais')" class="px-4 py-2 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">
+                ver plano de mídia
+              </button>
+            </div>
+            <div class="flex items-center gap-4">
+              <span id="upload-progress-label" class="text-xs text-gray-500">0 de 1 produtos prontos para publicação</span>
+              <button onclick="confirmUploadArteFromScreen()" class="px-5 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-xs font-bold flex items-center gap-2 shadow-sm cursor-pointer">
+                <span>concluir</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SUB-VIEW 3: GALERIA DE MODELOS PRONTOS                              -->
+        <!-- =================================================================== -->
+        <section id="art-subview-galeria" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-28">
+          <div class="mb-6">
+            <h1 class="text-xl font-bold text-gray-900">Modelos</h1>
+            <p class="text-xs text-gray-500 mt-0.5">Escolha uma sugestão de modelo editável para usar em seu anúncio.</p>
+          </div>
+
+          <!-- Busca + Filtros de Segmento -->
+          <div class="mb-6 space-y-3">
+            <div class="relative max-w-md">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-xs">🔍</span>
+              <input type="text" placeholder="Buscar" class="w-full pl-8 pr-4 py-2 rounded-lg border border-gray-200 bg-white text-xs text-gray-800 focus:outline-none focus:border-[#FF5A00]" />
             </div>
 
-            <!-- Moldura Preta Oficial Eletromidia -->
-            <div class="bg-gray-950 p-4 rounded-xl shadow-lg w-full border-4 border-gray-800 my-auto">
-              <!-- Estado Vazio (Antes de selecionar imagem) -->
-              <div id="upload-frame-empty" onclick="previewSelectedCreative()" class="overflow-hidden rounded-md bg-gray-800 relative aspect-3/2 flex flex-col items-center justify-center text-center p-4 cursor-pointer hover:bg-gray-800/80 transition">
-                <svg class="w-8 h-8 text-gray-500 mb-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                <p class="text-[11px] font-bold text-gray-300">Espaço da sua arte (900x600 px)</p>
-                <p class="text-[10px] text-gray-400 mt-0.5">Clique ao lado para carregar e simular na tela</p>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1">
+              <button class="px-3.5 py-1.5 rounded-lg bg-[#FF5A00] text-white text-xs font-semibold whitespace-nowrap cursor-pointer">⊞ Todos</button>
+              <button class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-xs font-medium hover:bg-gray-50 whitespace-nowrap cursor-pointer">🎓 educação</button>
+              <button class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-xs font-medium hover:bg-gray-50 whitespace-nowrap cursor-pointer">💎 estética e beleza</button>
+              <button class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-xs font-medium hover:bg-gray-50 whitespace-nowrap cursor-pointer">🐶 pet</button>
+              <button class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-xs font-medium hover:bg-gray-50 whitespace-nowrap cursor-pointer">🔧 serviços</button>
+              <button class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-xs font-medium hover:bg-gray-50 whitespace-nowrap cursor-pointer">🍴 alimentos e bebidas</button>
+              <button class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-xs font-medium hover:bg-gray-50 whitespace-nowrap cursor-pointer">🏠 imóveis</button>
+            </div>
+          </div>
+
+          <!-- Grid de Cards de Modelos Prontos -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Modelo 1: Gastronomia / Churrasco -->
+            <div onclick="openTemplateEditor('#8B3A3A', '#F7D046', '#1F2937', 'quero conhecer', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80')" class="group cursor-pointer rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+              <div class="aspect-[16/10] flex">
+                <div class="w-1/2 bg-[#8B3A3A] p-4 flex flex-col justify-between text-white">
+                  <p class="text-xs font-extrabold text-[#F7D046] leading-snug">Texto do anúncio com até 67 caracteres neste espaço</p>
+                  <div class="border border-white/60 px-2 py-1 text-[9px] font-bold w-fit">SEU LOGO</div>
+                  <span class="bg-[#F7D046] text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded w-fit">quero conhecer</span>
+                </div>
+                <div class="w-1/2 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80')"></div>
+              </div>
+            </div>
+
+            <!-- Modelo 2: Pet Shop -->
+            <div onclick="openTemplateEditor('#38BDF8', '#FDE047', '#0F172A', 'agendar banho', 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80')" class="group cursor-pointer rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+              <div class="aspect-[16/10] flex">
+                <div class="w-1/2 bg-[#38BDF8] p-4 flex flex-col justify-between text-gray-900">
+                  <p class="text-xs font-extrabold text-gray-900 leading-snug">Cuidado e carinho para o seu melhor amigo perto de você</p>
+                  <div class="border border-gray-900/60 px-2 py-1 text-[9px] font-bold w-fit">SEU LOGO</div>
+                  <span class="bg-[#FDE047] text-gray-900 text-[10px] font-bold px-2.5 py-1 rounded w-fit">agendar banho</span>
+                </div>
+                <div class="w-1/2 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80')"></div>
+              </div>
+            </div>
+
+            <!-- Modelo 3: Imóveis / Arquitetura -->
+            <div onclick="openTemplateEditor('#1E3A8A', '#93C5FD', '#FFFFFF', 'visitar decorado', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80')" class="group cursor-pointer rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+              <div class="aspect-[16/10] flex">
+                <div class="w-1/2 bg-[#1E3A8A] p-4 flex flex-col justify-between text-white">
+                  <p class="text-xs font-extrabold text-[#93C5FD] leading-snug">More ao lado do metrô com lazer completo para a família</p>
+                  <div class="border border-white/60 px-2 py-1 text-[9px] font-bold w-fit">SEU LOGO</div>
+                  <span class="bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded w-fit">visitar decorado</span>
+                </div>
+                <div class="w-1/2 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80')"></div>
+              </div>
+            </div>
+
+            <!-- Modelo 4: Estética & Beleza -->
+            <div onclick="openTemplateEditor('#4C1D95', '#F472B6', '#FFFFFF', 'conhecer clínica', 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80')" class="group cursor-pointer rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+              <div class="aspect-[16/10] flex">
+                <div class="w-1/2 bg-[#4C1D95] p-4 flex flex-col justify-between text-white">
+                  <p class="text-xs font-extrabold text-pink-300 leading-snug">Realce sua beleza com pacotes exclusivos neste mês</p>
+                  <div class="border border-white/60 px-2 py-1 text-[9px] font-bold w-fit">SEU LOGO</div>
+                  <span class="bg-pink-500 text-white text-[10px] font-bold px-2.5 py-1 rounded w-fit">conhecer clínica</span>
+                </div>
+                <div class="w-1/2 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80')"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra Inferior Fixa (Sub-view 3: Galeria) -->
+          <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3.5 flex items-center justify-between z-30">
+            <button onclick="goToArtSubview('art-subview-selecao')" class="px-4 py-2 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">
+              ‹ voltar
+            </button>
+            <span class="text-xs text-gray-400">Clique em qualquer modelo acima para abrir o editor</span>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SUB-VIEW 4: EDITOR DE MODELOS PRONTOS (TEXTOS, IA, CORES, MODELOS)  -->
+        <!-- =================================================================== -->
+        <section id="art-subview-editor" class="hidden flex flex-col lg:flex-row min-h-[calc(100vh-120px)] pb-16">
+          <!-- Menu Lateral Vertical do Editor -->
+          <aside class="w-full lg:w-20 bg-white border-b lg:border-b-0 lg:border-r border-gray-200 flex lg:flex-col items-center py-2 lg:py-4 gap-1 overflow-x-auto">
+            <button id="ed-nav-textos" onclick="switchEditorTab('textos')" class="w-full py-3 flex flex-col items-center gap-1 text-[11px] font-semibold text-[#FF5A00] border-r-2 border-[#FF5A00] cursor-pointer">
+              <span class="text-base">📝</span>
+              <span>Textos</span>
+            </button>
+            <button id="ed-nav-imagens" onclick="switchEditorTab('imagens')" class="w-full py-3 flex flex-col items-center gap-1 text-[11px] font-medium text-gray-600 hover:text-gray-900 cursor-pointer">
+              <span class="text-base">🖼</span>
+              <span>Imagens</span>
+            </button>
+            <button id="ed-nav-cores" onclick="switchEditorTab('cores')" class="w-full py-3 flex flex-col items-center gap-1 text-[11px] font-medium text-gray-600 hover:text-gray-900 cursor-pointer">
+              <span class="text-base">🎨</span>
+              <span>Cores</span>
+            </button>
+            <button id="ed-nav-modelos" onclick="switchEditorTab('modelos')" class="w-full py-3 flex flex-col items-center gap-1 text-[11px] font-medium text-gray-600 hover:text-gray-900 cursor-pointer">
+              <span class="text-base">⊞</span>
+              <span>Modelos</span>
+            </button>
+            <button onclick="showToast('Ajuda: personalize textos, gere imagens com IA ou altere a paleta de cores ao vivo.')" class="w-full py-3 flex flex-col items-center gap-1 text-[11px] font-medium text-gray-600 hover:text-gray-900 mt-auto cursor-pointer">
+              <span class="text-base">💡</span>
+              <span>Ajuda</span>
+            </button>
+          </aside>
+
+          <!-- Painel de Controle Lateral (340px) -->
+          <div class="w-full lg:w-80 bg-white border-r border-gray-200 p-5 overflow-y-auto">
+            <!-- ABA 1: TEXTOS -->
+            <div id="ed-panel-textos" class="space-y-4">
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Textos</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Edite os textos que compõem o seu anúncio nos campos abaixo.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs text-gray-700 cursor-pointer">
+                <input id="ed-chk-show-btn" type="checkbox" checked onchange="toggleLiveButton(this.checked)" class="rounded border-gray-300 text-[#FF5A00] focus:ring-[#FF5A00]" />
+                <span>Exibir botão no criativo</span>
+              </label>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Texto do botão</label>
+                <div class="relative">
+                  <input id="ed-input-btn" type="text" maxlength="20" value="quero conhecer" oninput="updateLiveCreative()" class="w-full px-3 py-2 pr-12 rounded-lg border border-gray-200 text-xs text-gray-800 focus:outline-none focus:border-[#FF5A00]" />
+                  <span class="absolute right-2.5 top-2 text-[10px] text-gray-400"><span id="ed-count-btn">14</span>/20</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Chamada</label>
+                <div class="relative">
+                  <textarea id="ed-input-headline" rows="3" maxlength="67" oninput="updateLiveCreative()" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-xs text-gray-800 focus:outline-none focus:border-[#FF5A00]">Texto do anúncio com até 67 caracteres neste espaço</textarea>
+                  <span class="block text-right text-[10px] text-gray-400"><span id="ed-count-headline">51</span>/67</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ABA 2: IMAGENS -->
+            <div id="ed-panel-imagens" class="hidden space-y-5">
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Imagens</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Altere as imagens e o logotipo do seu anúncio.</p>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-800 mb-2">Imagem principal</p>
+                <div class="border border-dashed border-gray-300 rounded-xl p-4 text-center bg-gray-50">
+                  <p class="text-xs text-gray-600">Arraste e solte aqui para substituir a imagem principal (max. 20mb).</p>
+                  <p class="text-[10px] text-gray-400 mt-1">Formatos aceitos: JPG e PNG</p>
+                  <button onclick="showToast('Imagem principal atualizada!')" class="mt-3 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 inline-flex items-center gap-1 cursor-pointer">
+                    <span>substituir imagem</span><span>↑</span>
+                  </button>
+                </div>
+                <div class="flex items-center gap-2 my-3">
+                  <div class="flex-1 h-px bg-gray-200"></div>
+                  <span class="text-[10px] text-gray-400 uppercase">ou</span>
+                  <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+                <button onclick="showToast('Gerador de imagem com IA iniciado para o seu segmento!')" class="w-full py-2 rounded-lg border border-orange-200 bg-orange-50/40 text-[#FF5A00] text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-orange-50 cursor-pointer">
+                  <span>✨</span><span>gerar imagem com IA</span>
+                </button>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <p class="text-xs font-bold text-gray-800 mb-2">Logotipo</p>
+                <label class="flex items-center gap-2 text-xs text-gray-700 mb-3 cursor-pointer">
+                  <input type="checkbox" checked onchange="toggleLiveLogo(this.checked)" class="rounded border-gray-300 text-[#FF5A00]" />
+                  <span>Exibir logotipo no criativo</span>
+                </label>
+                <div class="border border-dashed border-gray-300 rounded-xl p-4 text-center bg-gray-50">
+                  <p class="text-xs text-gray-600">Arraste e solte aqui para substituir o logotipo (max. 20mb).</p>
+                  <button onclick="showToast('Logotipo atualizado no criativo!')" class="mt-3 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 inline-flex items-center gap-1 cursor-pointer">
+                    <span>substituir imagem</span><span>↑</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ABA 3: CORES -->
+            <div id="ed-panel-cores" class="hidden space-y-5">
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Cores</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Altere as cores dos elementos que compõem o seu anúncio.</p>
+              </div>
+              <div class="space-y-2.5">
+                <p class="text-xs font-bold text-gray-800">Elementos do anúncio</p>
+                <div class="flex items-center justify-between text-xs text-gray-600">
+                  <span>Fundo</span>
+                  <button onclick="applyColorTheme('#8B3A3A', '#F7D046')" class="w-16 h-6 rounded border border-gray-300 bg-[#8B3A3A] cursor-pointer"></button>
+                </div>
+                <div class="flex items-center justify-between text-xs text-gray-600">
+                  <span>Destaque e Botão</span>
+                  <button onclick="applyColorTheme('#1E3A8A', '#FDE047')" class="w-16 h-6 rounded border border-gray-300 bg-[#F7D046] cursor-pointer"></button>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-gray-100">
+                <p class="text-xs font-bold text-gray-800 mb-2">Paletas predefinidas</p>
+                <div class="grid grid-cols-5 gap-2">
+                  <button onclick="applyColorTheme('#0F766E', '#FDE047')" class="h-6 rounded border border-gray-200 overflow-hidden flex cursor-pointer"><span class="w-1/2 bg-[#0F766E]"></span><span class="w-1/2 bg-[#FDE047]"></span></button>
+                  <button onclick="applyColorTheme('#1E3A8A', '#93C5FD')" class="h-6 rounded border border-gray-200 overflow-hidden flex cursor-pointer"><span class="w-1/2 bg-[#1E3A8A]"></span><span class="w-1/2 bg-[#93C5FD]"></span></button>
+                  <button onclick="applyColorTheme('#7C2D12', '#FDBA74')" class="h-6 rounded border border-gray-200 overflow-hidden flex cursor-pointer"><span class="w-1/2 bg-[#7C2D12]"></span><span class="w-1/2 bg-[#FDBA74]"></span></button>
+                  <button onclick="applyColorTheme('#4C1D95', '#F472B6')" class="h-6 rounded border border-gray-200 overflow-hidden flex cursor-pointer"><span class="w-1/2 bg-[#4C1D95]"></span><span class="w-1/2 bg-[#F472B6]"></span></button>
+                  <button onclick="applyColorTheme('#111827', '#FF5A00')" class="h-6 rounded border border-gray-200 overflow-hidden flex cursor-pointer"><span class="w-1/2 bg-[#111827]"></span><span class="w-1/2 bg-[#FF5A00]"></span></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ABA 4: MODELOS (Troca rápida dentro do editor) -->
+            <div id="ed-panel-modelos" class="hidden space-y-3">
+              <h3 class="text-sm font-bold text-gray-900">Trocar Modelo</h3>
+              <p class="text-xs text-gray-500">Selecione outro modelo pré-configurado:</p>
+              <button onclick="openTemplateEditor('#8B3A3A', '#F7D046', '#1F2937', 'quero conhecer', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80')" class="w-full p-2.5 rounded-lg border border-gray-200 text-left text-xs font-semibold hover:border-[#FF5A00] cursor-pointer">🍴 Gastronomia & Churrasco</button>
+              <button onclick="openTemplateEditor('#38BDF8', '#FDE047', '#0F172A', 'agendar banho', 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80')" class="w-full p-2.5 rounded-lg border border-gray-200 text-left text-xs font-semibold hover:border-[#FF5A00] cursor-pointer">🐶 Pet Shop & Clínica</button>
+              <button onclick="openTemplateEditor('#1E3A8A', '#93C5FD', '#FFFFFF', 'visitar decorado', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80')" class="w-full p-2.5 rounded-lg border border-gray-200 text-left text-xs font-semibold hover:border-[#FF5A00] cursor-pointer">🏠 Lançamento Imobiliário</button>
+            </div>
+          </div>
+
+          <!-- Canvas Central de Pré-visualização ao Vivo -->
+          <div class="flex-1 bg-[#E5E7EB]/60 p-6 flex flex-col items-center justify-center">
+            <div class="flex items-center gap-2 mb-4 bg-white p-1.5 rounded-xl border border-gray-200 shadow-xs">
+              <button id="ed-tab-ooh" class="px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF5A00] text-xs font-bold flex items-center gap-1.5">
+                <span>🏢</span><span>Elevadores</span>
+              </button>
+              <button id="ed-tab-digital" class="px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-50 text-xs font-medium flex items-center gap-1.5">
+                <span>🖥</span><span>Digital (Display)</span>
+              </button>
+            </div>
+
+            <span class="px-2.5 py-0.5 rounded bg-gray-400/80 text-white text-[10px] font-semibold mb-4">📏 800x600</span>
+
+            <!-- Criativo Editável ao Vivo (Proporção 800x600) -->
+            <div class="w-full max-w-[520px] aspect-[4/3] rounded-lg shadow-lg overflow-hidden flex bg-white">
+              <div id="live-creative-bg" class="w-1/2 bg-[#8B3A3A] p-6 flex flex-col justify-between border-r-4 border-[#F7D046]">
+                <p id="live-creative-headline" class="text-[#F7D046] font-extrabold text-lg sm:text-xl leading-snug break-words">
+                  Texto do anúncio com até 67 caracteres neste espaço
+                </p>
+                <div id="live-creative-logo" class="w-24 h-14 border border-white/80 flex items-center justify-center text-xs font-bold text-white">
+                  SEU LOGO
+                </div>
+                <div id="live-creative-btn" class="bg-[#F7D046] text-gray-900 text-xs font-extrabold px-4 py-2.5 rounded text-center w-fit">
+                  quero conhecer
+                </div>
+              </div>
+              <div id="live-creative-photo" class="w-1/2 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80')"></div>
+            </div>
+          </div>
+
+          <!-- Barra Fixa Inferior do Editor -->
+          <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 flex items-center justify-between z-30">
+            <div class="flex items-center gap-4">
+              <button onclick="goToArtSubview('art-subview-galeria')" class="px-3.5 py-1.5 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">
+                ‹ voltar
+              </button>
+              <span id="editor-bottom-camp-label" class="text-xs text-gray-500 hidden sm:inline">#750708 | Ed. Comercial liv635</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-xs font-bold text-gray-800 hidden sm:inline">salvo automaticamente</span>
+              <button onclick="confirmUploadArteFromScreen()" class="px-5 py-2 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+                <span>⊙</span><span>concluir</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- MODAL 1: UPLOAD OOH 800x600 (COM BARRA RESERVADA ELETROMIDIA 62PX)   -->
+        <!-- =================================================================== -->
+        <div id="modal-upload-ooh" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div class="bg-white rounded-2xl max-w-4xl w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeArtModal('modal-upload-ooh')" class="absolute top-5 right-5 text-gray-500 hover:text-black text-lg font-bold cursor-pointer">✕</button>
+            <p id="mod-ooh-camp-id" class="text-xs text-gray-400 font-semibold">#750708</p>
+            <h3 id="mod-ooh-camp-title" class="text-xl font-bold text-gray-900 mb-6">Ed. Comercial liv635</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h4 class="text-xs font-bold text-gray-800 mb-3">especificações técnicas</h4>
+                <div class="grid grid-cols-2 gap-y-2 text-xs text-gray-600 mb-4">
+                  <div>Largura: <strong class="text-gray-900">800px</strong></div>
+                  <div>Altura: <strong class="text-gray-900">600px</strong></div>
+                  <div class="col-span-2">Tamanho limite: 🖼 <strong class="text-gray-900">5MB</strong> | 🎥 <strong class="text-gray-900">20MB</strong></div>
+                  <div>Formato: <strong class="text-gray-900">JPG, PNG, MP4</strong></div>
+                  <div>Duração: <strong class="text-gray-900">10 segundos</strong></div>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-[#C2410C] mb-5 flex items-start gap-2">
+                  <span>⚠️</span>
+                  <span>Deixe um espaço livre de <strong>62px</strong> na parte inferior da imagem para a exibição da barra fixa da Eletromidia.</span>
+                </div>
+
+                <h4 class="text-xs font-bold text-gray-800 mb-1">validação</h4>
+                <p class="text-xs text-gray-600 mb-5">Após o envio da imagem, nossa equipe realizará a validação em até 48 horas.</p>
+
+                <h4 class="text-xs font-bold text-gray-800 mb-2">pontos de exibição</h4>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-gray-100 text-[11px] font-semibold text-gray-700 mb-1">🏢 elevadores residenciais / comerciais</span>
+                <p id="mod-ooh-camp-point" class="text-xs text-gray-500">Ed. Comercial liv635</p>
               </div>
 
-              <!-- Estado Preenchido (Após selecionar imagem) -->
-              <div id="upload-frame-filled" class="hidden overflow-hidden rounded-md bg-amber-900 relative aspect-3/2 flex items-center justify-center">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Preview da Arte Carregada" class="w-full h-full object-cover opacity-90">
-                <div class="absolute inset-0 bg-gradient-to-r from-amber-950/85 via-amber-900/50 to-transparent p-4 flex flex-col justify-between text-white">
+              <!-- Dropzone OOH com Régua Eletromidia -->
+              <div class="flex flex-col items-center">
+                <div class="text-[11px] text-gray-500 mb-1">←———— largura 800 px ————→</div>
+                <div onclick="confirmArtFileUpload('ooh')" class="w-full aspect-[4/3] rounded-xl border-2 border-dashed border-gray-300 hover:border-[#FF5A00] bg-gray-100 flex flex-col justify-between overflow-hidden relative cursor-pointer transition">
+                  <div class="flex-1 flex items-center justify-center p-6 text-center text-xs text-gray-600 font-medium">
+                    Arraste e solte aqui para enviar (max. 20mb).
+                  </div>
+                  <div class="h-10 bg-[#3B3F46] text-white px-4 flex items-center justify-between text-[11px]">
+                    <span class="font-bold tracking-wider">ÁREA RESERVADA</span>
+                    <span class="font-extrabold text-[#FF5A00]">[EM] <span class="text-white font-semibold">eletromidia</span></span>
+                  </div>
+                </div>
+                <button onclick="confirmArtFileUpload('ooh')" class="mt-4 px-5 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 flex items-center gap-2 shadow-sm cursor-pointer">
+                  <span>enviar arquivo</span><span>↑</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =================================================================== -->
+        <!-- MODAL 2: UPLOAD DIGITAL (970x250 E DEMAIS FORMATOS DISPLAY)          -->
+        <!-- =================================================================== -->
+        <div id="modal-upload-digital" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div class="bg-white rounded-2xl max-w-4xl w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeArtModal('modal-upload-digital')" class="absolute top-5 right-5 text-gray-500 hover:text-black text-lg font-bold cursor-pointer">✕</button>
+            <p id="mod-dig-camp-id" class="text-xs text-gray-400 font-semibold">#750708</p>
+            <h3 id="mod-dig-camp-title" class="text-xl font-bold text-gray-900 mb-6">Ed. Comercial liv635</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h4 class="text-xs font-bold text-gray-800 mb-3">especificações técnicas</h4>
+                <div class="grid grid-cols-2 gap-y-2 text-xs text-gray-600 mb-5">
+                  <div>Largura: <strong id="mod-dig-w" class="text-gray-900">970px</strong></div>
+                  <div>Altura: <strong id="mod-dig-h" class="text-gray-900">250px</strong></div>
+                  <div>Tamanho limite: 🖼 <strong class="text-gray-900">250KB</strong></div>
+                  <div>Formato: <strong class="text-gray-900">JPG, PNG</strong></div>
+                </div>
+
+                <h4 class="text-xs font-bold text-gray-800 mb-1">validação</h4>
+                <p class="text-xs text-gray-600 mb-5">Após o envio da imagem, nossa equipe realizará a validação em até 48 horas.</p>
+
+                <h4 class="text-xs font-bold text-gray-800 mb-2">canais de exibição</h4>
+                <div class="flex items-center gap-2">
+                  <span class="w-8 h-8 rounded-full bg-red-50 border border-red-200 text-[#C4170C] font-extrabold text-xs flex items-center justify-center">g1</span>
+                  <span class="w-8 h-8 rounded-full bg-green-50 border border-green-200 text-green-700 font-extrabold text-xs flex items-center justify-center">ge</span>
+                  <span class="w-8 h-8 rounded-full bg-orange-50 border border-orange-200 text-orange-600 font-extrabold text-[9px] flex items-center justify-center">gshow</span>
+                  <span class="w-8 h-8 rounded-full bg-blue-50 border border-blue-200 text-blue-600 font-extrabold text-[8px] flex items-center justify-center">globo</span>
+                  <span class="w-8 h-8 rounded-full bg-purple-50 border border-purple-200 text-purple-700 font-extrabold text-[8px] flex items-center justify-center">receitas</span>
+                </div>
+              </div>
+
+              <!-- Dropzone Digital -->
+              <div class="flex flex-col items-center">
+                <div id="mod-dig-ruler-w" class="text-[11px] text-gray-500 mb-1">←———— largura 970 px ————→</div>
+                <div onclick="confirmArtFileUpload('digital')" class="w-full h-32 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#FF5A00] bg-gray-100 flex items-center justify-center p-4 text-center text-xs text-gray-600 font-medium cursor-pointer transition">
+                  Arraste e solte aqui para enviar (max. 20mb).
+                </div>
+                <button onclick="confirmArtFileUpload('digital')" class="mt-4 px-5 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 flex items-center gap-2 shadow-sm cursor-pointer">
+                  <span>enviar arquivo</span><span>↑</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ===================================================================== -->
+      <!-- TELA 5: CHECKOUT E PAGAMENTO OFICIAL (FIEL A 04_checkout_pagamento)   -->
+      <!-- ===================================================================== -->
+      <main id="screen-checkout" class="view-section flex-1 max-w-[1060px] w-full mx-auto px-4 md:px-8 py-8 md:py-10">
+        <!-- Botão Voltar Topo -->
+        <button onclick="backFromCheckout()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-700 mb-6 cursor-pointer shadow-2xs">
+          <span>‹</span> voltar
+        </button>
+
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">Conclua o pagamento da sua campanha</h1>
+
+        <!-- GRID 2 COLUNAS: FORMULÁRIO ESQUERDA + RESUMO STICKY DIREITA -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start responsive-2col-grid">
+
+          <!-- COLUNA ESQUERDA (7 COLUNAS) -->
+          <div class="lg:col-span-7 space-y-6">
+
+            <!-- CARD 1: DADOS DE FATURAMENTO -->
+            <section class="bg-[#F3F4F6]/80 border border-gray-200 rounded-2xl p-5 md:p-6">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="text-gray-700 font-bold">$</span>
+                <h2 class="text-sm font-bold text-gray-900">Dados de faturamento</h2>
+              </div>
+
+              <!-- Radio PF / PJ -->
+              <div class="flex items-center gap-6 mb-5 text-xs">
+                <label class="flex items-center gap-2 cursor-pointer font-medium text-gray-700">
+                  <input type="radio" name="billing_type" class="accent-[#FF5A00] w-3.5 h-3.5">
+                  Pessoa Física
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer font-bold text-gray-900">
+                  <input type="radio" name="billing_type" checked class="accent-[#FF5A00] w-3.5 h-3.5">
+                  Pessoa Jurídica
+                </label>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="block text-[11px] font-semibold text-gray-700 mb-1">CNPJ <span class="text-red-500">*</span></label>
+                  <input type="text" value="53.688.813/0001-55" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 font-medium focus:outline-none focus:border-[#FF5A00]">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-semibold text-gray-700 mb-1">Razão Social <span class="text-red-500">*</span></label>
+                  <input type="text" value="53.688.813 FRANKS WILLIAM" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 font-medium focus:outline-none focus:border-[#FF5A00]">
+                </div>
+              </div>
+
+              <!-- Endereço colapsado com lápis -->
+              <div class="border-t border-gray-200/80 pt-3 flex items-center justify-between text-xs text-gray-600">
+                <div>
+                  <span class="font-semibold text-gray-700">Endereço:</span>
+                  <span>Avenida Presidente Wilson, 231, Centro, Rio de Janeiro, RJ</span>
+                </div>
+                <button onclick="showToast('Edição de endereço de faturamento habilitada')" class="p-1.5 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-200/60 cursor-pointer" title="Editar endereço">
+                  ✏️
+                </button>
+              </div>
+            </section>
+
+            <!-- CARD 2: FORMA DE PAGAMENTO (PIX vs CARTÃO DE CRÉDITO) -->
+            <section class="bg-[#F3F4F6]/80 border border-gray-200 rounded-2xl p-5 md:p-6">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="text-gray-700">💳</span>
+                <h2 class="text-sm font-bold text-gray-900">Forma de pagamento</h2>
+              </div>
+
+              <p class="text-[11px] text-gray-600 mb-2.5">Escolha o método de pagamento</p>
+
+              <!-- Seletor PIX / Cartão de crédito -->
+              <div class="grid grid-cols-2 gap-3 mb-5">
+                <button type="button" id="btn-method-pix" onclick="selectCheckoutMethod('pix')" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer transition">
+                  <span class="text-teal-600 font-bold">❖</span>
+                  <span>PIX</span>
+                </button>
+                <button type="button" id="btn-method-card" onclick="selectCheckoutMethod('card')" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border-2 border-[#FF5A00] bg-white text-xs font-bold text-gray-900 shadow-2xs cursor-pointer transition">
+                  <span class="text-[#FF5A00]">💳</span>
+                  <span>Cartão de crédito</span>
+                </button>
+              </div>
+
+              <!-- PAINEL A: CARTÃO DE CRÉDITO -->
+              <div id="checkout-panel-card" class="space-y-4">
+                <div>
+                  <label class="block text-[11px] font-semibold text-gray-700 mb-1">Parcelas</label>
+                  <select id="checkout-installments-select" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 font-medium focus:outline-none focus:border-[#FF5A00]">
+                    <option value="1">1x de R$ 928,27 sem juros</option>
+                    <option value="2">2x de R$ 464,13 sem juros</option>
+                    <option value="3">3x de R$ 309,42 sem juros</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-[11px] font-semibold text-gray-700 mb-1">Número do cartão <span class="text-red-500">*</span></label>
+                  <div class="relative">
+                    <input type="text" placeholder="1234 1234 1234 1234" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 focus:outline-none focus:border-[#FF5A00]">
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-[10px] font-bold text-gray-400">
+                      <span class="px-1.5 py-0.5 bg-blue-50 text-blue-800 rounded">VISA</span>
+                      <span class="px-1.5 py-0.5 bg-orange-50 text-orange-700 rounded">MC</span>
+                      <span class="px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded">ELO</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <p class="text-[9px] uppercase tracking-widest text-amber-200 font-bold">Campanha OOH</p>
-                    <p class="text-xs font-extrabold leading-tight">SEU ANÚNCIO EM DESTAQUE<br>NOS ELEVADORES</p>
+                    <label class="block text-[11px] font-semibold text-gray-700 mb-1">Data de validade <span class="text-red-500">*</span></label>
+                    <input type="text" placeholder="MM/AA" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 focus:outline-none focus:border-[#FF5A00]">
                   </div>
-                  <div class="bg-black/40 border border-white/30 rounded px-2 py-1 w-fit">
-                    <p class="text-[9px] font-bold">900x600 px • VALIDADO ✓</p>
+                  <div>
+                    <label class="block text-[11px] font-semibold text-gray-700 mb-1">Código de segurança <span class="text-red-500">*</span></label>
+                    <input type="text" placeholder="CVV" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 focus:outline-none focus:border-[#FF5A00]">
                   </div>
-                  <p id="upload-frame-mall-label" class="text-[8px] font-bold tracking-wider uppercase text-amber-100">ED. COMERCIAL LIV635</p>
+                </div>
+
+                <div>
+                  <label class="block text-[11px] font-semibold text-gray-700 mb-1">Nome impresso no cartão <span class="text-red-500">*</span></label>
+                  <input type="text" placeholder="Digite o nome" class="w-full px-3.5 py-2 rounded-lg border border-gray-300 bg-white text-xs text-gray-900 focus:outline-none focus:border-[#FF5A00]">
+                </div>
+
+                <div class="flex items-center justify-end gap-1.5 pt-2 text-[11px] text-gray-400">
+                  <span>🔒 Pagamento processado por</span>
+                  <span class="font-black text-emerald-700 tracking-tight text-sm">stone</span>
                 </div>
               </div>
 
-              <div class="mt-2.5 flex items-center justify-between text-[10px] text-gray-400 px-1">
-                <span>espaço reservado ao condomínio</span>
-                <span class="font-bold text-orange-500">eletromidia</span>
+              <!-- PAINEL B: PIX -->
+              <div id="checkout-panel-pix" class="hidden space-y-3 pt-1">
+                <p class="text-xs font-bold text-gray-900">Como pagar com o PIX:</p>
+                <ol class="list-decimal list-inside space-y-2 text-xs text-gray-600 leading-relaxed">
+                  <li>Clique em <strong class="text-gray-800">"Gerar PIX"</strong> para gerar o código de pagamento e o QR Code;</li>
+                  <li>Acesse o aplicativo do seu banco e escolha a opção de pagar com PIX;</li>
+                  <li>Escaneie o QR Code ou copie e cole o código de pagamento;</li>
+                  <li>Confirme as informações e finalize o pagamento no aplicativo do seu banco.</li>
+                </ol>
+                <p class="text-[11px] text-gray-500 pt-1">
+                  O pagamento via PIX é processado na hora e sua campanha segue imediatamente para a etapa de envio ou aprovação de arte.
+                </p>
               </div>
-            </div>
-
-            <p class="text-[11px] text-gray-500 text-center mt-3">
-              Após confirmar o envio, nossa equipe revisa o material em até 24h úteis antes da publicação nas telas.
-            </p>
+            </section>
           </div>
+
+          <!-- COLUNA DIREITA: RESUMO DE VALORES (5 COLUNAS) -->
+          <div class="lg:col-span-5">
+            <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs sticky top-20">
+              <h3 class="text-sm font-bold text-gray-900 mb-1">Resumo de valores</h3>
+              <p id="checkout-summary-title" class="text-[11px] text-[#FF5A00] font-semibold mb-4">Ótica Visão Savassi (#750708)</p>
+
+              <div class="space-y-2.5 text-xs border-b border-gray-200 pb-4 mb-4">
+                <div class="flex items-center justify-between text-gray-600">
+                  <span id="checkout-item-label">Campanha Out of Home</span>
+                  <span id="checkout-item-price" class="font-medium text-gray-900">R$ 928,27</span>
+                </div>
+                <div class="flex items-center justify-between text-gray-700 font-semibold pt-1">
+                  <span>Subtotal</span>
+                  <span id="checkout-subtotal">R$ 928,27</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-sm font-bold text-gray-900">Valor total</span>
+                <span id="checkout-total" class="text-lg font-extrabold text-gray-900">R$ 928,27</span>
+              </div>
+
+              <label class="flex items-start gap-2.5 text-[11px] text-gray-600 mb-5 cursor-pointer leading-relaxed">
+                <input type="checkbox" checked class="mt-0.5 accent-[#FF5A00] rounded">
+                <span>Declaro que li e concordo com os <a href="#" onclick="event.preventDefault(); showToast('Abrindo Termos e Condições...');" class="text-blue-600 underline font-medium">Termos e Condições</a></span>
+              </label>
+
+              <button id="checkout-submit-btn" onclick="completeCheckoutPayment()" class="w-full py-3 px-4 rounded-xl bg-[#FF5A00] hover:bg-[#E04E00] text-white font-bold text-xs transition cursor-pointer shadow-xs">
+                pagar
+              </button>
+            </div>
+          </div>
+
         </div>
+
+        <!-- SEÇÃO INFERIOR: TIRE SUAS DÚVIDAS (FAQ ACCORDION OFICIAL) -->
+        <section class="mt-16 pt-10 border-t border-gray-200 grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div class="md:col-span-4">
+            <h3 class="text-lg font-bold text-gray-900">Tire suas dúvidas</h3>
+            <p class="text-xs text-gray-500 mt-1 mb-4">Não encontrou a resposta que procurava?</p>
+            <button onclick="showToast('Iniciando atendimento com a Helen...')" class="px-4 py-2.5 rounded-lg bg-[#2A241E] hover:bg-gray-800 text-white text-xs font-bold cursor-pointer">
+              fale com um especialista
+            </button>
+          </div>
+
+          <div class="md:col-span-8 border-l-2 border-gray-200 pl-0 space-y-1" id="checkout-faq-accordion">
+            <div class="faq-item border-l-2 border-[#FF5A00] -ml-[2px] pl-5 py-2.5 cursor-pointer" onclick="toggleCheckoutFaq(0)">
+              <h5 class="text-xs font-bold text-gray-900">1. Posso escolher os horários em que meu anúncio será exibido?</h5>
+              <p class="faq-answer text-xs text-gray-600 mt-2 leading-relaxed">
+                A exibição dos anúncios segue a programação padrão das telas contratadas, garantindo presença constante ao longo de todo o funcionamento do estabelecimento.
+              </p>
+            </div>
+            <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2.5 cursor-pointer" onclick="toggleCheckoutFaq(1)">
+              <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">2. Como funciona a criação dos anúncios?</h5>
+              <p class="faq-answer hidden text-xs text-gray-600 mt-2 leading-relaxed">
+                Após a confirmação do pagamento, você pode fazer o upload da sua própria arte seguindo o gabarito técnico ou utilizar a opção contrate uma arte na plataforma.
+              </p>
+            </div>
+            <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2.5 cursor-pointer" onclick="toggleCheckoutFaq(2)">
+              <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">3. Quais são as formas de pagamento aceitas?</h5>
+              <p class="faq-answer hidden text-xs text-gray-600 mt-2 leading-relaxed">
+                Você pode pagar via PIX com aprovação imediata ou com cartão de crédito em até 3x sem juros.
+              </p>
+            </div>
+            <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2.5 cursor-pointer" onclick="toggleCheckoutFaq(3)">
+              <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">4. Posso cancelar minha campanha após o início da veiculação?</h5>
+              <p class="faq-answer hidden text-xs text-gray-600 mt-2 leading-relaxed">
+                Sim, consulte as condições de cancelamento nos Termos e Condições ou acione nosso atendimento com a Helen para suporte imediato.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
 
       <!-- ===================================================================== -->
@@ -3124,20 +3873,6 @@
       }
     }
 
-    function switchHomeNoticeScenario(scenario) {
-      const barPending = document.getElementById('home-notice-pending');
-      const barActive = document.getElementById('home-notice-active');
-      if (!barPending || !barActive) return;
-
-      if (scenario === 'pending') {
-        barPending.classList.remove('hidden');
-        barActive.classList.add('hidden');
-      } else {
-        barPending.classList.add('hidden');
-        barActive.classList.remove('hidden');
-      }
-    }
-
     let plpCartItems = [];
 
     function filterPlpAmbience(type, clickedBtn) {
@@ -3175,7 +3910,7 @@
       const nextBtn = document.getElementById('resultpage_next-button');
       if (summaryEl && nextBtn) {
         if (plpCartItems.length === 0) {
-          summaryEl.textContent = 'Nenhum novo ponto selecionado na vitrine';
+          summaryEl.textContent = 'Nenhum novo ponto selecionado na página de resultados';
           nextBtn.className = 'px-5 py-2 rounded-lg bg-gray-200 text-gray-500 font-bold text-xs flex items-center gap-2 cursor-pointer transition';
         } else {
           const total = plpCartItems.reduce((acc, i) => acc + i.price, 0);
@@ -3239,19 +3974,14 @@
     function setArteState(state) {
       const viewAp = document.getElementById('arte-view-aprovada');
       const viewPe = document.getElementById('arte-view-pendente');
-      const btnAp = document.getElementById('arte-state-aprovada');
-      const btnPe = document.getElementById('arte-state-pendente');
+      if (!viewAp || !viewPe) return;
 
       if (state === 'aprovada') {
         viewAp.classList.remove('hidden');
         viewPe.classList.add('hidden');
-        btnAp.className = 'px-2.5 py-1 rounded-md font-bold bg-white text-gray-900 shadow-2xs cursor-pointer';
-        btnPe.className = 'px-2.5 py-1 rounded-md font-semibold text-gray-600 hover:text-gray-900 cursor-pointer';
       } else {
         viewPe.classList.remove('hidden');
         viewAp.classList.add('hidden');
-        btnPe.className = 'px-2.5 py-1 rounded-md font-bold bg-white text-gray-900 shadow-2xs cursor-pointer';
-        btnAp.className = 'px-2.5 py-1 rounded-md font-semibold text-gray-600 hover:text-gray-900 cursor-pointer';
       }
     }
 
@@ -3320,6 +4050,11 @@
     }
 
     let uploadingCampaignId = '750708';
+    let currentArtOption = 'upload';
+    let artCampaignHasDigital = true;
+    let uploadedDigital = false;
+    let uploadedOoh = false;
+
     function goToUploadArteScreen(id) {
       closeAllCardMenus();
       const activeScreen = document.querySelector('.view-section.active');
@@ -3330,17 +4065,88 @@
       const c = campaignsData.find(x => x.id === uploadingCampaignId) || campaignsData[0];
       currentSelectedCampaign = c;
 
-      document.getElementById('upload-screen-campaign-id').textContent = `#${c.id}`;
-      document.getElementById('upload-screen-campaign-title').textContent = c.title;
-      document.getElementById('upload-screen-campaign-period').textContent = `${c.startDate} a ${c.endDate} (${c.duration})`;
-      document.getElementById('upload-frame-mall-label').textContent = c.title.toUpperCase();
+      const campIdText = `#${c.id}`;
+      const campTitleText = c.title;
+      const campPeriodText = `${c.startDate} a ${c.endDate} (${c.duration})`;
 
-      document.getElementById('upload-frame-empty').classList.remove('hidden');
-      document.getElementById('upload-frame-filled').classList.add('hidden');
-      document.getElementById('upload-preview-status').textContent = 'Aguardando arquivo';
-      document.getElementById('upload-preview-status').className = 'bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-0.5 rounded';
-      document.getElementById('upload-file-pill').textContent = 'Selecionar arquivo do computador...';
-      document.getElementById('upload-file-pill').className = 'mt-4 px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 text-xs font-bold text-gray-800 shadow-2xs';
+      document.getElementById('upload-screen-campaign-id').textContent = campIdText;
+      document.getElementById('upload-screen-campaign-title').textContent = campTitleText;
+      document.getElementById('upload-screen-campaign-period').textContent = campPeriodText;
+
+      const wbLabel = document.getElementById('upload-workbench-camp-label');
+      if (wbLabel) wbLabel.textContent = `${campIdText} • ${campTitleText}`;
+      const edBottomLabel = document.getElementById('editor-bottom-camp-label');
+      if (edBottomLabel) edBottomLabel.textContent = `${campIdText} | ${campTitleText}`;
+      const modOohId = document.getElementById('mod-ooh-camp-id');
+      if (modOohId) modOohId.textContent = campIdText;
+      const modOohTitle = document.getElementById('mod-ooh-camp-title');
+      if (modOohTitle) modOohTitle.textContent = campTitleText;
+      const modOohPoint = document.getElementById('mod-ooh-camp-point');
+      if (modOohPoint) modOohPoint.textContent = campTitleText;
+      const modDigId = document.getElementById('mod-dig-camp-id');
+      if (modDigId) modDigId.textContent = campIdText;
+      const modDigTitle = document.getElementById('mod-dig-camp-title');
+      if (modDigTitle) modDigTitle.textContent = campTitleText;
+
+      artCampaignHasDigital = Boolean(c && (c.hasDigital || c.channel === 'Hibrida' || c.channel === 'Digital' || c.id === '750708'));
+      uploadedDigital = false;
+      uploadedOoh = false;
+
+      // Resetar status dos botões e badges de upload
+      const badgeOoh = document.getElementById('badge-ooh-status');
+      if (badgeOoh) {
+        badgeOoh.textContent = '0/01 concluídos';
+        badgeOoh.className = 'text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-semibold';
+      }
+      const btnOoh = document.getElementById('btn-up-ooh');
+      if (btnOoh) {
+        btnOoh.innerHTML = '<span>enviar arquivo</span><span>↑</span>';
+        btnOoh.className = 'px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer';
+      }
+      const badgeDig = document.getElementById('badge-digital-status');
+      if (badgeDig) {
+        badgeDig.textContent = '0/02 concluídos';
+        badgeDig.className = 'text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-semibold';
+      }
+      const btnBill = document.getElementById('btn-up-billboard');
+      if (btnBill) {
+        btnBill.innerHTML = '<span>enviar arquivo</span><span>↑</span>';
+        btnBill.className = 'px-3 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#e04f00] text-white text-[11px] font-semibold flex items-center gap-1.5 cursor-pointer';
+      }
+      const prevOohEmpty = document.getElementById('preview-ooh-empty');
+      const prevOohFilled = document.getElementById('preview-ooh-filled');
+      if (prevOohEmpty && prevOohFilled) {
+        prevOohEmpty.classList.remove('hidden');
+        prevOohFilled.classList.add('hidden');
+      }
+      const prevDigText = document.getElementById('preview-slot-digital-text');
+      if (prevDigText) {
+        prevDigText.textContent = 'Seu anúncio Digital (970x250 px) aparecerá aqui';
+      }
+
+      // Exibir/ocultar blocos condicionais de Digital (URL de destino, sanfona Digital e abas de preview)
+      const urlBlock = document.getElementById('block-url-destino');
+      const accDig = document.getElementById('accordion-digital');
+      const tabPrevDig = document.getElementById('tab-prev-digital');
+      const edTabDig = document.getElementById('ed-tab-digital');
+
+      if (artCampaignHasDigital) {
+        if (urlBlock) urlBlock.classList.remove('hidden');
+        if (accDig) accDig.classList.remove('hidden');
+        if (tabPrevDig) tabPrevDig.classList.remove('hidden');
+        if (edTabDig) edTabDig.classList.remove('hidden');
+        switchUploadPreviewTab('digital');
+      } else {
+        if (urlBlock) urlBlock.classList.add('hidden');
+        if (accDig) accDig.classList.add('hidden');
+        if (tabPrevDig) tabPrevDig.classList.add('hidden');
+        if (edTabDig) edTabDig.classList.add('hidden');
+        switchUploadPreviewTab('ooh');
+      }
+
+      updateArtProgressCounter();
+      selectArtOption('upload');
+      goToArtSubview('art-subview-selecao');
 
       showScreen('view-upload-arte');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3354,17 +4160,175 @@
       showScreen(previousScreenBeforeUpload || 'screen-list');
     }
 
-    function previewSelectedCreative() {
-      document.getElementById('upload-frame-empty').classList.add('hidden');
-      document.getElementById('upload-frame-filled').classList.remove('hidden');
-      document.getElementById('upload-preview-status').textContent = '✓ Criativo 900x600 px carregado';
-      document.getElementById('upload-preview-status').className = 'bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded';
-      document.getElementById('upload-file-pill').textContent = '✓ criativo_campanha_900x600.jpg (1.8 MB)';
-      document.getElementById('upload-file-pill').className = 'mt-4 px-3.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-400 text-xs font-bold text-emerald-800';
-      document.getElementById('chk-dim').className = 'text-emerald-600 font-bold';
-      document.getElementById('chk-fmt').className = 'text-emerald-600 font-bold';
-      document.getElementById('chk-mod').className = 'text-emerald-600 font-bold';
-      showToast('Imagem 900x600 px carregada na pré-visualização Eletromidia!');
+    function selectArtOption(opt) {
+      currentArtOption = opt;
+      const map = {
+        upload: document.getElementById('card-opt-upload'),
+        templates: document.getElementById('card-opt-templates'),
+        hire: document.getElementById('card-opt-hire')
+      };
+      Object.keys(map).forEach(k => {
+        if (!map[k]) return;
+        if (k === opt) {
+          map[k].className = 'cursor-pointer rounded-2xl border-2 border-[#FF5A00] bg-orange-50/10 p-6 flex flex-col justify-between transition hover:shadow-md';
+        } else {
+          map[k].className = 'cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 flex flex-col justify-between transition hover:shadow-md';
+        }
+      });
+    }
+
+    function proceedFromArtSelection() {
+      if (currentArtOption === 'upload') {
+        goToArtSubview('art-subview-upload');
+      } else if (currentArtOption === 'templates') {
+        goToArtSubview('art-subview-galeria');
+      } else {
+        showToast('Serviço "Contratar uma arte" (R$ 99,00) selecionado! Redirecionando para o briefing...');
+      }
+    }
+
+    function goToArtSubview(subviewId) {
+      ['art-subview-selecao', 'art-subview-upload', 'art-subview-galeria', 'art-subview-editor'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      const target = document.getElementById(subviewId);
+      if (target) target.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleArtAccordion(bodyId) {
+      const el = document.getElementById(bodyId);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    function switchUploadPreviewTab(tab) {
+      const tabD = document.getElementById('tab-prev-digital');
+      const tabO = document.getElementById('tab-prev-ooh');
+      const boxD = document.getElementById('preview-box-digital');
+      const boxO = document.getElementById('preview-box-ooh');
+      if (!tabD || !tabO || !boxD || !boxO) return;
+      if (tab === 'digital') {
+        tabD.className = 'pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] flex items-center gap-1.5 cursor-pointer';
+        tabO.className = 'pb-2.5 text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1.5 cursor-pointer';
+        boxD.classList.remove('hidden');
+        boxO.classList.add('hidden');
+      } else {
+        tabO.className = 'pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] flex items-center gap-1.5 cursor-pointer';
+        tabD.className = 'pb-2.5 text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1.5 cursor-pointer';
+        boxO.classList.remove('hidden');
+        boxD.classList.add('hidden');
+      }
+    }
+
+    function openArtUploadModal(type, formatName, w, h) {
+      if (type === 'ooh') {
+        document.getElementById('modal-upload-ooh').classList.remove('hidden');
+      } else {
+        document.getElementById('mod-dig-w').textContent = w + 'px';
+        document.getElementById('mod-dig-h').textContent = h + 'px';
+        document.getElementById('mod-dig-ruler-w').textContent = '←———— largura ' + w + ' px ————→';
+        document.getElementById('modal-upload-digital').classList.remove('hidden');
+      }
+    }
+
+    function closeArtModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+
+    function confirmArtFileUpload(type) {
+      if (type === 'ooh') {
+        uploadedOoh = true;
+        document.getElementById('badge-ooh-status').textContent = '1/01 concluídos';
+        document.getElementById('badge-ooh-status').className = 'text-[11px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-semibold';
+        document.getElementById('btn-up-ooh').textContent = '✓ enviado';
+        document.getElementById('btn-up-ooh').className = 'px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-[11px] font-semibold cursor-pointer';
+        const prevOohEmpty = document.getElementById('preview-ooh-empty');
+        const prevOohFilled = document.getElementById('preview-ooh-filled');
+        if (prevOohEmpty && prevOohFilled) {
+          prevOohEmpty.classList.add('hidden');
+          prevOohFilled.classList.remove('hidden');
+        }
+        switchUploadPreviewTab('ooh');
+        closeArtModal('modal-upload-ooh');
+      } else {
+        uploadedDigital = true;
+        document.getElementById('badge-digital-status').textContent = '2/02 concluídos';
+        document.getElementById('badge-digital-status').className = 'text-[11px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-semibold';
+        document.getElementById('btn-up-billboard').textContent = '✓ enviado';
+        document.getElementById('btn-up-billboard').className = 'px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-[11px] font-semibold cursor-pointer';
+        const prevDigText = document.getElementById('preview-slot-digital-text');
+        if (prevDigText) {
+          prevDigText.innerHTML = '<span class="text-emerald-700 font-bold">✓ Banner Digital 970x250 px carregado na pré-visualização Globo</span>';
+        }
+        switchUploadPreviewTab('digital');
+        closeArtModal('modal-upload-digital');
+      }
+      updateArtProgressCounter();
+      showToast('Arquivo carregado com sucesso!');
+    }
+
+    function updateArtProgressCounter() {
+      const total = artCampaignHasDigital ? 3 : 1;
+      const done = (uploadedOoh ? 1 : 0) + (artCampaignHasDigital && uploadedDigital ? 2 : 0);
+      const lbl = document.getElementById('upload-progress-label');
+      if (lbl) lbl.textContent = `${done} de ${total} produtos prontos para publicação`;
+    }
+
+    function openTemplateEditor(bgHex, accentHex, btnTextHex, btnLabel, photoUrl) {
+      goToArtSubview('art-subview-editor');
+      const bg = document.getElementById('live-creative-bg');
+      const headline = document.getElementById('live-creative-headline');
+      const btn = document.getElementById('live-creative-btn');
+      const photo = document.getElementById('live-creative-photo');
+      bg.style.backgroundColor = bgHex;
+      bg.style.borderColor = accentHex;
+      headline.style.color = accentHex;
+      btn.style.backgroundColor = accentHex;
+      btn.style.color = btnTextHex;
+      btn.textContent = btnLabel;
+      document.getElementById('ed-input-btn').value = btnLabel;
+      photo.style.backgroundImage = "url('" + photoUrl + "')";
+      updateLiveCreative();
+    }
+
+    function switchEditorTab(tab) {
+      ['textos', 'imagens', 'cores', 'modelos'].forEach(t => {
+        document.getElementById('ed-panel-' + t).classList.add('hidden');
+        document.getElementById('ed-nav-' + t).className = 'w-full py-3 flex flex-col items-center gap-1 text-[11px] font-medium text-gray-600 hover:text-gray-900 cursor-pointer';
+      });
+      document.getElementById('ed-panel-' + tab).classList.remove('hidden');
+      document.getElementById('ed-nav-' + tab).className = 'w-full py-3 flex flex-col items-center gap-1 text-[11px] font-semibold text-[#FF5A00] border-r-2 border-[#FF5A00] cursor-pointer';
+    }
+
+    function updateLiveCreative() {
+      const btnVal = document.getElementById('ed-input-btn').value;
+      const headVal = document.getElementById('ed-input-headline').value;
+      document.getElementById('live-creative-btn').textContent = btnVal;
+      document.getElementById('live-creative-headline').textContent = headVal;
+      document.getElementById('ed-count-btn').textContent = btnVal.length;
+      document.getElementById('ed-count-headline').textContent = headVal.length;
+    }
+
+    function toggleLiveButton(show) {
+      const btn = document.getElementById('live-creative-btn');
+      btn.style.display = show ? 'block' : 'none';
+    }
+
+    function toggleLiveLogo(show) {
+      const logo = document.getElementById('live-creative-logo');
+      logo.style.display = show ? 'flex' : 'none';
+    }
+
+    function applyColorTheme(bgHex, accentHex) {
+      const bg = document.getElementById('live-creative-bg');
+      const headline = document.getElementById('live-creative-headline');
+      const btn = document.getElementById('live-creative-btn');
+      bg.style.backgroundColor = bgHex;
+      bg.style.borderColor = accentHex;
+      headline.style.color = accentHex;
+      btn.style.backgroundColor = accentHex;
     }
 
     function confirmUploadArteFromScreen() {
@@ -3423,9 +4387,102 @@
     function closeRenewModal() {
       document.getElementById('modal-renew').classList.add('hidden');
     }
+
+    let previousScreenBeforeCheckout = 'screen-list';
+
+    function openCheckoutForItem(title, priceStr, channelLabel, backScreenId) {
+      const activeScreen = document.querySelector('.view-section.active');
+      previousScreenBeforeCheckout = backScreenId || (activeScreen && activeScreen.id !== 'screen-checkout' ? activeScreen.id : 'screen-list');
+
+      const titleEl = document.getElementById('checkout-summary-title');
+      const itemLabelEl = document.getElementById('checkout-item-label');
+      const itemPriceEl = document.getElementById('checkout-item-price');
+      const subtotalEl = document.getElementById('checkout-subtotal');
+      const totalEl = document.getElementById('checkout-total');
+      const selectEl = document.getElementById('checkout-installments-select');
+
+      if (titleEl) titleEl.textContent = title;
+      if (itemLabelEl) itemLabelEl.textContent = channelLabel || 'Campanha Out of Home';
+      if (itemPriceEl) itemPriceEl.textContent = priceStr;
+      if (subtotalEl) subtotalEl.textContent = priceStr;
+      if (totalEl) totalEl.textContent = priceStr;
+
+      const numericVal = parseFloat(String(priceStr).replace(/[^\d,]/g, '').replace(',', '.')) || 928.27;
+      if (selectEl) {
+        const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        selectEl.innerHTML = `
+          <option value="1">1x de ${fmt(numericVal)} sem juros</option>
+          <option value="2">2x de ${fmt(numericVal / 2)} sem juros</option>
+          <option value="3">3x de ${fmt(numericVal / 3)} sem juros</option>
+        `;
+      }
+
+      selectCheckoutMethod('card');
+      showScreen('screen-checkout');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backFromCheckout() {
+      showScreen(previousScreenBeforeCheckout || 'screen-list');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectCheckoutMethod(method) {
+      const btnPix = document.getElementById('btn-method-pix');
+      const btnCard = document.getElementById('btn-method-card');
+      const panelPix = document.getElementById('checkout-panel-pix');
+      const panelCard = document.getElementById('checkout-panel-card');
+      const submitBtn = document.getElementById('checkout-submit-btn');
+      if (!btnPix || !btnCard || !panelPix || !panelCard || !submitBtn) return;
+
+      if (method === 'pix') {
+        btnPix.className = 'flex items-center gap-2.5 px-4 py-2.5 rounded-xl border-2 border-[#FF5A00] bg-white text-xs font-bold text-gray-900 shadow-2xs cursor-pointer transition';
+        btnCard.className = 'flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer transition';
+        panelPix.classList.remove('hidden');
+        panelCard.classList.add('hidden');
+        submitBtn.textContent = 'gerar PIX';
+      } else {
+        btnCard.className = 'flex items-center gap-2.5 px-4 py-2.5 rounded-xl border-2 border-[#FF5A00] bg-white text-xs font-bold text-gray-900 shadow-2xs cursor-pointer transition';
+        btnPix.className = 'flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer transition';
+        panelCard.classList.remove('hidden');
+        panelPix.classList.add('hidden');
+        submitBtn.textContent = 'pagar';
+      }
+    }
+
+    function toggleCheckoutFaq(index) {
+      const items = document.querySelectorAll('#checkout-faq-accordion .faq-item');
+      items.forEach((item, idx) => {
+        const answer = item.querySelector('.faq-answer');
+        const title = item.querySelector('h5');
+        if (idx === index) {
+          item.className = 'faq-item border-l-2 border-[#FF5A00] -ml-[2px] pl-5 py-2.5 cursor-pointer';
+          title.className = 'text-xs font-bold text-gray-900';
+          answer.classList.remove('hidden');
+        } else {
+          item.className = 'faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2.5 cursor-pointer';
+          title.className = 'text-xs font-medium text-gray-600 hover:text-gray-900';
+          answer.classList.add('hidden');
+        }
+      });
+    }
+
+    function completeCheckoutPayment() {
+      const submitBtn = document.getElementById('checkout-submit-btn');
+      const isPix = submitBtn && submitBtn.textContent.toLowerCase().includes('pix');
+      showScreen('screen-list');
+      switchTopTab('planos');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(isPix ? 'Código PIX gerado com sucesso! Aguardando confirmação do pagamento.' : 'Pagamento confirmado em até 3x sem juros! Sua campanha está pronta.');
+    }
+
     function confirmRenewal() {
+      const title = (document.getElementById('renew-campaign-title') || {}).textContent || 'Ótica Visão Savassi (#750708)';
+      const price = (document.getElementById('renew-campaign-price') || {}).textContent || 'R$ 928,27';
+      const activeScreen = document.querySelector('.view-section.active');
+      const backScreen = activeScreen && activeScreen.id !== 'screen-checkout' ? activeScreen.id : 'screen-detail';
       closeRenewModal();
-      showToast('Campanha renovada e pronta para pagamento (em até 3x sem juros)!');
+      openCheckoutForItem(title, price, 'Renovação de Campanha Out of Home', backScreen);
     }
 
     function setViewportMode(mode) {
