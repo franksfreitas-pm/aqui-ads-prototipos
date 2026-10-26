@@ -6,14 +6,14 @@
   <title>Aqui Ads — Pré-Página de Resultados</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ==========================================================================
        DESIGN SYSTEM AQUI ADS — TOKENS & RESET (LIGHT MODE OBRIGATÓRIO)
        ========================================================================== */
     :root {
-      --brand-orange: #FF5400;
-      --brand-orange-hover: #E04800;
+      --brand-orange: #FF4F00;
+      --brand-orange-hover: #E04600;
       --brand-orange-light: #FFF4EE;
       --brand-purple: #4F46E5;
       --brand-green: #10B981;
@@ -43,7 +43,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -1636,6 +1636,7 @@
   <!-- BARRA DE CONTROLE DO PROTÓTIPO -->
   <div class="demo-bar">
     <div class="demo-bar-left">
+      <a href="../../../index.html" class="demo-back-link" style="color: #CBD5E1; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: #1E293B; border-radius: 6px; border: 1px solid #334155;">← Catálogo</a>
       <span class="demo-badge">PROTÓTIPO V2 • ARGON</span>
       <span class="demo-title">Aqui Ads — Pré-Página de Resultados</span>
     </div>
@@ -1681,7 +1682,7 @@
         <!-- HEADER OFICIAL AQUI ADS -->
         <header class="site-header">
           <a href="index.html" class="logo-link">
-            Aquiads<span class="reg">®</span>
+            Aqui<span style="font-weight:500">ads</span><span class="reg">®</span>
           </a>
 
           <nav class="header-nav">
@@ -1701,6 +1702,10 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
               Rádio
             </a>
+            <a class="nav-tab">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg>
+              Encarte Digital
+            </a>
           </nav>
 
           <div class="header-actions">
@@ -1716,6 +1721,12 @@
               <div class="user-avatar">F</div>
               <span>Olá, FRANKS!</span>
             </div>
+            <button class="cart-btn" title="Configurações" aria-label="Configurações" style="color: #4B5563;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+            <button class="cart-btn" title="Menu" aria-label="Menu" style="color: #4B5563;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
           </div>
         </header>
 
