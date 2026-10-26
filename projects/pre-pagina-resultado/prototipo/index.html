@@ -236,7 +236,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid #DFE7EF;
       background: #FFFFFF;
       flex-shrink: 0;
       z-index: 500;
@@ -245,16 +245,7 @@
       display: flex;
       align-items: center;
       text-decoration: none;
-      font-size: 26px;
-      font-weight: 800;
       color: var(--brand-orange);
-      letter-spacing: -0.03em;
-    }
-    .logo-link span.reg {
-      font-size: 14px;
-      font-weight: 700;
-      margin-left: 1px;
-      transform: translateY(-6px);
     }
 
     .header-nav {
@@ -269,23 +260,24 @@
       gap: 8px;
       height: 100%;
       font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
+      font-weight: 500;
+      color: #A6A6A6;
       text-decoration: none;
-      border-bottom: 3px solid transparent;
+      border-bottom: 2px solid transparent;
       cursor: pointer;
       transition: all 0.2s;
       padding: 0 4px;
     }
     .nav-tab:hover {
-      color: var(--text-primary);
+      color: #241E17;
     }
     .nav-tab.active {
-      color: var(--text-primary);
-      border-bottom-color: var(--brand-orange);
+      color: #241E17;
+      font-weight: 600;
+      border-bottom-color: #241E17;
     }
     .nav-tab.active svg {
-      color: var(--brand-orange);
+      color: #241E17;
     }
 
     .header-actions {
@@ -298,19 +290,21 @@
       align-items: center;
       gap: 6px;
       font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
+      font-weight: 500;
+      color: #241E17;
+      background: #FFFFFF;
+      border: 1px solid #DFE7EF;
       cursor: pointer;
-      padding: 6px 10px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      border-radius: 6px;
       transition: background 0.2s;
     }
     .assistant-link:hover {
       background: var(--bg-subtle);
     }
     .assistant-sparkle {
-      color: #6366F1;
-      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
     }
     .cart-btn {
       position: relative;
@@ -769,32 +763,32 @@
       gap: 10px;
       padding: 8px 24px 20px;
       flex-wrap: wrap;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid #DFE7EF;
     }
     .cat-chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 16px;
+      padding: 8px 14px;
       background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border: 1px solid #DFE7EF;
+      border-radius: 8px;
       font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-weight: 400;
+      color: #4E5D6C;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
     }
     .cat-chip:hover {
-      border-color: var(--text-primary);
-      color: var(--text-primary);
+      border-color: #241E17;
+      color: #241E17;
     }
     .cat-chip.active {
-      border-color: var(--brand-orange);
-      background: var(--brand-orange-light);
-      color: var(--brand-orange);
-      font-weight: 600;
+      border-color: #4E5D6C;
+      background: #4E5D6C;
+      color: #FFFFFF;
+      font-weight: 500;
     }
 
     /* ==========================================================================
@@ -977,174 +971,167 @@
       gap: 14px;
     }
 
-    /* CARD DE PONTO DE MÍDIA (SEM BADGE DE DISTÂNCIA NA PRÉ-PÁGINA) */
+    /* CARD DE PONTO DE MÍDIA (100% FIEL AO RESULTADOS_OOH.HTML) */
     .product-card {
-      flex: 0 0 272px;
+      flex: 0 0 264px;
       background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      overflow: hidden;
+      border: 1px solid #DFE7EF;
+      border-radius: 8px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
       cursor: pointer;
     }
     .viewport-container.mobile-mode .product-card {
-      flex: 0 0 256px;
+      flex: 0 0 250px;
     }
     .product-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--border-strong);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-color: #CBD5E1;
     }
 
     .card-media {
       position: relative;
       width: 100%;
-      height: 156px;
+      height: 118px;
+      border-radius: 6px;
       background: #E5E7EB;
       overflow: hidden;
+      margin-bottom: 10px;
     }
     .card-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-    .product-card:hover .card-img {
-      transform: scale(1.04);
     }
 
     .badges-top {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
+      top: 8px;
+      left: 8px;
+      right: 8px;
       display: flex;
       justify-content: flex-start;
-      align-items: flex-start;
+      align-items: center;
       gap: 6px;
     }
     .badge-group-left {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
     }
     .badge-pill {
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
-      line-height: 1.1;
+      line-height: 1.2;
     }
     .badge-env {
-      background: rgba(255, 255, 255, 0.95);
-      color: #1F2937;
+      background: #FFFFFF;
+      color: #241E17;
     }
-    .badge-digital {
-      background: #4F46E5;
-      color: #FFFFFF;
-    }
+    .badge-digital,
     .badge-impresso {
-      background: #10B981;
+      background: #241E17;
       color: #FFFFFF;
     }
 
     .card-body {
-      padding: 14px 16px 16px;
+      padding: 0;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
     .card-title {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      line-height: 1.3;
-      margin-bottom: 3px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #241E17;
+      line-height: 1.25;
+      margin-bottom: 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .card-address {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      white-space: nowrap;
+      font-size: 12px;
+      color: #8C97A6;
+      line-height: 1.35;
+      margin-bottom: 8px;
+      min-height: 32px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 10px;
-      padding: 8px 0;
-      border-top: 1px solid #F3F4F6;
-      border-bottom: 1px solid #F3F4F6;
+      gap: 4px;
+      margin-bottom: 8px;
     }
     .metric-col {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      align-items: flex-start;
     }
     .metric-label {
-      font-size: 10px;
-      color: var(--text-muted);
+      font-size: 11px;
+      color: #4E5D6C;
       display: flex;
       align-items: center;
       gap: 3px;
+      margin-bottom: 2px;
     }
     .metric-value {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 700;
+      color: #241E17;
     }
 
     .screens-row {
       font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+      color: #4E5D6C;
+      margin-bottom: 4px;
     }
     .price-row {
       margin-top: auto;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: baseline;
       gap: 4px;
     }
     .price-amount {
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 800;
-      color: var(--text-primary);
+      color: #241E17;
     }
     .price-period {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 500;
+      font-size: 13px;
+      color: #8C97A6;
+      font-weight: 400;
     }
 
     .card-actions-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .btn-add-point {
       flex: 1;
-      border: 1.5px solid var(--brand-green);
+      height: 36px;
+      border: 1.5px solid #3A9F3A;
       background: #FFFFFF;
-      color: var(--brand-green-dark);
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-weight: 700;
+      color: #3A9F3A;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
@@ -1153,59 +1140,58 @@
       gap: 6px;
     }
     .btn-add-point:hover {
-      background: var(--brand-green-light);
+      background: rgba(58, 159, 58, 0.06);
     }
     .btn-add-point.added {
-      background: var(--brand-green);
+      background: #3A9F3A;
+      border-color: #3A9F3A;
       color: #FFFFFF;
     }
     .btn-fav {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      background: #FFFFFF;
-      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      color: #8C97A6;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
+      padding: 0;
       flex-shrink: 0;
     }
-    .btn-fav:hover {
-      color: #EF4444;
-      border-color: #FCA5A5;
+    .btn-fav.active {
+      color: #E75D4B;
+    }
+    .btn-fav.active svg {
+      fill: #E75D4B;
+      stroke: #E75D4B;
     }
 
     /* ==========================================================================
-       CARD FINAL DO CARROSSEL ("VER TUDO" — INSPIRADO NO AIRBNB / NETFLIX)
+       CARD FINAL DO CARROSSEL ("VER TUDO" — SÓBRIO NO DESIGN SYSTEM AQUI ADS)
        ========================================================================== */
     .see-all-card {
       flex: 0 0 236px;
-      background: linear-gradient(180deg, #FFFFFF 0%, #FFF8F5 100%);
-      border: 1.5px dashed #FDBA8C;
-      border-radius: 16px;
-      padding: 20px 18px;
+      background: #FFFFFF;
+      border: 1px solid #DFE7EF;
+      border-radius: 8px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
-      transition: all 0.22s ease;
-      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
       position: relative;
       overflow: hidden;
     }
     .viewport-container.mobile-mode .see-all-card {
       flex: 0 0 216px;
-      padding: 16px;
+      padding: 14px;
     }
     .see-all-card:hover {
-      transform: translateY(-3px);
-      border-style: solid;
-      border-color: var(--brand-orange);
-      background: #FFF4EE;
-      box-shadow: var(--shadow-md);
+      border-color: #FF4F00;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     .see-all-stack {
       display: flex;
@@ -1213,13 +1199,13 @@
       margin-bottom: 14px;
     }
     .see-all-thumb {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
       object-fit: cover;
-      border: 2.5px solid #FFFFFF;
-      box-shadow: 0 4px 10px rgba(17, 24, 39, 0.12);
-      margin-left: -14px;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      margin-left: -12px;
       background: #E5E7EB;
     }
     .see-all-thumb:first-child {
@@ -1227,12 +1213,12 @@
     }
     .see-all-count-pill {
       margin-left: auto;
-      background: #FFFFFF;
-      border: 1px solid #FED7AA;
-      color: var(--brand-orange);
+      background: #F4F6F8;
+      border: 1px solid #DFE7EF;
+      color: #4E5D6C;
       font-size: 11px;
-      font-weight: 800;
-      padding: 4px 9px;
+      font-weight: 600;
+      padding: 3px 8px;
       border-radius: 999px;
     }
     .see-all-body {
@@ -1242,46 +1228,43 @@
       margin: auto 0;
     }
     .see-all-kicker {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--brand-orange);
+      font-size: 11px;
+      font-weight: 600;
+      color: #4E5D6C;
     }
     .see-all-title {
       font-size: 16px;
-      font-weight: 800;
-      color: var(--text-primary);
+      font-weight: 700;
+      color: #241E17;
       line-height: 1.25;
-      letter-spacing: -0.01em;
     }
     .see-all-sub {
       font-size: 12px;
-      color: var(--text-secondary);
+      color: #8C97A6;
       line-height: 1.4;
     }
     .see-all-cta {
-      margin-top: 16px;
+      margin-top: 14px;
       display: inline-flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 8px;
       width: 100%;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: var(--brand-orange);
-      color: #FFFFFF;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: 6px;
+      background: #FFFFFF;
+      border: 1.5px solid #FF4F00;
+      color: #FF4F00;
       font-size: 13px;
-      font-weight: 700;
-      transition: background 0.2s;
+      font-weight: 600;
+      transition: all 0.2s;
     }
     .see-all-card:hover .see-all-cta {
-      background: var(--brand-orange-hover);
+      background: #FF4F00;
+      color: #FFFFFF;
     }
     .see-all-arrow-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1636,7 +1619,7 @@
   <!-- BARRA DE CONTROLE DO PROTÓTIPO -->
   <div class="demo-bar">
     <div class="demo-bar-left">
-      <a href="../../../index.html" class="demo-back-link" style="color: #CBD5E1; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: #1E293B; border-radius: 6px; border: 1px solid #334155;">← Catálogo</a>
+      <a href="../../../index.html" style="padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; background: #1F2937; color: #D1D5DB; text-decoration: none; border: 1px solid #374151;">← Catálogo</a>
       <span class="demo-badge">PROTÓTIPO V2 • ARGON</span>
       <span class="demo-title">Aqui Ads — Pré-Página de Resultados</span>
     </div>
@@ -1682,36 +1665,40 @@
         <!-- HEADER OFICIAL AQUI ADS -->
         <header class="site-header">
           <a href="index.html" class="logo-link">
-            Aqui<span style="font-weight:500">ads</span><span class="reg">®</span>
+            <img src="https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg" alt="Logotipo Aqui Ads" width="107">
           </a>
 
           <nav class="header-nav">
             <a class="nav-tab active">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+              <img src="https://aqui.globo/images/header/ooh.svg" alt="OOH" width="32" height="32">
               OOH
             </a>
             <a class="nav-tab">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <img src="https://aqui.globo/images/header/digital.svg" alt="Digital" width="32" height="32">
               Digital
             </a>
             <a class="nav-tab">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+              <img src="https://aqui.globo/images/header/tv.svg" alt="TV" width="32" height="32">
               TV
             </a>
             <a class="nav-tab">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+              <img src="https://aqui.globo/images/header/radio.svg" alt="Rádio" width="32" height="32">
               Rádio
             </a>
             <a class="nav-tab">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg>
-              Encarte Digital
+              <img src="https://aqui.globo/images/header/combos.svg" alt="Combos" width="32" height="32">
+              Combos
             </a>
           </nav>
 
           <div class="header-actions">
             <div class="assistant-link">
               <span>Assistente de anúncios</span>
-              <span class="assistant-sparkle">✨</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#695CFF">
+                <path d="M12 2L14.4 7.6L20 10L14.4 12.4L12 18L9.6 12.4L4 10L9.6 7.6L12 2Z"/>
+                <path d="M19 15L20.1 17.4L22.5 18.5L20.1 19.6L19 22L17.9 19.6L15.5 18.5L17.9 17.4L19 15Z"/>
+                <path d="M5 16L5.8 17.7L7.5 18.5L5.8 19.3L5 21L4.2 19.3L2.5 18.5L4.2 17.7L5 16Z"/>
+              </svg>
             </div>
             <button class="cart-btn" onclick="irParaResultados()" title="Carrinho">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -1855,37 +1842,43 @@
         <!-- CHIPS DE AMBIENTES EXPANDIDOS (PADRONIZADOS NO PLURAL + MAIS FILTROS) -->
         <div class="QuickCategoriesRow">
           <button class="cat-chip active" onclick="filterEnvironment('todos', this)">
-            <span>✨</span> todos os ambientes
+            todos os ambientes
           </button>
           <button class="cat-chip" onclick="filterEnvironment('elevadores comerciais', this)">
-            <span>🏢</span> elevadores comerciais
+            elevadores comerciais
           </button>
           <button class="cat-chip" onclick="filterEnvironment('elevadores residenciais', this)">
-            <span>🏠</span> elevadores residenciais
+            elevadores residenciais
           </button>
           <button class="cat-chip" onclick="filterEnvironment('ponto de ônibus', this)">
-            <span>🚌</span> pontos de ônibus
+            pontos de ônibus
           </button>
           <button class="cat-chip" onclick="filterEnvironment('academias', this)">
-            <span>🏋️</span> academias
+            academias
           </button>
           <button class="cat-chip" onclick="filterEnvironment('shopping', this)">
-            <span>🛍️</span> shoppings
+            shoppings
           </button>
           <button class="cat-chip" onclick="filterEnvironment('supermercados', this)">
-            <span>🛒</span> supermercados
+            supermercados
           </button>
           <button class="cat-chip" onclick="filterEnvironment('estação de trem', this)">
-            <span>🚆</span> estações de trem
+            estações de trem
           </button>
           <button class="cat-chip" onclick="filterEnvironment('estabelecimentos comerciais', this)">
-            <span>🏪</span> estabelecimentos comerciais
+            estabelecimentos comerciais
           </button>
           <button class="cat-chip" onclick="filterEnvironment('aeroportos', this)">
-            <span>✈️</span> aeroportos
+            aeroportos
           </button>
           <button class="cat-chip" id="btnToggleMoreFilters" onclick="toggleMoreFiltersBar(this)">
-            <span>⚙️</span> mais filtros
+            mais filtros
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+              <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+              <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+            </svg>
           </button>
         </div>
 
@@ -1894,8 +1887,8 @@
           <div class="sub-filter-group">
             <span class="sub-filter-label">Formato:</span>
             <button type="button" class="sub-filter-btn active" onclick="filterFormat('todos', this)">Todos</button>
-            <button type="button" class="sub-filter-btn" onclick="filterFormat('digital', this)">🖥️ Digital</button>
-            <button type="button" class="sub-filter-btn" onclick="filterFormat('impresso', this)">🖼️ Impresso</button>
+            <button type="button" class="sub-filter-btn" onclick="filterFormat('digital', this)">Digital</button>
+            <button type="button" class="sub-filter-btn" onclick="filterFormat('impresso', this)">Impresso</button>
           </div>
           <div class="sub-filter-group">
             <span class="sub-filter-label">Investimento semanal:</span>
@@ -2974,7 +2967,15 @@
           const formattedPrice = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
           const isAdded = cartState.items.includes(item.id);
           const formatBadgeClass = item.format === 'digital' ? 'badge-digital' : 'badge-impresso';
-          const formatIcon = item.format === 'digital' ? '🖥️ ' : '';
+          const envSvg = item.env === 'elevadores residenciais'
+            ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#241E17" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
+            : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#241E17" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg>`;
+          const formatSvg = item.format === 'digital'
+            ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
+            : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+          const btnIconSvg = isAdded
+            ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+            : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
 
           fullHTML += `
             <article class="product-card" onclick="selectAddress('${item.title} - ${cityGroup.city}')">
@@ -2982,8 +2983,8 @@
                 <img src="${item.img}" class="card-img" alt="${item.title}" loading="lazy">
                 <div class="badges-top">
                   <div class="badge-group-left">
-                    <span class="badge-pill badge-env">${item.envIcon} ${item.env}</span>
-                    <span class="badge-pill ${formatBadgeClass}">${formatIcon}${item.format}</span>
+                    <span class="badge-pill badge-env">${envSvg} ${item.env}</span>
+                    <span class="badge-pill ${formatBadgeClass}">${formatSvg} ${item.format}</span>
                   </div>
                 </div>
               </div>
@@ -2993,15 +2994,15 @@
 
                 <div class="metrics-grid">
                   <div class="metric-col">
-                    <span class="metric-label">exibições ▷</span>
+                    <span class="metric-label">exibições <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4E5D6C" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
                     <span class="metric-value">${item.exibs}</span>
                   </div>
                   <div class="metric-col">
-                    <span class="metric-label">alcance 👤</span>
+                    <span class="metric-label">alcance <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4E5D6C" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
                     <span class="metric-value">${item.reach}</span>
                   </div>
                   <div class="metric-col">
-                    <span class="metric-label">frequência 🔄</span>
+                    <span class="metric-label">frequência <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4E5D6C" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>
                     <span class="metric-value">${item.freq}</span>
                   </div>
                 </div>
@@ -3015,10 +3016,11 @@
 
                 <div class="card-actions-row" onclick="event.stopPropagation()">
                   <button type="button" class="btn-add-point ${isAdded ? 'added' : ''}" onclick="toggleCartItem('${item.id}')">
-                    <span>${isAdded ? '✓ ponto adicionado' : '🛒 adicionar ponto'}</span>
+                    <span>${isAdded ? 'ponto adicionado' : 'adicionar ponto'}</span>
+                    ${btnIconSvg}
                   </button>
-                  <button type="button" class="btn-fav" title="Favoritar ponto" onclick="this.style.color = this.style.color === 'rgb(239, 68, 68)' ? '' : '#EF4444'">
-                    ♡
+                  <button type="button" class="btn-fav" title="Favoritar ponto" onclick="this.classList.toggle('active')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                   </button>
                 </div>
               </div>
@@ -3026,7 +3028,7 @@
           `;
         });
 
-        /* Card final do carrossel (inspirado no Airbnb/Netflix) que aciona o filtro na página de resultados */
+        /* Card final do carrossel que aciona o filtro na página de resultados */
         fullHTML += `
             <article class="see-all-card" onclick="verTudoCarrossel('${cityGroup.city}', '${searchState.ambienteFiltro}')" title="Abrir Página de Resultados filtrada para ${cityGroup.city}">
               <div class="see-all-stack">
@@ -3040,7 +3042,7 @@
               </div>
               <div class="see-all-cta">
                 <span>Ver tudo</span>
-                <span class="see-all-arrow-circle">→</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
               </div>
             </article>
             </div>
