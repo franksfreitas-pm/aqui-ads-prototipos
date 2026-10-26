@@ -207,13 +207,14 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
       gap: 1.5rem;
+      align-items: start;
     }
 
     .proto-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
-      padding: 1.65rem;
+      padding: 1.5rem 1.65rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -233,7 +234,7 @@
       align-items: center;
       gap: 0.45rem;
       flex-wrap: wrap;
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
     }
 
     .tag {
@@ -270,48 +271,120 @@
     }
 
     .proto-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--text-main);
       line-height: 1.35;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
       letter-spacing: -0.01em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 3.24rem;
+    }
+
+    .proto-card.is-expanded .proto-title {
+      display: block;
+      -webkit-line-clamp: unset;
+      min-height: unset;
     }
 
     .proto-desc {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.55;
-      margin-bottom: 1.75rem;
-      flex: 1;
+      margin-bottom: 0.65rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 4.1rem;
+    }
+
+    .proto-card.is-expanded .proto-desc {
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      margin-bottom: 1rem;
+      min-height: unset;
     }
 
     .proto-features {
       background-color: #F8FAFC;
       border: 1px solid #F1F5F9;
       border-radius: 8px;
-      padding: 0.75rem 0.9rem;
-      margin-bottom: 1.5rem;
+      padding: 0.8rem 0.95rem;
+      margin-bottom: 0.85rem;
       font-size: 0.8rem;
       color: #475569;
+      display: none;
+    }
+
+    .proto-card.is-expanded .proto-features {
+      display: block;
+      animation: fadeDown 0.2s ease-out;
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .proto-features ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .proto-features li {
-      display: flex;
-      align-items: center;
       gap: 0.45rem;
     }
 
+    .proto-features li {
+      position: relative;
+      padding-left: 1.35rem;
+      line-height: 1.45;
+    }
+
     .proto-features li i {
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
       color: var(--brand-primary);
       font-size: 0.95rem;
+    }
+
+    .btn-toggle-more {
+      background: none;
+      border: none;
+      color: var(--brand-primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.15rem 0;
+      margin-bottom: 0.85rem;
+      transition: color 0.15s ease;
+    }
+
+    .btn-toggle-more:hover {
+      color: var(--brand-primary-hover);
+      text-decoration: underline;
+    }
+
+    .btn-toggle-more i {
+      font-size: 1.05rem;
+      transition: transform 0.2s ease;
+    }
+
+    .proto-card.is-expanded .btn-toggle-more i {
+      transform: rotate(180deg);
     }
 
     .proto-footer {
@@ -465,6 +538,10 @@
               <li><i class="uil uil-check-circle"></i> <strong>Prioridade 3 (Rascunho Salvo):</strong> Continuar rascunho ➔ | Ver todos (4)</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <span class="proto-version">v2.0 • Dupla Ação + Versões A/B</span>
@@ -501,6 +578,10 @@
               <li><i class="uil uil-check-circle"></i> Simulador interativo iPhone 15 & Modo Desktop</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <span class="proto-version">v3.0 • Simulador Executivo</span>
@@ -537,6 +618,10 @@
               <li><i class="uil uil-check-circle"></i> Modo Mapa 100% com desenho de área em 1 gesto</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <span class="proto-version">v2.0 • Espelho Produção</span>
@@ -573,6 +658,10 @@
               <li><i class="uil uil-check-circle"></i> Tratamento de validade e expiração de inventário</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <span class="proto-version">v1.2 • Stepper Guiado</span>
@@ -603,6 +692,10 @@
               <li><i class="uil uil-check-circle"></i> Comparativo de custo-benefício por inserção</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <span class="proto-version">v1.0 • Checkout</span>
@@ -633,6 +726,10 @@
               <li><i class="uil uil-check-circle"></i> Totalmente fiel ao print de produção do Aqui Ads OOH</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <span class="proto-version">v1.0 • Sticky UX</span>
@@ -664,6 +761,10 @@
               <li><i class="uil uil-check-circle"></i> Layout reconstruído com responsividade injetada</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <div style="display: flex; gap: 8px;">
@@ -699,6 +800,10 @@
               <li><i class="uil uil-check-circle"></i> Fluxo unificado entre resultados e resumo</li>
             </ul>
           </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
         </div>
         <div class="proto-footer">
           <div style="display: flex; gap: 8px;">
@@ -728,5 +833,16 @@
     </div>
   </footer>
 
+  <script>
+    function toggleCard(btn) {
+      const card = btn.closest('.proto-card');
+      if (!card) return;
+      const isExpanded = card.classList.toggle('is-expanded');
+      const label = btn.querySelector('span');
+      if (label) {
+        label.textContent = isExpanded ? 'Ver menos' : 'Ver mais';
+      }
+    }
+  </script>
 </body>
 </html>
