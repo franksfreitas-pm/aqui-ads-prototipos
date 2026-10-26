@@ -504,11 +504,11 @@
        ========================================================================== */
     .results-split-wrapper {
       display: flex;
-      gap: 24px;
-      max-width: 1360px;
+      gap: 20px;
+      max-width: 1420px;
       margin: 0 auto;
       width: 100%;
-      padding: 24px 40px 48px;
+      padding: 16px 32px 48px;
       align-items: flex-start;
     }
     .viewport-container.mobile-mode .results-split-wrapper {
@@ -517,16 +517,16 @@
     }
 
     .results-left-col {
-      flex: 1.45;
+      flex: 0 0 55%;
+      max-width: 55%;
       min-width: 0;
     }
+    .viewport-container.mobile-mode .results-left-col {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
     .results-context-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-      gap: 8px;
+      display: none;
     }
     .results-count-title {
       font-size: 16px;
@@ -598,8 +598,8 @@
       gap: 4px;
     }
     .badge-pill {
-      padding: 3px 6px;
-      border-radius: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
       font-size: 10px;
       font-weight: 600;
       display: inline-flex;
@@ -611,13 +611,16 @@
       color: #241E17;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .badge-digital,
+    .badge-digital {
+      background: #5850EC;
+      color: #FFFFFF;
+    }
     .badge-impresso {
-      background: #241E17;
+      background: #00A859;
       color: #FFFFFF;
     }
     .badge-dist {
-      background: rgba(36, 30, 23, 0.85);
+      background: rgba(120, 130, 140, 0.85);
       color: #FFFFFF;
       font-weight: 500;
     }
@@ -878,6 +881,7 @@
        ========================================================================== */
     .results-right-map-col {
       flex: 1;
+      min-width: 0;
       position: sticky;
       top: 16px;
       display: flex;
@@ -892,8 +896,10 @@
 
     .map-frame-box {
       width: 100%;
-      height: 440px;
-      border-radius: 16px;
+      height: calc(100vh - 235px);
+      min-height: 600px;
+      max-height: 720px;
+      border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--border-color);
       position: relative;
@@ -901,7 +907,8 @@
       box-shadow: var(--shadow-sm);
     }
     .viewport-container.mobile-mode .map-frame-box {
-      height: 260px;
+      height: 280px;
+      min-height: 280px;
     }
 
     /* Mapa Vetorial Urbano Realista estilo Google Maps Positron */
@@ -912,9 +919,31 @@
       transition: transform 0.25s ease;
     }
 
-    .map-zoom-controls {
+    .map-expand-btn {
       position: absolute;
       top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      z-index: 20;
+    }
+    .map-expand-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .map-zoom-controls {
+      position: absolute;
+      top: 54px;
       right: 14px;
       display: flex;
       flex-direction: column;
@@ -951,13 +980,13 @@
       border-radius: 50%;
       background: var(--brand-orange);
       color: #FFFFFF;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #FFFFFF;
-      box-shadow: 0 4px 12px rgba(255, 84, 0, 0.45);
+      border: 2.5px solid #FFFFFF;
+      box-shadow: 0 3px 10px rgba(255, 79, 0, 0.45);
       cursor: pointer;
       transform: translate(-50%, -50%);
       transition: transform 0.2s, background 0.2s;
@@ -970,11 +999,47 @@
       z-index: 25;
     }
 
-    .map-bottom-actions {
+    /* ==========================================================================
+       BOTTOM STICKY CART BAR DE PONTA A PONTA (FIEL AO PRINT DE PRODUÇÃO)
+       ========================================================================== */
+    .bottom-cart-bar {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 12px 40px;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.06);
+      z-index: 450;
     }
-    .btn-map-continue {
+    .viewport-container.mobile-mode .bottom-cart-bar {
+      padding: 10px 16px;
+    }
+    .cart-summary-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cart-summary-count {
+      font-size: 12px;
+      color: #4E5D6C;
+      font-weight: 500;
+    }
+    .cart-summary-total {
+      font-size: 13px;
+      font-weight: 400;
+      color: #4E5D6C;
+    }
+    .cart-summary-total strong {
+      font-size: 14px;
+      font-weight: 800;
+      color: #241E17;
+    }
+    .btn-continue-orange {
       background: var(--brand-orange);
       color: #FFFFFF;
       border: none;
@@ -986,6 +1051,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-continue-orange:hover {
+      background: var(--brand-orange-hover);
     }
 
     /* ==========================================================================
@@ -1323,56 +1392,64 @@
             </div>
           </div>
 
-          <!-- COLUNA DIREITA: MAPA INTERATIVO ESTILO PRODUÇÃO -->
+          <!-- COLUNA DIREITA: MAPA INTERATIVO ESTILO PRODUÇÃO (45% LARGURA, 600px+ ALTURA) -->
           <aside class="results-right-map-col">
             <div class="map-frame-box">
+              <button type="button" class="map-expand-btn" title="Expandir mapa" onclick="zoomMap(1.18)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              </button>
               <div class="map-zoom-controls">
                 <button type="button" class="map-zoom-btn" onclick="zoomMap(1.15)">+</button>
                 <button type="button" class="map-zoom-btn" onclick="zoomMap(1)">−</button>
               </div>
 
-              <!-- Mapa Urbano Vetorial Light (Fiel ao Google Maps de Produção) -->
-              <svg class="urban-map-svg" id="urbanMapSvg" viewBox="0 0 500 440" preserveAspectRatio="xMidYMid slice">
-                <rect width="500" height="440" fill="#F1F3F4"/>
+              <!-- Mapa Urbano Vetorial Light (Fiel ao Google Maps / Mapbox de Produção) -->
+              <svg class="urban-map-svg" id="urbanMapSvg" viewBox="0 0 560 640" preserveAspectRatio="xMidYMid slice">
+                <rect width="560" height="640" fill="#F1F3F4"/>
                 <!-- Quadras e Parques -->
-                <rect x="20" y="20" width="110" height="80" rx="6" fill="#E8EAED"/>
-                <rect x="150" y="20" width="140" height="80" rx="6" fill="#E8EAED"/>
-                <rect x="310" y="20" width="160" height="90" rx="6" fill="#CEEAD6"/>
-                <rect x="20" y="120" width="110" height="120" rx="6" fill="#E8EAED"/>
-                <rect x="150" y="120" width="140" height="120" rx="6" fill="#FFFFFF"/>
-                <rect x="310" y="130" width="160" height="110" rx="6" fill="#E8EAED"/>
-                <rect x="20" y="260" width="180" height="150" rx="6" fill="#E8EAED"/>
-                <rect x="220" y="260" width="130" height="150" rx="6" fill="#E8EAED"/>
-                <rect x="370" y="260" width="110" height="150" rx="6" fill="#CEEAD6"/>
+                <rect x="20" y="20" width="125" height="95" rx="6" fill="#E8EAED"/>
+                <rect x="165" y="20" width="160" height="95" rx="6" fill="#E8EAED"/>
+                <rect x="345" y="20" width="190" height="105" rx="6" fill="#CEEAD6"/>
+                <rect x="20" y="135" width="125" height="140" rx="6" fill="#E8EAED"/>
+                <rect x="165" y="135" width="160" height="140" rx="6" fill="#FFFFFF"/>
+                <rect x="345" y="145" width="190" height="130" rx="6" fill="#E8EAED"/>
+                <rect x="20" y="295" width="200" height="155" rx="6" fill="#E8EAED"/>
+                <rect x="240" y="295" width="145" height="155" rx="6" fill="#E8EAED"/>
+                <rect x="405" y="295" width="130" height="155" rx="6" fill="#CEEAD6"/>
+                <rect x="20" y="470" width="175" height="145" rx="6" fill="#CEEAD6"/>
+                <rect x="215" y="470" width="170" height="145" rx="6" fill="#E8EAED"/>
+                <rect x="405" y="470" width="130" height="145" rx="6" fill="#E8EAED"/>
 
-                <!-- Avenidas Principais (Amarelo/Laranja claro Google Maps) -->
-                <path d="M 0 110 L 500 110" stroke="#FDE293" stroke-width="14"/>
-                <path d="M 0 250 L 500 250" stroke="#FFFFFF" stroke-width="10"/>
-                <path d="M 140 0 L 140 440" stroke="#FFFFFF" stroke-width="10"/>
-                <path d="M 300 0 L 240 440" stroke="#FBCFE8" stroke-width="12"/>
-                <path d="M 300 0 L 240 440" stroke="#FDE293" stroke-width="10"/>
-                <path d="M 0 340 L 360 440" stroke="#FCD34D" stroke-width="16"/>
+                <!-- Avenidas Principais -->
+                <path d="M 0 125 L 560 125" stroke="#FDE293" stroke-width="14"/>
+                <path d="M 0 285 L 560 285" stroke="#FFFFFF" stroke-width="11"/>
+                <path d="M 0 460 L 560 460" stroke="#FDE293" stroke-width="12"/>
+                <path d="M 155 0 L 155 640" stroke="#FFFFFF" stroke-width="10"/>
+                <path d="M 335 0 L 270 640" stroke="#FDE293" stroke-width="11"/>
+                <path d="M 0 380 L 440 640" stroke="#FCD34D" stroke-width="15"/>
 
                 <!-- Rótulos de Ruas Reais -->
-                <text x="175" y="106" fill="#5F6368" font-size="10" font-weight="600">Av. Paulista</text>
-                <text x="55" y="246" fill="#5F6368" font-size="10" font-weight="600">Av. Brig. Faria Lima</text>
-                <text x="330" y="70" fill="#137333" font-size="10" font-weight="600">Parque Trianon</text>
-                <text x="165" y="180" fill="#5F6368" font-size="10" font-weight="700" id="mapCenterLabel">Região Pesquisada</text>
+                <text x="185" y="121" fill="#5F6368" font-size="10" font-weight="600">Av. Paulista</text>
+                <text x="50" y="281" fill="#5F6368" font-size="10" font-weight="600">Av. Brig. Faria Lima</text>
+                <text x="230" y="456" fill="#5F6368" font-size="10" font-weight="600">Av. Rebouças</text>
+                <text x="365" y="75" fill="#137333" font-size="10" font-weight="600">Parque Trianon</text>
+                <text x="180" y="210" fill="#5F6368" font-size="10" font-weight="700" id="mapCenterLabel">Região Pesquisada</text>
 
                 <!-- Círculo de Raio do Endereço Pesquisado -->
-                <circle cx="245" cy="185" r="78" fill="rgba(255, 84, 0, 0.08)" stroke="#FF5400" stroke-width="1.5" stroke-dasharray="5,5"/>
+                <circle cx="275" cy="240" r="95" fill="rgba(255, 79, 0, 0.08)" stroke="#FF4F00" stroke-width="1.5" stroke-dasharray="5,5"/>
               </svg>
 
               <!-- Marcadores Laranjas de Cluster (Fiel ao Espelho de Produção) -->
-              <div class="map-cluster-pin" style="top: 32%; left: 34%;" onclick="highlightCardByIndex(0, this)">3</div>
-              <div class="map-cluster-pin" style="top: 44%; left: 50%;" onclick="highlightCardByIndex(1, this)">8</div>
-              <div class="map-cluster-pin" style="top: 38%; left: 66%;" onclick="highlightCardByIndex(2, this)">12</div>
-              <div class="map-cluster-pin" style="top: 56%; left: 42%;" onclick="highlightCardByIndex(3, this)">5</div>
-              <div class="map-cluster-pin" style="top: 64%; left: 62%;" onclick="highlightCardByIndex(4, this)">4</div>
-            </div>
-
-            <div class="map-bottom-actions">
-              <button type="button" class="btn-map-continue">continuar ›</button>
+              <div class="map-cluster-pin" style="top: 16%; left: 66%;" onclick="highlightCardByIndex(0, this)">24</div>
+              <div class="map-cluster-pin" style="top: 26%; left: 32%;" onclick="highlightCardByIndex(1, this)">15</div>
+              <div class="map-cluster-pin" style="top: 31%; left: 52%;" onclick="highlightCardByIndex(2, this)">39</div>
+              <div class="map-cluster-pin" style="top: 42%; left: 36%;" onclick="highlightCardByIndex(3, this)">46</div>
+              <div class="map-cluster-pin" style="top: 48%; left: 58%;" onclick="highlightCardByIndex(4, this)">67</div>
+              <div class="map-cluster-pin" style="top: 56%; left: 74%;" onclick="highlightCardByIndex(5, this)">32</div>
+              <div class="map-cluster-pin" style="top: 63%; left: 45%;" onclick="highlightCardByIndex(6, this)">52</div>
+              <div class="map-cluster-pin" style="top: 74%; left: 30%;" onclick="highlightCardByIndex(7, this)">21</div>
+              <div class="map-cluster-pin" style="top: 78%; left: 56%;" onclick="highlightCardByIndex(8, this)">29</div>
+              <div class="map-cluster-pin" style="top: 85%; left: 72%;" onclick="highlightCardByIndex(9, this)">9</div>
             </div>
           </aside>
 
@@ -1397,7 +1474,7 @@
               <p class="env-promo-desc">Alta visibilidade nas principais avenidas e corredores urbanos de grande fluxo.</p>
               <span class="env-promo-price">a partir de <strong>R$ 980,00</strong> / 2 semanas</span>
             </div>
-            <div class="env-promo-card" onclick="filterResults('academia')">
+            <div class="env-promo-card" onclick="filterResults('academias')">
               <span class="env-promo-title">Anuncie em academias</span>
               <p class="env-promo-desc">Conecte sua marca com o público focado em saúde, bem-estar e estilo de vida ativo.</p>
               <span class="env-promo-price">a partir de <strong>R$ 390,00</strong> / 2 semanas</span>
@@ -1423,7 +1500,7 @@
             </div>
             <div class="faq-item" onclick="this.classList.toggle('open')">
               <div class="faq-q">Quais são as opções de criação de arte do meu anúncio?</div>
-              <div class="faq-a">Você pode enviar seu próprio material seguindo as especificações técnicas da tela, usar nossos modelos gratuitos ou contratar nosso time de designers por apenas R$ 250,00.</div>
+              <div class="faq-a">Você pode enviar seu próprio material seguindo as especificações técnicas da tela, usar nossos modelos gratuitos ou contratar uma arte por apenas R$ 250,00.</div>
             </div>
             <div class="faq-item" onclick="this.classList.toggle('open')">
               <div class="faq-q">Moradores de prédios com telas da Eletromidia têm algum benefício para anunciar?</div>
@@ -1459,6 +1536,20 @@
           </div>
         </footer>
 
+        <!-- BARRA INFERIOR FIXA FULL-WIDTH (FIEL AO PRINT OFICIAL DE PRODUÇÃO) -->
+        <div class="bottom-cart-bar">
+          <div class="bottom-cart-inner">
+            <div class="bottom-cart-summary">
+              <span class="bottom-cart-count"><span id="resBottomCartCount">0</span> produtos selecionados <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg></span>
+              <div class="bottom-cart-total">Total <strong id="resBottomCartTotal">R$ 0,00</strong></div>
+            </div>
+            <button type="button" class="btn-bottom-continue" onclick="voltarParaEditarBusca()">
+              continuar
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
       </div><!-- /viewport-scroll-area -->
     </div><!-- /viewport-container -->
   </div><!-- /workspace-stage -->
@@ -1472,6 +1563,7 @@
       mode: 'desktop',
       filter: 'todos',
       cartCount: 0,
+      baseTotal: 0,
       addedIds: []
     };
 
@@ -1525,7 +1617,7 @@
         id: 'r4',
         env: 'ponto de ônibus',
         envIcon: '🚌',
-        format: 'digital',
+        format: 'Impresso',
         dist: '110 m',
         title: 'AV OTAVIANO ALVES DE LIMA, 572',
         address: 'Av. Otaviano Alves de Lima - 572, São Paulo',
@@ -1729,7 +1821,7 @@
       filtered.forEach((item, idx) => {
         const price = (item.weeklyPrice * weeks).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         const isAdded = resultsState.addedIds.includes(item.id);
-        const fmtClass = item.format === 'digital' ? 'badge-digital' : 'badge-impresso';
+        const fmtClass = item.format.toLowerCase() === 'digital' ? 'badge-digital' : 'badge-impresso';
         const envSvg = getEnvBadgeSvg(item.env);
 
         html += `
@@ -1803,7 +1895,7 @@
                 </div>
                 <div>
                   <div class="art-promo-title">Deixa que a gente cuida da arte</div>
-                  <div class="art-promo-desc">Sem material para anunciar? Nossos designers criam peças animadas focadas em conversão por um custo acessível.</div>
+                  <div class="art-promo-desc">Sem material para anunciar? Contrate uma arte para criar peças animadas focadas em conversão por um custo acessível.</div>
                 </div>
               </div>
               <div class="art-promo-right">
@@ -1832,6 +1924,31 @@
       });
 
       grid.innerHTML = html;
+      updateBottomCartBar();
+    }
+
+    function updateBottomCartBar() {
+      const weeks = resultsState.semanas || 2;
+      const totalCount = resultsState.cartCount + resultsState.addedIds.length;
+      let addedSum = (resultsState.cartCount || 0) * (132.48 * weeks);
+
+      resultsState.addedIds.forEach(id => {
+        const item = resultsCatalog.find(c => c.id === id);
+        if (item) {
+          addedSum += item.weeklyPrice * weeks;
+        }
+      });
+
+      const badgeEl = document.getElementById('resCartBadge');
+      if (badgeEl) badgeEl.textContent = totalCount;
+
+      const countEl = document.getElementById('resBottomCartCount');
+      if (countEl) countEl.textContent = totalCount;
+
+      const totalEl = document.getElementById('resBottomCartTotal');
+      if (totalEl) {
+        totalEl.textContent = addedSum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      }
     }
 
     function filterResults(env, btnEl) {
@@ -1848,8 +1965,6 @@
       if (idx >= 0) resultsState.addedIds.splice(idx, 1);
       else resultsState.addedIds.push(id);
 
-      const totalCount = resultsState.cartCount + resultsState.addedIds.length;
-      document.getElementById('resCartBadge').textContent = totalCount;
       renderResultsGrid();
     }
 
