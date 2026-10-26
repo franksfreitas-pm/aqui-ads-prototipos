@@ -192,10 +192,10 @@
 
       <!-- Documentação do Test Card + Alternador de Viewport Desktop vs Mobile -->
       <div class="flex items-center gap-2 ml-auto">
-        <a href="test-card.html" class="px-2.5 py-1 rounded-lg bg-blue-950/80 hover:bg-blue-900 text-blue-300 hover:text-white border border-blue-800/70 text-[11px] font-bold flex items-center gap-1.5 transition" style="text-decoration: none;" title="Abrir Documentação Completa do Test Card">
+        <button type="button" onclick="openTestCardDocModal()" id="btn-open-test-card-doc" class="px-2.5 py-1 rounded-lg bg-blue-950/90 hover:bg-blue-900 text-blue-300 hover:text-white border border-blue-800/80 text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer" title="Ver Documentação Completa do Test Card">
           <span>📄</span>
           <span>Test Card (Doc)</span>
-        </a>
+        </button>
         <div class="flex items-center bg-gray-900 p-0.5 rounded-lg border border-gray-800">
           <button onclick="setViewportMode('desktop')" id="vp-desktop-btn" class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-gray-800 text-white flex items-center gap-1 transition cursor-pointer">
             <span>🖥️</span> Desktop (1440px)
@@ -5188,8 +5188,154 @@
           switchTopTab(DEFAULT_INITIAL_TAB);
         }
       }
+      if (window.location.hash === '#doc' || window.location.search.includes('doc=1')) {
+        openTestCardDocModal();
+      }
     });
+
+    function openTestCardDocModal() {
+      const m = document.getElementById('modal-test-card-doc');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeTestCardDocModal() {
+      const m = document.getElementById('modal-test-card-doc');
+      if (m) m.classList.add('hidden');
+      if (window.location.hash === '#doc') {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
   </script>
+
+  <!-- MODAL DE DOCUMENTAÇÃO DO TEST CARD (Embutido no Protótipo) -->
+  <div id="modal-test-card-doc" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden my-auto">
+      <!-- Topbar do Modal -->
+      <div class="bg-slate-900 text-white px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <span class="px-2 py-0.5 rounded bg-[#FF4F00]/20 text-[#FF4F00] border border-[#FF4F00]/40 text-[10px] font-extrabold uppercase tracking-wider">Test Card Oficial</span>
+          <h2 class="text-sm md:text-base font-bold text-white">Teste A/B/C/D — Preço por Dia nos Cards da Página de Resultados (OOH)</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="https://app.notion.com/p/Test-Card-Pre-o-por-Dia-nos-Cards-da-P-gina-de-Resultados-OOH-3ff9587e4137819b8de7eb645face07c" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1 transition" style="text-decoration: none;">
+            <span>↗ Abrir no Notion</span>
+          </a>
+          <button type="button" onclick="closeTestCardDocModal()" class="px-3 py-1.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer transition">
+            Voltar ao Protótipo ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Corpo Rolável do Test Card -->
+      <div class="p-6 md:p-8 overflow-y-auto space-y-7 text-slate-800">
+        <!-- 1. Contexto & Racional de Negócio -->
+        <section class="space-y-3">
+          <h3 class="text-base font-extrabold text-slate-900 border-l-4 border-[#FF4F00] pl-3">1. Contexto & Racional de Negócio</h3>
+          <p class="text-xs md:text-sm text-slate-700 leading-relaxed">
+            <strong>Onde acontece:</strong> Cards de inventário na <strong>página de resultados</strong> de <strong>OOH</strong> (Mobile e Desktop).<br>
+            <strong>Qual é o gargalo atual:</strong> Hoje, todos os cards da <strong>página de resultados</strong> exibem exclusivamente o valor fechado do período selecionado em destaque (por padrão, <code class="bg-slate-100 text-orange-700 px-1.5 py-0.5 rounded font-bold">R$ 264,96 / 2 semanas</code>). No entanto, o pequeno e médio anunciante que chega ao Aqui Ads tem seu modelo mental ancorado no orçamento diário das plataformas de mídia digital (<code class="bg-slate-100 text-orange-700 px-1.5 py-0.5 rounded font-bold">R$ 20,00 / dia</code> a <code class="bg-slate-100 text-orange-700 px-1.5 py-0.5 rounded font-bold">R$ 50,00 / dia</code> no Meta Ads e Google Ads).
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+              <span class="text-[11px] font-bold text-slate-500 uppercase">Volume Analisado</span>
+              <p class="text-lg font-extrabold text-slate-900 mt-0.5">25.942 sessões</p>
+              <p class="text-[11px] text-slate-500">~865 sessões/dia na página de resultados</p>
+            </div>
+            <div class="bg-red-50/60 border border-red-200 rounded-xl p-3.5">
+              <span class="text-[11px] font-bold text-red-700 uppercase">Taxa de Rejeição Geral</span>
+              <p class="text-lg font-extrabold text-red-700 mt-0.5">71,49%</p>
+              <p class="text-[11px] text-red-600">77,40% Mobile • 82,49% Meta Ads</p>
+            </div>
+            <div class="bg-orange-50/70 border border-orange-200 rounded-xl p-3.5">
+              <span class="text-[11px] font-bold text-[#FF4F00] uppercase">Adição ao Carrinho (Baseline)</span>
+              <p class="text-lg font-extrabold text-[#FF4F00] mt-0.5">5,24%</p>
+              <p class="text-[11px] text-slate-600">1,65% sem busca • 23,97% com busca</p>
+            </div>
+          </div>
+          <ul class="list-disc pl-5 space-y-1 text-xs md:text-sm text-slate-700">
+            <li><strong>Auditoria de Reuniões Comerciais:</strong> Em <strong>100,0%</strong> das 246 reuniões auditadas dos <strong>executivos de vendas</strong>, o principal ponto de atrito é a percepção de preço elevado na largada e a comparação direta com o custo diário de mídia digital.</li>
+            <li><strong>Benchmark de Mercado:</strong> Plataformas de autosserviço voltadas a PMEs (como UOL Ads, com ancoragem de <code>R$ 9,09 / dia</code>, e Blip Billboards) comunicam o custo diário na escolha do inventário e consolidam o valor total da campanha no resumo do carrinho.</li>
+          </ul>
+        </section>
+
+        <!-- 2. Hipótese Estruturada -->
+        <section class="space-y-3">
+          <h3 class="text-base font-extrabold text-slate-900 border-l-4 border-[#FF4F00] pl-3">2. Hipótese Estruturada</h3>
+          <div class="bg-orange-50/50 border border-orange-200 rounded-xl p-4 space-y-2.5 text-xs md:text-sm text-slate-800 leading-relaxed">
+            <p><strong class="text-[#FF4F00]">Nós acreditamos que:</strong> Apresentar o <strong>valor por dia</strong> (ex: <code>R$ 18,93 / dia</code>) nos cards da <strong>página de resultados</strong> de <strong>OOH</strong> — seja de forma exclusiva ou combinada ao valor cheio do período (<code>R$ 264,96 / 2 semanas</code>) — reduzirá o choque inicial de preço e aproximará a leitura de custo da referência mental diária do anunciante, aumentando a taxa de <strong>adição ao carrinho</strong> sem prejudicar a conversão final.</p>
+            <p><strong class="text-[#FF4F00]">Para verificar isso, nós iremos:</strong> Executar um <strong>Teste A/B/C/D</strong> (divisão de <code>25%</code> do tráfego para cada variante) na <strong>página de resultados</strong> de <strong>OOH</strong>, comparando o card original (<strong>Controle A</strong>) contra três formatos de exposição do custo diário: apenas valor por dia (<strong>Variante B</strong>), valor por dia em destaque com valor cheio em menor destaque (<strong>Variante C</strong>) e valor cheio em destaque com valor por dia em menor destaque (<strong>Variante D</strong>).</p>
+            <p><strong class="text-[#FF4F00]">E mediremos:</strong> A <strong>taxa de adição ao carrinho</strong> como métrica primária, a <strong>taxa de conversão</strong> ao longo do funil (avanço para o resumo, início de checkout e compra concluída) e o <strong>ticket médio</strong> dos pedidos gerados em cada variante.</p>
+            <p><strong class="text-[#FF4F00]">Estaremos certos se:</strong> Ao menos uma das variantes com preço por dia (<strong>B</strong>, <strong>C</strong> ou <strong>D</strong>) registrar um aumento estatisticamente significativo (confiança mínima de <code>95%</code>) na taxa de <strong>adição ao carrinho</strong>, mantendo ou superando a <strong>taxa de conversão</strong> final de compras e o <strong>ticket médio</strong> em relação ao Controle.</p>
+          </div>
+        </section>
+
+        <!-- 3. Desenho das Variantes -->
+        <section class="space-y-3">
+          <h3 class="text-base font-extrabold text-slate-900 border-l-4 border-[#FF4F00] pl-3">3. Desenho das Variantes (Teste A/B/C/D)</h3>
+          <div class="overflow-x-auto border border-slate-200 rounded-xl">
+            <table class="w-full text-left border-collapse text-xs md:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                  <th class="py-2.5 px-3 font-bold">Variante</th>
+                  <th class="py-2.5 px-3 font-bold">Exibição de Preço no Card</th>
+                  <th class="py-2.5 px-3 font-bold">Exemplo Visual (2 semanas)</th>
+                  <th class="py-2.5 px-3 font-bold text-center">Tráfego</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="py-2.5 px-3 font-bold text-slate-900">Variante A (Controle)</td>
+                  <td class="py-2.5 px-3">Apenas valor cheio do período em destaque.</td>
+                  <td class="py-2.5 px-3"><strong>R$ 264,96</strong> <span class="text-xs text-slate-500">/ 2 semanas</span></td>
+                  <td class="py-2.5 px-3 text-center font-bold">25%</td>
+                </tr>
+                <tr class="bg-orange-50/30">
+                  <td class="py-2.5 px-3 font-bold text-slate-900">Variante B</td>
+                  <td class="py-2.5 px-3">Apenas valor por dia em destaque.</td>
+                  <td class="py-2.5 px-3"><strong>R$ 18,93</strong> <span class="text-xs text-slate-500">/ dia</span></td>
+                  <td class="py-2.5 px-3 text-center font-bold">25%</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-bold text-slate-900">Variante C</td>
+                  <td class="py-2.5 px-3">Valor por dia em destaque e valor cheio abaixo.</td>
+                  <td class="py-2.5 px-3"><strong>R$ 18,93</strong> <span class="text-xs text-slate-500">/ dia</span><br><span class="text-xs text-slate-500">Total: R$ 264,96 / 2 semanas</span></td>
+                  <td class="py-2.5 px-3 text-center font-bold">25%</td>
+                </tr>
+                <tr class="bg-orange-50/30">
+                  <td class="py-2.5 px-3 font-bold text-slate-900">Variante D</td>
+                  <td class="py-2.5 px-3">Valor cheio em destaque e valor por dia abaixo.</td>
+                  <td class="py-2.5 px-3"><strong>R$ 264,96</strong> <span class="text-xs text-slate-500">/ 2 semanas</span><br><span class="text-xs text-slate-500">ou R$ 18,93 / dia</span></td>
+                  <td class="py-2.5 px-3 text-center font-bold">25%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. Arquitetura de Métricas e 5. Dimensionamento Amostral -->
+        <section class="space-y-3">
+          <h3 class="text-base font-extrabold text-slate-900 border-l-4 border-[#FF4F00] pl-3">4. Arquitetura de Métricas & Dimensionamento Amostral</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="border border-slate-200 rounded-xl p-3.5">
+              <span class="text-[10px] font-extrabold uppercase text-[#FF4F00]">Métrica Primária</span>
+              <p class="text-xs font-bold text-slate-900 mt-1">Taxa de Adição ao Carrinho</p>
+              <p class="text-xs text-slate-600 mt-1">Baseline atual: <strong>5,24%</strong> na página de resultados.</p>
+            </div>
+            <div class="border border-slate-200 rounded-xl p-3.5">
+              <span class="text-[10px] font-extrabold uppercase text-blue-700">Métricas de Funil & Negócio</span>
+              <p class="text-xs font-bold text-slate-900 mt-1">Conversão Final & Ticket Médio</p>
+              <p class="text-xs text-slate-600 mt-1">Avanço ao Resumo, Checkout, Compra Aprovada e Ticket Médio (R$).</p>
+            </div>
+            <div class="border border-slate-200 rounded-xl p-3.5">
+              <span class="text-[10px] font-extrabold uppercase text-emerald-700">Amostra & Duração</span>
+              <p class="text-xs font-bold text-slate-900 mt-1">21 a 28 dias corridos (Confiança 95%)</p>
+              <p class="text-xs text-slate-600 mt-1">~4.950 sessões/variante (~19.800 total) para +25% MDE.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL SALVAR COMO RASCUNHO (Acionado pela Página de Resumo) -->
   <div id="modal-save-draft" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
