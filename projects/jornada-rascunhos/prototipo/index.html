@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui ads — Protótipo Interativo: Jornada Completa de Rascunhos</title>
+  <link rel="icon" href="https://aqui.globo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <!-- CSS Oficial Compilado do Aqui Ads (codebase/smb-web + Espelho de Produção) -->
+  <link rel="stylesheet" href="aqui_ads_official.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
+
+  <!-- Base de Dados Mockada Oficial Centralizada -->
+  <script src="aqui_ads_mock_data.js"></script>
+
+  <!-- Configuração Declarativa do Protótipo: Jornada Completa de Rascunhos -->
+  <script>
+    window.AQUI_ADS_CONFIG = {
+      initialScreen: 'view-resultados',
+      initialChannel: 'ooh',
+      initialTab: 'rascunhos',
+      cartPreset: 'empty',
+      hooks: {
+        onReady(api) {
+          // Injeta o botão de Documentação (Notion) na barra superior de controle do protótipo
+          const topbarRow = document.querySelector('#aqui-ads-shell-root > header > div');
+          if (topbarRow && !document.getElementById('notion-doc-link')) {
+            topbarRow.insertAdjacentHTML('beforeend', `
+              <a id="notion-doc-link" href="https://www.notion.so/3ee9587e41378038ac76c45328d7023f" target="_blank" rel="noopener noreferrer"
+                class="px-3 py-1 rounded-lg text-[11px] font-bold bg-indigo-950/90 hover:bg-indigo-900 text-indigo-200 border border-indigo-700/70 flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
+                title="Abrir especificação funcional e regras de negócio no Notion">
+                <span>📄</span>
+                <span>Documentação (Notion)</span>
+                <span class="text-[10px] opacity-75">↗</span>
+              </a>
+            `);
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Motor de UI e Jornada Oficial do Aqui Ads -->
+  <script src="aqui_ads_ui.js"></script>
+</body>
+</html>

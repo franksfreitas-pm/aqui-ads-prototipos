@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqui Ads — Pré-Página de Resultados OOH (Descoberta Guiada Multi-Praças)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div id="aqui-ads-shell-root"></div>
+
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
+  <script>
+    const PRE_CITIES_DATA = [
+      {
+        city: 'São Paulo',
+        state: 'SP',
+        sub: 'Pontos de alto fluxo na Av. Paulista, Faria Lima, Pinheiros e principais shoppings',
+        points: [
+          { id: 101, title: 'Relógio Digital - Av. Paulista, 900 (Cásper Líbero)', sub: 'Bela Vista • São Paulo', cat: 'Ruas', subcat: 'Relógio de Rua', price: 249, impacts: '410 mil', faces: 2, img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80' },
+          { id: 102, title: 'Abrigo Digital - Av. Brig. Faria Lima, 3477 (Itaim)', sub: 'Itaim Bibi • São Paulo', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 218, impacts: '380 mil', faces: 2, img: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=600&q=80' },
+          { id: 103, title: 'Shopping Eldorado - Atrium Principal (MUB Digital)', sub: 'Pinheiros • São Paulo', cat: 'Shoppings', subcat: 'MUB Digital', price: 295, impacts: '520 mil', faces: 4, img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80' },
+          { id: 104, title: 'Edifício Comercial Berrini One - Elevadores Sociais', sub: 'Brooklin • São Paulo', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 145, impacts: '95 mil', faces: 6, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80' }
+        ]
+      },
+      {
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        sub: 'Orla Zona Sul, Barra da Tijuca, Centro Financeiro e corredores de transporte',
+        points: [
+          { id: 801, title: 'Relógio Digital - Av. Nossa Sra. de Copacabana, 540', sub: 'Copacabana • Rio de Janeiro', cat: 'Ruas', subcat: 'Relógio de Rua', price: 215, impacts: '360 mil', faces: 2, img: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=600&q=80' },
+          { id: 802, title: 'BarraShopping - Corredor Expansão Nível Lagoa', sub: 'Barra da Tijuca • Rio de Janeiro', cat: 'Shoppings', subcat: 'MUB Digital', price: 280, impacts: '490 mil', faces: 4, img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80' },
+          { id: 803, title: 'Abrigo Digital - Av. Rio Branco, 156 (Centro)', sub: 'Centro • Rio de Janeiro', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 189, impacts: '310 mil', faces: 2, img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80' },
+          { id: 804, title: 'Condomínio CEO Corporate - Barra da Tijuca', sub: 'Barra da Tijuca • Rio de Janeiro', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 138, impacts: '82 mil', faces: 5, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80' }
+        ]
+      },
+      {
+        city: 'Belo Horizonte',
+        state: 'MG',
+        sub: 'Savassi, Lourdes, Praça Sete e principais centros comerciais da capital mineira',
+        points: [
+          { id: 811, title: 'Abrigo Digital - Praça da Savassi (Av. Cristóvão Colombo)', sub: 'Savassi • Belo Horizonte', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 175, impacts: '275 mil', faces: 2, img: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=600&q=80' },
+          { id: 812, title: 'BH Shopping - Piso Mariana (Acesso Principal)', sub: 'Belvedere • Belo Horizonte', cat: 'Shoppings', subcat: 'MUB Digital', price: 245, impacts: '410 mil', faces: 3, img: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=600&q=80' },
+          { id: 813, title: 'Relógio Digital - Av. Afonso Pena, 1500 (Parque Municipal)', sub: 'Centro • Belo Horizonte', cat: 'Ruas', subcat: 'Relógio de Rua', price: 168, impacts: '290 mil', faces: 2, img: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80' },
+          { id: 814, title: 'Edifício Pátio Savassi Corporate - Elevadores', sub: 'Funcionários • Belo Horizonte', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 120, impacts: '68 mil', faces: 4, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80' }
+        ]
+      },
+      {
+        city: 'Curitiba',
+        state: 'PR',
+        sub: 'Batel, Centro Cívico, Estações-Tubo e shoppings de alta renda',
+        points: [
+          { id: 821, title: 'Painel Digital - Av. do Batel, 1868 (Pátio Batel)', sub: 'Batel • Curitiba', cat: 'Ruas', subcat: 'Relógio de Rua', price: 192, impacts: '260 mil', faces: 2, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
+          { id: 822, title: 'ParkShoppingBarigüi - Praça de Alimentação Central', sub: 'Mossunguê • Curitiba', cat: 'Shoppings', subcat: 'MUB Digital', price: 230, impacts: '375 mil', faces: 4, img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80' },
+          { id: 823, title: 'Mobiliário Urbano - Rua XV de Novembro (Calçadão)', sub: 'Centro • Curitiba', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 158, impacts: '245 mil', faces: 2, img: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=600&q=80' },
+          { id: 824, title: 'Centro Empresarial Neo Superquadra - Elevadores', sub: 'Centro Cívico • Curitiba', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 115, impacts: '64 mil', faces: 4, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80' }
+        ]
+      },
+      {
+        city: 'Campinas',
+        state: 'SP',
+        sub: 'Cambuí, Parque D. Pedro Shopping, Iguatemi Campinas e eixos Norte-Sul',
+        points: [
+          { id: 831, title: 'Shopping Iguatemi Campinas - Entrada Principal 1º Piso', sub: 'Vila Brandina • Campinas', cat: 'Shoppings', subcat: 'MUB Digital', price: 225, impacts: '350 mil', faces: 4, img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80' },
+          { id: 832, title: 'Relógio Digital - Av. José de Souza Campos (Norte-Sul)', sub: 'Cambuí • Campinas', cat: 'Ruas', subcat: 'Relógio de Rua', price: 165, impacts: '230 mil', faces: 2, img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80' },
+          { id: 833, title: 'Parque D. Pedro Shopping - Alameda das Flores', sub: 'Jardim Santa Genebra • Campinas', cat: 'Shoppings', subcat: 'MUB Digital', price: 210, impacts: '390 mil', faces: 3, img: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=600&q=80' },
+          { id: 834, title: 'Edifício Galleria Corporate - Elevadores Comerciais', sub: 'Jardim Nilópolis • Campinas', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 112, impacts: '58 mil', faces: 4, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80' }
+        ]
+      }
+    ];
+
+    let preActiveCategory = 'Todos';
+    let preSubcatFilter = 'Todas';
+    let preMaxPriceFilter = 9999;
+
+    function ensureExtraPointsInCatalog() {
+      const cat = window.oohCatalog || [];
+      PRE_CITIES_DATA.forEach(group => {
+        group.points.forEach(p => {
+          if (!cat.some(x => x.id === p.id)) {
+            cat.push({
+              id: p.id,
+              title: p.title,
+              sub: p.sub,
+              cat: p.cat,
+              subcat: p.subcat,
+              price: p.price,
+              impacts: p.impacts,
+              Faces: p.faces,
+              available: true,
+              img: p.img
+            });
+          }
+        });
+      });
+    }
+
+    function renderPreCityCarousels() {
+      ensureExtraPointsInCatalog();
+      const container = document.getElementById('pre-cities-container');
+      if (!container) return;
+
+      const html = PRE_CITIES_DATA.map(group => {
+        const filteredPoints = group.points.filter(p => {
+          if (preActiveCategory !== 'Todos' && p.cat !== preActiveCategory) return false;
+          if (preSubcatFilter !== 'Todas' && p.subcat !== preSubcatFilter) return false;
+          if (p.price > preMaxPriceFilter) return false;
+          return true;
+        });
+
+        if (filteredPoints.length === 0) return '';
+
+        const cardsHtml = filteredPoints.map(item => {
+          const inCart = (window.oohCartIds || []).includes(item.id);
+          return `
+            <article class="rounded-2xl border ${inCart ? 'border-[#FF4F00] ring-2 ring-[#FF4F00]/20 bg-orange-50/10' : 'border-[#E2E8F0] bg-white'} overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col">
+              <div onclick="openPdpModal(${item.id})" class="h-36 bg-slate-100 relative overflow-hidden cursor-pointer group">
+                <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">${item.cat}</span>
+                ${inCart ? '<span class="absolute top-2.5 right-2.5 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">✓ No carrinho</span>' : ''}
+              </div>
+              <div class="p-3.5 flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between gap-1 mb-1">
+                    <span class="text-[10px] font-bold text-[#FF4F00] uppercase tracking-wider">${item.subcat} • ${item.faces} faces</span>
+                  </div>
+                  <h4 onclick="openPdpModal(${item.id})" class="text-xs font-bold text-[#1E293B] line-clamp-2 hover:text-[#FF4F00] cursor-pointer leading-snug">${item.title}</h4>
+                  <p class="text-[11px] text-[#64748B] mt-1">${item.sub} • Impacto: <strong class="text-[#334155]">${item.impacts}</strong></p>
+                </div>
+                <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <div>
+                    <span class="text-[10px] text-[#94A3B8] block">A partir de</span>
+                    <span class="text-sm font-extrabold text-[#1E293B]">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="toggleOohItem(${item.id}); renderPreCityCarousels()" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-[#FF4F00] text-white hover:bg-[#E04500] shadow-xs'}">
+                      ${inCart ? 'Remover' : '+ Adicionar'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        return `
+          <div class="border-b border-[#F1F5F9] pb-8 last:border-b-0">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-lg font-extrabold text-[#1E293B] hover:text-[#FF4F00] cursor-pointer transition-colors" onclick="navigateToResultsFromCity('${group.city} - ${group.state}')">
+                    Pontos de mídia em ${group.city} (${group.state})
+                  </h3>
+                  <span class="text-xs font-bold text-[#FF4F00] bg-[#FFF5F0] px-2.5 py-0.5 rounded-full border border-[#FFD8C2]">${filteredPoints.length} destaques</span>
+                </div>
+                <p class="text-xs text-[#64748B] mt-0.5">${group.sub}</p>
+              </div>
+              <button type="button" onclick="navigateToResultsFromCity('${group.city} - ${group.state}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF4F00] hover:text-[#E04500] hover:underline cursor-pointer shrink-0">
+                <span>Explorar todos os pontos de ${group.city} no mapa</span>
+                <span>→</span>
+              </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              ${cardsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html || `
+        <div class="text-center py-12 bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0]">
+          <p class="text-sm font-bold text-[#1E293B] mb-1">Nenhum ponto encontrado com esses filtros rápidos</p>
+          <p class="text-xs text-[#64748B] mb-4">Tente limpar os filtros de ambiente ou faixa de investimento.</p>
+          <button type="button" onclick="filterPreCategory('Todos'); document.getElementById('pre-filter-subcat').value='Todas'; document.getElementById('pre-filter-price').value='9999'; applyPreMoreFilters();" class="px-4 py-2 rounded-lg bg-[#FF4F00] text-white text-xs font-bold cursor-pointer">Limpar filtros</button>
+        </div>
+      `;
+    }
+
+    function openPreWhereDropdown() {
+      const dd = document.getElementById('pre-where-dropdown');
+      if (dd) dd.classList.remove('hidden');
+    }
+
+    function filterPreWhereSuggestions(val) {
+      openPreWhereDropdown();
+    }
+
+    function selectPreDestination(cityLabel) {
+      const input = document.getElementById('pre-search-where');
+      const dd = document.getElementById('pre-where-dropdown');
+      if (input) input.value = cityLabel;
+      if (dd) dd.classList.add('hidden');
+      navigateToResultsFromCity(cityLabel);
+    }
+
+    function cyclePreDuration() {
+      const options = ['2 semanas', '4 semanas', '8 semanas'];
+      const el = document.getElementById('pre-duration-lbl');
+      if (!el) return;
+      const idx = (options.indexOf(el.textContent.trim()) + 1) % options.length;
+      el.textContent = options[idx];
+      if (typeof showToast === 'function') showToast('Duração da campanha alterada para ' + options[idx]);
+    }
+
+    function cyclePreStartDate() {
+      const options = ['18/05/2026', '25/05/2026', '01/06/2026'];
+      const el = document.getElementById('pre-start-lbl');
+      if (!el) return;
+      const idx = (options.indexOf(el.textContent.trim()) + 1) % options.length;
+      el.textContent = options[idx];
+      if (typeof showToast === 'function') showToast('Data de início da campanha alterada para ' + options[idx]);
+    }
+
+    function filterPreCategory(cat) {
+      preActiveCategory = cat;
+      document.querySelectorAll('.pre-amb-btn').forEach(btn => {
+        if (btn.dataset.amb === cat) {
+          btn.className = 'pre-amb-btn px-3.5 py-2 rounded-full text-xs font-bold bg-[#1E293B] text-white flex items-center gap-1.5 cursor-pointer transition';
+        } else {
+          btn.className = 'pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition';
+        }
+      });
+      renderPreCityCarousels();
+    }
+
+    function togglePreMoreFilters() {
+      const bar = document.getElementById('pre-more-filters-bar');
+      if (bar) bar.classList.toggle('hidden');
+    }
+
+    function applyPreMoreFilters() {
+      const subEl = document.getElementById('pre-filter-subcat');
+      const priceEl = document.getElementById('pre-filter-price');
+      preSubcatFilter = subEl ? subEl.value : 'Todas';
+      preMaxPriceFilter = priceEl ? Number(priceEl.value) : 9999;
+      renderPreCityCarousels();
+    }
+
+    function navigateToResultsFromPreSearch() {
+      const input = document.getElementById('pre-search-where');
+      const city = (input && input.value.trim()) ? input.value.trim() : 'São Paulo - SP';
+      navigateToResultsFromCity(city);
+    }
+
+    function navigateToResultsFromCity(cityLabel) {
+      const dd = document.getElementById('pre-where-dropdown');
+      if (dd) dd.classList.add('hidden');
+      const plpInput = document.getElementById('plp-search-address');
+      if (plpInput) plpInput.value = cityLabel;
+      const pill = document.getElementById('plp-active-city-pill');
+      if (pill) pill.textContent = 'Praça ativa: ' + cityLabel;
+      showScreen('view-resultados');
+      if (typeof switchPlpChannel === 'function') switchPlpChannel('ooh');
+      if (typeof renderOohPlp === 'function') renderOohPlp();
+      if (typeof showToast === 'function') {
+        showToast(`Exibindo mapa interativo e inventário completo em ${cityLabel}`);
+      }
+    }
+
+    function openPreMobileSheet() {
+      const s = document.getElementById('pre-mobile-sheet');
+      if (s) s.classList.remove('hidden');
+    }
+
+    function closePreMobileSheet() {
+      const s = document.getElementById('pre-mobile-sheet');
+      if (s) s.classList.add('hidden');
+    }
+
+    AquiAdsUI.mount('#aqui-ads-shell-root', {
+      title: 'Pré-Página de Resultados OOH (Descoberta Guiada Multi-Praças)',
+      initialView: 'resultados',
+      initialChannel: 'ooh',
+      cartPreset: 'empty',
+      viewport: 'desktop',
+      onReady: function() {
+        const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
+        if (topControls) {
+          const bar = document.createElement('div');
+          bar.className = 'flex items-center gap-2 text-xs';
+          bar.innerHTML = `
+            <span class="px-2.5 py-1 rounded-md bg-orange-500/20 text-orange-300 border border-orange-500/30 font-semibold hidden xl:inline-block">
+              Pré-Página de Resultados OOH (Descoberta Guiada Multi-Praças): Busca Guiada 3 Passos • Carrosséis 5 Cidades • Mais Filtros • Transição Fluida para Mapa
+            </span>
+            <a href="https://app.notion.com/p/Pr-P-gina-de-Resultados-Aqui-Ads-3fb9587e413780c1ab86d57c16a29a1b?source=copy_link" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📄</span><span>Doc Notion</span>
+            </a>
+          `;
+          topControls.insertBefore(bar, topControls.firstChild);
+        }
+
+        const viewResultados = document.getElementById('view-resultados');
+        if (viewResultados && viewResultados.parentElement) {
+          const preSection = document.createElement('section');
+          preSection.id = 'view-pre-resultados';
+          preSection.className = 'view-section flex-1 bg-white pb-20';
+          preSection.innerHTML = `
+            <div class="bg-gradient-to-b from-[#FFF5F0] via-[#FFFDFB] to-white border-b border-[#F1F5F9] pt-6 pb-7 px-4 sm:px-6 lg:px-10">
+              <div class="max-w-[1440px] mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-5">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#FFF0E6] text-[#FF4F00] mb-2">
+                    <span>📍</span><span>Mais de 5.000 faces digitais nas principais capitais do Brasil</span>
+                  </span>
+                  <h1 class="text-xl sm:text-2xl font-extrabold text-[#1E293B] tracking-tight">Onde e quando sua marca quer aparecer nas ruas?</h1>
+                  <p class="text-xs sm:text-sm text-[#64748B] mt-1">Escolha a região da sua campanha ou explore os pontos de alto impacto mais procurados por cidade.</p>
+                </div>
+
+                <div class="hidden md:flex items-center bg-white rounded-full shadow-lg border border-[#E2E8F0] p-1.5 max-w-4xl mx-auto relative">
+                  <div class="flex-1 px-5 py-2 rounded-full hover:bg-[#F8FAFC] transition cursor-pointer relative" onclick="openPreWhereDropdown()">
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-[#1E293B]">Onde anunciar?</label>
+                    <input id="pre-search-where" type="text" placeholder="Busque por cidade, bairro, avenida ou CEP..." oninput="filterPreWhereSuggestions(this.value)" onfocus="openPreWhereDropdown()" class="w-full text-xs font-medium text-[#334155] placeholder-[#94A3B8] bg-transparent focus:outline-none mt-0.5" />
+                  </div>
+                  <div class="h-8 w-px bg-[#E2E8F0]"></div>
+                  <div class="px-5 py-2 rounded-full hover:bg-[#F8FAFC] transition cursor-pointer" onclick="cyclePreDuration()">
+                    <span class="block text-[10px] font-extrabold uppercase tracking-wider text-[#1E293B]">Duração</span>
+                    <span id="pre-duration-lbl" class="block text-xs font-semibold text-[#FF4F00] mt-0.5">2 semanas</span>
+                  </div>
+                  <div class="h-8 w-px bg-[#E2E8F0]"></div>
+                  <div class="px-5 py-2 rounded-full hover:bg-[#F8FAFC] transition cursor-pointer" onclick="cyclePreStartDate()">
+                    <span class="block text-[10px] font-extrabold uppercase tracking-wider text-[#1E293B]">Início da campanha</span>
+                    <span id="pre-start-lbl" class="block text-xs font-semibold text-[#334155] mt-0.5">18/05/2026</span>
+                  </div>
+                  <button type="button" onclick="navigateToResultsFromPreSearch()" class="ml-2 bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold text-xs px-6 py-3.5 rounded-full shadow-md flex items-center gap-2 transition cursor-pointer shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <span>Explorar no mapa</span>
+                  </button>
+
+                  <div id="pre-where-dropdown" class="hidden absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] p-3 z-40">
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] px-2.5 py-1">Buscas populares e regiões</div>
+                    <div id="pre-where-suggestions-list" class="divide-y divide-gray-50">
+                      <button type="button" onclick="selectPreDestination('São Paulo - SP')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
+                        <div>
+                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">São Paulo — Capital e Grande SP</div>
+                          <div class="text-[11px] text-[#64748B]">Av. Paulista, Faria Lima, Pinheiros, Jardins e Shoppings</div>
+                        </div>
+                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">1.840 pontos</span>
+                      </button>
+                      <button type="button" onclick="selectPreDestination('Rio de Janeiro - RJ')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
+                        <div>
+                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Rio de Janeiro — RJ</div>
+                          <div class="text-[11px] text-[#64748B]">Zona Sul, Barra da Tijuca, Centro e Tijuca</div>
+                        </div>
+                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">920 pontos</span>
+                      </button>
+                      <button type="button" onclick="selectPreDestination('Belo Horizonte - MG')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
+                        <div>
+                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Belo Horizonte — MG</div>
+                          <div class="text-[11px] text-[#64748B]">Savassi, Lourdes, Centro e Pampulha</div>
+                        </div>
+                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">540 pontos</span>
+                      </button>
+                      <button type="button" onclick="selectPreDestination('Curitiba - PR')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
+                        <div>
+                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Curitiba — PR</div>
+                          <div class="text-[11px] text-[#64748B]">Batel, Centro Cívico, Água Verde e Shoppings</div>
+                        </div>
+                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">410 pontos</span>
+                      </button>
+                      <button type="button" onclick="selectPreDestination('Campinas - SP')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
+                        <div>
+                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Campinas — Interior SP</div>
+                          <div class="text-[11px] text-[#64748B]">Cambuí, Taquaral, Iguatemi e D. Pedro</div>
+                        </div>
+                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">320 pontos</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="md:hidden">
+                  <button type="button" onclick="openPreMobileSheet()" class="w-full bg-white rounded-2xl shadow-md border border-[#E2E8F0] px-4 py-3 flex items-center justify-between text-left">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-full bg-[#FFF0E6] text-[#FF4F00] flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                      </div>
+                      <div>
+                        <div class="text-xs font-extrabold text-[#1E293B]">Onde você quer anunciar?</div>
+                        <div class="text-[11px] text-[#64748B]">Qualquer cidade • 2 semanas • Início 18/05</div>
+                      </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] text-[10px] font-bold text-[#334155]">Filtrar</span>
+                  </button>
+                </div>
+
+                <div class="max-w-4xl mx-auto mt-5 flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-2 overflow-x-auto pb-1">
+                    <button type="button" onclick="filterPreCategory('Todos')" data-amb="Todos" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-bold bg-[#1E293B] text-white flex items-center gap-1.5 cursor-pointer transition">
+                      <span>✨</span><span>Todos os ambientes</span>
+                    </button>
+                    <button type="button" onclick="filterPreCategory('Ruas')" data-amb="Ruas" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
+                      <span>🚌</span><span>Ruas e Avenidas</span>
+                    </button>
+                    <button type="button" onclick="filterPreCategory('Shoppings')" data-amb="Shoppings" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
+                      <span>🛍️</span><span>Shoppings</span>
+                    </button>
+                    <button type="button" onclick="filterPreCategory('Prédios Comerciais')" data-amb="Prédios Comerciais" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
+                      <span>🏢</span><span>Prédios Comerciais</span>
+                    </button>
+                    <button type="button" onclick="filterPreCategory('Condomínios Residenciais')" data-amb="Condomínios Residenciais" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
+                      <span>🏠</span><span>Residenciais</span>
+                    </button>
+                  </div>
+                  <button type="button" onclick="togglePreMoreFilters()" class="px-3.5 py-2 rounded-full text-xs font-bold text-[#1E293B] bg-white hover:bg-[#F8FAFC] border border-[#CBD5E1] flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                    <svg class="w-3.5 h-3.5 text-[#FF4F00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                    <span>Mais filtros</span>
+                  </button>
+                </div>
+
+                <div id="pre-more-filters-bar" class="hidden max-w-4xl mx-auto mt-3 p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex flex-wrap items-center justify-between gap-4">
+                  <div class="flex flex-wrap items-center gap-4">
+                    <div>
+                      <label class="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Formato do equipamento</label>
+                      <select id="pre-filter-subcat" onchange="applyPreMoreFilters()" class="border border-[#CBD5E1] rounded-lg px-3 py-1.5 text-xs font-semibold text-[#1E293B]">
+                        <option value="Todas">Todos os formatos</option>
+                        <option value="Relógio de Rua">Relógio Digital de Rua</option>
+                        <option value="Abrigo de Ônibus">Abrigo de Ônibus Digital</option>
+                        <option value="MUB Digital">Totem / MUB Shopping</option>
+                        <option value="Elevadores">Telas em Elevadores</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Faixa de investimento por ponto</label>
+                      <select id="pre-filter-price" onchange="applyPreMoreFilters()" class="border border-[#CBD5E1] rounded-lg px-3 py-1.5 text-xs font-semibold text-[#1E293B]">
+                        <option value="9999">Qualquer valor</option>
+                        <option value="200">Até R$ 200 / período</option>
+                        <option value="300">Até R$ 300 / período</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="button" onclick="navigateToResultsFromPreSearch()" class="text-xs font-bold text-[#FF4F00] hover:underline cursor-pointer">
+                    Ir para busca avançada no mapa →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 pt-7 space-y-10" id="pre-cities-container"></div>
+
+            <div id="pre-mobile-sheet" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end justify-center p-0 sm:p-4">
+              <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl">
+                <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                  <h3 class="text-sm font-extrabold text-[#1E293B]">Planeje sua campanha OOH</h3>
+                  <button type="button" onclick="closePreMobileSheet()" class="w-7 h-7 rounded-full bg-gray-100 text-gray-600 font-bold text-xs">✕</button>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-[#334155] mb-1">1. Onde anunciar?</label>
+                  <select id="pre-mobile-city-select" class="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#1E293B]">
+                    <option value="São Paulo - SP">São Paulo - SP (1.840 pontos)</option>
+                    <option value="Rio de Janeiro - RJ">Rio de Janeiro - RJ (920 pontos)</option>
+                    <option value="Belo Horizonte - MG">Belo Horizonte - MG (540 pontos)</option>
+                    <option value="Curitiba - PR">Curitiba - PR (410 pontos)</option>
+                    <option value="Campinas - SP">Campinas - SP (320 pontos)</option>
+                  </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#334155] mb-1">2. Duração</label>
+                    <select class="w-full border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs font-semibold text-[#1E293B]">
+                      <option>2 semanas</option>
+                      <option>4 semanas</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#334155] mb-1">3. Data de início</label>
+                    <input type="text" value="18/05/2026" readonly class="w-full border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs font-semibold text-[#1E293B] bg-gray-50" />
+                  </div>
+                </div>
+                <button type="button" onclick="selectPreDestination(document.getElementById('pre-mobile-city-select').value); closePreMobileSheet();" class="w-full bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold text-xs py-3.5 rounded-xl shadow-md">
+                  Ver pontos disponíveis no mapa
+                </button>
+              </div>
+            </div>
+          `;
+          viewResultados.parentElement.insertBefore(preSection, viewResultados);
+        }
+
+        const plpSearchHeader = document.querySelector('#oohSubTab > div:first-child');
+        if (plpSearchHeader && plpSearchHeader.parentElement) {
+          const backRow = document.createElement('div');
+          backRow.className = 'mb-3 flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-gray-100';
+          backRow.innerHTML = `
+            <button type="button" onclick="showScreen('view-pre-resultados')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF4F00] hover:underline cursor-pointer">
+              <span>←</span>
+              <span>Voltar para vitrine de cidades (Pré-Página de Resultados)</span>
+            </button>
+            <span id="plp-active-city-pill" class="text-[11px] font-semibold text-[#475569] bg-[#F8FAFC] border border-[#E2E8F0] px-2.5 py-0.5 rounded-full">Praça ativa: São Paulo - SP</span>
+          `;
+          plpSearchHeader.parentElement.insertBefore(backRow, plpSearchHeader);
+        }
+
+        renderPreCityCarousels();
+        showScreen('view-pre-resultados');
+      }
+    });
+  </script>
+</body>
+</html>

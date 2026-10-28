@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqui Ads | Protótipo — Upsell OOH no Resumo do Plano</title>
+  <link rel="icon" type="image/svg+xml" href="https://aquiads.com.br/favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
+</head>
+<body class="bg-gray-100">
+  <div id="aqui-ads-shell-root"></div>
+
+  <!-- MODAL SUGESTÃO 3 (Upsell Interstitial antes de avançar para pagamento) -->
+  <div id="modal-sugestao3" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-[2px] p-4">
+    <div class="bg-white rounded-[16px] shadow-2xl max-w-[540px] w-full overflow-hidden border border-gray-200">
+      <div class="bg-[#FFF8F6] px-6 py-4 border-b border-[#FFD5C4] flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#FF4F00]/10 border border-[#FF4F00]/20 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#FF4F00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          </div>
+          <div>
+            <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-[#FF4F00] bg-white px-2 py-0.5 rounded-full border border-[#FFD5C4] mb-0.5">Oportunidade na sua região</span>
+            <h3 class="text-[16px] font-bold text-[#14171A] leading-snug">Amplie seu alcance nas ruas antes de finalizar</h3>
+          </div>
+        </div>
+        <button onclick="closeModalSugestao3()" class="text-gray-400 hover:text-gray-600 p-1 rounded-full">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <p class="text-[13px] text-[#3B434F] leading-relaxed">
+          Identificamos <strong class="text-[#14171A]">2 pontos de alto fluxo</strong> próximos aos seus endereços em Pinheiros e Vila Olímpia que podem aumentar o impacto da sua campanha em <strong class="text-[#008A2E]">+218 mil impressões</strong>:
+        </p>
+        <div id="upsell-container-modal" class="space-y-2.5"></div>
+        <div class="bg-[#F8F9FA] rounded-[10px] p-3 border border-gray-200 flex items-center justify-between text-[12px]">
+          <span class="text-[#697586] font-medium">Total atualizado do plano (em até 3x sem juros):</span>
+          <span id="modal-sug3-total" class="text-[15px] font-extrabold text-[#14171A]">R$ 6.300,00</span>
+        </div>
+      </div>
+      <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-end gap-2.5">
+        <button onclick="proceedToPaymentDirect()" class="w-full sm:w-auto px-4 py-2.5 rounded-[10px] border border-gray-300 bg-white hover:bg-gray-50 text-[#3B434F] text-[13px] font-semibold transition-colors">
+          Manter seleção atual e ir para pagamento
+        </button>
+        <button onclick="proceedToPaymentDirect()" class="w-full sm:w-auto px-5 py-2.5 rounded-[10px] bg-[#FF4F00] hover:bg-[#E04500] text-white text-[13px] font-bold transition-colors shadow-sm">
+          Continuar para pagamento →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.activeUpsellVariant = 'sugestao1';
+    window.SUGGESTED_UPSELL_ITEMS = [
+      {
+        id: 'upsell-ooh-1',
+        name: 'Relógio de Rua — Largo da Batata (Faria Lima)',
+        address: 'Av. Brigadeiro Faria Lima, 1100 - Pinheiros, São Paulo - SP (a 350m da sua seleção)',
+        basePrice2w: 690,
+        impressions: 124000,
+        reach: 52000,
+        screens: 2,
+        freq: 3.1,
+        badge: '+124 mil imp.',
+        thumb: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=160&q=80'
+      },
+      {
+        id: 'upsell-ooh-2',
+        name: 'Abrigo de Ônibus Digital — Av. JK × Funchal',
+        address: 'Av. Pres. Juscelino Kubitschek, 1455 - Vila Olímpia, São Paulo - SP (a 400m da sua seleção)',
+        basePrice2w: 760,
+        impressions: 94000,
+        reach: 41000,
+        screens: 2,
+        freq: 2.8,
+        badge: '+94 mil imp.',
+        thumb: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=160&q=80'
+      }
+    ];
+
+    function formatBRLCurrency(num) {
+      return 'R$ ' + Number(num || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function isUpsellAdded(itemId) {
+      return window.cartState && window.cartState.oohItems && window.cartState.oohItems.some(function(i) { return i.id === itemId; });
+    }
+
+    window.toggleSuggestedUpsellItem = function(itemId) {
+      var item = window.SUGGESTED_UPSELL_ITEMS.find(function(x) { return x.id === itemId; });
+      if (!item || !window.cartState) return;
+      var idx = window.cartState.oohItems.findIndex(function(i) { return i.id === itemId; });
+      if (idx >= 0) {
+        window.cartState.oohItems.splice(idx, 1);
+      } else {
+        window.cartState.oohItems.push(Object.assign({}, item));
+      }
+      if (typeof window.populateResumoScreen === 'function') window.populateResumoScreen();
+    };
+
+    window.renderUpsellViews = function() {
+      var inlineEl = document.getElementById('upsell-container-inline');
+      var sidebarEl = document.getElementById('upsell-container-sidebar');
+      var modalEl = document.getElementById('upsell-container-modal');
+      var mult = typeof window.getDurationMultiplier === 'function' ? window.getDurationMultiplier() : 1;
+
+      if (inlineEl) {
+        inlineEl.classList.toggle('hidden', window.activeUpsellVariant !== 'sugestao1');
+        var cardsHtml = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
+          var added = isUpsellAdded(u.id);
+          var price = Math.round(u.basePrice2w * mult);
+          return '<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-[12px] border ' +
+            (added ? 'border-[#008A2E] bg-[#F0FDF4]' : 'border-[#FFD5C4] bg-[#FFF8F6]') + ' transition-all">' +
+            '<div class="flex items-center gap-3 min-w-0">' +
+              '<img src="' + u.thumb + '" alt="" class="w-12 h-12 rounded-[8px] object-cover shrink-0 border border-gray-200" />' +
+              '<div class="min-w-0">' +
+                '<div class="flex items-center gap-1.5 flex-wrap">' +
+                  '<span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#FF4F00]/10 text-[#FF4F00]">' + u.badge + '</span>' +
+                  '<p class="text-[13px] font-bold text-[#14171A] truncate">' + u.name + '</p>' +
+                '</div>' +
+                '<p class="text-[11px] text-[#697586] truncate mt-0.5">' + u.address + '</p>' +
+              '</div>' +
+            '</div>' +
+            '<div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-200/60">' +
+              '<div class="text-left sm:text-right">' +
+                '<span class="block text-[10px] text-[#697586]">Por período</span>' +
+                '<span class="text-[13px] font-bold text-[#14171A]">' + formatBRLCurrency(price) + '</span>' +
+              '</div>' +
+              '<button onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="px-3 py-1.5 rounded-[8px] text-[12px] font-bold transition-colors ' +
+                (added ? 'bg-[#008A2E] text-white hover:bg-[#007025]' : 'bg-white border border-[#FF4F00] text-[#FF4F00] hover:bg-[#FF4F00] hover:text-white') + '">' +
+                (added ? '✓ Adicionado' : '+ Adicionar ao plano') +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        inlineEl.innerHTML =
+          '<div class="rounded-[12px] border border-dashed border-[#FF4F00]/40 bg-[#FFFDFB] p-3.5 space-y-2.5">' +
+            '<div class="flex items-center justify-between gap-2">' +
+              '<div class="flex items-center gap-2">' +
+                '<span class="w-2 h-2 rounded-full bg-[#FF4F00]"></span>' +
+                '<span class="text-[12px] font-bold text-[#14171A]">Pontos próximos que ampliam seu alcance em Pinheiros e Vila Olímpia</span>' +
+              '</div>' +
+              '<span class="text-[11px] font-semibold text-[#FF4F00] hidden sm:inline">Adição em 1 clique</span>' +
+            '</div>' +
+            '<div class="space-y-2">' + cardsHtml + '</div>' +
+          '</div>';
+      }
+
+      if (sidebarEl) {
+        sidebarEl.classList.toggle('hidden', window.activeUpsellVariant !== 'sugestao2');
+        var sidebarCards = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
+          var added = isUpsellAdded(u.id);
+          var price = Math.round(u.basePrice2w * mult);
+          return '<div class="p-2.5 rounded-[10px] border ' + (added ? 'border-[#008A2E] bg-[#F0FDF4]' : 'border-gray-200 bg-white') + ' flex items-center justify-between gap-2">' +
+            '<div class="min-w-0">' +
+              '<div class="flex items-center gap-1.5">' +
+                '<span class="text-[9px] font-bold text-[#008A2E] bg-[#E8F8EE] px-1.5 py-0.5 rounded">' + u.badge + '</span>' +
+                '<p class="text-[12px] font-bold text-[#14171A] truncate">' + u.name + '</p>' +
+              '</div>' +
+              '<p class="text-[11px] text-[#697586] mt-0.5">+' + formatBRLCurrency(price) + ' no plano</p>' +
+            '</div>' +
+            '<button onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="shrink-0 px-2.5 py-1.5 rounded-[8px] text-[11px] font-bold transition-colors ' +
+              (added ? 'bg-[#008A2E] text-white' : 'bg-[#FFF5F0] border border-[#FF4F00] text-[#FF4F00] hover:bg-[#FF4F00] hover:text-white') + '">' +
+              (added ? '✓ No plano' : '+ Incluir') +
+            '</button>' +
+          '</div>';
+        }).join('');
+
+        sidebarEl.innerHTML =
+          '<div class="rounded-[12px] bg-[#FFF8F6] border border-[#FFD5C4] p-3.5 space-y-2.5">' +
+            '<div class="flex items-center justify-between">' +
+              '<span class="text-[11px] font-extrabold uppercase tracking-wider text-[#FF4F00]">⚡ Turbine seu alcance OOH</span>' +
+              '<span class="text-[11px] font-semibold text-[#697586]">+218 mil imp.</span>' +
+            '</div>' +
+            '<p class="text-[12px] text-[#3B434F] leading-snug">Inclua pontos vizinhos de alto fluxo em 1 clique:</p>' +
+            '<div class="space-y-2">' + sidebarCards + '</div>' +
+          '</div>';
+      }
+
+      if (modalEl) {
+        modalEl.innerHTML = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
+          var added = isUpsellAdded(u.id);
+          var price = Math.round(u.basePrice2w * mult);
+          return '<div class="flex items-center justify-between gap-3 p-3 rounded-[12px] border ' +
+            (added ? 'border-[#008A2E] bg-[#F0FDF4]' : 'border-gray-200 bg-white') + '">' +
+            '<div class="flex items-center gap-3 min-w-0">' +
+              '<img src="' + u.thumb + '" alt="" class="w-12 h-12 rounded-[8px] object-cover shrink-0 border border-gray-200" />' +
+              '<div class="min-w-0">' +
+                '<span class="inline-block text-[10px] font-bold text-[#FF4F00] bg-[#FFF5F0] px-1.5 py-0.5 rounded mb-0.5">' + u.badge + '</span>' +
+                '<p class="text-[13px] font-bold text-[#14171A] truncate">' + u.name + '</p>' +
+                '<p class="text-[11px] text-[#697586] truncate">' + u.address + '</p>' +
+              '</div>' +
+            '</div>' +
+            '<div class="flex items-center gap-2.5 shrink-0">' +
+              '<span class="text-[13px] font-bold text-[#14171A]">+' + formatBRLCurrency(price) + '</span>' +
+              '<button onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="px-3 py-1.5 rounded-[8px] text-[12px] font-bold ' +
+                (added ? 'bg-[#008A2E] text-white' : 'bg-[#FF4F00] text-white hover:bg-[#E04500]') + '">' +
+                (added ? '✓ Adicionado' : '+ Adicionar') +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        var totalEl = document.getElementById('modal-sug3-total');
+        var resumoTotalEl = document.getElementById('resumo-grand-total');
+        if (totalEl && resumoTotalEl) totalEl.textContent = resumoTotalEl.textContent;
+      }
+    };
+
+    window.setUpsellVariant = function(v) {
+      window.activeUpsellVariant = v;
+      ['sugestao1', 'sugestao2', 'sugestao3'].forEach(function(id) {
+        var btn = document.getElementById('btn-var-' + id);
+        if (!btn) return;
+        if (id === v) {
+          btn.className = 'px-3 py-1 rounded-[8px] text-[12px] font-bold transition-all bg-[#FF4F00] text-white shadow-sm';
+        } else {
+          btn.className = 'px-3 py-1 rounded-[8px] text-[12px] font-semibold transition-all text-gray-300 hover:text-white';
+        }
+      });
+      var exp = document.getElementById('variant-explainer');
+      if (exp) {
+        if (v === 'sugestao1') exp.textContent = 'Exibe recomendações contextualizadas dentro da sanfona de Mídia OOH (Coluna Esquerda).';
+        if (v === 'sugestao2') exp.textContent = 'Exibe card compacto de adição 1-click dentro da Sidebar Financeira (Coluna Direita).';
+        if (v === 'sugestao3') exp.textContent = 'Ao clicar em "Ir para pagamento", abre modal recomendando pontos vizinhos antes do checkout.';
+      }
+      if (typeof window.showScreen === 'function') window.showScreen('view-resumo');
+      window.renderUpsellViews();
+    };
+
+    window.openModalSugestao3 = function() {
+      window.renderUpsellViews();
+      var m = document.getElementById('modal-sugestao3');
+      if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
+    };
+
+    window.closeModalSugestao3 = function() {
+      var m = document.getElementById('modal-sugestao3');
+      if (m) { m.classList.add('hidden'); m.classList.remove('flex'); }
+    };
+
+    window.proceedToPaymentDirect = function() {
+      window.closeModalSugestao3();
+      if (typeof window.showScreen === 'function') window.showScreen('view-pagamento');
+    };
+
+    AquiAdsUI.mount('#aqui-ads-shell-root', {
+      title: 'Upsell de Mídia OOH no Resumo do Plano',
+      subtitle: 'Comparativo de 3 variantes de recomendação OOH contextualizada',
+      initialView: 'resumo',
+      cartPreset: 'hybrid',
+      viewport: 'desktop',
+      onReady: function() {
+        // 1. Injetar seletores de variante na barra superior
+        var topBarRight = document.querySelector('#aqui-ads-shell-root > header > div');
+        if (topBarRight) {
+          var controls = document.createElement('div');
+          controls.className = 'flex items-center gap-2 flex-wrap';
+          controls.innerHTML =
+            '<span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Variante de Upsell OOH:</span>' +
+            '<div class="inline-flex bg-gray-800 rounded-[10px] p-0.5 border border-gray-700 gap-1">' +
+              '<button id="btn-var-sugestao1" onclick="setUpsellVariant(\'sugestao1\')" class="px-3 py-1 rounded-[8px] text-[12px] font-bold transition-all bg-[#FF4F00] text-white shadow-sm">Sugestão 1: Inline OOH (Esq.)</button>' +
+              '<button id="btn-var-sugestao2" onclick="setUpsellVariant(\'sugestao2\')" class="px-3 py-1 rounded-[8px] text-[12px] font-semibold transition-all text-gray-300 hover:text-white">Sugestão 2: Sidebar (Dir.)</button>' +
+              '<button id="btn-var-sugestao3" onclick="setUpsellVariant(\'sugestao3\')" class="px-3 py-1 rounded-[8px] text-[12px] font-semibold transition-all text-gray-300 hover:text-white">Sugestão 3: Modal Interstitial</button>' +
+            '</div>' +
+            '<span id="variant-explainer" class="hidden xl:inline text-[11px] text-amber-300 font-medium ml-1">Exibe recomendações contextualizadas dentro da sanfona de Mídia OOH (Coluna Esquerda).</span>' +
+            '<a href="https://www.notion.so/4309587e41378137928de78a6a19272b" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-[8px] text-[12px] font-bold bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors ml-1" title="Abrir Especificação Funcional e Regras de Negócio no Notion">📄 Ver Doc no Notion</a>';
+          topBarRight.insertBefore(controls, topBarRight.firstChild);
+        }
+
+        // 2. Injetar containers de Upsell no Resumo
+        var oohAccBody = document.getElementById('resumo-acc-body-ooh');
+        if (oohAccBody && !document.getElementById('upsell-container-inline')) {
+          var inlineDiv = document.createElement('div');
+          inlineDiv.id = 'upsell-container-inline';
+          inlineDiv.className = 'pt-3 border-t border-gray-100 mt-2';
+          oohAccBody.appendChild(inlineDiv);
+        }
+
+        var sidebarCard = document.querySelector('#view-resumo .lg\\:col-span-5 > div');
+        if (sidebarCard && !document.getElementById('upsell-container-sidebar')) {
+          var sidebarDiv = document.createElement('div');
+          sidebarDiv.id = 'upsell-container-sidebar';
+          sidebarDiv.className = 'hidden';
+          var hrs = sidebarCard.querySelectorAll('hr');
+          var targetHr = hrs.length > 1 ? hrs[1] : hrs[0];
+          if (targetHr) {
+            sidebarCard.insertBefore(sidebarDiv, targetHr);
+          } else {
+            sidebarCard.appendChild(sidebarDiv);
+          }
+        }
+
+        // 3. Encapsular populateResumoScreen e goToPagamento
+        var origPopulateResumo = window.populateResumoScreen;
+        window.populateResumoScreen = function() {
+          if (typeof origPopulateResumo === 'function') origPopulateResumo();
+          window.renderUpsellViews();
+        };
+
+        var origGoToPagamento = window.goToPagamento;
+        window.goToPagamento = function() {
+          if (window.activeUpsellVariant === 'sugestao3') {
+            window.openModalSugestao3();
+            return;
+          }
+          if (typeof origGoToPagamento === 'function') origGoToPagamento();
+        };
+
+        window.populateResumoScreen();
+      }
+    });
+  </script>
+</body>
+</html>

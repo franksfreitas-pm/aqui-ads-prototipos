@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Card — Preço por Dia nos Cards da Página de Resultados (OOH) | Aqui Ads</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #F8F9FA;
+      color: #0F172A;
+    }
+    code {
+      background-color: #F1F5F9;
+      color: #C2410C;
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.35rem;
+      font-size: 0.85em;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Barra de Navegação Superior -->
+  <header class="bg-gray-950 text-white px-4 py-2.5 sticky top-0 z-50 border-b border-gray-800 shadow-md">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../../index.html" class="px-2.5 py-1 rounded-md bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-800 text-xs font-bold flex items-center gap-1 transition">
+          ← Hub de Protótipos
+        </a>
+        <span class="px-2 py-0.5 rounded bg-[#FF4F00]/20 text-[#FF4F00] border border-[#FF4F00]/40 text-[10px] font-extrabold uppercase tracking-wider">Documentação • Test Card</span>
+        <span class="text-xs font-bold text-gray-200 hidden sm:inline">Teste A/B/C/D — Preço por Dia nos Cards (OOH)</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="https://app.notion.com/p/Test-Card-Pre-o-por-Dia-nos-Cards-da-P-gina-de-Resultados-OOH-3ff9587e4137819b8de7eb645face07c" target="_blank" class="px-3 py-1.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-200 border border-gray-700 text-xs font-bold flex items-center gap-1.5 transition">
+          <span>↗ Abrir no Notion</span>
+        </a>
+        <a href="index.html" class="px-3.5 py-1.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold flex items-center gap-1.5 transition shadow-xs">
+          <span>▶ Abrir Protótipo Interativo</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo do Test Card -->
+  <main class="max-w-4xl mx-auto w-full px-4 py-8 flex-1">
+    <article class="bg-white border border-slate-200 rounded-2xl shadow-xs p-6 md:p-10 space-y-8">
+
+      <!-- Cabeçalho do Documento -->
+      <div class="border-b border-slate-200 pb-6">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="px-2.5 py-1 rounded-md bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold uppercase">OOH</span>
+          <span class="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase">Teste A/B/C/D • CRO</span>
+          <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-semibold">Página de Resultados</span>
+          <span class="text-xs text-slate-400 font-medium ml-auto">Data: 20/10/2026</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Test Card: Preço por Dia nos Cards da Página de Resultados (OOH)
+        </h1>
+      </div>
+
+      <!-- 1. Contexto & Racional de Negócio -->
+      <section class="space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2 border-l-4 border-[#FF4F00] pl-3">
+          1. Contexto & Racional de Negócio
+        </h2>
+
+        <div class="space-y-2">
+          <h3 class="text-sm font-bold text-slate-800">1.1. O Problema e a Oportunidade</h3>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-700 leading-relaxed">
+            <li><strong>Onde acontece:</strong> Cards de inventário na <strong>página de resultados</strong> de <strong>OOH</strong>, tanto no Mobile quanto no Desktop.</li>
+            <li><strong>Qual é o gargalo atual:</strong> Hoje, todos os cards da <strong>página de resultados</strong> exibem exclusivamente o valor fechado do período selecionado em destaque (por padrão, <code>R$ 264,96 / 2 semanas</code> ou <code>R$ 1.074,84 / 2 semanas</code>). No entanto, o pequeno e médio anunciante que chega ao Aqui Ads tem seu modelo mental ancorado no orçamento diário das plataformas de mídia digital (<code>R$ 20,00 / dia</code> a <code>R$ 50,00 / dia</code> no Meta Ads e Google Ads).</li>
+          </ul>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <h3 class="text-sm font-bold text-slate-800">1.2. Dados Prévios que Sustentam a Hipótese (Baseline)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-3">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <span class="text-xs font-bold text-slate-500 uppercase">Volume Analisado</span>
+              <p class="text-xl font-extrabold text-slate-900 mt-1">25.942 sessões</p>
+              <p class="text-xs text-slate-500 mt-0.5">~865 sessões/dia na página de resultados</p>
+            </div>
+            <div class="bg-red-50/60 border border-red-200 rounded-xl p-4">
+              <span class="text-xs font-bold text-red-700 uppercase">Taxa de Rejeição Geral</span>
+              <p class="text-xl font-extrabold text-red-700 mt-1">71,49%</p>
+              <p class="text-xs text-red-600 mt-0.5">77,40% no Mobile • 82,49% via Meta Ads</p>
+            </div>
+            <div class="bg-orange-50/70 border border-orange-200 rounded-xl p-4">
+              <span class="text-xs font-bold text-[#FF4F00] uppercase">Adição ao Carrinho (Baseline)</span>
+              <p class="text-xl font-extrabold text-[#FF4F00] mt-1">5,24%</p>
+              <p class="text-xs text-slate-600 mt-0.5">1,65% sem busca • 23,97% com busca</p>
+            </div>
+          </div>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-700 leading-relaxed">
+            <li><strong>Auditoria de Reuniões Comerciais (<a href="https://app.notion.com/p/Diagn-stico-Tem-tico-de-Produto-Matriz-Integrada-de-Dores-MeetRox-Q3-2026-3f29587e413780d2bd1ed87940084d2b" target="_blank" class="text-[#FF4F00] underline font-semibold">Diagnóstico Temático de Produto — Reuniões Comerciais</a>):</strong> Em <strong>100,0%</strong> das <code>246</code> reuniões auditadas dos <strong>executivos de vendas</strong>, o principal ponto de atrito é a percepção de preço elevado na largada e a comparação direta com o custo diário de mídia digital.</li>
+            <li><strong>Benchmark de Mercado (<a href="https://app.notion.com/p/Benchmark-Competitivo-OOH-DOOH-M-dia-Digital-Vers-o-V4-Definitiva-3c69587e413781e7843af19690792481" target="_blank" class="text-[#FF4F00] underline font-semibold">Benchmark Competitivo — OOH, DOOH e Mídia Digital</a>):</strong> Plataformas de autosserviço voltadas a PMEs (como UOL Ads, com ancoragem de <code>R$ 9,09 / dia</code>, e Blip Billboards) comunicam o custo diário na escolha do inventário e consolidam o valor total da campanha no resumo do carrinho.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. Hipótese Estruturada -->
+      <section class="space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2 border-l-4 border-[#FF4F00] pl-3">
+          2. Hipótese Estruturada
+        </h2>
+        <div class="bg-orange-50/50 border border-orange-200 rounded-xl p-5 space-y-3 text-sm text-slate-800 leading-relaxed">
+          <p><strong class="text-[#FF4F00]">Nós acreditamos que:</strong><br>
+          Apresentar o <strong>valor por dia</strong> (ex: <code>R$ 18,93 / dia</code>) nos cards da <strong>página de resultados</strong> de <strong>OOH</strong> — seja de forma exclusiva ou combinada ao valor cheio do período (<code>R$ 264,96 / 2 semanas</code>) — reduzirá o choque inicial de preço e aproximará a leitura de custo da referência mental diária do anunciante, aumentando a taxa de <strong>adição ao carrinho</strong> sem prejudicar a conversão final.</p>
+
+          <p><strong class="text-[#FF4F00]">Para verificar isso, nós iremos:</strong><br>
+          Executar um <strong>Teste A/B/C/D</strong> (divisão de <code>25%</code> do tráfego para cada variante) na <strong>página de resultados</strong> de <strong>OOH</strong>, comparando o card original (<strong>Controle A</strong>) contra três formatos de exposição do custo diário: apenas valor por dia (<strong>Variante B</strong>), valor por dia em destaque com valor cheio em menor destaque (<strong>Variante C</strong>) e valor cheio em destaque com valor por dia em menor destaque (<strong>Variante D</strong>).</p>
+
+          <p><strong class="text-[#FF4F00]">E mediremos:</strong><br>
+          A <strong>taxa de adição ao carrinho</strong> como métrica primária, a <strong>taxa de conversão</strong> ao longo do funil (avanço para o resumo, início de checkout e compra concluída) e o <strong>ticket médio</strong> dos pedidos gerados em cada variante.</p>
+
+          <p><strong class="text-[#FF4F00]">Estaremos certos se:</strong><br>
+          Ao menos uma das variantes com preço por dia (<strong>B</strong>, <strong>C</strong> ou <strong>D</strong>) registrar um aumento estatisticamente significativo (confiança mínima de <code>95%</code>) na taxa de <strong>adição ao carrinho</strong>, mantendo ou superando a <strong>taxa de conversão</strong> final de compras e o <strong>ticket médio</strong> em relação ao Controle.</p>
+        </div>
+      </section>
+
+      <!-- 3. Desenho das Variantes -->
+      <section class="space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2 border-l-4 border-[#FF4F00] pl-3">
+          3. Desenho das Variantes (Teste A/B/C/D)
+        </h2>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <th class="py-3 px-4 font-bold">Variante</th>
+                <th class="py-3 px-4 font-bold">Exibição de Preço no Card</th>
+                <th class="py-3 px-4 font-bold">Exemplo Visual (R$ 264,96 em 2 semanas)</th>
+                <th class="py-3 px-4 font-bold text-center">Divisão de Tráfego</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-900">Variante A (Controle)</td>
+                <td class="py-3 px-4 text-slate-700"><strong>Apenas valor cheio do período</strong> em destaque.</td>
+                <td class="py-3 px-4"><span class="font-bold text-slate-900">R$ 264,96</span> <span class="text-xs text-slate-500">/ 2 semanas</span></td>
+                <td class="py-3 px-4 text-center font-bold">25%</td>
+              </tr>
+              <tr class="bg-orange-50/30">
+                <td class="py-3 px-4 font-bold text-slate-900">Variante B</td>
+                <td class="py-3 px-4 text-slate-700"><strong>Apenas valor por dia</strong> em destaque.</td>
+                <td class="py-3 px-4"><span class="font-bold text-slate-900">R$ 18,93</span> <span class="text-xs text-slate-500">/ dia</span></td>
+                <td class="py-3 px-4 text-center font-bold">25%</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-900">Variante C</td>
+                <td class="py-3 px-4 text-slate-700"><strong>Valor por dia em destaque</strong> e <strong>valor cheio do período com menos destaque</strong> abaixo.</td>
+                <td class="py-3 px-4">
+                  <div><span class="font-bold text-slate-900">R$ 18,93</span> <span class="text-xs text-slate-500">/ dia</span></div>
+                  <div class="text-xs text-slate-500">Total: R$ 264,96 / 2 semanas</div>
+                </td>
+                <td class="py-3 px-4 text-center font-bold">25%</td>
+              </tr>
+              <tr class="bg-orange-50/30">
+                <td class="py-3 px-4 font-bold text-slate-900">Variante D</td>
+                <td class="py-3 px-4 text-slate-700"><strong>Valor cheio do período em destaque</strong> e <strong>valor por dia com menos destaque</strong> abaixo.</td>
+                <td class="py-3 px-4">
+                  <div><span class="font-bold text-slate-900">R$ 264,96</span> <span class="text-xs text-slate-500">/ 2 semanas</span></div>
+                  <div class="text-xs text-slate-500">ou R$ 18,93 / dia</div>
+                </td>
+                <td class="py-3 px-4 text-center font-bold">25%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-600">O que cada variante permite responder:</h3>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
+            <li><strong>Variante B vs. Controle A:</strong> Mede o potencial máximo de destravar o clique inicial ao retirar o valor cheio do card.</li>
+            <li><strong>Variante C vs. Variante B:</strong> Testa se manter o valor total visível com menor destaque evita surpresa na etapa de resumo/checkout sem perder a atratividade do preço diário em destaque.</li>
+            <li><strong>Variante D vs. Variante C:</strong> Isola o efeito do destaque principal, revelando se basta informar o valor por dia como apoio ao valor cheio ou se o valor por dia precisa ser a informação principal do card.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. Arquitetura de Métricas -->
+      <section class="space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2 border-l-4 border-[#FF4F00] pl-3">
+          4. Arquitetura de Métricas
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border border-slate-200 rounded-xl p-4 space-y-2">
+            <span class="px-2 py-0.5 rounded bg-orange-100 text-[#FF4F00] text-[11px] font-extrabold uppercase">4.1. Métrica Primária</span>
+            <h3 class="text-sm font-bold text-slate-900">Taxa de Adição ao Carrinho</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Proporção de usuários expostos ao experimento na página de resultados que adicionam pelo menos um ponto ao carrinho (Baseline atual: <code>5,24%</code>).</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl p-4 space-y-2">
+            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-[11px] font-extrabold uppercase">4.2. Negócio & Funil</span>
+            <h3 class="text-sm font-bold text-slate-900">Conversão do Funil & Ticket Médio</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Avanço para o Resumo, Início de Checkout, Conversão Final de Compra e Valor Financeiro Médio (<code>R$</code>) + média de pontos por pedido.</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl p-4 space-y-2">
+            <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[11px] font-extrabold uppercase">4.3. Guardrails</span>
+            <h3 class="text-sm font-bold text-slate-900">Quebra no Resumo & Remoções</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Monitorar desistência entre Adição ao Carrinho e Resumo/Checkout (especialmente na Variante B) e taxa de remoção de pontos do carrinho.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Dimensionamento Amostral & Tempo de Execução -->
+      <section class="space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2 border-l-4 border-[#FF4F00] pl-3">
+          5. Dimensionamento Amostral & Tempo de Execução
+        </h2>
+        <div class="flex flex-wrap gap-2 text-xs text-slate-700">
+          <span class="bg-slate-100 px-3 py-1.5 rounded-lg"><strong>Divisão:</strong> 4 grupos iguais (25% A / 25% B / 25% C / 25% D)</span>
+          <span class="bg-slate-100 px-3 py-1.5 rounded-lg"><strong>Confiança:</strong> 95%</span>
+          <span class="bg-slate-100 px-3 py-1.5 rounded-lg"><strong>Poder Estatístico:</strong> 80%</span>
+          <span class="bg-slate-100 px-3 py-1.5 rounded-lg"><strong>Tráfego:</strong> ~865 sessões/dia</span>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <th class="py-3 px-4 font-bold">Ganho Relativo Esperado</th>
+                <th class="py-3 px-4 font-bold">Meta na Variante Vencedora</th>
+                <th class="py-3 px-4 font-bold">Amostra por Variante (x4)</th>
+                <th class="py-3 px-4 font-bold">Amostra Total (A+B+C+D)</th>
+                <th class="py-3 px-4 font-bold">Duração Estimada</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-900">+20% de melhora</td>
+                <td class="py-3 px-4"><code>6,29%</code></td>
+                <td class="py-3 px-4"><code>~7.600</code> sessões</td>
+                <td class="py-3 px-4"><code>~30.400</code> sessões</td>
+                <td class="py-3 px-4 font-bold">~35 dias (5 semanas)</td>
+              </tr>
+              <tr class="bg-orange-50/30">
+                <td class="py-3 px-4 font-bold text-slate-900">+25% de melhora</td>
+                <td class="py-3 px-4"><code>6,55%</code></td>
+                <td class="py-3 px-4"><code>~4.950</code> sessões</td>
+                <td class="py-3 px-4"><code>~19.800</code> sessões</td>
+                <td class="py-3 px-4 font-bold text-[#FF4F00]">~23 dias (3,5 semanas)</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-slate-900">+30% de melhora</td>
+                <td class="py-3 px-4"><code>6,81%</code></td>
+                <td class="py-3 px-4"><code>~3.500</code> sessões</td>
+                <td class="py-3 px-4"><code>~14.000</code> sessões</td>
+                <td class="py-3 px-4 font-bold">~16 dias (2,5 semanas)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 leading-relaxed">
+          <strong>Importante:</strong> Como o tráfego será dividido em <strong>4 variantes (25% cada)</strong>, recomenda-se manter o experimento ativo por <strong>21 a 28 dias corridos</strong> (3 a 4 ciclos semanais completos) para garantir volume suficiente tanto na taxa de <strong>adição ao carrinho</strong> quanto na comparação de <strong>taxa de conversão</strong> de compra e <strong>ticket médio</strong> entre os quatro grupos.
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+</body>
+</html>

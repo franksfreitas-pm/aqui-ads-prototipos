@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqui Ads — Página de Resultados OOH (Mapa + Lista)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div id="aqui-ads-shell-root"></div>
+
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
+  <script>
+    AquiAdsUI.mount('#aqui-ads-shell-root', {
+      title: 'Página de Resultados OOH (Mapa + Lista)',
+      initialView: 'resultados',
+      initialChannel: 'ooh',
+      cartPreset: 'empty',
+      viewport: 'desktop',
+      onReady: function() {
+        const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
+        if (topControls) {
+          const bar = document.createElement('div');
+          bar.className = 'flex items-center gap-2 text-xs';
+          bar.innerHTML = `
+            <a href="index.html" class="px-2.5 py-1 rounded-md bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 border border-orange-500/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>←</span><span>Ir para Pré-Página Multi-Praças</span>
+            </a>
+            <a href="https://app.notion.com/p/Pr-P-gina-de-Resultados-Aqui-Ads-3fb9587e413780c1ab86d57c16a29a1b?source=copy_link" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📄</span><span>Doc Notion</span>
+            </a>
+          `;
+          topControls.insertBefore(bar, topControls.firstChild);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

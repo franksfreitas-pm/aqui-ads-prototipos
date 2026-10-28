@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqui Ads — Revisão Mobile: Página de Resultados (Vitrine)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
+  <style>
+    header.header-shrunk {
+      padding-top: 4px !important;
+      padding-bottom: 4px !important;
+      transition: all 0.2s ease;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div id="aqui-ads-shell-root"></div>
+
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
+  <script>
+    AquiAdsUI.mount('#aqui-ads-shell-root', {
+      title: 'Revisão Mobile — Página de Resultados (Vitrine)',
+      initialView: 'resultados',
+      initialChannel: 'ooh',
+      cartPreset: 'midiaMista',
+      viewport: 'mobile',
+      onReady: function() {
+        const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
+        if (topControls) {
+          const bar = document.createElement('div');
+          bar.className = 'flex items-center gap-2 text-xs';
+          bar.innerHTML = `
+            <a href="quick-wins-mobile.html" class="px-2.5 py-1 rounded-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📱</span><span>Comparativo Antes vs. Depois</span>
+            </a>
+            <a href="https://www.notion.so/3229587e413781f9b036c0f82c12c1b0" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📄</span><span>Doc Notion</span>
+            </a>
+          `;
+          topControls.insertBefore(bar, topControls.firstChild);
+        }
+        const searchInput = document.getElementById('plp-search-address');
+        if (searchInput) {
+          searchInput.setAttribute('type', 'search');
+          searchInput.setAttribute('enterkeyhint', 'search');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

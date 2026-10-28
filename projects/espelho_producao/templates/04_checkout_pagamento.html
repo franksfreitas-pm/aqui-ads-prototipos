@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui Ads - Checkout e Pagamento (Espelho Oficial)</title>
+
+  <!-- Dependências Base e Kit Oficial Compilado (smb-web) -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css">
+
+  <!-- ===================================================================== -->
+  <!-- CONFIGURAÇÃO DECLARATIVA DO TEMPLATE / PROTÓTIPO                      -->
+  <!-- ===================================================================== -->
+  <script>
+    /**
+     * Template: 04_checkout_pagamento.html
+     * Descrição: Tela de Checkout e Pagamento com suporte a Pessoa Juridica (CNPJ) e Pessoa Fisica (CPF), Cartao de Credito (ate 3x), Pix e Boleto.
+     *
+     * Para criar um protótipo a partir deste template:
+     * 1. Copie este arquivo junto com aqui_ads_official.css, aqui_ads_mock_data.js e aqui_ads_ui.js
+     * 2. Use window.AQUI_ADS_CONFIG.hooks para customizar cards, banners, modais ou barras
+     *    sem precisar duplicar as 6.400 linhas da plataforma!
+     */
+    window.AQUI_ADS_CONFIG = {
+      initialScreen: 'view-pagamento',
+      initialChannel: 'ooh',
+      initialTab: 'planos',
+      cartPreset: 'midiaMista',
+      shellOnly: false,
+
+      hooks: {
+        // Exemplos de Hooks de Extensão (descomente o que precisar no seu protótipo):
+        //
+        // beforeResultsContent(api) {
+        //   return ''; // Injeta banner/filtro no topo da Página de Resultados
+        // },
+        //
+        // renderOohCard(point, ctx, defaultRender) {
+        //   return defaultRender(point); // Customiza o card de ponto OOH
+        // },
+        //
+        // renderDigitalCard(prod, ctx, defaultRender) {
+        //   return defaultRender(prod); // Customiza o card de produto Digital | Globo
+        // },
+        //
+        // renderBottomBar(ctx, defaultRender) {
+        //   return defaultRender(); // Customiza a barra inferior fixa (sticky bar)
+        // },
+        //
+        // afterResumoContent(ctx) {
+        //   return ''; // Injeta componente extra (ex.: carrossel de upsell) no Resumo do Plano
+        // },
+        //
+        // onReady(api) {
+        //   // Executado assim que o DOM oficial e os catálogos estiverem montados
+        // }
+      }
+    };
+  </script>
+
+  <!-- Banco de Dados Mockado Central e Motor Modular de UI -->
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
+</head>
+<body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
+  <!-- O Shell Oficial do Aqui Ads e as telas da jornada são montados automaticamente por aqui_ads_ui.js -->
+</body>
+</html>

@@ -1,141 +1,447 @@
-<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth" data-url-query-navigation-enabled="true">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aqui Ads - Resultados OOH | Vila Olímpia, São Paulo - SP</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
-  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqui Ads — Melhorias na Experiência do Mapa OOH</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div id="aqui-ads-shell-root"></div>
+
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'primary-default': '#FF4F00',
-            'primary-light': '#FF7233',
-            'secondary-dark': '#222222',
-            'neutral-high-light': '#EDF2F8',
-            'neutral-light8': '#E2E8F0',
-            'neutral-low-dark': '#282E38',
-            'neutral-gray6': '#64748B',
-            'neutral-gray4': '#8C97A6',
-            'neutral-gray7': '#37404C',
-            'surface-ground': '#F8FAFC',
-            'special-digital': '#695CFF',
-            'special-favorite': '#8C97A6',
-            'color-neutral-light-400': '#64748B',
-            'color-neutral-border-dark': '#282E38',
-            'type-dark-main': '#0A0A0A'
-          },
-          fontFamily: {
-            rethink: ['"Rethink Sans"', 'Inter', 'sans-serif'],
-            sans: ['"Rethink Sans"', 'Inter', 'sans-serif']
+    let mapZoomLevel = 1;
+    let isMapExpanded = false;
+    let isLassoActive = false;
+    let isDrawingLasso = false;
+    let lassoPoints = [];
+    let lassoSelectedIds = null;
+    let mapViewportSector = 0;
+
+    const MAP_COORDS = [
+      { top: 44, left: 48, cluster: 'sp-paulista', sector: 1 },
+      { top: 49, left: 53, cluster: 'sp-paulista', sector: 1 },
+      { top: 38, left: 43, cluster: 'sp-paulista', sector: 1 },
+      { top: 58, left: 36, cluster: 'sp-faria', sector: 2 },
+      { top: 64, left: 42, cluster: 'sp-faria', sector: 2 },
+      { top: 68, left: 62, cluster: 'sp-sul', sector: 2 },
+      { top: 75, left: 55, cluster: 'sp-sul', sector: 2 },
+      { top: 28, left: 66, cluster: 'sp-norte', sector: 1 },
+      { top: 22, left: 48, cluster: 'sp-norte', sector: 1 },
+      { top: 82, left: 32, cluster: 'sp-oeste', sector: 2 },
+      { top: 35, left: 26, cluster: 'sp-oeste', sector: 1 }
+    ];
+
+    function getFilteredMapCatalog() {
+      const base = (window.oohCatalog || []).filter(item => {
+        if (window.plpActiveCatFilter !== 'Todos' && item.cat !== window.plpActiveCatFilter) return false;
+        if (window.plpSearchQuery && !item.title.toLowerCase().includes(window.plpSearchQuery) && !item.sub.toLowerCase().includes(window.plpSearchQuery)) return false;
+        if (window.plpAdvancedFilters && window.plpAdvancedFilters.subcat && window.plpAdvancedFilters.subcat !== 'Todas' && item.subcat !== window.plpAdvancedFilters.subcat) return false;
+        if (window.plpAdvancedFilters && window.plpAdvancedFilters.onlyAvailable && item.available === false) return false;
+        return true;
+      });
+      return base.filter((item, idx) => {
+        if (lassoSelectedIds && Array.isArray(lassoSelectedIds)) {
+          return lassoSelectedIds.includes(item.id);
+        }
+        if (mapViewportSector > 0) {
+          const coord = MAP_COORDS[idx % MAP_COORDS.length];
+          return coord.sector === mapViewportSector;
+        }
+        return true;
+      });
+    }
+
+    function refreshMapAndList() {
+      if (typeof window.renderOohPlp === 'function') window.renderOohPlp();
+    }
+
+    function renderInteractiveMapPins(mapContainer, filteredCatalog) {
+      if (!mapContainer) return;
+      const catalog = window.oohCatalog || [];
+      if (mapZoomLevel === 1) {
+        const clusters = [
+          { id: 'c1', label: 'Av. Paulista & Jardins', top: 44, left: 48, items: filteredCatalog.filter((_, idx) => MAP_COORDS[idx % MAP_COORDS.length].cluster === 'sp-paulista') },
+          { id: 'c2', label: 'Itaim & Faria Lima', top: 61, left: 39, items: filteredCatalog.filter((_, idx) => MAP_COORDS[idx % MAP_COORDS.length].cluster === 'sp-faria') },
+          { id: 'c3', label: 'Moema & Zona Sul', top: 72, left: 58, items: filteredCatalog.filter((_, idx) => MAP_COORDS[idx % MAP_COORDS.length].cluster === 'sp-sul') },
+          { id: 'c4', label: 'Pinheiros & Zona Oeste', top: 52, left: 28, items: filteredCatalog.filter((_, idx) => ['sp-norte', 'sp-oeste'].includes(MAP_COORDS[idx % MAP_COORDS.length].cluster)) }
+        ];
+        mapContainer.innerHTML = clusters.filter(c => c.items.length > 0).map(c => {
+          const inCartCount = c.items.filter(i => (window.oohCartIds || []).includes(i.id)).length;
+          const allSelected = inCartCount === c.items.length && c.items.length > 0;
+          return `
+            <button type="button" onclick="changeMapZoom(1, '${c.id}')" style="top:${c.top}%; left:${c.left}%" class="pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 group transition-transform hover:scale-110 focus:outline-none z-20" title="${c.label}: Clique para aproximar">
+              <div class="relative flex items-center justify-center w-12 h-12 rounded-full shadow-lg border-[3px] border-white font-extrabold text-sm transition-colors ${allSelected ? 'bg-emerald-600 text-white ring-4 ring-emerald-500/30' : (inCartCount > 0 ? 'bg-[#FF4F00] text-white ring-4 ring-orange-500/30' : 'bg-[#FA3A00] text-white')}">
+                ${c.items.length}
+                ${inCartCount > 0 ? `<span class="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow flex items-center gap-0.5">✓${inCartCount}</span>` : ''}
+              </div>
+              <div class="mt-1 bg-slate-900/85 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow whitespace-nowrap opacity-90 group-hover:opacity-100">${c.label}</div>
+            </button>
+          `;
+        }).join('');
+      } else {
+        mapContainer.innerHTML = filteredCatalog.map((item) => {
+          const idx = catalog.findIndex(x => x.id === item.id);
+          const coord = MAP_COORDS[(idx >= 0 ? idx : 0) % MAP_COORDS.length];
+          const inCart = (window.oohCartIds || []).includes(item.id);
+          return `
+            <button type="button" id="map-pin-${item.id}" onclick="openMapPinMiniCard(${item.id})" onmouseenter="highlightCardFromMap(${item.id})" style="top:${coord.top}%; left:${coord.left}%" class="map-pin-btn pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 transition-all duration-200 hover:scale-125 hover:z-30 focus:outline-none z-20">
+              <div class="px-2.5 py-1 rounded-full shadow-md border-2 border-white font-bold text-xs flex items-center gap-1 transition-all ${inCart ? 'bg-emerald-600 text-white ring-4 ring-emerald-500/30 scale-105' : 'bg-[#FF4F00] text-white hover:bg-[#e04500]'}">
+                <span>${inCart ? '✓' : '●'}</span>
+                <span>R$ ${item.price.toLocaleString('pt-BR')}</span>
+              </div>
+            </button>
+          `;
+        }).join('');
+      }
+    }
+
+    function highlightPointOnMap(id) {
+      document.querySelectorAll('.map-pin-btn').forEach(b => b.classList.remove('scale-125', 'z-40', 'ring-4', 'ring-slate-900/40', 'rounded-full'));
+      const pin = document.getElementById('map-pin-' + id);
+      if (pin) pin.classList.add('scale-125', 'z-40', 'ring-4', 'ring-slate-900/40', 'rounded-full');
+    }
+
+    function clearMapHighlights() {
+      document.querySelectorAll('.map-pin-btn').forEach(b => b.classList.remove('scale-125', 'z-40', 'ring-4', 'ring-slate-900/40', 'rounded-full'));
+    }
+
+    function highlightCardFromMap(id) {
+      const card = document.getElementById('plp-card-' + id);
+      if (card) {
+        card.classList.add('ring-2', 'ring-[#FF4F00]');
+        setTimeout(() => card.classList.remove('ring-2', 'ring-[#FF4F00]'), 1200);
+      }
+    }
+
+    function openMapPinMiniCard(id) {
+      const item = (window.oohCatalog || []).find(i => i.id === id);
+      const cardEl = document.getElementById('map-pin-minicard');
+      if (!item || !cardEl) return;
+      const inCart = (window.oohCartIds || []).includes(item.id);
+      cardEl.innerHTML = `
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-3.5 flex gap-3.5 items-center relative animate-fadeIn">
+          <button type="button" onclick="closeMapPinMiniCard()" class="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold">✕</button>
+          <img src="${item.img}" alt="${item.title}" class="w-20 h-20 rounded-xl object-cover shrink-0 border border-slate-100" />
+          <div class="flex-1 min-w-0 pr-4">
+            <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-50 text-[#FF4F00] mb-1">${item.cat} • ${item.Faces || 1} face(s)</span>
+            <h4 class="text-sm font-bold text-slate-900 truncate">${item.title}</h4>
+            <p class="text-xs text-slate-500 truncate mb-2">${item.sub} • Impacto: ${item.impacts}</p>
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[10px] text-slate-400 block">Investimento</span>
+                <span class="text-sm font-extrabold text-slate-900">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="openPdpModal(${item.id})" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50">Detalhes</button>
+                <button type="button" onclick="toggleOohItem(${item.id}); openMapPinMiniCard(${item.id})" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-[#FF4F00] text-white hover:bg-[#e04500]'}">
+                  ${inCart ? 'Remover' : '+ Adicionar'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      cardEl.classList.remove('hidden');
+    }
+
+    function closeMapPinMiniCard() {
+      const cardEl = document.getElementById('map-pin-minicard');
+      if (cardEl) cardEl.classList.add('hidden');
+    }
+
+    function changeMapZoom(delta) {
+      mapZoomLevel = Math.max(1, Math.min(2, mapZoomLevel + delta));
+      closeMapPinMiniCard();
+      refreshMapAndList();
+      if (typeof showToast === 'function') {
+        showToast(mapZoomLevel === 2 ? 'Zoom aproximado: exibindo pontos individuais com preço e status' : 'Zoom afastado: exibindo clusters inteligentes com contador de selecionados');
+      }
+    }
+
+    function simulateMapPan() {
+      mapViewportSector = (mapViewportSector + 1) % 3;
+      closeMapPinMiniCard();
+      refreshMapAndList();
+      const sectorNames = ['Grande São Paulo (Todos os bairros)', 'Quadrante Paulista, Jardins & Zona Norte', 'Quadrante Itaim, Faria Lima & Zona Sul'];
+      if (typeof showToast === 'function') {
+        showToast('Mapa movido: lista atualizada para ' + sectorNames[mapViewportSector]);
+      }
+    }
+
+    function toggleExpandMapMode() {
+      isMapExpanded = !isMapExpanded;
+      const leftCol = document.getElementById('ooh-left-list-col');
+      const gridWrap = document.getElementById('ooh-main-split-grid');
+      const btnText = document.getElementById('map-expand-btn-text');
+      if (!leftCol || !gridWrap) return;
+      if (isMapExpanded) {
+        leftCol.classList.add('hidden');
+        gridWrap.classList.remove('lg:grid-cols-12');
+        gridWrap.classList.add('lg:grid-cols-1');
+        if (btnText) btnText.textContent = 'Mostrar Lista + Mapa';
+        if (mapZoomLevel === 1) mapZoomLevel = 2;
+      } else {
+        leftCol.classList.remove('hidden');
+        gridWrap.classList.remove('lg:grid-cols-1');
+        gridWrap.classList.add('lg:grid-cols-12');
+        if (btnText) btnText.textContent = 'Expandir Mapa';
+      }
+      refreshMapAndList();
+    }
+
+    function toggleLassoTool() {
+      isLassoActive = !isLassoActive;
+      const svg = document.getElementById('map-drawing-svg');
+      const helper = document.getElementById('map-drawing-helper');
+      const btn = document.getElementById('btn-tool-polygon');
+      if (isLassoActive) {
+        if (mapZoomLevel === 1) mapZoomLevel = 2;
+        refreshMapAndList();
+        if (svg) svg.classList.remove('hidden');
+        if (helper) helper.classList.remove('hidden');
+        if (btn) btn.classList.add('bg-orange-50', 'text-[#FF4F00]', 'border-[#FF4F00]');
+      } else {
+        cancelLassoDrawing();
+      }
+    }
+
+    function cancelLassoDrawing() {
+      isLassoActive = false;
+      isDrawingLasso = false;
+      lassoPoints = [];
+      const svg = document.getElementById('map-drawing-svg');
+      const poly = document.getElementById('lasso-polygon-shape');
+      const helper = document.getElementById('map-drawing-helper');
+      const btn = document.getElementById('btn-tool-polygon');
+      if (svg) svg.classList.add('hidden');
+      if (poly) poly.setAttribute('points', '');
+      if (helper) helper.classList.add('hidden');
+      if (btn) btn.classList.remove('bg-orange-50', 'text-[#FF4F00]', 'border-[#FF4F00]');
+    }
+
+    function startLassoDraw(e) {
+      if (!isLassoActive) return;
+      isDrawingLasso = true;
+      lassoPoints = [];
+      const rect = e.currentTarget.getBoundingClientRect();
+      lassoPoints.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, rectW: rect.width, rectH: rect.height });
+    }
+
+    function moveLassoDraw(e) {
+      if (!isLassoActive || !isDrawingLasso) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      lassoPoints.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, rectW: rect.width, rectH: rect.height });
+      const poly = document.getElementById('lasso-polygon-shape');
+      if (poly) {
+        poly.setAttribute('points', lassoPoints.map(p => `${p.x},${p.y}`).join(' '));
+      }
+    }
+
+    function endLassoDraw() {
+      if (!isLassoActive || !isDrawingLasso) return;
+      isDrawingLasso = false;
+      const catalog = window.oohCatalog || [];
+      if (lassoPoints.length < 3) {
+        lassoSelectedIds = catalog.slice(0, 4).map(i => i.id);
+      } else {
+        const xs = lassoPoints.map(p => (p.x / p.rectW) * 100);
+        const ys = lassoPoints.map(p => (p.y / p.rectH) * 100);
+        const minX = Math.min(...xs), maxX = Math.max(...xs);
+        const minY = Math.min(...ys), maxY = Math.max(...ys);
+        const matched = catalog.filter((item, idx) => {
+          const c = MAP_COORDS[idx % MAP_COORDS.length];
+          return c.left >= (minX - 8) && c.left <= (maxX + 8) && c.top >= (minY - 8) && c.top <= (maxY + 8);
+        });
+        lassoSelectedIds = matched.length > 0 ? matched.map(i => i.id) : catalog.slice(0, 3).map(i => i.id);
+      }
+      cancelLassoDrawing();
+      const pill = document.getElementById('map-selection-pill');
+      const countText = document.getElementById('map-selection-count-text');
+      const clearBtn = document.getElementById('btn-clear-lasso-filter');
+      if (pill) pill.classList.remove('hidden');
+      if (clearBtn) clearBtn.classList.remove('hidden');
+      if (countText) countText.textContent = `${lassoSelectedIds.length} pontos na área desenhada`;
+      refreshMapAndList();
+      if (typeof showToast === 'function') {
+        showToast(`${lassoSelectedIds.length} pontos filtrados pela seleção por laço!`);
+      }
+    }
+
+    function addAllLassoPointsToCart() {
+      if (!lassoSelectedIds || !lassoSelectedIds.length) return;
+      let added = 0;
+      lassoSelectedIds.forEach(id => {
+        if (!(window.oohCartIds || []).includes(id)) {
+          window.oohCartIds.push(id);
+          added++;
+        }
+      });
+      if (typeof updateAllCartCounters === 'function') updateAllCartCounters();
+      refreshMapAndList();
+      if (typeof showToast === 'function') {
+        showToast(added > 0 ? `${added} ponto(s) da área adicionados ao carrinho!` : 'Todos os pontos desta área já estão no carrinho.');
+      }
+    }
+
+    function clearLassoSelection() {
+      lassoSelectedIds = null;
+      mapViewportSector = 0;
+      const pill = document.getElementById('map-selection-pill');
+      const clearBtn = document.getElementById('btn-clear-lasso-filter');
+      if (pill) pill.classList.add('hidden');
+      if (clearBtn) clearBtn.classList.add('hidden');
+      refreshMapAndList();
+    }
+
+    AquiAdsUI.mount('#aqui-ads-shell-root', {
+      title: 'Melhorias na Experiência do Mapa OOH',
+      initialView: 'resultados',
+      initialChannel: 'ooh',
+      cartPreset: 'empty',
+      viewport: 'desktop',
+      renderOohCard: function(item, state) {
+        const inCart = state.inCart;
+        const faces = item.Faces || 1;
+        return `
+          <article id="plp-card-${item.id}" onmouseenter="highlightPointOnMap(${item.id})" onmouseleave="clearMapHighlights()" class="rounded-xl border ${inCart ? 'border-[#FF4F00] ring-2 ring-[#FF4F00]/20 bg-orange-50/10' : 'border-slate-200 bg-white'} overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+            <div onclick="openPdpModal(${item.id})" class="h-36 bg-slate-200 relative overflow-hidden cursor-pointer group">
+              <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <span class="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">${item.cat}</span>
+              ${inCart ? '<span class="absolute top-2.5 right-2.5 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">✓ Selecionado</span>' : `<span class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded font-medium opacity-0 group-hover:opacity-100 transition-opacity">Ver detalhes</span>`}
+            </div>
+            <div class="p-3.5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-0.5">
+                  <span class="text-[10px] font-bold text-[#FF4F00] uppercase tracking-wider">${item.subcat || item.cat} • ${faces} ${faces > 1 ? 'faces' : 'face'}</span>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Disponível</span>
+                </div>
+                <h3 onclick="openPdpModal(${item.id})" class="text-xs font-bold text-slate-900 line-clamp-1 hover:text-[#FF4F00] cursor-pointer">${item.title}</h3>
+                <p class="text-[11px] text-slate-500 mt-0.5">${item.sub} • Impacto: <strong class="text-slate-700">${item.impacts}</strong></p>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Investimento período</span>
+                  <span class="text-sm font-extrabold text-slate-900">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                </div>
+                <button type="button" onclick="toggleOohItem(${item.id})" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-[#FF4F00] text-white hover:bg-[#e04500] shadow-sm'}">
+                  ${inCart ? 'Remover' : '+ Adicionar'}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      },
+      onReady: function() {
+        const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
+        if (topControls) {
+          const bar = document.createElement('div');
+          bar.className = 'flex items-center gap-2 text-xs';
+          bar.innerHTML = `
+            <span class="px-2.5 py-1 rounded-md bg-orange-500/20 text-orange-300 border border-orange-500/30 font-semibold hidden xl:inline-block">
+              Experiência do Mapa OOH: Auto-Filtro Viewport • Badge de Carrinho nos Clusters • Hover Sync • Seleção por Laço • Modo 100% Mapa
+            </span>
+            <a href="https://app.notion.com/p/Proposta-de-Melhorias-na-Experi-ncia-do-Mapa-Aqui-Ads-3fb9587e41378072bb4eda0296adf597?source=copy_link" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📄</span><span>Doc Notion</span>
+            </a>
+          `;
+          topControls.insertBefore(bar, topControls.firstChild);
+        }
+
+        const oohSubTab = document.getElementById('oohSubTab');
+        const cardsGrid = document.getElementById('plp-cards-grid');
+        const mapPins = document.getElementById('plp-ooh-map-pins');
+        if (oohSubTab && cardsGrid && mapPins) {
+          const splitGrid = oohSubTab.firstElementChild;
+          const leftCol = cardsGrid.parentElement;
+          const mapWrap = mapPins.parentElement;
+
+          if (splitGrid) splitGrid.id = 'ooh-main-split-grid';
+          if (leftCol) {
+            leftCol.id = 'ooh-left-list-col';
+            const headerBar = document.createElement('div');
+            headerBar.className = 'flex items-center justify-between mb-3 px-1';
+            headerBar.innerHTML = `
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="map-viewport-count-label" class="text-xs font-bold text-slate-700">Exibindo 11 pontos visíveis nesta área do mapa</span>
+              </div>
+              <button type="button" id="btn-clear-lasso-filter" onclick="clearLassoSelection()" class="hidden text-xs font-bold text-[#FF4F00] hover:underline flex items-center gap-1">
+                <span>✕ Limpar recorte de área</span>
+              </button>
+            `;
+            leftCol.insertBefore(headerBar, cardsGrid);
+          }
+
+          if (mapWrap) {
+            const overlay = document.createElement('div');
+            overlay.innerHTML = `
+              <div id="map-smart-actions-bar" class="absolute top-3 left-3 right-16 z-30 flex flex-wrap items-center gap-2 pointer-events-none">
+                <button type="button" id="map-expand-floating-button" onclick="toggleExpandMapMode()" class="pointer-events-auto bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs px-3 py-2 rounded-xl shadow-md border border-slate-200 flex items-center gap-1.5 transition-all">
+                  <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                  <span id="map-expand-btn-text">Expandir Mapa</span>
+                </button>
+                <button type="button" id="btn-tool-polygon" onclick="toggleLassoTool()" class="pointer-events-auto bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-3 py-2 rounded-xl shadow-md border border-slate-200 flex items-center gap-1.5 transition-all">
+                  <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                  <span id="lasso-btn-label">Selecionar área (Laço)</span>
+                </button>
+                <div id="map-drawing-helper" class="hidden pointer-events-auto bg-slate-900/90 text-white text-xs font-medium px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
+                  <span>Arraste o cursor sobre o mapa para contornar os quarteirões desejados</span>
+                  <button type="button" onclick="cancelLassoDrawing()" class="ml-1 text-slate-300 hover:text-white underline font-semibold">Cancelar</button>
+                </div>
+                <div id="map-selection-pill" class="hidden pointer-events-auto bg-emerald-950/95 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg border border-emerald-700 flex items-center gap-2.5">
+                  <span id="map-selection-count-text">4 pontos na área desenhada</span>
+                  <button type="button" onclick="addAllLassoPointsToCart()" class="bg-[#FF4F00] hover:bg-[#e04500] text-white font-bold px-2.5 py-1 rounded-lg transition-colors">+ Adicionar todos ao carrinho</button>
+                  <button type="button" onclick="clearLassoSelection()" class="text-emerald-200 hover:text-white text-xs underline">Limpar</button>
+                </div>
+              </div>
+              <div class="absolute top-3 right-3 z-30 flex flex-col gap-1.5">
+                <button type="button" onclick="changeMapZoom(1)" title="Aproximar mapa (Ver pinos individuais)" class="w-9 h-9 rounded-xl bg-white shadow-md border border-slate-200 flex items-center justify-center font-bold text-slate-700 hover:bg-slate-50 text-base">+</button>
+                <button type="button" onclick="changeMapZoom(-1)" title="Afastar mapa (Ver clusters por região)" class="w-9 h-9 rounded-xl bg-white shadow-md border border-slate-200 flex items-center justify-center font-bold text-slate-700 hover:bg-slate-50 text-base">−</button>
+                <button type="button" onclick="simulateMapPan()" title="Simular arraste de mapa (Auto-atualizar lista para nova região)" class="w-9 h-9 rounded-xl bg-white shadow-md border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-50">
+                  <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                </button>
+              </div>
+              <svg id="map-drawing-svg" class="hidden absolute inset-0 w-full h-full z-20 cursor-crosshair" onmousedown="startLassoDraw(event)" onmousemove="moveLassoDraw(event)" onmouseup="endLassoDraw(event)">
+                <polygon id="lasso-polygon-shape" points="" fill="rgba(255, 79, 0, 0.18)" stroke="#FF4F00" stroke-width="2.5" stroke-dasharray="6,4" />
+              </svg>
+              <div id="map-pin-minicard" class="hidden absolute bottom-14 left-4 right-4 max-w-md mx-auto z-30"></div>
+            `;
+            while (overlay.firstElementChild) {
+              mapWrap.appendChild(overlay.firstElementChild);
+            }
           }
         }
+
+        const origRenderOohPlp = window.renderOohPlp;
+        window.renderOohPlp = function() {
+          const fullCatalog = window.oohCatalog || [];
+          const filtered = getFilteredMapCatalog();
+          window.oohCatalog = filtered;
+          origRenderOohPlp();
+          window.oohCatalog = fullCatalog;
+
+          const countLbl = document.getElementById('map-viewport-count-label');
+          if (countLbl) {
+            if (lassoSelectedIds) {
+              countLbl.textContent = `Exibindo ${filtered.length} ponto(s) dentro da área desenhada no mapa`;
+            } else if (mapViewportSector > 0) {
+              countLbl.textContent = `Exibindo ${filtered.length} ponto(s) visíveis neste quadrante do mapa`;
+            } else {
+              countLbl.textContent = `Exibindo ${filtered.length} ponto(s) visíveis nesta área do mapa`;
+            }
+          }
+          renderInteractiveMapPins(document.getElementById('plp-ooh-map-pins'), filtered);
+        };
+
+        window.renderOohPlp();
       }
-    };
+    });
   </script>
-  <link rel="stylesheet" href="style.css">
-</head>
-  <body class="bg-white flex flex-col overflow-x-hidden elt transition-all duration-300 resultados fix-zoom">
-    <!-- Viewer Topbar (Hub Oficial de Protótipos + Documentação Notion) -->
-    <div class="viewer-topbar">
-      <div class="viewer-topbar__left">
-        <a href="https://franksfreitas-pm.github.io/aqui-ads-prototipos/" class="viewer-topbar__hub-link">
-          <i class="uil uil-arrow-left"></i>
-          <span>Hub de Protótipos</span>
-        </a>
-        <span class="hidden sm:inline font-semibold text-[#475569]">Protótipo Interativo • Melhorias na Experiência do Mapa</span>
-      </div>
-      <a href="https://app.notion.com/p/Proposta-de-Melhorias-na-Experi-ncia-do-Mapa-Aqui-Ads-3fb9587e41378072bb4eda0296adf597?source=copy_link" target="_blank" rel="noopener noreferrer" class="viewer-topbar__doc-btn">
-        <i class="uil uil-file-alt"></i>
-        <span>Ver Documentação</span>
-      </a>
-    </div>
-    <div id="recaptcha-container"></div>
-    <astro-island uid="Z1nAYhT" component-url="/_astro/Toast.2b63da65.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{}" client="idle" opts="{&quot;name&quot;:&quot;Toast&quot;,&quot;value&quot;:true}" await-children=""><div class="card justify-content-center flex"></div></astro-island>
-    <astro-island uid="Oa4Eo" component-url="/_astro/ConfirmDialog.d6f6ce85.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{}" client="idle" opts="{&quot;name&quot;:&quot;ConfirmDialog&quot;,&quot;value&quot;:true}" await-children=""></astro-island>
-    <astro-island uid="1g9rOL" component-url="/_astro/Tapume.6c7c8421.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{}" client="idle" opts="{&quot;name&quot;:&quot;Tapume&quot;,&quot;value&quot;:true}" await-children=""><div id="tapume-body" class="tapume-body fixed inset-0 z-[9999] flex flex-col overflow-y-auto bg-white" style="display:none;"><!--[--><header class="justify-left flex h-[67px] w-full flex-shrink-0 items-center border-b border-neutral-high-light bg-[#FBFDFF] pl-5 pr-3"><img src="https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg" alt="Aqui Ads" class="h-8 object-contain"></header><div class="flex flex-1 flex-col items-center justify-center p-[30px]"><div class="flex w-full max-w-[360px] flex-col items-center text-center"><div class="mb-8" aria-hidden="true"><img src="https://aqui.globo/_astro/ilustracao-olho%201.f639557d.svg" alt="" class="h-auto w-[180px]"></div><h1 class="mb-3 font-rethink text-[20px] font-bold leading-[28px] text-[#0A0A0A]"> Sua experiência é mais completa<br> no computador </h1><p class="mb-8 font-rethink text-[16px] font-normal leading-[20px] text-[#717182]"> Configure suas campanhas com mais facilidade em uma tela maior. </p><p class="mb-8 font-rethink text-[16px] font-normal leading-[20px] text-[#717182]"> Informe seu e-mail para receber o<br> link <span class="font-rethink text-[16px] font-bold leading-[20px] text-[#FF4F00]">com 15% OFF</span></p><div class="mb-4 w-full text-left"><label for="tapume-email" class="mb-1.5 block font-rethink text-[16px] font-normal leading-[160%] tracking-[0.16px] text-color-neutral-light-400">E-mail</label><div class="relative flex w-full items-center"><i class="uil uil-envelope pointer-events-none absolute left-3 text-[18px] text-[#E75D4B]"></i><input id="tapume-email" value="" type="email" placeholder="seu@email.com" class="flex h-10 w-full items-center gap-[9px] self-stretch rounded-[6px] border border-[#DFE7EF] bg-white py-[9px] pl-[3rem] pr-3 font-rethink text-[12px] font-semibold leading-[160%] tracking-[0.12px] text-color-neutral-light-400 outline-none placeholder:font-rethink placeholder:text-[12px] placeholder:font-semibold placeholder:leading-[160%] placeholder:tracking-[0.12px] placeholder:text-color-neutral-light-400 focus:border-primary-default focus:ring-1 focus:ring-primary-default"></div></div><button type="button" class="mb-3 flex h-10 w-full cursor-pointer items-center justify-center gap-[7px] rounded-md border border-[#FF4F00] bg-[#FF4F00] px-[14px] py-2 font-rethink text-[14px] font-bold leading-[100%] text-[#F7F8F9]"> quero receber o desconto </button><button type="button" class="flex h-10 w-full cursor-pointer items-center justify-center gap-[7px] rounded-md border border-color-neutral-border-dark bg-transparent px-[14px] py-2 font-rethink text-[14px] font-bold leading-[100%] text-type-dark-main"> continuar com o celular </button><p class="pt-[15px] font-rethink text-[14px] font-normal leading-[20px] text-[#717182]"> Ao enviar, você concorda com a nossa <a href="https://aqui.globo/politica-de-privacidade" class="font-rethink text-[14px] font-normal leading-[20px] text-[#717182] underline decoration-solid">Política<br> de Privacidade</a></p></div></div><!--]--></div></astro-island>
-    <astro-island uid="ZHEv8j" component-url="/_astro/AuthModal.7138b72b.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{}" client="idle" opts="{&quot;name&quot;:&quot;AuthModal&quot;,&quot;value&quot;:true}" await-children=""></astro-island>
-
-    <astro-island uid="ZdgkMQ" component-url="/_astro/BannerPromo.504dcc42.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{&quot;slot&quot;:[0,&quot;before-header&quot;]}" client="load" opts="{&quot;name&quot;:&quot;BannerPromo&quot;,&quot;value&quot;:true}" await-children=""><section class="banner-promo-container w-full" slot="before-header" style="position: relative;"><!----></section></astro-island>
-
-    <astro-island uid="2p3bm8" component-url="/_astro/Header.64ec1213.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{&quot;path&quot;:[0,&quot;/resultados&quot;],&quot;initialMediaMode&quot;:[0,&quot;ooh&quot;],&quot;whiteLabel&quot;:[0,null]}" client="idle" opts="{&quot;name&quot;:&quot;Header&quot;,&quot;value&quot;:true}" await-children=""><!--[--><header class="!static lg:!sticky sticky top-0 z-20 flex w-full flex-col justify-between bg-white" style="background:linear-gradient(0deg, #fff 100%, rgba(238, 231, 227, 0.2) 100%);" data-v-5e6b4649=""><div class="flex w-full flex-col" data-v-5e6b4649=""><!----><div class="lg:pb-0 lg:pt-[16px] has-search topbar-wrapper relative flex w-full items-center px-4 py-4 md:px-8 xl:pl-[90px] xl:pr-10 2xl:px-[90px] transition-all" data-v-5e6b4649=""><div class="flex w-full items-center justify-between relative" data-v-5e6b4649=""><div class="flex" data-v-5e6b4649=""><div class="no-hover !items-end flex flex-col lg:flex-row lg:gap-14 lg:!items-start" data-v-5e6b4649=""><a href="https://aqui.globo/" class="flex h-full items-center justify-center" data-v-5e6b4649=""><img loading="lazy" src="https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg" alt="Logotipo Aqui Ads" width="107" class="!max-w-[90px] lg:!max-w-[107px]" data-v-5e6b4649=""></a><!----></div></div><div class="hidden lg:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center" data-v-5e6b4649=""><div class="relative w-full" data-v-5e6b4649="" data-v-78946c31=""><div id="tour-plp-media-toggle" class="max-w-[720px] mx-auto lg:gap-[56px] relative flex items-center justify-center flex-auto overflow-x-auto scrollbar-none transition-all duration-[350ms] ease-in-out gap-[12px] px-[12px]" role="group" aria-label="Selecionar tipo de mídia" data-v-78946c31=""><!--[--><button type="button" aria-pressed="true" class="is-active lg:gap-[12px] lg:pb-[14px] lg:pt-[6px] flex w-[52px] shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-[4px] border-none bg-transparent pb-[8px] pt-[6px] transition-all duration-[350ms] ease-in-out lg:w-auto lg:flex-row" data-v-78946c31=""><div class="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] flex items-center justify-center transition-all duration-[350ms] ease-in-out" data-v-78946c31=""><img src="https://aqui.globo/images/header/ooh.svg" alt="OOH" class="h-full w-full object-contain" data-v-78946c31="" width="40" height="40"></div><span class="text-[#241e17] font-bold lg:!text-black lg:!font-bold lg:text-[18px] hover:text-[#241e17] transition-all duration-[350ms] ease-in-out whitespace-nowrap block text-center font-rethink text-[12px] leading-[15px] tracking-normal" data-v-78946c31="">OOH</span></button><button type="button" aria-pressed="false" class="lg:gap-[12px] lg:pb-[14px] lg:pt-[6px] flex w-[52px] shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-[4px] border-none bg-transparent pb-[8px] pt-[6px] transition-all duration-[350ms] ease-in-out lg:w-auto lg:flex-row" data-v-78946c31=""><div class="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] flex items-center justify-center transition-all duration-[350ms] ease-in-out" data-v-78946c31=""><img src="https://aqui.globo/images/header/digital.svg" alt="Digital" class="h-full w-full object-contain" data-v-78946c31="" width="40" height="40"></div><span class="text-[#8e8477] font-normal lg:!text-[#a6a6a6] lg:!font-normal lg:text-[18px] hover:text-[#241e17] transition-all duration-[350ms] ease-in-out whitespace-nowrap block text-center font-rethink text-[12px] leading-[15px] tracking-normal" data-v-78946c31="">Digital</span></button><button type="button" aria-pressed="false" class="lg:gap-[12px] lg:pb-[14px] lg:pt-[6px] flex w-[52px] shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-[4px] border-none bg-transparent pb-[8px] pt-[6px] transition-all duration-[350ms] ease-in-out lg:w-auto lg:flex-row" data-v-78946c31=""><div class="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] flex items-center justify-center transition-all duration-[350ms] ease-in-out" data-v-78946c31=""><img src="https://aqui.globo/images/header/tv.svg" alt="TV" class="h-full w-full object-contain" data-v-78946c31="" width="40" height="40"></div><span class="text-[#8e8477] font-normal lg:!text-[#a6a6a6] lg:!font-normal lg:text-[18px] hover:text-[#241e17] transition-all duration-[350ms] ease-in-out whitespace-nowrap block text-center font-rethink text-[12px] leading-[15px] tracking-normal" data-v-78946c31="">TV</span></button><button type="button" aria-pressed="false" class="lg:gap-[12px] lg:pb-[14px] lg:pt-[6px] flex w-[52px] shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-[4px] border-none bg-transparent pb-[8px] pt-[6px] transition-all duration-[350ms] ease-in-out lg:w-auto lg:flex-row" data-v-78946c31=""><div class="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] flex items-center justify-center transition-all duration-[350ms] ease-in-out" data-v-78946c31=""><img src="https://aqui.globo/images/header/radio.svg" alt="Rádio" class="h-full w-full object-contain" data-v-78946c31="" width="40" height="40"></div><span class="text-[#8e8477] font-normal lg:!text-[#a6a6a6] lg:!font-normal lg:text-[18px] hover:text-[#241e17] transition-all duration-[350ms] ease-in-out whitespace-nowrap block text-center font-rethink text-[12px] leading-[15px] tracking-normal" data-v-78946c31="">Rádio</span></button><button type="button" aria-pressed="false" class="lg:gap-[12px] lg:pb-[14px] lg:pt-[6px] flex w-[52px] shrink-0 cursor-pointer select-none flex-col items-center justify-center gap-[4px] border-none bg-transparent pb-[8px] pt-[6px] transition-all duration-[350ms] ease-in-out lg:w-auto lg:flex-row" data-v-78946c31=""><div class="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] flex items-center justify-center transition-all duration-[350ms] ease-in-out" data-v-78946c31=""><img src="https://aqui.globo/images/header/combos.svg" alt="Combos" class="h-full w-full object-contain" data-v-78946c31="" width="40" height="40"></div><span class="text-[#8e8477] font-normal lg:!text-[#a6a6a6] lg:!font-normal lg:text-[18px] hover:text-[#241e17] transition-all duration-[350ms] ease-in-out whitespace-nowrap block text-center font-rethink text-[12px] leading-[15px] tracking-normal" data-v-78946c31="">Combos</span></button><!--]--><div class="absolute bottom-0 h-[2px] bg-[#241e17] rounded-[2px] !transition-none" style="left: 4px; width: 93px;" data-v-78946c31=""></div></div></div></div><nav class="ml-auto flex items-center gap-2 md:gap-4 lg:gap-6 xl:gap-3 2xl:gap-6" data-v-5e6b4649=""><a href="https://aqui.globo/assistente-de-anuncios" class="flex lg:hidden xl:flex h-[30px] items-center justify-center gap-1 px-2 no-underline sm:gap-[5.5px] sm:px-[11px]" data-v-5e6b4649=""><span class="whitespace-nowrap text-center text-[11px] font-medium leading-[14px] tracking-[-0.1px] text-[#0a0a0a] sm:text-[12.768px] sm:leading-[18px]" data-v-5e6b4649=""> Assistente de anúncios </span><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[16px] shrink-0 aspect-[8/9]" data-v-5e6b4649=""><path d="M7.53297 3.83518C7.63303 3.83518 7.6831 3.77993 7.70811 3.69313C7.96662 2.37528 7.94997 2.34373 9.40108 2.08329C9.50114 2.06754 9.55953 2.01229 9.55953 1.91757C9.55953 1.8229 9.50114 1.76764 9.40108 1.75185C7.9583 1.4757 8 1.44411 7.70811 0.142051C7.6831 0.0552515 7.63303 0 7.53297 0C7.43288 0 7.38285 0.0552515 7.35783 0.142051C7.06595 1.44411 7.11598 1.4757 5.66487 1.75185C5.57313 1.76764 5.50641 1.8229 5.50641 1.91757C5.50641 2.01229 5.57313 2.06754 5.66487 2.08329C7.11598 2.35952 7.09929 2.37528 7.35783 3.69313C7.38285 3.77993 7.43288 3.83518 7.53297 3.83518ZM3.49654 9.26437C3.655 9.26437 3.76342 9.16966 3.78007 9.02764C4.08032 6.92065 4.15536 6.92065 6.45716 6.50244C6.60728 6.47873 6.71567 6.38406 6.71567 6.23413C6.71567 6.09207 6.60728 5.98948 6.45716 5.96581C4.15536 5.66596 4.07196 5.59491 3.78007 3.44849C3.76342 3.30647 3.655 3.20388 3.49654 3.20388C3.34642 3.20388 3.238 3.30647 3.22131 3.4564C2.94611 5.57124 2.82933 5.56336 0.544259 5.96581C0.394134 5.9974 0.285713 6.09207 0.285713 6.23413C0.285713 6.39193 0.394135 6.47873 0.577601 6.50244C2.84602 6.84964 2.94611 6.90489 3.22131 9.01185C3.238 9.16966 3.34642 9.26437 3.49654 9.26437ZM9.1509 18C9.36774 18 9.52619 17.8501 9.56786 17.637C10.16 13.3126 10.8022 12.6576 15.3223 12.1841C15.5558 12.1604 15.7143 11.9947 15.7143 11.7896C15.7143 11.5844 15.5558 11.4266 15.3223 11.395C10.8022 10.9215 10.16 10.2665 9.56786 5.94214C9.52619 5.72908 9.36774 5.58703 9.1509 5.58703C8.93405 5.58703 8.7756 5.72908 8.74226 5.94214C8.15012 10.2665 7.49963 10.9215 2.98778 11.395C2.74596 11.4266 2.58751 11.5844 2.58751 11.7896C2.58751 11.9947 2.74596 12.1604 2.98778 12.1841C7.49127 12.7444 8.11675 13.3205 8.74226 17.637C8.7756 17.8501 8.93405 18 9.1509 18Z" fill="#695CFF" data-v-5e6b4649=""></path></svg></a><div class="relative flex h-[33px] lg:min-w-40 items-center gap-2 sm:gap-4 lg:ml-3 xl:ml-0 2xl:ml-3" data-v-5e6b4649=""><button data-v-5e6b4649="" type="button" class="relative flex h-[32.831px] w-[32.831px] cursor-pointer items-center justify-center rounded-[7.296px] border-none bg-transparent p-0 text-[#0a0a0a]"><i data-v-5e6b4649="" class="uil uil-shopping-cart flex h-[18px] w-[18px] items-center justify-center text-[18px]"></i><span id="header-cart-badge" class="hidden absolute -top-1 -right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#FF4F00] px-1 text-[10px] font-extrabold text-white shadow-sm">0</span></button><button data-v-5e6b4649="" class="p-button p-component flex flex-row items-center justify-center without-border p-button p-button-outlined header-button min-w-fit max-h-12 !text-neutral-low-dark focus:ring-2 focus:!shadow-none lg:ml-3 xl:ml-0 2xl:ml-3" type="button" aria-label="Abrir menu" data-pc-name="button" data-pc-section="root" aria-haspopup="menu" aria-expanded="false" tabindex="0"><span data-v-5e6b4649="" class="hidden px-2 !text-base font-semibold text-neutral-low-dark lg:inline-block lg:px-3 lg:!text-lg"> entrar </span><i data-v-5e6b4649="" class="uil-bars !text-3xl lg:!text-xl" aria-hidden="true"></i></button></div></nav></div></div><div class="relative w-full" data-v-5e6b4649=""><div data-v-4b2b47f6="" data-v-5e6b4649="" class="w-full hidden lg:block" id="header-search-floatter"><div data-v-4b2b47f6="" class="searchbar-header relative z-[9999] ml-auto flex transform flex-col items-center"><div data-v-4b2b47f6="" class="search group/search w-[688px]"><form data-v-4b2b47f6="" id="tour-plp-search-placeholder" autocomplete="off" autofocus="" class="search--container opacity-100 transition-all group-hover/search:pointer-events-auto group-hover/search:opacity-100"><div data-v-4b2b47f6="" class="h-full w-[270px] border-r border-[#EDF2F8] font-bold p-[2px]"><div data-v-4b2b47f6="" class="h-full w-full focus-within:ring-2 focus-within:ring-[#FF4F00] focus-within:ring-offset-1 rounded-l-xl"><div data-v-5c3d30f6="" data-v-4b2b47f6="" class="!text-lg integrated-search pt-[8px] relative"><div data-v-5c3d30f6="" class="flex w-full justify-between" aria-expanded="false" aria-autocomplete="list" role="combobox" aria-controls="address-listbox"><div class="flex w-full flex-col justify-between"><label for="endereco" class="mb-3 text-lg">Onde</label><span class="relative w-full"><!----><input class="p-inputtext p-component p-filled w-full text-base md:text-[14px] !shadow-none !pr-14" data-pc-name="inputtext" data-pc-section="root" id="endereco" autocomplete="off" type="text" name="endereco" placeholder="Ex.: Av. Paulista, Bela Vista, São Paulo/SP" value="Vila Olimpia, São Paulo - SP, Brasil"><!----><button data-v-5c3d30f6="" type="button" class="clear-address-btn absolute right-4 top-1/2 -translate-y-1/2 text-[24px] text-[#6B6B6B] hover:text-[#282E38] focus:outline-none p-0 z-10 cursor-pointer flex items-center justify-center leading-none" aria-label="Limpar busca de endereço"><i data-v-5c3d30f6="" class="uil uil-backspace text-[24px] leading-none"></i></button></span></div></div><div data-v-5c3d30f6="" class="left-0 !min-w-[50%] !w-50% address-results-list absolute top-[105%] z-[10000] max-h-[60vh] w-auto min-w-[100%] overflow-auto rounded bg-white drop-shadow-md"><!----></div></div></div></div><div data-v-4b2b47f6="" class="h-full w-[160px] border-r border-[#EDF2F8] p-[2px]"><div data-v-4b2b47f6="" class="integrated-dropdown flex h-full w-full flex-col font-bold focus-within:ring-2 focus-within:ring-[#FF4F00] focus-within:ring-offset-1 rounded-md"><label data-v-70e8fb2f="" for="duration" class="text-[14px] sm:text-[16px]">Período</label><div data-v-70e8fb2f="" id="duration" class="p-dropdown p-component p-inputwrapper p-inputwrapper-filled form-field mt-3 w-full !text-lg duration-search-input" data-pc-name="dropdown" data-pc-section="root" icon="" style="opacity: 1 !important;"><span class="p-dropdown-label p-inputtext p-placeholder" tabindex="0" role="combobox" aria-label="2 semanas" aria-haspopup="listbox" aria-expanded="false" aria-controls="duration_list" aria-disabled="false" data-pc-section="input"><div data-v-70e8fb2f="" class="align-items-center text-1 p-dropdown-value flex text-base"><div data-v-70e8fb2f="">2 semanas</div></div></span><!----><div class="p-dropdown-trigger" data-pc-section="trigger"><span class="p-dropdown-trigger-icon !text-2xl uil-angle-down text-black" aria-hidden="true" data-pc-section="dropdownicon"></span></div><!----></div></div></div><label data-v-4b2b47f6="" class="relative mr-4 flex h-full w-[200px] flex-col font-bold focus-within:ring-2 focus-within:ring-[#FF4F00] focus-within:ring-offset-1 rounded-md"><div data-v-4b2b47f6="" class="flex w-full justify-between" inputstyle="[object Object]" optionlabel="label"><div id="calendar" class="flex w-full flex-col justify-between integrated-date"><label for="Início" class="mb-3 text-[14px] sm:text-[16px]">Início</label><span class="w-full p-input-icon-right"><i class="uil uil-angle-down" style="color: rgb(0, 0, 0); font-size: 10px;"></i><span class="p-calendar p-component p-inputwrapper p-inputwrapper-filled h-full w-full text-base shadow-none form-field form-field-wrapper ui-state-filled start-search-input w-full start-search-input form-field form-field-wrapper ui-state-filled start-search-input w-full" data-pc-name="calendar" data-pc-section="root" optionlabel="label" style="position: relative;"><input id="Início" type="text" value="21/10/2026" role="combobox" class="p-inputtext p-component !py-3" placeholder="" autocomplete="off" aria-autocomplete="none" aria-haspopup="dialog" aria-expanded="false" aria-controls="pv_id_1_panel" inputmode="none" tabindex="0" data-pc-section="input" style="padding-top: 0rem; padding-bottom: 0rem;"><!----><!----></span></span></div></div></label><!----><button data-v-4b2b47f6="" class="p-button p-component ml-auto flex h-[42px] w-[42px] items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4F00] focus-visible:ring-offset-2" type="submit" data-pc-name="button" data-pc-section="root"><i data-v-4b2b47f6="" class="uil uil-search"></i></button></form></div></div><div data-v-4b2b47f6="" class="filter-container relative z-1 mb-7 flex w-full flex-col items-center justify-center text-lg mt-28"><div data-v-4b2b47f6="" class="hidden w-full max-w-[1280px] results-responsive-container flex-col items-center px-4 sm:px-6 lg:flex lg:px-0"><div data-v-7162e30d="" data-v-4b2b47f6="" class="flex flex-wrap items-center gap-2" id="tour-filter"><button data-v-7162e30d="" type="button" class="ambience-chip ambience-chip--active"><span data-v-7162e30d="">todos</span><!----></button><button data-v-7162e30d="" type="button" class="ambience-chip"><span data-v-7162e30d="">elevadores comerciais</span><!----></button><button data-v-7162e30d="" type="button" class="ambience-chip"><span data-v-7162e30d="">elevadores residenciais</span><!----></button><button data-v-7162e30d="" type="button" class="ambience-chip"><span data-v-7162e30d="">ponto de ônibus</span><!----></button><button data-v-7162e30d="" type="button" class="ambience-chip"><span data-v-7162e30d="">shopping</span><!----></button><button data-v-7162e30d="" type="button" class="ambience-chip"><span data-v-7162e30d="">academia</span><!----></button><button data-v-7162e30d="" type="button" class="ambience-chip ambience-chip--more"><span data-v-7162e30d="">mais filtros</span><!----></button></div></div></div><!----></div><!----></div><!----></div></header><!--]--></astro-island>
-
-    <main>
-  <astro-island uid="1cR3ie" component-url="/_astro/Results.f7fc25f3.js" component-export="default" renderer-url="/_astro/client.d7e230ee.js" props="{&quot;selectedRadius&quot;:[0,&quot;0&quot;],&quot;selectedOnMap&quot;:[0,{}]}" client="load" opts="{&quot;name&quot;:&quot;Results&quot;,&quot;value&quot;:true}" await-children=""><!--[--><div class="relative overflow-visible" data-v-3f3ad610=""><div class="relative flex w-full items-start justify-center bg-white px-4 lg:items-center lg:px-0 h-full flex-row" data-v-3f3ad610=""><div class="results-loading-overlay inset-x-0 z-[2] flex w-full flex-col items-center justify-center overflow-hidden bg-white px-4 py-6 transition-opacity fixed pointer-events-none opacity-0" style="top: 383px; height: 538px; min-height: 538px;" data-v-3f3ad610="" data-v-0b23f454=""><div class="results-loading-overlay__content flex max-h-full flex-col items-center justify-center is-ready" data-v-0b23f454=""><div data-v-0b23f454="" class="relative h-full w-full relative aspect-[372/279] max-h-[70%] w-[min(372px,80vw)] results-loading-overlay__lottie flex items-center justify-center" role="img" aria-label="buscando os melhores pontos para você"><img src="https://storage.googleapis.com/elt-smb-prod/assets/resultados/lottiePladeholder.png" alt="buscando os melhores pontos para você" class="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain transition-opacity duration-300" style="display: none;"><div class="absolute inset-0 h-full w-full opacity-0"></div><canvas class="absolute inset-0 block h-full w-full" style="background-color: transparent;" width="287" height="180"></canvas></div><p class="results-loading-overlay__text mt-4 text-center text-lg font-medium text-[#282E38] opacity-0 transition-opacity duration-200 sm:text-xl lg:mt-6 opacity-100" data-v-0b23f454=""> buscando os melhores pontos para você </p></div></div><main class="relative z-[1] h-full min-h-[80vh] w-full transition-opacity duration-150 opacity-100" style="padding-bottom: 72px;" data-v-3f3ad610=""><!--[--><div class="apply-zoom results-ooh-layout mx-auto w-full box-border results-responsive-container max-w-[1280px] px-4 sm:px-6 lg:px-0 lg:grid lg:grid-cols-[minmax(0,890px)_minmax(0,1fr)] lg:items-start lg:gap-[28px]" data-v-3f3ad610=""><div id="list-column-wrapper" class="lg:min-w-0 lg:flex-1" data-v-3f3ad610="">
-<div class="flex w-full flex-col gap-2" data-v-3f3ad610="" data-v-fc771bb1=""><ul class="opacity-0 transition-all opacity-100 pointer-events-auto opacity-100 relative grid h-full grid-cols-1 gap-[10px] px-3 sm:grid-cols-2 md:px-0 w-full lg:grid-cols-[repeat(3,minmax(0,290px))]" id="cardlist_container" data-v-fc771bb1=""></ul></div></div><div data-v-3f3ad610="" id="map-sticky-wrapper" class="hidden self-start lg:block sticky z-[1]" style="top: 205px; width: 100%; height: calc(100vh - 285px); min-height: 520px; will-change: top, height; transform: translateZ(0px);"><div data-v-3f3ad610="" class="z-1 h-full w-full overflow-hidden rounded-[20px] h-full w-full"><div class="relative h-full w-full"><div class="absolute z-60 h-full w-full backdrop-blur-1 transition-opacity duration-300 opacity-0 pointer-events-none"></div><div data-v-b8c5185d="" class="apply-zoom"><div data-v-b8c5185d="" class="pointer-events-none absolute z-50 whitespace-nowrap rounded-full bg-[#37404C] px-3 py-1 font-semibold text-white opacity-0 transition-opacity duration-300" style="left: 0px; top: 0px;">clique para começar a desenhar <span data-v-b8c5185d="" class="border-x-6 border-t-6 absolute -bottom-1 left-1/2 h-0 w-0 -translate-x-1/2 border-x-transparent border-t-[#37404C]"></span></div><div data-v-b8c5185d="" class="absolute left-2/4 top-8 z-10 -translate-x-1/2"><div data-v-b8c5185d="" class="group/button"><button data-v-b8c5185d="" class="p-button p-component p-button-raised hover-primary text-nowrap rounded !bg-white !p-[11px] !font-semibold !text-neutral-gray7 shadow opacity-0 pointer-events-none" type="button" aria-label="Pesquisar nessa área" data-pc-name="button" data-pc-section="root"><span class="p-button-icon p-button-icon-left uil-map-marker hover-primary" data-pc-section="icon"></span><span class="p-button-label" data-pc-section="label">Pesquisar nessa área</span><!----></button></div></div><button data-v-c56a3d68="" data-v-b8c5185d="" id="map-expand-floating-button" type="button" class="map-expand-floating-btn group inline-flex items-center rounded-full bg-white text-[#0A0A0A] shadow-[0_2px_8px_rgba(0,0,0,0.12)] border border-gray-100 hover:bg-[#F8F9FA] hover:shadow-[0_4px_12px_rgba(0,0,0,0.16)] transition-all duration-300 ease-in-out cursor-pointer select-none px-3.5 absolute right-4 top-4 z-20 md:right-5 md:top-4" aria-label="Expandir mapa"><span data-v-c56a3d68="" class="flex h-4 w-4 shrink-0 items-center justify-center text-[#0A0A0A]"><svg data-v-c56a3d68="" class="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline data-v-c56a3d68="" points="15 3 21 3 21 9"></polyline><polyline data-v-c56a3d68="" points="9 21 3 21 3 15"></polyline><line data-v-c56a3d68="" x1="21" y1="3" x2="14" y2="10"></line><line data-v-c56a3d68="" x1="3" y1="21" x2="10" y2="14"></line></svg></span><span data-v-c56a3d68="" class="overflow-hidden whitespace-nowrap text-[13px] font-semibold text-[#0A0A0A] transition-all duration-300 ease-in-out max-w-[120px] opacity-100 ml-1.5">expandir mapa</span></button><!----></div>
-<!-- Smart Actions Bar (Exclusiva do Modo Mapa 100% - Exibe apenas "Desenhar área" por padrão; "Adicionar" só aparece quando o cliente faz o desenho) -->
-<div id="map-smart-actions-bar" class="absolute left-4 top-4 z-30 flex-wrap items-center gap-2 pr-44 pointer-events-auto">
-  <div class="flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-md p-1 shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-[#E2E8F0]">
-    <button type="button" id="btn-tool-polygon" class="smart-action-btn !h-[32px] !border-none !shadow-none !px-3.5" title="Segure o clique e arraste à mão livre para contornar uma área no mapa">
-      <i class="uil uil-vector-square text-[15px] text-[#FF4F00]"></i>
-      <span>Desenhar área</span>
-    </button>
-    <button type="button" id="btn-clear-geometry" class="hidden smart-action-btn !h-[32px] !border-none !shadow-none !px-3 !text-[#E75D4B] hover:!bg-[#FFF5F5]" title="Limpar área desenhada">
-      <i class="uil uil-times-circle text-[14px]"></i>
-      <span>Limpar desenho</span>
-    </button>
-  </div>
-
-  <!-- Botão "Adicionar área" oculto por padrão — exibido SOMENTE quando o cliente faz o desenho no mapa -->
-  <button type="button" id="btn-add-visible-area" class="hidden smart-action-btn smart-action-btn--primary" title="Adicionar pontos da área desenhada ao carrinho">
-    <i class="uil uil-shopping-cart text-[15px]"></i>
-    <span id="btn-add-visible-area-label">Adicionar pontos da área</span>
-  </button>
-</div>
-
-<!-- Sub-barra de ajuda interativa para Desenho à Mão Livre (1 Gesto) -->
-<div id="map-drawing-helper" class="hidden absolute left-1/2 top-16 -translate-x-1/2 z-30 items-center gap-2.5 rounded-full bg-[#282E38]/95 text-white px-4 py-2 text-[12.5px] font-semibold shadow-lg border border-white/15 pointer-events-auto whitespace-nowrap">
-  <span class="inline-flex h-2 w-2 rounded-full bg-[#FF4F00] animate-pulse"></span>
-  <span id="map-drawing-helper-text">Segure o clique e arraste no mapa para contornar a região desejada</span>
-  <button type="button" id="btn-cancel-drawing" class="ml-1 rounded-full bg-white/10 hover:bg-white/25 px-2.5 py-0.5 text-[11px] font-bold text-slate-200 cursor-pointer">
-    Cancelar
-  </button>
-</div>
-
-<!-- Painel Flutuante de Área Desenhada (Exibido SOMENTE quando o cliente faz o desenho no mapa) -->
-<div id="map-selection-pill" class="hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-30 items-center gap-3.5 rounded-2xl bg-white/95 backdrop-blur-md px-4 py-2.5 shadow-[0_8px_28px_rgba(0,0,0,0.18)] border border-[#FF4F00]/40 pointer-events-auto whitespace-nowrap">
-  <div class="flex flex-col">
-    <span id="selection-pill-title" class="text-[13px] font-extrabold text-[#282E38]">18 pontos encontrados na área desenhada</span>
-    <span id="selection-pill-subtitle" class="text-[11.5px] font-semibold text-[#64748B]">Total estimado: R$ 8.420,00 / 2 semanas</span>
-  </div>
-  <button type="button" id="btn-add-selection-batch" class="rounded-full bg-[#3A9F3A] hover:bg-[#2E852E] text-white px-3.5 py-1.5 text-[12px] font-bold shadow-sm transition-all cursor-pointer">
-    <i class="uil uil-shopping-cart mr-1"></i> Adicionar pontos da área
-  </button>
-  <button type="button" id="btn-pill-clear-geom" class="rounded-full bg-[#FFF5F5] hover:bg-[#FFE3E3] text-[#E75D4B] px-2.5 py-1 text-[11.5px] font-bold transition-colors cursor-pointer" title="Limpar área desenhada">
-    Limpar
-  </button>
-</div>
-
-<!-- Overlay SVG vetorial para Desenho à Mão Livre (Freehand Lasso) em 60fps -->
-<svg id="map-drawing-svg" class="pointer-events-none absolute inset-0 z-[5] h-full w-full overflow-visible"></svg>
-<div id="mapa" class="h-full w-full mapboxgl-map"></div></div></div></div><!----></div><div class="mt-6 flex w-full flex-col gap-6" data-v-3f3ad610=""><div data-v-3f3ad610="" class="flex w-full justify-center pb-6 mx-auto w-full max-w-[1280px] results-responsive-container box-border px-4 sm:px-6 lg:px-0"><button data-v-3f3ad610="" class="p-button p-component load-more-products justify-content-center align-items-center flex w-full max-w-96" type="button" data-pc-name="button" data-pc-section="root"><div data-v-3f3ad610="" class="mx-auto"><!----><span data-v-3f3ad610="" class="p-button-label" data-pc-section="label">ver mais</span></div></button></div><div class="mx-auto w-full max-w-[1280px] results-responsive-container box-border px-4 sm:px-6 lg:px-0 flex w-full flex-col gap-4 pb-6" data-v-3f3ad610=""><section data-v-b99eccea="" data-v-3f3ad610="" class="w-full px-4 py-6 shadow-sm md:px-6"><div data-v-b99eccea="" class="mb-5 flex items-center justify-between md:mb-6"><h3 data-v-b99eccea="" class="text-3xl font-bold">Explore outros ambientes</h3></div><div data-v-b99eccea="" class="-mx-2 md:-mx-3 explore-ambiences-swiper"><div data-v-bdfc7c3f="" data-v-b99eccea="" class="swiper-container !pb-2"><div data-v-bdfc7c3f="" class="swiper swiper-initialized swiper-horizontal !pb-2"><div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);"><div data-v-bdfc7c3f="" class="swiper-slide swiper-slide-active !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">elevadores comerciais</span></p><p class="mt-3 text-base font-medium text-[#64748B]">643.174 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;915,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide swiper-slide-next !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">elevadores residenciais</span></p><p class="mt-3 text-base font-medium text-[#64748B]">359.320 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;265,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">ponto de ônibus</span></p><p class="mt-3 text-base font-medium text-[#64748B]">4.973.751 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;5.081,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">academias</span></p><p class="mt-3 text-base font-medium text-[#64748B]">60.547 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;739,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">supermercados</span></p><p class="mt-3 text-base font-medium text-[#64748B]">5.396 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;300,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">hotéis</span></p><p class="mt-3 text-base font-medium text-[#64748B]">4.615 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;923,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">universidades</span></p><p class="mt-3 text-base font-medium text-[#64748B]">878 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;439,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">salão de beleza</span></p><p class="mt-3 text-base font-medium text-[#64748B]">37.006 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;225,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">shoppings</span></p><p class="mt-3 text-base font-medium text-[#64748B]">886.710 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;73.893,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">barbearias</span></p><p class="mt-3 text-base font-medium text-[#64748B]">11.058 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;194,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">estação de trem</span></p><p class="mt-3 text-base font-medium text-[#64748B]">785.527 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;8.447,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">padarias</span></p><p class="mt-3 text-base font-medium text-[#64748B]">500 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;100,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">drogarias</span></p><p class="mt-3 text-base font-medium text-[#64748B]">1.928 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;322,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">lojas de conveniencia</span></p><p class="mt-3 text-base font-medium text-[#64748B]">1.561 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;261,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div><div data-v-bdfc7c3f="" class="swiper-slide !border-none !outline-none" style="width: 373px; margin-right: 10px;"><ul data-v-b99eccea="" class="m-0 h-full list-none px-2 md:px-3"><li data-v-b99eccea="" class="h-full list-none"><button type="button" class="block h-full w-full rounded-2xl border border-neutral-200 bg-slate-50 p-5 p-7 text-left shadow-sm"><p class="text-xl font-semibold leading-6"><span class="block">Anuncie em</span><span class="block overflow-hidden text-ellipsis whitespace-nowrap">estabelecimentos comerciais</span></p><p class="mt-3 text-base font-medium text-[#64748B]">7.000 pontos para anunciar</p><div class="mt-4 text-base font-semibold text-[#64748B]"><p class="">valor médio</p><p class="flex flex-wrap items-baseline"><span>R$&nbsp;500,00</span><span>/2 semanas</span></p></div></button></li></ul><!----></div></div><div class="swiper-button-prev swiper-button-disabled"></div><div class="swiper-button-next"></div><!----><!----><!----></div></div></div></section><section class="my-[60px] flex items-center justify-center px-10 px-[40px] md:px-10" aria-labelledby="faq-43564-heading" data-v-3f3ad610=""><div class="flex w-full max-w-[1311px] flex-col items-center justify-center gap-[24px] md:flex-row md:gap-[60px]"><div class="flex w-full flex-1 flex-col items-start gap-4 py-5"><h2 id="faq-43564-heading" class="mb-3 text-3xl font-bold leading-10 tracking-[0.01667rem] text-[#282E38]">Ficou com alguma dúvida?</h2><p class="mb-3 text-xl font-normal leading-8 tracking-[0.01333rem] text-[#64748B]">Confira as perguntas frequentes</p><a id="faq-43564-help-center-link" href="https://wa.me/551150395212" target="_blank" rel="noopener noreferrer" aria-label="fale com especialista (abre em nova aba)" class="flex cursor-pointer items-center justify-center gap-[7px] rounded-[6px] border border-[#282E38] bg-[#282E38] px-[17.5px] py-[10.5px] text-[16px] font-bold leading-[100%] text-white transition-all duration-300 hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#282E38]">fale com especialista</a></div><div class="w-full flex-1 md:max-w-[626px]"><div class="block min-h-[450px] w-full pt-5 lg:py-5" data-v-05d083f2=""><!--[--><div class="border-[#ff4f00] faq-item w-full border-l-4 pl-4 transition-colors duration-300" data-v-05d083f2=""><button class="faq-summary block w-full cursor-pointer py-4 text-left outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#282E38]" data-v-05d083f2=""><span class="text-[#282E38] faq-summary-text text-[16px] font-semibold md:text-[18px] lg:text-[20px]" data-v-05d083f2="">O que é o Aqui Ads?</span></button><div class="mt-2 pb-4 text-[14px] leading-[160%] text-[#282E38] lg:text-[16px]" data-v-05d083f2=""><!--[--><p class="mb-2 last:mb-0" data-v-05d083f2="">O Aqui Ads é a plataforma que simplifica a criação, contratação e gestão de campanhas de publicidade OOH (Out of Home).</p><!--]--><!----><!--[--><!--]--></div></div><div class="border-gray-300 faq-item w-full border-l-4 pl-4 transition-colors duration-300" data-v-05d083f2=""><button class="faq-summary block w-full cursor-pointer py-4 text-left outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#282E38]" data-v-05d083f2=""><span class="text-[#64748B] faq-summary-text text-[16px] font-semibold md:text-[18px] lg:text-[20px]" data-v-05d083f2="">O que significam as métricas de exibições, alcance e frequência?</span></button><!----></div><div class="border-gray-300 faq-item w-full border-l-4 pl-4 transition-colors duration-300" data-v-05d083f2=""><button class="faq-summary block w-full cursor-pointer py-4 text-left outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#282E38]" data-v-05d083f2=""><span class="text-[#64748B] faq-summary-text text-[16px] font-semibold md:text-[18px] lg:text-[20px]" data-v-05d083f2="">Quais são as opções de criação da arte do meu anúncio?</span></button><!----></div><div class="border-gray-300 faq-item w-full border-l-4 pl-4 transition-colors duration-300" data-v-05d083f2=""><button class="faq-summary block w-full cursor-pointer py-4 text-left outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#282E38]" data-v-05d083f2=""><span class="text-[#64748B] faq-summary-text text-[16px] font-semibold md:text-[18px] lg:text-[20px]" data-v-05d083f2="">Moradores de prédios com telas da Eletromidia têm algum benefício para anunciar?</span></button><!----></div><!--]--></div></div></div></section><section class="mx-auto flex w-full max-w-[1280px] flex-col justify-between sm:px-6 md:px-10" data-v-3f3ad610=""><h3 class="text-3xl font-bold">Anuncie em pontos estratégicos de São Paulo</h3><ul class="mb-16 mt-7 grid grid-cols-1 gap-x-14 gap-y-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"><!--[--><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Avenida Paulista</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Faria Lima</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Barra Funda</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Tatuapé</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Jabaquara</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Vila Olímpia</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Santo Amaro</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Mooca</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Jardins</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Lapa</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Vila Prudente</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Alphaville</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Santana</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Vila Mariana</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Pinheiros</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Osasco</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Santa Cruz</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Moema</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Butantã</a></li><li><a href="https://aqui.globo/resultados?modo=ooh&amp;duracao=14&amp;datainicio=21102026&amp;viewMode=grid&amp;ltd_coord=-23.598157&amp;lng_coord=-46.6829301#" class="text-lg font-semibold underline decoration-dotted underline-offset-[3px] hover:text-primary-light">Anuncie em Diadema</a></li><!--]--></ul></section></div></div><!--]--><!----></main></div><div data-v-2f04c228="" data-v-3f3ad610="" class="fixed bottom-0 z-10 w-full border-t border-solid border-neutral-high-light bg-white pb-4 pt-3 lg:sticky lg:-bottom-1 lg:py-5 actions-bar-results !fixed w-full !text-lg lg:bottom-0 lg:right-0 lg:!px-0"><div data-v-2f04c228="" class="mx-auto flex w-full max-w-[1280px] results-responsive-container justify-between items-center px-4 sm:px-6 lg:px-0">
-  <div id="bottom-cart-summary" class="flex items-center gap-4 text-[14px] text-[#282E38]">
-    <div class="flex items-center gap-2">
-      <span id="bottom-cart-badge" class="inline-flex h-7 min-w-[28px] items-center justify-center rounded-full bg-[#EDF2F8] px-2 text-[13px] font-extrabold text-[#64748B]">0</span>
-      <div class="flex flex-col leading-tight">
-        <span id="bottom-cart-title" class="font-bold text-[#282E38]">Nenhum ponto selecionado</span>
-        <span id="bottom-cart-metrics" class="text-[12px] text-[#64748B]">Adicione pontos na lista ou diretamente pelo mapa</span>
-      </div>
-    </div>
-    <div id="bottom-cart-price-box" class="hidden sm:flex flex-col border-l border-[#E2E8F0] pl-4 leading-tight">
-      <span class="text-[11px] font-semibold uppercase tracking-wider text-[#64748B]">Investimento (2 semanas)</span>
-      <strong id="bottom-cart-total" class="text-[18px] font-extrabold text-[#0A0A0A]">R$ 0,00</strong>
-    </div>
-    <button type="button" id="btn-clear-cart" class="hidden text-[12px] font-bold text-[#E75D4B] underline hover:opacity-80 cursor-pointer ml-2">
-      limpar seleção
-    </button>
-  </div>
-  <div data-v-2f04c228="" class="flex items-center justify-end lg:w-auto lg:ml-auto"><!----><!----><button data-v-2f04c228="" class="p-button p-component p-disabled ml-auto !text-lg" type="button" disabled="" data-pc-name="button" data-pc-section="root" id="resultpage_next-button"><p data-v-2f04c228="" class="!text-lg">continuar <i data-v-2f04c228="" class="uil uil-arrow-right !mt-1 ml-2"></i></p></button></div></div></div></div><!----><!--]--></astro-island>
-
-    </main>
-
-<div class="p-toast p-component p-toast-bottom-center p-ripple-disabled" data-pc-name="toast" data-pc-section="root" style="position: fixed; bottom: 20px; left: 50%;"><div data-pc-section="message"></div></div><!----><!---->  <script src="app.js"></script>
 </body>
 </html>

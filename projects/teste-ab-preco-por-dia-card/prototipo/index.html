@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui ads — Teste A/B/C/D: Preço por Dia nos Cards da Página de Resultados OOH</title>
+  <link rel="icon" href="https://aqui.globo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <!-- CSS Oficial Compilado do Aqui Ads (codebase/smb-web + Espelho de Produção) -->
+  <link rel="stylesheet" href="aqui_ads_official.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
+
+  <!-- MODAL DE DOCUMENTAÇÃO DO EXPERIMENTO (TEST CARD) -->
+  <div id="modal-test-card-doc" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div onclick="closeTestCardDocModal()" class="fixed inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+    <div class="relative z-10 w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden max-h-[88vh] flex flex-col">
+      <div class="px-6 py-4 bg-gray-950 text-white flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#FF5A00]">Experimento Growth • Página de Resultados OOH</span>
+          <h3 class="text-base font-extrabold mt-0.5">Test Card — Ancoragem de Preço por Dia nos Cards OOH</h3>
+        </div>
+        <button onclick="closeTestCardDocModal()" class="w-8 h-8 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-5 text-xs text-gray-700 leading-relaxed">
+        <div class="p-4 rounded-xl bg-orange-50/70 border border-orange-200">
+          <p class="font-extrabold text-gray-900 text-sm mb-1">Hipótese Principal</p>
+          <p>Exibir o custo diário equivalente (ex.: <strong>R$ 19,21/dia</strong> em vez de apenas <strong>R$ 269,00 / 2 semanas</strong>) reduz a percepção de barreira financeira inicial do OOH para PMEs na Página de Resultados, aumentando a taxa de <strong>Adição ao Carrinho</strong> sem reduzir o ticket médio final no checkout.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <div class="p-3.5 rounded-xl border border-gray-200 bg-gray-50">
+            <span class="text-[10px] font-extrabold uppercase text-gray-500">Variante A (Controle)</span>
+            <p class="font-bold text-gray-900 mt-0.5">Preço cheio por período (Atual)</p>
+            <p class="text-[11px] text-gray-600 mt-1">Exibe apenas <code>R$ 269,00 / 2 semanas</code> (ou 4 semanas).</p>
+          </div>
+          <div class="p-3.5 rounded-xl border border-orange-200 bg-orange-50/40">
+            <span class="text-[10px] font-extrabold uppercase text-[#FF4F00]">Variante B (Subtítulo +/dia)</span>
+            <p class="font-bold text-gray-900 mt-0.5">Preço cheio + equivalente diário</p>
+            <p class="text-[11px] text-gray-600 mt-1">Mantém <code>R$ 269,00 / 2 semanas</code> no topo e adiciona linha de apoio <code>equivale a R$ 19,21 / dia</code>.</p>
+          </div>
+          <div class="p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/40">
+            <span class="text-[10px] font-extrabold uppercase text-indigo-700">Variante C (Hero /dia)</span>
+            <p class="font-bold text-gray-900 mt-0.5">Inversão de hierarquia (Preço/dia em destaque)</p>
+            <p class="text-[11px] text-gray-600 mt-1">Destaca <code>R$ 19,21 / dia</code> como valor principal e exibe <code>Total: R$ 269,00 por 2 semanas</code> abaixo.</p>
+          </div>
+          <div class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40">
+            <span class="text-[10px] font-extrabold uppercase text-emerald-700">Variante D (Badge /dia)</span>
+            <p class="font-bold text-gray-900 mt-0.5">Pílula verde de economia diária + Preço cheio</p>
+            <p class="text-[11px] text-gray-600 mt-1">Adiciona badge <code>Apenas R$ 19,21/dia</code> acima do preço oficial do período.</p>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 pt-4 flex flex-wrap items-center justify-between gap-2 text-[11px] text-gray-500">
+          <span><strong>Métrica Primária:</strong> Taxa de Adição ao Carrinho (PLP → Carrinho)</span>
+          <span><strong>Guardrail:</strong> Conversão Carrinho → Checkout e Ticket Médio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Base de Dados Mockada Oficial Centralizada -->
+  <script src="aqui_ads_mock_data.js"></script>
+
+  <!-- Lógica Customizada das Variantes A/B/C/D de Preço por Dia nos Cards OOH -->
+  <script>
+    let currentPriceVariant = 'B';
+
+    function getOohCardPriceHtml(itemPrice, periodLabel) {
+      const days = (typeof cartState !== 'undefined' && cartState.durationDays === 28) ? 28 : 14;
+      const dailyPrice = itemPrice / days;
+
+      if (currentPriceVariant === 'B') {
+        return `
+          <div class="mt-[26px] min-h-[42px] mb-1">
+            <div class="flex items-baseline gap-1">
+              <strong class="text-2xl font-extrabold leading-6 text-[#0c0a09]">${formatBRL(itemPrice)}</strong>
+              <span class="text-base font-normal text-[#8c97a6]">/ ${periodLabel}</span>
+            </div>
+            <div class="mt-1 flex items-center gap-1.5">
+              <span class="text-[11.5px] font-semibold text-[#007800]">equivale a ${formatBRL(dailyPrice)} / dia</span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (currentPriceVariant === 'C') {
+        return `
+          <div class="mt-[26px] min-h-[42px] mb-1">
+            <div class="flex items-baseline gap-1">
+              <strong class="text-2xl font-extrabold leading-6 text-[#0c0a09]">${formatBRL(dailyPrice)}</strong>
+              <span class="text-base font-semibold text-[#5f6b7a]">/ dia</span>
+            </div>
+            <div class="mt-1 text-[11.5px] font-normal text-[#8c97a6]">
+              Total: <strong class="font-semibold text-[#5f6b7a]">${formatBRL(itemPrice)}</strong> por ${periodLabel}
+            </div>
+          </div>
+        `;
+      }
+
+      if (currentPriceVariant === 'D') {
+        return `
+          <div class="mt-[20px] min-h-[48px] mb-1">
+            <div class="mb-1.5">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold bg-[#F0FDF4] text-[#15803D] border border-[#BBF7D0]">
+                ⚡ Apenas ${formatBRL(dailyPrice)}/dia
+              </span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <strong class="text-2xl font-extrabold leading-6 text-[#0c0a09]">${formatBRL(itemPrice)}</strong>
+              <span class="text-base font-normal text-[#8c97a6]">/ ${periodLabel}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // Variante A (Controle Oficial)
+      return `
+        <div class="mt-[38px] flex items-baseline gap-1 min-h-[28px] mb-1">
+          <strong class="text-2xl font-extrabold leading-6 text-[#0c0a09]">${formatBRL(itemPrice)}</strong>
+          <span class="text-base font-normal text-[#8c97a6]">/ ${periodLabel}</span>
+        </div>
+      `;
+    }
+
+    function setPriceVariant(variant) {
+      currentPriceVariant = variant;
+      ['A', 'B', 'C', 'D'].forEach(v => {
+        const btn = document.getElementById('variant-btn-' + v);
+        if (!btn) return;
+        if (v === variant) {
+          btn.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#FF5A00] text-white transition cursor-pointer shadow-2xs';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer';
+        }
+      });
+      renderOohPlp();
+      const labels = {
+        A: 'Variante A (Controle Oficial: Preço por período)',
+        B: 'Variante B (Preço do período + Subtítulo por dia)',
+        C: 'Variante C (Hero Preço por dia + Total abaixo)',
+        D: 'Variante D (Badge de Preço por dia + Preço do período)'
+      };
+      showToast(labels[variant] || ('Variante ' + variant));
+    }
+
+    function openTestCardDocModal() {
+      const m = document.getElementById('modal-test-card-doc');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeTestCardDocModal() {
+      const m = document.getElementById('modal-test-card-doc');
+      if (m) m.classList.add('hidden');
+    }
+
+    window.AQUI_ADS_CONFIG = {
+      initialScreen: 'view-resultados',
+      initialChannel: 'ooh',
+      cartPreset: 'empty',
+      hooks: {
+        renderOohCard(item, ctx, defaultRender) {
+          const baseHtml = defaultRender(item);
+          const defaultPriceBlockRegex = /<div class="mt-\[38px\] flex items-baseline gap-1 min-h-\[28px\] mb-1">[\s\S]*?<\/div>/;
+          return baseHtml.replace(defaultPriceBlockRegex, getOohCardPriceHtml(ctx.itemPrice, ctx.periodLabel));
+        },
+        onReady() {
+          const topbarRow = document.querySelector('#aqui-ads-shell-root > header > div');
+          if (topbarRow && !document.getElementById('variant-btn-A')) {
+            topbarRow.insertAdjacentHTML('beforeend', `
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-semibold text-gray-400">Teste A/B/C/D (Cards OOH):</span>
+                <div class="flex flex-wrap items-center bg-gray-900 p-0.5 rounded-lg border border-gray-800 gap-0.5">
+                  <button onclick="setPriceVariant('A')" id="variant-btn-A" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer">
+                    Controle A (Atual)
+                  </button>
+                  <button onclick="setPriceVariant('B')" id="variant-btn-B" class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#FF5A00] text-white transition cursor-pointer shadow-2xs">
+                    Variante B (Subtítulo +/dia)
+                  </button>
+                  <button onclick="setPriceVariant('C')" id="variant-btn-C" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer">
+                    Variante C (Hero /dia)
+                  </button>
+                  <button onclick="setPriceVariant('D')" id="variant-btn-D" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer">
+                    Variante D (Badge /dia)
+                  </button>
+                </div>
+                <button onclick="openTestCardDocModal()" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-indigo-950/90 hover:bg-indigo-900 text-indigo-200 border border-indigo-700/70 flex items-center gap-1 transition cursor-pointer">
+                  <span>📋</span> Test Card (Doc)
+                </button>
+              </div>
+            `);
+          }
+          renderOohPlp();
+        }
+      }
+    };
+  </script>
+
+  <!-- Motor de UI e Jornada Oficial do Aqui Ads -->
+  <script src="aqui_ads_ui.js"></script>
+</body>
+</html>

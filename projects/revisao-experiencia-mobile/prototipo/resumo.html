@@ -1,697 +1,88 @@
-<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aqui Ads — Plano de Mídia (Mobile Quick Wins)</title>
-  <!-- Tailwind CSS -->
+  <title>Aqui Ads — Revisão Mobile: Resumo do Plano de Mídia</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fonte Oficial Rethink Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-  <!-- Ícones Oficiais Unicons -->
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            rethink: ['"Rethink Sans"', 'sans-serif'],
-            sans: ['"Rethink Sans"', 'sans-serif'],
-          },
-          colors: {
-            primary: {
-              default: '#FF4F00',
-              hover: '#E04500',
-            },
-            special: {
-              digital: '#5222D0',
-              success: '#3A9F3A',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
   <style>
-    body {
-      font-family: 'Rethink Sans', sans-serif;
-      background-color: #EEF2F6;
-      margin: 0;
-      padding: 0;
-      color: #0A0A0A;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Barra Superior Fixa de Documentação (viewer-topbar) */
-    .viewer-topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 56px;
-      background-color: #F8F9FA;
-      border-bottom: 1px solid #E2E8F0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    /* Moldura Mobile (390x844px) */
-    .mobile-container {
-      width: 390px;
-      height: 844px;
-      margin: 72px auto 28px auto;
-      background-color: #FFFFFF;
-      border-radius: 40px;
-      border: 8px solid #1E293B;
-      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(15, 23, 42, 0.08);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Área de rolagem interna do smartphone */
-    .mobile-scroll-area {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      padding-bottom: 92px;
-      background-color: #FFFFFF;
-    }
-    .mobile-scroll-area::-webkit-scrollbar {
-      width: 0px;
-      background: transparent;
+    header.header-shrunk {
+      padding-top: 4px !important;
+      padding-bottom: 4px !important;
+      transition: all 0.2s ease;
     }
   </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900">
+  <div id="aqui-ads-shell-root"></div>
 
-  <!-- Barra Superior Fixa de Documentação -->
-  <div class="viewer-topbar">
-    <a href="https://app.notion.com/p/Quick-Wins-de-Experi-ncia-Mobile-Aqui-Ads-3f99587e4137806ebf28e0b58a2df935?source=copy_link"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="inline-flex items-center gap-2 rounded-lg bg-[#E0F2FE] px-4 py-2 text-[13px] font-bold text-[#0369A1] border border-[#BAE6FD] shadow-sm hover:bg-[#BAE6FD] transition-colors">
-      <i class="uil uil-file-alt text-[16px]"></i>
-      Ver Documentação
-    </a>
-  </div>
-
-  <!-- Moldura Mobile Centralizada (390x844) -->
-  <div class="mobile-container">
-
-    <!-- Toast Interativo -->
-    <div id="mobile-toast" class="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 z-[120] flex items-center gap-2 rounded-full bg-[#1E293B] px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg opacity-0 transition-all duration-300 transform -translate-y-2 whitespace-nowrap">
-      <i class="uil uil-check-circle text-[#4ADE80] text-[15px]"></i>
-      <span id="mobile-toast-text">Campanha atualizada</span>
-    </div>
-
-    <!-- Área de Scroll Principal -->
-    <div class="mobile-scroll-area">
-
-      <!-- HEADER OFICIAL AQUI ADS (Fiel ao espelho_producao/resumo.html e capturas reais) -->
-      <header class="sticky top-0 z-30 flex w-full items-center justify-between bg-white px-4 py-3.5 border-b border-[#F1F5F9]">
-        <a href="vitrine.html" class="flex items-center">
-          <img src="https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg" alt="Logotipo Aqui Ads" class="max-w-[90px] h-auto object-contain" />
-        </a>
-
-        <nav class="flex items-center gap-1.5">
-          <!-- Link Assistente de anúncios com SVG oficial de estrelas roxas -->
-          <a href="#assistente" onclick="showToast('Abrindo Assistente de anúncios...'); return false;" class="flex h-[28px] items-center justify-center gap-1 px-1.5 no-underline">
-            <span class="whitespace-nowrap text-[11px] font-medium leading-[14px] tracking-[-0.1px] text-[#0a0a0a]">Assistente de anúncios</span>
-            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-[16px] w-[14px] shrink-0">
-              <path d="M7.53297 3.83518C7.63303 3.83518 7.6831 3.77993 7.70811 3.69313C7.96662 2.37528 7.94997 2.34373 9.40108 2.08329C9.50114 2.06754 9.55953 2.01229 9.55953 1.91757C9.55953 1.8229 9.50114 1.76764 9.40108 1.75185C7.9583 1.4757 8 1.44411 7.70811 0.142051C7.6831 0.0552515 7.63303 0 7.53297 0C7.43288 0 7.38285 0.0552515 7.35783 0.142051C7.06595 1.44411 7.11598 1.4757 5.66487 1.75185C5.57313 1.76764 5.50641 1.8229 5.50641 1.91757C5.50641 2.01229 5.57313 2.06754 5.66487 2.08329C7.11598 2.35952 7.09929 2.37528 7.35783 3.69313C7.38285 3.77993 7.43288 3.83518 7.53297 3.83518ZM3.49654 9.26437C3.655 9.26437 3.76342 9.16966 3.78007 9.02764C4.08032 6.92065 4.15536 6.92065 6.45716 6.50244C6.60728 6.47873 6.71567 6.38406 6.71567 6.23413C6.71567 6.09207 6.60728 5.98948 6.45716 5.96581C4.15536 5.66596 4.07196 5.59491 3.78007 3.44849C3.76342 3.30647 3.655 3.20388 3.49654 3.20388C3.34642 3.20388 3.238 3.30647 3.22131 3.4564C2.94611 5.57124 2.82933 5.56336 0.544259 5.96581C0.394134 5.9974 0.285713 6.09207 0.285713 6.23413C0.285713 6.39193 0.394135 6.47873 0.577601 6.50244C2.84602 6.84964 2.94611 6.90489 3.22131 9.01185C3.238 9.16966 3.34642 9.26437 3.49654 9.26437ZM9.1509 18C9.36774 18 9.52619 17.8501 9.56786 17.637C10.16 13.3126 10.8022 12.6576 15.3223 12.1841C15.5558 12.1604 15.7143 11.9947 15.7143 11.7896C15.7143 11.5844 15.5558 11.4266 15.3223 11.395C10.8022 10.9215 10.16 10.2665 9.56786 5.94214C9.52619 5.72908 9.36774 5.58703 9.1509 5.58703C8.93405 5.58703 8.7756 5.72908 8.74226 5.94214C8.15012 10.2665 7.49963 10.9215 2.98778 11.395C2.74596 11.4266 2.58751 11.5844 2.58751 11.7896C2.58751 11.9947 2.74596 12.1604 2.98778 12.1841C7.49127 12.7444 8.11675 13.3205 8.74226 17.637C8.7756 17.8501 8.93405 18 9.1509 18Z" fill="#695CFF"></path>
-            </svg>
-          </a>
-
-          <!-- Carrinho com Badge Laranja 4 -->
-          <button type="button" class="relative flex h-[30px] w-[30px] items-center justify-center rounded-md text-[#0a0a0a]" aria-label="Carrinho">
-            <i class="uil uil-shopping-cart text-[18px]"></i>
-            <span class="absolute -top-1 -right-1 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-[#FF4F00] px-1 text-[10px] font-bold text-white leading-none">4</span>
-          </button>
-
-          <!-- Avatar Circular F -->
-          <button type="button" class="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-[#E2E8F0] text-[12px] font-bold text-[#1E293B]">
-            F
-          </button>
-
-          <!-- Menu Hambúrguer -->
-          <button type="button" class="flex h-[28px] w-[28px] items-center justify-center text-[#0a0a0a]" aria-label="Abrir menu">
-            <i class="uil uil-bars text-[22px]"></i>
-          </button>
-        </nav>
-      </header>
-
-      <!-- CONTEÚDO PRINCIPAL DO PLANO DE MÍDIA -->
-      <main class="px-4 pt-3 pb-6">
-
-        <!-- Botão Voltar + Título Plano de mídia -->
-        <a href="vitrine.html" class="inline-flex items-center gap-1 text-[13px] font-bold text-[#0A0A0A] no-underline hover:opacity-75 py-1">
-          <i class="uil uil-angle-left text-[18px] text-[#64748B]"></i>
-          <span>voltar</span>
-        </a>
-
-        <h1 class="mt-1.5 text-[24px] font-bold leading-tight text-[#1B2128]">Plano de mídia</h1>
-
-        <!-- QUICK WIN 6: Nome da Campanha em Altíssimo Destaque no Topo + Botão Salvar como Rascunho -->
-        <section class="mt-4 mb-5">
-          <div class="flex items-center justify-between mb-1.5">
-            <label for="campaign-name-input" class="text-[13px] font-semibold text-[#1B2128]">
-              Nome da campanha
-            </label>
-            <span id="char-counter" class="text-[11px] font-normal text-[#717182]">0/30 caracteres</span>
-          </div>
-
-          <input
-            id="campaign-name-input"
-            type="text"
-            maxlength="30"
-            placeholder="Ex: Campanha de Natal"
-            data-track="rename_campaign_checkout"
-            class="w-full rounded-[8px] border border-[#D1DBE3] bg-white px-3.5 py-2.5 text-[14px] font-medium text-[#1B2128] placeholder-[#94A3B8] outline-none focus:border-[#FF4F00] focus:ring-1 focus:ring-[#FF4F00] transition-all"
-          />
-
-          <button
-            type="button"
-            onclick="saveDraft()"
-            class="mt-2.5 flex w-full items-center justify-center gap-2 rounded-[8px] border border-[#DFE7EF] bg-white py-2.5 px-4 text-[13px] font-bold text-[#1B2128] hover:bg-[#F8FAFC] transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
-          >
-            <i class="uil uil-save text-[17px] text-[#94A3B8]"></i>
-            <span>salvar como rascunho</span>
-          </button>
-        </section>
-
-        <!-- CARD 1: DIGITAL (Com Quick Win 7: Botão "Editar" no Público Alvo) -->
-        <section class="mb-4 rounded-[14px] border border-[#EEF2F6] bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
-          <!-- Cabeçalho do Acordeão Digital -->
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <i class="uil uil-globe text-[18px] text-[#3B4859]"></i>
-              <h2 class="text-[17px] font-bold text-[#282E38]">Digital</h2>
-            </div>
-            <button
-              type="button"
-              onclick="toggleAccordion('digital-body', 'digital-chevron')"
-              aria-label="Recolher seção Digital"
-              class="flex h-8 w-8 items-center justify-center rounded-full bg-[#E2E6EC] text-[#282E38] hover:bg-[#CBD5E1] transition-colors"
-            >
-              <i id="digital-chevron" class="uil uil-angle-up text-[20px] transition-transform duration-200"></i>
-            </button>
-          </div>
-
-          <div id="digital-body" class="mt-3.5">
-            <!-- Box Interno Cinza Claro de Público Alvo + Quick Win 7 (Botão "Editar") -->
-            <div class="rounded-[10px] bg-[#F2F4F8] p-3.5">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[13px] font-semibold text-[#5A6577]">Público alvo</span>
-                <!-- QUICK WIN 7: Botão escrito APENAS "Editar" com área de toque mínima de 44px -->
-                <a
-                  href="vitrine.html"
-                  data-track="edit_audience"
-                  class="inline-flex min-h-[44px] min-w-[44px] -my-2.5 -mr-1 items-center justify-end px-2 text-[13px] font-semibold text-[#1D5DEC] no-underline hover:underline"
-                >
-                  Editar
-                </a>
-              </div>
-
-              <!-- Grid 2x2 fiel à captura media_1791983237558.png -->
-              <div class="grid grid-cols-2 gap-x-4 gap-y-2.5">
-                <div class="flex flex-col">
-                  <span class="text-[12px] font-normal text-[#7E899B]">local</span>
-                  <strong class="text-[12px] font-semibold text-[#475569]">Todos</strong>
-                </div>
-                <div class="flex flex-col">
-                  <span class="text-[12px] font-normal text-[#7E899B]">interesse</span>
-                  <strong class="text-[12px] font-semibold text-[#475569]">Todos</strong>
-                </div>
-                <div class="flex flex-col">
-                  <span class="text-[12px] font-normal text-[#7E899B]">idade</span>
-                  <strong class="text-[12px] font-semibold text-[#475569]">Todos</strong>
-                </div>
-                <div class="flex flex-col">
-                  <span class="text-[12px] font-normal text-[#7E899B]">gênero</span>
-                  <strong class="text-[12px] font-semibold text-[#475569]">Todos</strong>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item listado dentro de Digital: Display - Portais Globo -->
-            <div class="mt-4 pt-2 flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked
-                aria-label="Selecionar Display - Portais Globo"
-                class="mt-1 h-[18px] w-[18px] rounded border-[#CBD5E1] accent-[#FF4F00] cursor-pointer"
-              />
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-2">
-                  <strong class="text-[14px] font-bold text-[#0A0A0A]">Display - Portais Globo</strong>
-                  <button type="button" onclick="showToast('Item removido da simulação')" class="text-[#7A869A] hover:text-[#E75D4B] p-0.5" aria-label="Remover item">
-                    <i class="uil uil-trash-alt text-[17px]"></i>
-                  </button>
-                </div>
-
-                <!-- Tag escura display -->
-                <div class="mt-1.5">
-                  <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#282E38] px-2 py-0.5 text-[11px] font-semibold text-white">
-                    <i class="uil uil-browser text-[11px]"></i>
-                    <span>display</span>
-                  </span>
-                </div>
-
-                <!-- Métricas de Display -->
-                <div class="mt-3 grid grid-cols-2 gap-2">
-                  <div class="flex flex-col">
-                    <span class="text-[11px] text-[#7E899B]">impressões</span>
-                    <strong class="text-[13px] font-semibold text-[#1B2128]">94.000</strong>
-                  </div>
-                  <div class="flex flex-col">
-                    <span class="text-[11px] text-[#7E899B]">CPM</span>
-                    <strong class="text-[13px] font-semibold text-[#1B2128]">9,60</strong>
-                  </div>
-                </div>
-
-                <div class="mt-2.5 flex flex-col">
-                  <span class="text-[11px] text-[#7E899B]">investimento</span>
-                  <strong class="text-[13px] font-bold text-[#1B2128]">R$ 902,40</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- CARD 2: OOH | Out of Home · Digital (Fiel à captura media_1791983182574.png) -->
-        <section class="mb-4 rounded-[14px] border border-[#EEF2F6] bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <i class="uil uil-apps text-[17px] text-[#3B4859]"></i>
-              <h2 class="text-[16px] font-bold text-[#282E38]">OOH | Out of Home</h2>
-              <span class="text-[15px] font-normal text-[#7E899B]">· Digital</span>
-            </div>
-            <button
-              type="button"
-              onclick="toggleAccordion('ooh-body', 'ooh-chevron')"
-              aria-label="Recolher seção OOH"
-              class="flex h-8 w-8 items-center justify-center rounded-full bg-[#E2E6EC] text-[#282E38] hover:bg-[#CBD5E1] transition-colors shrink-0"
-            >
-              <i id="ooh-chevron" class="uil uil-angle-up text-[20px] transition-transform duration-200"></i>
-            </button>
-          </div>
-
-          <div id="ooh-body" class="mt-3.5 divide-y divide-[#F1F5F9]">
-            
-            <!-- Item OOH 1: Vn Alvorada 1217 -->
-            <div class="py-3 first:pt-1 flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked
-                aria-label="Selecionar Vn Alvorada 1217"
-                class="mt-1 h-[18px] w-[18px] rounded border-[#CBD5E1] accent-[#FF4F00] cursor-pointer"
-              />
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-2">
-                  <strong class="text-[14px] font-bold text-[#0A0A0A]">Vn Alvorada 1217</strong>
-                  <button type="button" onclick="showToast('Ponto removido da simulação')" class="text-[#7A869A] hover:text-[#E75D4B] p-0.5" aria-label="Remover ponto">
-                    <i class="uil uil-trash-alt text-[17px]"></i>
-                  </button>
-                </div>
-
-                <!-- Chips -->
-                <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
-                  <span class="inline-flex items-center gap-1 rounded-[4px] border border-[#CBD5E1] bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#282E38]">
-                    <i class="uil uil-estate text-[11px]"></i> residencial
-                  </span>
-                  <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#5222D0] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    <i class="uil uil-desktop-alt text-[11px]"></i> digital
-                  </span>
-                  <span class="inline-flex items-center gap-0.5 rounded-[4px] bg-[#9E9E9E] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    <i class="uil uil-map-marker text-[11px]"></i> 1584 m
-                  </span>
-                </div>
-
-                <p class="mt-1.5 text-[11px] text-[#64748B]">Rua Alvorada, Vila Olímpia, São Paulo, SP</p>
-
-                <div class="mt-2.5 flex items-baseline gap-1">
-                  <strong class="text-[15px] font-extrabold text-[#0A0A0A]">R$ 1.258,56</strong>
-                  <span class="text-[11px] text-[#7E899B]">/ 12 semanas</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item OOH 2: Araribóia -->
-            <div class="py-3 flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked
-                aria-label="Selecionar Araribóia"
-                class="mt-1 h-[18px] w-[18px] rounded border-[#CBD5E1] accent-[#FF4F00] cursor-pointer"
-              />
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-2">
-                  <strong class="text-[14px] font-bold text-[#0A0A0A]">Araribóia</strong>
-                  <button type="button" onclick="showToast('Ponto removido da simulação')" class="text-[#7A869A] hover:text-[#E75D4B] p-0.5" aria-label="Remover ponto">
-                    <i class="uil uil-trash-alt text-[17px]"></i>
-                  </button>
-                </div>
-
-                <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
-                  <span class="inline-flex items-center gap-1 rounded-[4px] border border-[#CBD5E1] bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#282E38]">
-                    <i class="uil uil-estate text-[11px]"></i> residencial
-                  </span>
-                  <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#5222D0] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    <i class="uil uil-desktop-alt text-[11px]"></i> digital
-                  </span>
-                  <span class="inline-flex items-center gap-0.5 rounded-[4px] bg-[#9E9E9E] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    <i class="uil uil-map-marker text-[11px]"></i> 1620 m
-                  </span>
-                </div>
-
-                <p class="mt-1.5 text-[11px] text-[#64748B]">Rua Gomes de Carvalho, Vila Olímpia, São Paulo, SP</p>
-
-                <div class="mt-2.5 flex items-baseline gap-1">
-                  <strong class="text-[15px] font-extrabold text-[#0A0A0A]">R$ 2.472,60</strong>
-                  <span class="text-[11px] text-[#7E899B]">/ 12 semanas</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item OOH 3: Drogasil - 228-SV Canela 1 -->
-            <div class="py-3 pb-1 flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked
-                aria-label="Selecionar Drogasil - 228-SV Canela 1"
-                class="mt-1 h-[18px] w-[18px] rounded border-[#CBD5E1] accent-[#FF4F00] cursor-pointer"
-              />
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-2">
-                  <strong class="text-[14px] font-bold text-[#0A0A0A]">Drogasil - 228-SV Canela 1</strong>
-                  <button type="button" onclick="showToast('Ponto removido da simulação')" class="text-[#7A869A] hover:text-[#E75D4B] p-0.5" aria-label="Remover ponto">
-                    <i class="uil uil-trash-alt text-[17px]"></i>
-                  </button>
-                </div>
-
-                <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
-                  <span class="inline-flex items-center gap-1 rounded-[4px] border border-[#CBD5E1] bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#282E38]">
-                    <i class="uil uil-building text-[11px]"></i> comercial
-                  </span>
-                  <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#5222D0] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    <i class="uil uil-desktop-alt text-[11px]"></i> digital
-                  </span>
-                  <span class="inline-flex items-center gap-0.5 rounded-[4px] bg-[#9E9E9E] px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    <i class="uil uil-map-marker text-[11px]"></i> 1 m
-                  </span>
-                </div>
-
-                <p class="mt-1.5 text-[11px] text-[#64748B]">Rua João das Botas, 121, Canela, Salvador, BA</p>
-
-                <div class="mt-2.5 flex items-baseline gap-1">
-                  <strong class="text-[15px] font-extrabold text-[#0A0A0A]">R$ 2.472,60</strong>
-                  <span class="text-[11px] text-[#7E899B]">/ 12 semanas</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- Botão Secundário Largo: contratar mais produtos -->
-        <a
-          href="vitrine.html"
-          class="mb-5 flex w-full items-center justify-center rounded-[8px] border border-[#DFE7EF] bg-white py-2.5 px-4 text-[13px] font-bold text-[#1B2128] no-underline hover:bg-[#F8FAFC] transition-colors"
-        >
-          contratar mais produtos
-        </a>
-
-        <!-- SEÇÃO: Datas e ambientes (Fiel à captura media_1791983182574.png) -->
-        <section class="mb-4 rounded-[14px] border border-[#EEF2F6] bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
-          <h3 class="text-[17px] font-bold text-[#1B2128]">Datas e ambientes</h3>
-
-          <p class="mt-2.5 text-[12px] text-[#7E899B]">ambientes:</p>
-          <div class="mt-1.5 flex flex-wrap gap-1.5">
-            <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#E2ECF7] px-2 py-0.5 text-[11px] font-semibold text-[#1E293B]">
-              <i class="uil uil-estate text-[12px]"></i> Elevadores Residenciais
-            </span>
-            <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#E2ECF7] px-2 py-0.5 text-[11px] font-semibold text-[#1E293B]">
-              <i class="uil uil-desktop-alt text-[12px]"></i> Digital
-            </span>
-            <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#E2ECF7] px-2 py-0.5 text-[11px] font-semibold text-[#1E293B]">
-              <i class="uil uil-building text-[12px]"></i> Elevadores Comerciais
-            </span>
-            <span class="inline-flex items-center gap-1 rounded-[4px] bg-[#E2ECF7] px-2 py-0.5 text-[11px] font-semibold text-[#1E293B]">
-              <i class="uil uil-dumbbell text-[12px]"></i> Academias
-            </span>
-          </div>
-
-          <div class="mt-4 space-y-3">
-            <!-- Duração -->
-            <div>
-              <label class="block text-[11px] text-[#7E899B] mb-1">duração</label>
-              <div class="relative flex items-center rounded-[8px] border border-[#DFE7EF] bg-white px-3 py-2">
-                <i class="uil uil-calendar-alt text-[16px] text-[#94A3B8] mr-2"></i>
-                <select class="w-full appearance-none bg-transparent text-[13px] font-semibold text-[#1B2128] outline-none">
-                  <option value="12" selected>12 semanas</option>
-                  <option value="8">8 semanas</option>
-                  <option value="4">4 semanas</option>
-                  <option value="2">2 semanas</option>
-                </select>
-                <i class="uil uil-angle-down pointer-events-none absolute right-3 text-[18px] text-[#1B2128]"></i>
-              </div>
-            </div>
-
-            <!-- Início -->
-            <div>
-              <label class="block text-[11px] text-[#7E899B] mb-1">início</label>
-              <div class="flex items-center rounded-[8px] border border-[#DFE7EF] bg-white px-3 py-2">
-                <i class="uil uil-calendar-alt text-[16px] text-[#94A3B8] mr-2"></i>
-                <input type="text" value="21/10/2026" readonly class="w-full bg-transparent text-[13px] font-medium text-[#1B2128] outline-none" />
-              </div>
-            </div>
-
-            <!-- Fim -->
-            <div>
-              <label class="block text-[11px] text-[#7E899B] mb-1">fim</label>
-              <div class="flex items-center rounded-[8px] border border-[#F1F5F9] bg-[#F8FAFC] px-3 py-2">
-                <i class="uil uil-calendar-alt text-[16px] text-[#CBD5E1] mr-2"></i>
-                <input type="text" value="12/01/2027" readonly class="w-full bg-transparent text-[13px] font-medium text-[#64748B] outline-none" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SEÇÃO: Performance projetada (Fiel à captura media_1791983182574.png) -->
-        <section class="mb-4 rounded-[14px] border border-[#EEF2F6] bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
-          <h3 class="text-[17px] font-bold text-[#1B2128]">Performance projetada</h3>
-
-          <!-- Sub-bloco Digital -->
-          <div class="mt-3 border-b border-[#F1F5F9] pb-3.5">
-            <h4 class="text-[13px] font-bold text-[#282E38]">Digital</h4>
-            <div class="mt-2 grid grid-cols-[100px_1fr] gap-3 items-start">
-              <div>
-                <span class="block text-[11px] text-[#7E899B]">impressões</span>
-                <strong class="text-[13px] font-bold text-[#1B2128]">94 mil</strong>
-              </div>
-              <div>
-                <span class="block text-[11px] text-[#7E899B] mb-1">portais</span>
-                <div class="flex flex-wrap gap-1">
-                  <span class="rounded-[4px] bg-[#C4170C] px-1.5 py-0.5 text-[10px] font-bold text-white">g1</span>
-                  <span class="rounded-[4px] bg-[#06AA48] px-1.5 py-0.5 text-[10px] font-bold text-white">ge</span>
-                  <span class="rounded-[4px] bg-[#FF6700] px-1.5 py-0.5 text-[10px] font-bold text-white">gshow</span>
-                  <span class="rounded-[4px] bg-[#9B116E] px-1.5 py-0.5 text-[10px] font-bold text-white">receitas</span>
-                  <span class="rounded-[4px] bg-[#005CEF] px-1.5 py-0.5 text-[10px] font-bold text-white">globo.com</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sub-bloco OOH | Out of Home -->
-          <div class="mt-3.5">
-            <h4 class="text-[13px] font-bold text-[#282E38]">OOH | Out of Home</h4>
-            <div class="mt-2 grid grid-cols-3 gap-y-2.5 gap-x-2">
-              <div>
-                <span class="block text-[11px] text-[#7E899B]">exibições</span>
-                <strong class="text-[13px] font-bold text-[#1B2128]">184,28 mil</strong>
-              </div>
-              <div>
-                <span class="block text-[11px] text-[#7E899B]">alcance</span>
-                <strong class="text-[13px] font-bold text-[#1B2128]">8,83 mil</strong>
-              </div>
-              <div>
-                <span class="block text-[11px] text-[#7E899B]">impacto</span>
-                <strong class="text-[13px] font-bold text-[#1B2128]">115,62 mil</strong>
-              </div>
-              <div>
-                <span class="block text-[11px] text-[#7E899B]">frequência</span>
-                <strong class="text-[13px] font-bold text-[#1B2128]">13,00</strong>
-              </div>
-              <div>
-                <span class="block text-[11px] text-[#7E899B]">telas</span>
-                <strong class="text-[13px] font-bold text-[#1B2128]">8</strong>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SEÇÃO: Valor (Fiel à captura media_1791983182574.png) -->
-        <section class="mb-4 rounded-[14px] border border-[#EEF2F6] bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.03)]">
-          <h3 class="text-[17px] font-bold text-[#1B2128]">Valor</h3>
-
-          <div class="mt-2.5 flex items-center gap-2 border-b border-[#F1F5F9] pb-3 text-[12px]">
-            <span class="text-[#7E899B]">Possui cupom?</span>
-            <button type="button" onclick="showToast('Campo de cupom aberto')" class="font-semibold text-[#3A9F3A] hover:underline bg-transparent border-none p-0 cursor-pointer">Adicionar</button>
-          </div>
-
-          <div class="mt-3 space-y-2 text-[13px]">
-            <div class="flex items-center justify-between text-[#475569]">
-              <span>Campanha Digital</span>
-              <span>R$ 902,40</span>
-            </div>
-            <div class="flex items-center justify-between text-[#475569]">
-              <span>Campanha Out of Home</span>
-              <span>R$ 6.203,76</span>
-            </div>
-            <div class="flex items-center justify-between font-bold text-[#1B2128] pt-1">
-              <span>Subtotal</span>
-              <span>R$ 7.106,16</span>
-            </div>
-            <div class="flex items-center justify-between border-t border-[#F1F5F9] pt-2.5 text-[15px] font-extrabold text-[#0A0A0A]">
-              <span>Total</span>
-              <span>R$ 7.106,16</span>
-            </div>
-          </div>
-
-          <!-- Aviso informativo -->
-          <div class="mt-4 flex items-start gap-2 rounded-[8px] bg-[#F8FAFC] p-2.5 text-[11px] leading-relaxed text-[#64748B]">
-            <i class="uil uil-info-circle text-[15px] text-[#94A3B8] shrink-0 mt-0.5"></i>
-            <p>Os pontos de mídia podem variar em razão de <span class="underline">indisponibilidade</span> de pontos sem aviso prévio.</p>
-          </div>
-
-          <!-- Botões de ação da seção Valor -->
-          <div class="mt-4 space-y-2.5">
-            <button
-              type="button"
-              onclick="showToast('Iniciando envio de criativos...')"
-              class="w-full rounded-[8px] border border-[#DFE7EF] bg-white py-2.5 text-[13px] font-bold text-[#1B2128] hover:bg-[#F8FAFC] transition-colors"
-            >
-              enviar criativo
-            </button>
-            <button
-              type="button"
-              onclick="proceedToPayment()"
-              class="w-full rounded-[8px] bg-[#FF4F00] hover:bg-[#E04500] py-2.5 text-[13px] font-bold text-white transition-colors"
-            >
-              realizar pagamento
-            </button>
-          </div>
-        </section>
-
-        <!-- Bloco final de apoio (Precisa voltar mais tarde?) -->
-        <section class="rounded-[14px] bg-[#F2F4F8] p-5 text-center">
-          <h4 class="text-[13px] font-bold text-[#1B2128]">Precisa voltar mais tarde?</h4>
-          <p class="text-[12px] text-[#475569] mt-0.5">Guarde seu Plano de Mídia.</p>
-
-          <div class="mt-3.5 flex flex-col items-center gap-2">
-            <button type="button" onclick="showToast('Baixando proposta em PDF...')" class="inline-flex w-[190px] items-center justify-between rounded-[6px] bg-white px-3.5 py-2 text-[12px] font-bold text-[#1B2128] shadow-sm">
-              <span>baixar proposta</span>
-              <i class="uil uil-import text-[15px]"></i>
-            </button>
-            <button type="button" onclick="saveDraft()" class="inline-flex w-[190px] items-center justify-between rounded-[6px] bg-white px-3.5 py-2 text-[12px] font-bold text-[#1B2128] shadow-sm">
-              <span>salvar como rascunho</span>
-              <i class="uil uil-save text-[15px]"></i>
-            </button>
-          </div>
-
-          <a href="https://wa.me/551150395212" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-[#475569] no-underline hover:text-[#0A0A0A]">
-            <span>tenho uma dúvida</span>
-            <i class="uil uil-whatsapp text-[15px]"></i>
-          </a>
-        </section>
-
-      </main>
-    </div>
-
-    <!-- QUICK WIN 5: Barra Inferior Fixa com Ancoragem Financeira (Valor Total + Realizar Pagamento) -->
-    <div class="absolute bottom-0 left-0 right-0 z-50 flex items-center justify-between border-t border-[#E2E8F0] bg-white px-4 py-3 shadow-[0_-4px_16px_rgba(15,23,42,0.08)]">
-      <div class="flex flex-col">
-        <span class="text-[12px] font-medium text-[#475569] leading-tight">Valor Total:</span>
-        <strong class="text-[19px] font-extrabold text-[#0A0A0A] leading-tight mt-0.5">R$ 7.106,16</strong>
-      </div>
-
-      <button
-        type="button"
-        data-track="proceed_to_payment"
-        onclick="proceedToPayment()"
-        class="inline-flex items-center justify-center gap-2 rounded-[8px] bg-[#FF4F00] hover:bg-[#E04500] px-4 py-3 text-[13.5px] font-bold text-white shadow-sm transition-colors cursor-pointer"
-      >
-        <span>Realizar Pagamento</span>
-        <i class="uil uil-arrow-right text-[18px]"></i>
-      </button>
-    </div>
-
-  </div>
-
-  <!-- Scripts de Interatividade dos Quick Wins 5, 6 e 7 -->
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
   <script>
-    function showToast(msg) {
-      const toast = document.getElementById('mobile-toast');
-      const text = document.getElementById('mobile-toast-text');
-      text.textContent = msg;
-      toast.classList.remove('opacity-0', '-translate-y-2');
-      toast.classList.add('opacity-100', 'translate-y-0');
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', '-translate-y-2');
-      }, 2400);
-    }
+    AquiAdsUI.mount('#aqui-ads-shell-root', {
+      title: 'Revisão Mobile — Resumo do Plano de Mídia',
+      initialView: 'resumo',
+      initialChannel: 'ooh',
+      cartPreset: 'midiaMista',
+      viewport: 'mobile',
+      onReady: function() {
+        const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
+        if (topControls) {
+          const bar = document.createElement('div');
+          bar.className = 'flex items-center gap-2 text-xs';
+          bar.innerHTML = `
+            <a href="quick-wins-mobile.html" class="px-2.5 py-1 rounded-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📱</span><span>Comparativo Antes vs. Depois</span>
+            </a>
+            <a href="https://www.notion.so/3229587e413781f9b036c0f82c12c1b0" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
+              <span>📄</span><span>Doc Notion</span>
+            </a>
+          `;
+          topControls.insertBefore(bar, topControls.firstChild);
+        }
 
-    // Quick Win 6: Contador em tempo real de caracteres do Nome da Campanha
-    const campaignInput = document.getElementById('campaign-name-input');
-    const charCounter = document.getElementById('char-counter');
+        const viewResumoContainer = document.querySelector('#view-resumo > div');
+        if (viewResumoContainer) {
+          const qw6Card = document.createElement('div');
+          qw6Card.className = 'bg-white rounded-xl border border-[#E2E8F0] p-4 shadow-xs space-y-3 mb-5';
+          qw6Card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="campaign-name-input" class="text-xs font-bold text-[#282E38]">Nome da campanha</label>
+                <span id="char-counter" class="text-[11px] font-semibold text-[#64748B]">19/30 caracteres</span>
+              </div>
+              <input id="campaign-name-input" type="text" maxlength="30" value="Campanha Outubro 26" oninput="document.getElementById('char-counter').textContent = this.value.length + '/30 caracteres'; const rInput = document.getElementById('resumo-camp-name'); if (rInput) { rInput.value = this.value; updateResumoCampCount(); }" class="w-full rounded-lg border border-[#CBD5E1] px-3 py-2 text-xs font-semibold text-[#282E38] focus:border-[#FF4F00] outline-none" placeholder="Digite o nome da sua campanha" />
+            </div>
+            <button type="button" onclick="openSaveDraftModal()" class="w-full py-2.5 px-4 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC] hover:bg-gray-100 text-xs font-bold text-[#282E38] flex items-center justify-center gap-2 cursor-pointer transition min-h-[44px]">
+              <span>💾</span><span>salvar como rascunho</span>
+            </button>
+          `;
+          const gridEl = viewResumoContainer.querySelector('.grid');
+          if (gridEl) viewResumoContainer.insertBefore(qw6Card, gridEl);
+        }
 
-    campaignInput.addEventListener('input', () => {
-      const len = campaignInput.value.length;
-      charCounter.textContent = `${len}/30 caracteres`;
-    });
-
-    campaignInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        campaignInput.blur();
-        saveDraft();
+        const resumoTotalEl = document.getElementById('resumo-val-total');
+        if (resumoTotalEl) {
+          const rightCard = resumoTotalEl.closest('.bg-white');
+          if (rightCard) {
+            const stickyBar = document.createElement('div');
+            stickyBar.id = 'qw5-sticky-resumo-bar';
+            stickyBar.className = 'sticky bottom-0 z-30 mt-4 -mx-4 px-4 py-3 bg-white border-t border-gray-200 shadow-[0_-4px_12px_rgba(0,0,0,0.06)] flex items-center justify-between gap-3';
+            stickyBar.innerHTML = `
+              <div>
+                <span class="block text-[10px] uppercase font-bold text-[#64748B]">Valor Total</span>
+                <strong id="qw5-sticky-total" class="text-sm font-extrabold text-[#282E38]">${resumoTotalEl.textContent || 'R$ 7.106,16'}</strong>
+              </div>
+              <button type="button" onclick="goToPagamento()" class="px-5 py-2.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer transition shadow-xs min-h-[44px]">
+                Realizar Pagamento →
+              </button>
+            `;
+            rightCard.appendChild(stickyBar);
+          }
+        }
       }
     });
-
-    function saveDraft() {
-      const name = campaignInput.value.trim();
-      if (name) {
-        showToast(`Rascunho "${name}" salvo!`);
-      } else {
-        showToast('Plano salvo como rascunho!');
-      }
-    }
-
-    function proceedToPayment() {
-      const name = campaignInput.value.trim() || 'Plano de Mídia';
-      showToast(`Avançando para pagamento (${name})...`);
-    }
-
-    // Acordeões interativos dos cards Digital e OOH
-    function toggleAccordion(bodyId, chevronId) {
-      const body = document.getElementById(bodyId);
-      const chevron = document.getElementById(chevronId);
-      if (body.classList.contains('hidden')) {
-        body.classList.remove('hidden');
-        chevron.style.transform = 'rotate(0deg)';
-      } else {
-        body.classList.add('hidden');
-        chevron.style.transform = 'rotate(180deg)';
-      }
-    }
   </script>
 </body>
 </html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protótipo — Melhorias na Barra Fixa (Página de Resultados)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="aqui_ads_official.css" />
+  <style>
+    /* 1. Pílula de Parcelamento Sem Juros (Foco de Conversão) */
+    .installment-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF0EB;
+      border: 1px solid #FFD4C4;
+      color: #FA4800;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* 2. Pílulas de Alcance & Impactos Estimados */
+    .metric-bubble-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    /* 5. Combo 1 + 2: Alcance + Parcelamento em Pílula Integrada */
+    .combo-pill-container {
+      display: inline-flex;
+      align-items: center;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 9999px;
+      padding: 4px 6px 4px 14px;
+      gap: 12px;
+      white-space: nowrap;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    /* 6. Combo 1 + 2 (Preço por Dia): Alcance + Custo Diário */
+    .combo-daily-container {
+      display: inline-flex;
+      align-items: center;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 9999px;
+      padding: 4px 6px 4px 14px;
+      gap: 12px;
+      white-space: nowrap;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+    .daily-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #047857;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .combo-badge-juros {
+      background: #FA4800;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .combo-badge-daily {
+      background: #059669;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body class="bg-slate-50">
+  <!-- Ponto de Montagem do App Shell & Jornada Unificada (aqui_ads_ui.js) -->
+  <div id="aqui-ads-app"></div>
+
+  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_ui.js"></script>
+  <script>
+    window.currentProposal = 5;
+
+    window.selectProposal = function(num) {
+      window.currentProposal = num;
+      document.querySelectorAll('.prop-btn').forEach(btn => {
+        const isSelected = parseInt(btn.getAttribute('data-prop')) === num;
+        if (isSelected) {
+          btn.className = 'prop-btn px-2.5 py-1 text-[11px] font-bold rounded-md transition-all bg-[#FA4800] text-white shadow-sm';
+        } else {
+          btn.className = 'prop-btn px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all text-slate-300 hover:text-white';
+        }
+      });
+      window.syncPlpStickyBar();
+    };
+
+    window.syncPlpStickyBar = function() {
+      const bar = document.getElementById('actions-bar-results');
+      if (!bar) return;
+
+      const isMobile = document.getElementById('viewport-container')?.classList.contains('mobile-frame');
+      const totalValue = typeof window.getTotalCartValue === 'function' ? window.getTotalCartValue() : 2307.98;
+      const count = (window.cartState?.oohIds?.length || 0) + (window.cartState?.digitalIds?.length || 0);
+
+      if (count <= 0 || totalValue <= 0) {
+        bar.style.display = 'none';
+        return;
+      }
+      bar.style.display = 'flex';
+
+      const countEl = document.getElementById('plp-bar-count');
+      const totalEl = document.getElementById('plp-bar-total');
+      if (countEl) countEl.textContent = count;
+      if (totalEl) totalEl.textContent = totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+      const prop = window.currentProposal || 5;
+      const installmentVal = (totalValue / 3).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+      const campaignDays = 14;
+      const dailyTotalVal = (totalValue / campaignDays).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      const dailyPerScreenVal = (totalValue / campaignDays / Math.max(count, 1)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+      let totalImpressions = 0;
+      if (window.cartState && window.POINTS_DB) {
+        (window.cartState.oohIds || []).forEach(id => {
+          const pt = window.POINTS_DB[id];
+          if (pt && pt.impressions) totalImpressions += pt.impressions;
+          else totalImpressions += 29000;
+        });
+      }
+      if (totalImpressions === 0) totalImpressions = count * 29250;
+      const formattedImpressions = totalImpressions >= 1000
+        ? `+${Math.round(totalImpressions / 1000)} mil`
+        : `+${totalImpressions}`;
+      const estimatedScreens = count * 3;
+
+      const deskSlot = document.getElementById('deskCentralSlot');
+      const mobStrip = document.getElementById('plp-mobile-context-strip');
+      const subLeft = document.getElementById('plp-bar-sub-left');
+      const nextBtnLabel = document.getElementById('plp-next-btn-label');
+
+      if (!deskSlot || !mobStrip || !subLeft) return;
+
+      deskSlot.className = 'hidden md:flex items-center justify-center flex-1 px-4';
+      mobStrip.className = 'hidden w-full';
+      subLeft.className = 'hidden text-[11px] font-semibold mt-0.5';
+      if (nextBtnLabel) nextBtnLabel.textContent = 'Avançar';
+
+      if (prop === 0) {
+        deskSlot.className = 'hidden';
+      } else if (prop === 1) {
+        deskSlot.innerHTML = `
+          <div class="installment-pill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <span>Em até <strong>3x de ${installmentVal} sem juros</strong> no cartão ou Pix</span>
+          </div>
+        `;
+        if (isMobile) {
+          deskSlot.className = 'hidden';
+          subLeft.className = 'block text-[11px] font-bold text-[#FA4800] mt-0.5';
+          subLeft.innerHTML = `ou em até 3x de ${installmentVal} s/ juros`;
+        }
+      } else if (prop === 2) {
+        deskSlot.innerHTML = `
+          <div class="metric-bubble-group">
+            <span class="flex items-center gap-1.5 font-semibold text-slate-700">
+              <svg class="w-4 h-4 text-[#FA4800]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <strong>${formattedImpressions}</strong> impressões estimadas
+            </span>
+            <span class="text-slate-300">|</span>
+            <span class="flex items-center gap-1.5 font-semibold text-slate-700">
+              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+              <strong>${estimatedScreens} faces digitais</strong> ativas
+            </span>
+          </div>
+        `;
+        if (isMobile) {
+          deskSlot.className = 'hidden';
+          mobStrip.className = 'flex items-center justify-between px-4 py-1.5 bg-slate-50 border-b border-slate-200 text-[11px] text-slate-700 font-semibold';
+          mobStrip.innerHTML = `
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#FA4800]"></span> ${formattedImpressions} impressões</span>
+            <span class="text-slate-400">•</span>
+            <span>${estimatedScreens} faces digitais no plano</span>
+          `;
+        }
+      } else if (prop === 5) {
+        deskSlot.innerHTML = `
+          <div class="combo-pill-container">
+            <span class="flex items-center gap-1.5 text-xs font-semibold text-slate-700" title="Estimativa de visualizações totais dos pontos selecionados">
+              <svg class="w-4 h-4 text-[#FA4800] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span><strong class="text-slate-900 font-extrabold">${formattedImpressions}</strong> impressões</span>
+              <span class="text-slate-300 mx-0.5">•</span>
+              <span class="text-slate-600"><strong>${estimatedScreens}</strong> faces</span>
+            </span>
+            <div class="installment-pill !py-1 !px-3">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              <span>Até <strong>3x de ${installmentVal}</strong></span>
+              <span class="combo-badge-juros">Sem Juros</span>
+            </div>
+          </div>
+        `;
+        if (isMobile) {
+          deskSlot.className = 'hidden';
+          mobStrip.className = 'flex items-center justify-between px-4 py-1.5 bg-[#F8FAFC] border-b border-slate-200 text-[11px] text-slate-700 font-semibold';
+          mobStrip.innerHTML = `
+            <span class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#FA4800]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span><strong class="text-slate-900">${formattedImpressions}</strong> impressões</span>
+            </span>
+            <span class="text-slate-500 font-medium">${estimatedScreens} faces digitais</span>
+          `;
+          subLeft.className = 'flex items-center gap-1 text-[11px] font-bold text-[#FA4800] mt-0.5';
+          subLeft.innerHTML = `
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <span>ou 3x de ${installmentVal} s/ juros</span>
+          `;
+        }
+      } else if (prop === 6) {
+        deskSlot.innerHTML = `
+          <div class="combo-daily-container">
+            <span class="flex items-center gap-1.5 text-xs font-semibold text-slate-700" title="Estimativa de visualizações totais em 14 dias de campanha">
+              <svg class="w-4 h-4 text-[#FA4800] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span><strong class="text-slate-900 font-extrabold">${formattedImpressions}</strong> impressões</span>
+              <span class="text-slate-300 mx-0.5">•</span>
+              <span class="text-slate-600"><strong>${campaignDays} dias</strong> ativos</span>
+            </span>
+            <div class="daily-pill !py-1 !px-3" title="Equivalente a ${dailyPerScreenVal}/dia por ponto selecionado">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Apenas <strong>${dailyTotalVal}/dia</strong> no total</span>
+              <span class="combo-badge-daily">${dailyPerScreenVal}/ponto</span>
+            </div>
+          </div>
+        `;
+        if (isMobile) {
+          deskSlot.className = 'hidden';
+          mobStrip.className = 'flex items-center justify-between px-4 py-1.5 bg-[#F8FAFC] border-b border-slate-200 text-[11px] text-slate-700 font-semibold';
+          mobStrip.innerHTML = `
+            <span class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#FA4800]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span><strong class="text-slate-900">${formattedImpressions}</strong> impressões</span>
+            </span>
+            <span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">${dailyPerScreenVal}/dia por ponto</span>
+          `;
+          subLeft.className = 'flex items-center gap-1 text-[11px] font-bold text-emerald-700 mt-0.5';
+          subLeft.innerHTML = `
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Apenas ${dailyTotalVal}/dia (${campaignDays} dias)</span>
+          `;
+        }
+      }
+    };
+
+    AquiAdsUI.mount({
+      initialView: 'resultados',
+      cartPreset: 'oohOnly',
+      hooks: {
+        renderBottomBar: function() {
+          window.syncPlpStickyBar();
+        },
+        onViewportChange: function() {
+          setTimeout(() => window.syncPlpStickyBar(), 40);
+        },
+        onReady: function() {
+          // 1. Injeta a estrutura de slots customizados na barra fixa inferior
+          const bar = document.getElementById('actions-bar-results');
+          if (bar) {
+            bar.className = 'sticky bottom-0 left-0 right-0 w-full z-40 border-t border-slate-200 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.06)] flex flex-col transition-all duration-200';
+            bar.innerHTML = `
+              <div id="plp-mobile-context-strip" class="hidden w-full"></div>
+              <div class="w-full py-2.5 px-6 flex items-center justify-between gap-4">
+                <div id="plp-bar-summary-left" class="flex flex-col text-left shrink-0">
+                  <span class="text-xs text-slate-600"><strong id="plp-bar-count" class="font-bold text-slate-800">2</strong> pontos selecionados</span>
+                  <div class="flex items-baseline gap-1.5">
+                    <span class="text-sm text-slate-700">Total:</span>
+                    <strong id="plp-bar-total" class="text-lg font-extrabold text-slate-900">R$ 2.307,98</strong>
+                  </div>
+                  <div id="plp-bar-sub-left" class="hidden text-[11px] font-semibold mt-0.5"></div>
+                </div>
+                <div id="deskCentralSlot" class="hidden md:flex items-center justify-center flex-1 px-4"></div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <button id="resultpage_next-button" type="button" onclick="navigateTo('resumo')" class="btn btn-primary cursor-pointer font-bold rounded-xl shadow-none h-10 px-6 bg-[#FA4800] hover:bg-[#e04000] text-white text-sm transition flex items-center gap-2">
+                    <span id="plp-next-btn-label">Avançar</span>
+                  </button>
+                </div>
+              </div>
+            `;
+          }
+
+          // 2. Injeta o seletor de Propostas na barra escura superior
+          const topBarRight = document.querySelector('#aqui-ads-shell-root > header > div');
+          if (topBarRight) {
+            const propControls = document.createElement('div');
+            propControls.className = 'flex items-center gap-2 flex-wrap';
+            propControls.innerHTML = `
+              <div class="flex items-center bg-slate-800 p-1 rounded-lg border border-slate-700 gap-1 flex-wrap">
+                <span class="text-[11px] text-slate-400 px-2 font-medium">Proposta Barra Fixa:</span>
+                <button type="button" onclick="selectProposal(0)" data-prop="0" class="prop-btn px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all text-slate-300 hover:text-white">0. Atual (Baseline)</button>
+                <button type="button" onclick="selectProposal(1)" data-prop="1" class="prop-btn px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all text-slate-300 hover:text-white">1. Parcelamento 3x</button>
+                <button type="button" onclick="selectProposal(2)" data-prop="2" class="prop-btn px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all text-slate-300 hover:text-white">2. Alcance Estimado</button>
+                <button type="button" onclick="selectProposal(5)" data-prop="5" class="prop-btn px-2.5 py-1 text-[11px] font-bold rounded-md transition-all bg-[#FA4800] text-white shadow-sm">5. Combo Parcela ★</button>
+                <button type="button" onclick="selectProposal(6)" data-prop="6" class="prop-btn px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all text-slate-300 hover:text-white">6. Combo Preço/Dia 🔥</button>
+              </div>
+            `;
+            topBarRight.insertBefore(propControls, topBarRight.firstChild);
+          }
+
+          window.syncPlpStickyBar();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

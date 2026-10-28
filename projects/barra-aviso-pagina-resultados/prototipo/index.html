@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui ads — Protótipo Interativo: Barra de Aviso Contextual na Página de Resultados</title>
+  <link rel="icon" href="https://aqui.globo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <!-- CSS Oficial Compilado do Aqui Ads (codebase/smb-web + Espelho de Produção) -->
+  <link rel="stylesheet" href="aqui_ads_official.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
+
+  <!-- MODAL DE RETOMADA RÁPIDA DE RASCUNHO (CENÁRIO P3 DA BARRA DE AVISO) -->
+  <div id="modal-resume-draft" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div onclick="closeDraftResumeModal()" class="fixed inset-0 bg-black/45 backdrop-blur-[1px]"></div>
+    <div class="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">Rascunho Salvo • #DRAFT-901</span>
+          <h3 class="text-base font-extrabold text-gray-900 mt-1">Campanha Inauguração Loja Vila Olímpia</h3>
+        </div>
+        <button onclick="closeDraftResumeModal()" class="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-500 flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+      <div class="p-6 space-y-4 text-xs text-gray-700">
+        <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200 space-y-2">
+          <div class="flex justify-between">
+            <span class="text-gray-500">Canais incluídos:</span>
+            <strong class="text-gray-900">Híbrida (3 pontos OOH + 1 Digital | Globo)</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Período planejado:</span>
+            <strong class="text-gray-900">2 semanas (28/10/2026 a 11/11/2026)</strong>
+          </div>
+          <div class="flex justify-between border-t border-gray-200 pt-2">
+            <span class="text-gray-600 font-semibold">Investimento total estimado:</span>
+            <strong class="text-sm font-extrabold text-[#FF4F00]">R$ 2.138,00</strong>
+          </div>
+        </div>
+        <p class="text-[11px] text-gray-500 leading-relaxed">
+          Ao continuar, todos os pontos OOH e formatos Digital salvos neste rascunho serão carregados diretamente no seu <strong>Plano de Mídia</strong> para revisão ou checkout.
+        </p>
+      </div>
+      <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-end gap-2.5">
+        <button type="button" onclick="openAllDraftsFromNotice(); closeDraftResumeModal();" class="px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-gray-700 cursor-pointer">
+          ver todos os rascunhos
+        </button>
+        <button type="button" onclick="resumeDraftIntoCart()" class="px-5 py-2 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold shadow-xs cursor-pointer transition">
+          retomar no plano de mídia →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Base de Dados Mockada Oficial Centralizada -->
+  <script src="aqui_ads_mock_data.js"></script>
+
+  <!-- Lógica Customizada da Barra de Aviso Contextual na Página de Resultados -->
+  <script>
+    let currentNoticePlacement = 'A'; // 'A' = Acima da Busca | 'B' = Abaixo dos Filtros
+    let currentNoticeScenario = 'pendente_arte'; // 'pendente_arte' | 'em_veiculacao' | 'rascunho'
+
+    function getContextualNoticeBarHtml() {
+      return `
+        <div id="contextual-notice-bar-wrapper" class="max-w-[1280px] mx-auto mb-3.5 transition-all duration-200">
+          <!-- CENÁRIO P1: FALTA SUBIR ARTE (Prioridade Máxima - Âmbar/Laranja) -->
+          <div id="notice-bar-pendente-arte" class="rounded-xl border border-amber-300 bg-gradient-to-r from-amber-50 via-[#FFFBEB] to-orange-50/70 px-4 py-2.5 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="flex items-start sm:items-center gap-3 min-w-0">
+              <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-400/40 text-amber-700 flex items-center justify-center shrink-0 font-extrabold text-sm">
+                🎨
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-200/80 text-amber-900">Ação Necessária • Prioridade 1</span>
+                  <strong class="text-xs font-extrabold text-[#282E38] truncate">Sua campanha #750708 aguarda o envio da arte para entrar no ar</strong>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Envie os criativos ou contrate a criação para garantir o início da veiculação no prazo planejado.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+              <button type="button" onclick="openCampaignDetail('750708', 'arte')" class="px-3.5 py-1.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold shadow-2xs cursor-pointer transition whitespace-nowrap">
+                enviar arte agora →
+              </button>
+              <button type="button" onclick="openAllFromNotice('pendente_arte')" class="px-2.5 py-1.5 rounded-lg border border-amber-300 bg-white/80 hover:bg-white text-[11px] font-bold text-amber-900 cursor-pointer transition whitespace-nowrap">
+                ver pendentes (2)
+              </button>
+              <button type="button" onclick="dismissNoticeBar()" class="w-7 h-7 rounded-lg hover:bg-amber-200/50 text-amber-800 flex items-center justify-center text-xs cursor-pointer" title="Dispensar aviso">✕</button>
+            </div>
+          </div>
+
+          <!-- CENÁRIO P2: CAMPANHA EM VEICULAÇÃO (Verde Positivo) -->
+          <div id="notice-bar-em-veiculacao" class="hidden rounded-xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-[#F0FDF4] to-teal-50/60 px-4 py-2.5 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="flex items-start sm:items-center gap-3 min-w-0">
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-400/40 text-emerald-700 flex items-center justify-center shrink-0 font-extrabold text-sm">
+                📡
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-200/80 text-emerald-900">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span> No Ar • Prioridade 2
+                  </span>
+                  <strong class="text-xs font-extrabold text-[#282E38] truncate">Campanha #750598 em veiculação — 84.320 exibições entregues até agora</strong>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Acompanhe o desempenho diário de OOH e Digital | Globo em tempo real.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+              <button type="button" onclick="openCampaignDetail('750598', 'metricas')" class="px-3.5 py-1.5 rounded-lg bg-[#007800] hover:bg-[#006600] text-white text-xs font-bold shadow-2xs cursor-pointer transition whitespace-nowrap">
+                ver métricas →
+              </button>
+              <button type="button" onclick="openAllFromNotice('em_veiculacao')" class="px-2.5 py-1.5 rounded-lg border border-emerald-300 bg-white/80 hover:bg-white text-[11px] font-bold text-emerald-900 cursor-pointer transition whitespace-nowrap">
+                meus anúncios
+              </button>
+              <button type="button" onclick="dismissNoticeBar()" class="w-7 h-7 rounded-lg hover:bg-emerald-200/50 text-emerald-800 flex items-center justify-center text-xs cursor-pointer" title="Dispensar aviso">✕</button>
+            </div>
+          </div>
+
+          <!-- CENÁRIO P3: RASCUNHO SALVO (Azul/Índigo Retomada de Funil) -->
+          <div id="notice-bar-rascunho" class="hidden rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50/90 via-[#F8FAFF] to-blue-50/70 px-4 py-2.5 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="flex items-start sm:items-center gap-3 min-w-0">
+              <div class="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-400/40 text-indigo-700 flex items-center justify-center shrink-0 font-extrabold text-sm">
+                📝
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-200/80 text-indigo-900">Continue de onde parou • Prioridade 3</span>
+                  <strong class="text-xs font-extrabold text-[#282E38] truncate">Rascunho salvo: "Campanha Inauguração Loja Vila Olímpia" (4 itens • R$ 2.138,00)</strong>
+                </div>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Retome seu plano de mídia com 1 clique ou confira todos os rascunhos salvos.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+              <button type="button" onclick="openDraftResumeModal()" class="px-3.5 py-1.5 rounded-lg bg-[#3F1195] hover:bg-[#310D75] text-white text-xs font-bold shadow-2xs cursor-pointer transition whitespace-nowrap">
+                retomar rascunho →
+              </button>
+              <button type="button" onclick="openAllDraftsFromNotice()" class="px-2.5 py-1.5 rounded-lg border border-indigo-300 bg-white/80 hover:bg-white text-[11px] font-bold text-indigo-900 cursor-pointer transition whitespace-nowrap">
+                ver rascunhos (4)
+              </button>
+              <button type="button" onclick="dismissNoticeBar()" class="w-7 h-7 rounded-lg hover:bg-indigo-200/50 text-indigo-800 flex items-center justify-center text-xs cursor-pointer" title="Dispensar aviso">✕</button>
+            </div>
+          </div>
+
+          <!-- PÍLULA DISCRETA PARA RESTAURAR QUANDO DISPENSADO -->
+          <div id="notice-restorer-pill" class="hidden justify-end">
+            <button type="button" onclick="restoreNoticeBar()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 text-[11px] font-bold text-gray-700 cursor-pointer transition">
+              <span>🔔</span> Mostrar aviso da campanha novamente
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function setNoticePlacementVersion(version) {
+      currentNoticePlacement = version;
+      const wrapper = document.getElementById('contextual-notice-bar-wrapper');
+      const slotA = document.getElementById('notice-slot-above-search');
+      const slotB = document.getElementById('notice-slot-below-filters');
+      const btnA = document.getElementById('ver-pos-a');
+      const btnB = document.getElementById('ver-pos-b');
+
+      if (wrapper && slotA && slotB) {
+        if (version === 'B') {
+          slotB.appendChild(wrapper);
+          wrapper.className = 'max-w-[1280px] mx-auto mt-4 mb-1 transition-all duration-200';
+        } else {
+          slotA.appendChild(wrapper);
+          wrapper.className = 'max-w-[1280px] mx-auto mb-3.5 transition-all duration-200';
+        }
+      }
+
+      if (btnA && btnB) {
+        if (version === 'A') {
+          btnA.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#FF5A00] text-white transition cursor-pointer';
+          btnB.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer';
+        } else {
+          btnB.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#FF5A00] text-white transition cursor-pointer';
+          btnA.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer';
+        }
+      }
+      showToast(version === 'A' ? 'Versão A: Barra acima da busca (Topo da PLP)' : 'Versão B: Barra abaixo das pílulas de filtro');
+    }
+
+    function switchHomeNoticeScenario(scenario) {
+      currentNoticeScenario = scenario;
+      const map = {
+        pendente_arte: { bar: 'notice-bar-pendente-arte', btn: 'scen-btn-arte', label: 'Cenário P1: Falta Subir Arte (#750708)' },
+        em_veiculacao: { bar: 'notice-bar-em-veiculacao', btn: 'scen-btn-ativa', label: 'Cenário P2: Campanha em Veiculação (#750598)' },
+        rascunho: { bar: 'notice-bar-rascunho', btn: 'scen-btn-rascunho', label: 'Cenário P3: Rascunho Salvo (#DRAFT-901)' }
+      };
+
+      const restorer = document.getElementById('notice-restorer-pill');
+      if (restorer) {
+        restorer.classList.add('hidden');
+        restorer.classList.remove('flex');
+      }
+
+      Object.keys(map).forEach(k => {
+        const el = document.getElementById(map[k].bar);
+        const btn = document.getElementById(map[k].btn);
+        if (el) {
+          if (k === scenario) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        }
+        if (btn) {
+          if (k === scenario) {
+            btn.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold bg-indigo-600 text-white transition cursor-pointer';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer';
+          }
+        }
+      });
+
+      showScreen('view-resultados');
+      showToast(map[scenario] ? map[scenario].label : scenario);
+    }
+
+    function dismissNoticeBar() {
+      ['notice-bar-pendente-arte', 'notice-bar-em-veiculacao', 'notice-bar-rascunho'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      const restorer = document.getElementById('notice-restorer-pill');
+      if (restorer) {
+        restorer.classList.remove('hidden');
+        restorer.classList.add('flex');
+      }
+      showToast('Aviso dispensado nesta sessão.');
+    }
+
+    function restoreNoticeBar() {
+      switchHomeNoticeScenario(currentNoticeScenario);
+    }
+
+    function openAllFromNotice(statusFilter) {
+      showScreen('screen-list');
+      switchTopTab('planos');
+      const statusSelect = document.getElementById('filter-status');
+      if (statusSelect && statusFilter) {
+        statusSelect.value = statusFilter;
+        applyCampaignFilters();
+      }
+    }
+
+    function openAllDraftsFromNotice() {
+      showScreen('screen-list');
+      switchTopTab('rascunhos');
+    }
+
+    function openDraftResumeModal() {
+      const m = document.getElementById('modal-resume-draft');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeDraftResumeModal() {
+      const m = document.getElementById('modal-resume-draft');
+      if (m) m.classList.add('hidden');
+    }
+
+    function resumeDraftIntoCart() {
+      closeDraftResumeModal();
+      if (typeof openDraftInSummary === 'function' && Array.isArray(draftsData) && draftsData.length > 0) {
+        openDraftInSummary(draftsData[0].id);
+      } else {
+        loadCartPreset('hybrid', true);
+        showScreen('view-resumo');
+        showToast('Rascunho carregado no Plano de Mídia!');
+      }
+    }
+
+    window.AQUI_ADS_CONFIG = {
+      initialScreen: 'view-resultados',
+      initialChannel: 'ooh',
+      cartPreset: 'empty',
+      hooks: {
+        onReady() {
+          // 1. Injeta os seletores de Posição (Versão A vs B) e Cenário (P1, P2, P3) na barra superior
+          const topbarRow = document.querySelector('#aqui-ads-shell-root > header > div');
+          if (topbarRow && !document.getElementById('ver-pos-a')) {
+            topbarRow.insertAdjacentHTML('beforeend', `
+              <div class="flex flex-wrap items-center gap-3">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] font-semibold text-gray-400">Posição:</span>
+                  <div class="flex items-center bg-gray-900 p-0.5 rounded-lg border border-gray-800 gap-0.5">
+                    <button onclick="setNoticePlacementVersion('A')" id="ver-pos-a" class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#FF5A00] text-white transition cursor-pointer">
+                      Versão A (Acima da Busca)
+                    </button>
+                    <button onclick="setNoticePlacementVersion('B')" id="ver-pos-b" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer">
+                      Versão B (Abaixo dos Filtros)
+                    </button>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] font-semibold text-gray-400">Cenário:</span>
+                  <div class="flex items-center bg-gray-900 p-0.5 rounded-lg border border-gray-800 gap-0.5">
+                    <button onclick="switchHomeNoticeScenario('pendente_arte')" id="scen-btn-arte" class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-indigo-600 text-white transition cursor-pointer">
+                      1. Falta Subir Arte (P1)
+                    </button>
+                    <button onclick="switchHomeNoticeScenario('em_veiculacao')" id="scen-btn-ativa" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer">
+                      2. Campanha Ativa (P2)
+                    </button>
+                    <button onclick="switchHomeNoticeScenario('rascunho')" id="scen-btn-rascunho" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white transition cursor-pointer">
+                      3. Rascunho Salvo (P3)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `);
+          }
+
+          // 2. Cria os slots A (acima da busca) e B (abaixo das pílulas de filtro) dentro do topo da PLP OOH
+          const oohTopBox = document.querySelector('#plp-mode-ooh > div.bg-white');
+          const chipsRow = document.getElementById('plp-ambience-chips');
+          if (oohTopBox && !document.getElementById('notice-slot-above-search')) {
+            const slotA = document.createElement('div');
+            slotA.id = 'notice-slot-above-search';
+            slotA.innerHTML = getContextualNoticeBarHtml();
+            oohTopBox.insertBefore(slotA, oohTopBox.firstChild);
+          }
+          if (chipsRow && !document.getElementById('notice-slot-below-filters')) {
+            const slotB = document.createElement('div');
+            slotB.id = 'notice-slot-below-filters';
+            chipsRow.insertAdjacentElement('afterend', slotB);
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Motor de UI e Jornada Oficial do Aqui Ads -->
+  <script src="aqui_ads_ui.js"></script>
+</body>
+</html>
