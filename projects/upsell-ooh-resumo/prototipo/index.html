@@ -11,11 +11,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="aqui_ads_official.css" />
+  <style>
+    #resumo-accordion-digital,
+    #resumo-accordion-radio,
+    #resumo-accordion-tv,
+    #resumo-accordion-combos {
+      display: none !important;
+    }
+  </style>
   <script>
     window.AQUI_ADS_CONFIG = {
       initialScreen: 'view-resumo',
       cartPreset: 'ooh_only',
       hooks: {
+        afterResumoContent: function() {
+          if (typeof window.renderUpsellViews === 'function') {
+            window.renderUpsellViews();
+          }
+          return '';
+        },
         onReady: function() {
           if (typeof window.setupUpsellPrototype === 'function') {
             window.setupUpsellPrototype();
@@ -494,6 +508,15 @@
           return;
         }
         if (typeof origGoToPagamento === 'function') origGoToPagamento();
+      };
+
+      var origOpenEnvioArte = window.openEnvioArteFromResumo;
+      window.openEnvioArteFromResumo = function() {
+        if (window.activeUpsellVariant === 'sugestao3') {
+          window.openModalSugestao3();
+          return;
+        }
+        if (typeof origOpenEnvioArte === 'function') origOpenEnvioArte();
       };
 
       if (typeof window.showScreen === 'function') window.showScreen('view-resumo');

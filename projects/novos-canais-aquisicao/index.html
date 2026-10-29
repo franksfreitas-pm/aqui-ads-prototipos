@@ -501,7 +501,7 @@
                 <!-- Pílula de Contexto Superior -->
                 <div class="mb-3">
                   <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#FFF3ED] border border-[#FFD8C2] text-[#FF4F00] text-[10.5px] sm:text-[11px] font-extrabold tracking-wide uppercase">
-                    SIMULADOR DE ALCANCE OOH • CICLO DE 30 DIAS
+                    SIMULADOR DE ALCANCE OOH • CICLO DE 4 SEMANAS
                   </span>
                 </div>
 
@@ -510,7 +510,7 @@
                   Descubra quantas pessoas seu anúncio alcança na sua região
                 </h1>
                 <p class="text-[#64748B] text-xs sm:text-sm mt-1.5 mb-6 leading-relaxed">
-                  Simule com o valor que você costuma investir por dia e veja o impacto em telas reais de OOH em 30 dias.
+                  Simule com o valor que você costuma investir por dia e veja o impacto em telas reais de OOH em 4 semanas.
                 </p>
 
                 <!-- PASSO 1: QUANTO VOCÊ INVESTE POR DIA? -->
@@ -650,11 +650,11 @@
                 </div>
               </div>
 
-              <!-- COLUNA DIREITA: CARD DE RESULTADO ESTIMADO EM 30 DIAS (OCULTO ATÉ O PREENCHIMENTO) -->
+              <!-- COLUNA DIREITA: CARD DE RESULTADO ESTIMADO EM 4 SEMANAS (OCULTO ATÉ O PREENCHIMENTO) -->
               <div id="calc-result-card" class="hidden lg:col-span-5 bg-white border border-[#DFE7EF] border-t-4 border-t-[#FF4F00] rounded-2xl p-5 sm:p-7 shadow-[0_4px_20px_rgba(0,9,41,0.04)] flex flex-col justify-between">
                 <div>
                   <h2 class="text-[#000929] font-extrabold text-lg sm:text-[22px] leading-snug">
-                    Resultado estimado em 30 dias na sua região
+                    Resultado estimado em 4 semanas na sua região
                   </h2>
                   <p class="text-xs text-[#64748B] mt-1.5 mb-5 leading-relaxed">
                     Impacto estimado nas telas de OOH próximas a <strong id="calc-res-address-label" class="text-[#282E38] font-semibold">Rua Alvorada, 1217 - Vila Olímpia</strong>
@@ -662,10 +662,10 @@
 
                   <!-- Exclusivamente 2 Indicadores em Faixa (Exibições e Alcance) -->
                   <div id="calc-result-metrics-grid" class="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-3.5">
-                    <!-- Indicador 1: Exibições estimadas (30 dias) -->
+                    <!-- Indicador 1: Exibições estimadas (4 semanas) -->
                     <div class="rounded-xl border border-[#DFE7EF] bg-white p-3.5 sm:p-4">
                       <span class="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#282E38] mb-1">
-                        EXIBIÇÕES ESTIMADAS (30 DIAS)
+                        EXIBIÇÕES ESTIMADAS (4 SEMANAS)
                       </span>
                       <strong id="calc-res-views-range" class="block text-base sm:text-2xl font-extrabold text-[#000929] leading-tight">
                         85.000 a 120.000 exibições
@@ -762,7 +762,7 @@
               <div class="lg:col-span-4 lg:sticky lg:top-[84px] bg-white border border-[#DFE7EF] rounded-2xl p-4 sm:p-6 shadow-[0_4px_20px_rgba(0,9,41,0.04)]">
                 <div class="mb-2">
                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#F8FAFC] border border-[#DFE7EF] text-[#000929] text-[10px] font-extrabold tracking-wide uppercase">
-                    CAMPANHA SUGERIDA • 30 DIAS DE OOH
+                    CAMPANHA SUGERIDA • 4 SEMANAS DE OOH
                   </span>
                 </div>
                 <h2 class="text-[#000929] font-extrabold text-lg sm:text-xl leading-snug mb-4">
@@ -771,9 +771,9 @@
 
                 <!-- Exclusivamente 3 Métricas Consolidadas (PROIBIDO contador de prédios/condomínios/telas) -->
                 <div id="calc-p2-summary-metrics" class="grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-4 mb-5">
-                  <!-- 1. Exibições em 30 dias -->
+                  <!-- 1. Exibições em 4 semanas -->
                   <div>
-                    <span class="block text-[11px] font-medium text-[#282E38]">Exibições em 30 dias</span>
+                    <span class="block text-[11px] font-medium text-[#282E38]">Exibições em 4 semanas</span>
                     <strong class="calc-p2-metric-value block text-base sm:text-2xl font-extrabold text-[#000929] leading-tight mt-0.5">
                       <span id="calc-p2-total-views">98.640</span> <span class="calc-p2-metric-unit font-bold">exibições</span>
                     </strong>
@@ -794,7 +794,7 @@
                       <span id="calc-p2-daily-val">R$ 50,00</span><span class="calc-p2-metric-unit text-sm font-bold">/dia</span>
                     </strong>
                     <span id="calc-p2-installments-text" class="block text-[10.5px] sm:text-[11px] text-[#282E38] leading-snug mt-1">
-                      Total: R$ 1.500,00 em até 3x de R$ 500,00 sem juros
+                      Total (4 semanas): R$ 1.400,00 em até 3x de R$ 466,67 sem juros
                     </span>
                   </div>
                 </div>
@@ -1286,8 +1286,8 @@
       const p2DailyVal = document.getElementById('calc-p2-daily-val');
       const p2InstText = document.getElementById('calc-p2-installments-text');
 
-      const total30d = daily * 30;
-      const installmentVal = total30d / 3;
+      const total4w = daily * 28;
+      const installmentVal = total4w / 3;
 
       if (p2MobLoc && calcState.addressMeta) p2MobLoc.textContent = calcState.addressMeta.pillMob;
       if (p2DeskLoc && calcState.addressMeta) p2DeskLoc.textContent = calcState.addressMeta.pillDesk;
@@ -1296,7 +1296,7 @@
       if (p2Reach) p2Reach.textContent = formatIntPT(exactReach30d);
       if (p2DailyVal) p2DailyVal.textContent = formatCurrencyPT(daily);
       if (p2InstText) {
-        p2InstText.textContent = `Total: ${formatCurrencyPT(total30d)} em até 3x de ${formatCurrencyPT(installmentVal)} sem juros`;
+        p2InstText.textContent = `Total (4 semanas): ${formatCurrencyPT(total4w)} em até 3x de ${formatCurrencyPT(installmentVal)} sem juros`;
       }
 
       renderCalculatorRecommendedPoints();
@@ -1374,10 +1374,10 @@
               </div>
             </div>
 
-            <!-- Coluna Direita: Preço 30 dias + Badge Incluído -->
+            <!-- Coluna Direita: Preço 4 semanas + Badge Incluído -->
             <div class="text-right shrink-0 flex flex-col items-end justify-center">
               <div class="text-xs sm:text-sm font-extrabold text-[#000929] whitespace-nowrap">
-                ${formatCurrencyPT(price30d)} <span class="font-normal text-[#282E38] text-[11px]">/ 30 dias</span>
+                ${formatCurrencyPT(price30d)} <span class="font-normal text-[#282E38] text-[11px]">/ 4 semanas</span>
               </div>
               <span class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold bg-[#F4FCF7] border border-[#24C765] text-[#007800]">
                 <span>✓</span>
