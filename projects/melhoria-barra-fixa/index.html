@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="aqui_ads_official.css?v=4" />
+  <link rel="stylesheet" href="aqui_ads_official.css?v=5" />
   <style>
     /* Tokens Oficiais Aqui Ads Design System (codebase/smb-web/tailwind.config.cjs) */
     /* primary.default: #FF4F00 | primary.dark: #E54700 | neutral.light6: #FFF4EF | border: #FEDDC7 */
@@ -152,11 +152,11 @@
   <!-- Ponto de Montagem do App Shell & Jornada Unificada (aqui_ads_ui.js) -->
   <div id="aqui-ads-app"></div>
 
-  <script src="aqui_ads_mock_data.js?v=3"></script>
+  <script src="aqui_ads_mock_data.js?v=5"></script>
   <script>
     window.AQUI_ADS_MANUAL_MOUNT = true;
   </script>
-  <script src="aqui_ads_ui.js?v=3"></script>
+  <script src="aqui_ads_ui.js?v=5"></script>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     window.currentViewMode = urlParams.get('mode') === 'simulador' ? 'simulador' : 'final';
@@ -233,6 +233,18 @@
       if (ctx && ctx.cartState) {
         window.__aquiCartState = ctx.cartState;
       }
+      if (ctx && ctx.currentPlpChannel) {
+        window.__aquiPlpChannel = ctx.currentPlpChannel;
+      }
+
+      const activeChannel = (ctx && ctx.currentPlpChannel) || window.__aquiPlpChannel || 'ooh';
+      if (activeChannel === 'tv' || activeChannel === 'combos') {
+        bar.classList.add('hidden');
+        bar.classList.remove('flex');
+      } else {
+        bar.classList.remove('hidden');
+        bar.classList.add('flex');
+      }
 
       const isMobile = Boolean(document.getElementById('viewport-container')?.classList.contains('mobile-frame')) || window.innerWidth < 768;
       let cs = (ctx && ctx.cartState) || window.__aquiCartState || window.cartState;
@@ -267,11 +279,18 @@
       const nextBtnEl = document.getElementById('resultpage_next-button');
       const nextBtnLabel = document.getElementById('plp-next-btn-label');
       const badgeEl = document.getElementById('hdr-cart-badge');
+      const countLabelEl = document.getElementById('plp-bar-count-label');
+      const totalEl = document.getElementById('plp-bar-total');
 
-      bar.style.display = 'flex';
+      if (summaryLeftEl) summaryLeftEl.classList.remove('hidden');
+      if (countLabelEl) {
+        countLabelEl.textContent = `${count} ${count === 1 ? 'produto selecionado' : 'produtos selecionados'}`;
+      }
+      if (totalEl) {
+        totalEl.textContent = totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      }
 
       if (count <= 0 || totalValue <= 0) {
-        if (summaryLeftEl) summaryLeftEl.classList.add('hidden');
         if (deskSlot) deskSlot.className = 'hidden';
         if (mobStrip) mobStrip.className = 'hidden w-full';
         if (subLeft) subLeft.className = 'hidden';
@@ -285,22 +304,12 @@
         return;
       }
 
-      if (summaryLeftEl) summaryLeftEl.classList.remove('hidden');
       if (nextBtnEl) {
         nextBtnEl.className = 'bg-[#FF4F00] hover:bg-[#E54700] text-white px-6 py-2.5 rounded-lg font-bold text-xs flex items-center gap-2 transition shadow-xs cursor-pointer';
       }
       if (badgeEl) {
         badgeEl.textContent = String(count);
         badgeEl.classList.remove('hidden');
-      }
-
-      const countLabelEl = document.getElementById('plp-bar-count-label');
-      const totalEl = document.getElementById('plp-bar-total');
-      if (countLabelEl) {
-        countLabelEl.textContent = `${count} ${count === 1 ? 'produto selecionado' : 'produtos selecionados'}`;
-      }
-      if (totalEl) {
-        totalEl.textContent = totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
       }
 
       const prop = window.currentProposal ?? 3;
