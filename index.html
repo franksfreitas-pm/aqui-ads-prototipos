@@ -464,6 +464,75 @@
         text-align: center;
       }
     }
+    /* Abas do Hub (Todos vs. Versões Finais Decididas) */
+    .hub-tabs {
+      display: inline-flex;
+      align-items: center;
+      background: #F1F5F9;
+      border: 1px solid var(--border-subtle);
+      padding: 0.3rem;
+      border-radius: 10px;
+      gap: 0.35rem;
+    }
+
+    .hub-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #475569;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .hub-tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .hub-tab-btn.active {
+      background: #FFFFFF;
+      color: var(--text-main);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+      font-weight: 700;
+    }
+
+    .hub-tab-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: #E2E8F0;
+      color: #334155;
+    }
+
+    .hub-tab-btn.active .hub-tab-badge-final {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .tag-final {
+      background-color: #ECFDF5;
+      color: #047857;
+      border: 1px solid #A7F3D0;
+    }
+
+    .final-decision-banner {
+      background: linear-gradient(135deg, #ECFDF5 0%, #F8FAFC 100%);
+      border: 1px solid #A7F3D0;
+      border-radius: 14px;
+      padding: 1.15rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
@@ -496,7 +565,7 @@
       </div>
       <div class="stats-pills">
         <div class="stat-box">
-          <span class="stat-val">9</span>
+          <span class="stat-val">10</span>
           <span class="stat-label">Protótipos</span>
         </div>
         <div class="stat-box">
@@ -512,11 +581,118 @@
         <i class="uil uil-apps" style="color: var(--brand-primary);"></i>
         Iniciativas Disponíveis
       </h2>
-      <span style="font-size: 0.85rem; color: var(--text-muted);">Clique no card para abrir e interagir</span>
+      <div class="hub-tabs" role="tablist" aria-label="Filtro de visualização de protótipos">
+        <button type="button" id="hub-tab-btn-todos" class="hub-tab-btn active" onclick="switchHubTab('todos')">
+          <i class="uil uil-apps"></i>
+          <span>Todos os Protótipos</span>
+          <span class="hub-tab-badge">10</span>
+        </button>
+        <button type="button" id="hub-tab-btn-finais" class="hub-tab-btn" onclick="switchHubTab('finais')">
+          <i class="uil uil-check-circle" style="color: #059669;"></i>
+          <span>Versões Finais (Decididas)</span>
+          <span class="hub-tab-badge hub-tab-badge-final">1</span>
+        </button>
+      </div>
     </div>
 
-    <!-- Cards Grid -->
-    <div class="prototypes-grid">
+    <!-- Aba 2: Versões Finais / Decididas -->
+    <div id="hub-view-finais" style="display: none;">
+      <div class="final-decision-banner">
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
+            <i class="uil uil-check-circle"></i>
+            <span>Repositório de Decisões Oficiais de Produto</span>
+          </div>
+          <div style="font-size: 0.95rem; color: #1E293B; font-weight: 600;">
+            Aqui ficam consolidadas apenas as versões finais escolhidas para implementação após rodadas de validação e simuladores executivos.
+          </div>
+        </div>
+      </div>
+
+      <div class="prototypes-grid">
+        <!-- CARD DECIDIDO 1: Barra Fixa — Versão Final (⭐ 3. Parcela 3x + Alcance) -->
+        <article class="proto-card is-expanded" style="border-color: #6EE7B7; box-shadow: 0 6px 20px rgba(5, 150, 105, 0.08);">
+          <div>
+            <div class="proto-tags">
+              <span class="tag tag-final">✅ Versão Final Decidida</span>
+              <span class="tag tag-ooh">OOH</span>
+              <span class="tag" style="background: #FFF0EB; color: #FA4800; border: 1px solid #FFD4C4;">⭐ 3. Parcela (3x) + Alcance</span>
+            </div>
+            <h3 class="proto-title">Barra Fixa da Página de Resultados — Parcela (3x s/ juros) + Alcance</h3>
+            <p class="proto-desc">
+              Versão oficial definida para implementação na barra fixa inferior da página de resultados: combina o alívio de fluxo de caixa (parcelamento em até 3x sem juros) com a tangibilização da entrega acumulada (impressões estimadas e faces digitais ativas), mantendo o valor total do período transparente.
+            </p>
+            <div class="proto-features" style="display: block;">
+              <ul>
+                <li><i class="uil uil-check-circle"></i> <strong>Decisão Oficial (Opção ⭐ 3):</strong> Pílula unificada com Alcance Acumulado (+impressões e faces) + Destaque <strong>Até 3x sem juros</strong></li>
+                <li><i class="uil uil-check-circle"></i> <strong>Visão Mobile (390px):</strong> Faixa contextual superior de audiência + subtexto laranja <em>"ou 3x s/ juros"</em> abaixo do Total</li>
+                <li><i class="uil uil-check-circle"></i> <strong>Estado Vazio (0 pontos):</strong> Mensagem orientadora convidando à seleção de pontos sem exibir valores zerados</li>
+                <li><i class="uil uil-check-circle"></i> <strong>Alternância 1-clique no topo:</strong> Permite consultar o Simulador Completo (7 Opções) a qualquer momento</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proto-footer">
+            <span class="proto-version" style="color: #047857; font-weight: 700;">Versão Final • AQ-9010</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="https://app.notion.com/p/Test-Card-Simulador-Executivo-Valor-por-Dia-Parcelamento-em-at-3x-e-Alcance-na-Barra-Fixa-da-4019587e413781a6984ac50b430021a3" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+                <i class="uil uil-file-alt"></i>
+                <span>Doc</span>
+              </a>
+              <a href="projects/barra-fixa-parcelamento/index.html?mode=simulador" class="btn-access" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">
+                <span>Simulador (7)</span>
+              </a>
+              <a href="projects/barra-fixa-parcelamento/index.html?mode=final" class="btn-access" style="background: #059669; color: #FFFFFF;">
+                <span>Abrir Versão Final</span>
+                <i class="uil uil-arrow-up-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Cards Grid (Todos) -->
+    <div id="hub-view-todos" class="prototypes-grid">
+
+      <!-- CARD NOVO: Calculadora de Exibições e Alcance OOH por Dia -->
+      <article class="proto-card">
+        <div>
+          <div class="proto-tags">
+            <span class="tag tag-ooh">OOH</span>
+            <span class="tag tag-journey">Aquisição • Topo de Funil</span>
+            <span class="tag" style="background: #F1F5F9; color: #334155;">Desktop & Mobile</span>
+          </div>
+          <h3 class="proto-title">Calculadora de Exibições e Alcance OOH por Dia</h3>
+          <p class="proto-desc">
+            Ferramenta interativa de topo de funil (Lead Magnet) que permite ao anunciante PME simular em segundos o alcance e as exibições estimadas de uma campanha OOH na sua região a partir do valor que deseja investir por dia.
+          </p>
+          <div class="proto-features">
+            <ul>
+              <li><i class="uil uil-check-circle"></i> <strong>Header Limpo:</strong> Exclusivamente o logo oficial do Aqui Ads nas páginas da calculadora (Desktop e Mobile)</li>
+              <li><i class="uil uil-check-circle"></i> <strong>Página 1 (Simulador):</strong> Input editável e slider sincronizados até R$ 1.000/dia + busca de endereço + estimativa limpa de Exibições e Alcance em 30 dias</li>
+              <li><i class="uil uil-check-circle"></i> <strong>Página 2 (Plano Recomendado):</strong> Resumo enxuto com parcelamento em até 3x sem juros + cards horizontais compactos de telas OOH</li>
+              <li><i class="uil uil-check-circle"></i> <strong>Dupla Conversão:</strong> Adição automática ao carrinho ("Quero essa campanha" ➔ Resumo) ou navegação filtrada ("Ver na página de resultados")</li>
+            </ul>
+          </div>
+          <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+            <span>Ver mais</span>
+            <i class="uil uil-angle-down"></i>
+          </button>
+        </div>
+        <div class="proto-footer">
+          <span class="proto-version">v1.0 • AQ-8930</span>
+          <div style="display: flex; gap: 8px;">
+            <a href="https://app.notion.com/p/PRD-Calculadora-de-Exibi-es-e-Alcance-OOH-por-Dia-4059587e413781869d3ce8bca8d0141f" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+              <i class="uil uil-file-alt"></i>
+              <span>PRD</span>
+            </a>
+            <a href="projects/novos-canais-aquisicao/index.html" class="btn-access">
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+      </article>
 
       <!-- CARD NOVO: Teste A/B/C/D Preço por Dia nos Cards da Página de Resultados (OOH) -->
       <article class="proto-card">
@@ -624,13 +800,16 @@
           </button>
         </div>
         <div class="proto-footer">
-          <span class="proto-version">v3.0 • Simulador Executivo</span>
+          <span class="proto-version" style="color: #047857; font-weight: 700;">✅ Decidida: ⭐ 3. Parcela 3x + Alcance</span>
           <div style="display: flex; gap: 8px;">
             <a href="https://app.notion.com/p/Test-Card-Simulador-Executivo-Valor-por-Dia-Parcelamento-em-at-3x-e-Alcance-na-Barra-Fixa-da-4019587e413781a6984ac50b430021a3" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
               <span>Doc</span>
             </a>
-            <a href="projects/barra-fixa-parcelamento/" class="btn-access">
+            <a href="projects/barra-fixa-parcelamento/index.html?mode=simulador" class="btn-access" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">
+              <span>Simulador</span>
+            </a>
+            <a href="projects/barra-fixa-parcelamento/index.html?mode=final" class="btn-access">
               <span>Protótipo</span>
               <i class="uil uil-arrow-right"></i>
             </a>
@@ -883,6 +1062,25 @@
         label.textContent = isExpanded ? 'Ver menos' : 'Ver mais';
       }
     }
+    function switchHubTab(tab) {
+      const isFinais = tab === 'finais';
+      const viewTodos = document.getElementById('hub-view-todos');
+      const viewFinais = document.getElementById('hub-view-finais');
+      const btnTodos = document.getElementById('hub-tab-btn-todos');
+      const btnFinais = document.getElementById('hub-tab-btn-finais');
+
+      if (viewTodos) viewTodos.style.display = isFinais ? 'none' : 'grid';
+      if (viewFinais) viewFinais.style.display = isFinais ? 'block' : 'none';
+      if (btnTodos) btnTodos.classList.toggle('active', !isFinais);
+      if (btnFinais) btnFinais.classList.toggle('active', isFinais);
+    }
+
+    (function initHubTabFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'finais' || window.location.hash === '#finais') {
+        switchHubTab('finais');
+      }
+    })();
   </script>
 </body>
 </html>

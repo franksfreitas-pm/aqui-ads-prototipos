@@ -3457,17 +3457,23 @@ window.AquiAdsUI = {
         ? '<main id="custom-prototype-root" class="flex-1 bg-[#F8F9FA] apply-zoom">' + preservedCustomHtml + '</main>'
         : AQUI_ADS_JOURNEY_VIEWS_HTML;
 
-      const mountContainer = document.getElementById('aqui-ads-app') || document.body;
-      const wrapper = document.createElement('div');
-      wrapper.id = 'aqui-ads-shell-root';
-      wrapper.className = 'flex-1 flex flex-col min-h-screen';
-      wrapper.innerHTML = AQUI_ADS_SHELL_HEADER_HTML + centerViewsHtml + AQUI_ADS_SHELL_FOOTER_HTML;
-
-      if (mountContainer === document.body) {
-        document.body.insertBefore(wrapper, document.body.firstChild);
+      const existingShellRoot = document.getElementById('aqui-ads-shell-root');
+      if (existingShellRoot) {
+        existingShellRoot.className = 'flex-1 flex flex-col min-h-screen';
+        existingShellRoot.innerHTML = AQUI_ADS_SHELL_HEADER_HTML + centerViewsHtml + AQUI_ADS_SHELL_FOOTER_HTML;
       } else {
-        mountContainer.innerHTML = '';
-        mountContainer.appendChild(wrapper);
+        const mountContainer = document.getElementById('aqui-ads-app') || document.body;
+        const wrapper = document.createElement('div');
+        wrapper.id = 'aqui-ads-shell-root';
+        wrapper.className = 'flex-1 flex flex-col min-h-screen';
+        wrapper.innerHTML = AQUI_ADS_SHELL_HEADER_HTML + centerViewsHtml + AQUI_ADS_SHELL_FOOTER_HTML;
+
+        if (mountContainer === document.body) {
+          document.body.insertBefore(wrapper, document.body.firstChild);
+        } else {
+          mountContainer.innerHTML = '';
+          mountContainer.appendChild(wrapper);
+        }
       }
     }
 
