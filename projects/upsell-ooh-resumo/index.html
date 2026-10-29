@@ -20,6 +20,7 @@
     }
   </style>
   <script>
+    window.AQUI_ADS_MANUAL_MOUNT = false;
     window.AQUI_ADS_CONFIG = {
       initialScreen: 'view-resumo',
       cartPreset: 'ooh_only',
@@ -38,46 +39,39 @@
       }
     };
   </script>
-  <script src="aqui_ads_mock_data.js?v=4"></script>
-  <script src="aqui_ads_ui.js?v=4"></script>
+  <script src="aqui_ads_mock_data.js?v=10"></script>
+  <script src="aqui_ads_ui.js?v=10"></script>
 </head>
 <body class="bg-gray-100">
 
-  <!-- MODAL SUGESTÃO 3 (Upsell Interstitial antes de avançar para pagamento) -->
+  <!-- MODAL POSICIONAMENTO 3 -->
   <div id="modal-sugestao3" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/55 backdrop-blur-[2px] p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-[580px] w-full overflow-hidden border border-gray-200">
-      <div class="bg-[#FFF9F2] px-6 py-4 border-b border-[#FED7AA] flex items-start justify-between gap-3">
-        <div class="flex items-start gap-3">
-          <div class="w-9 h-9 rounded-xl bg-[#FF4F00] flex items-center justify-center shrink-0 text-white shadow-xs mt-0.5">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    <div class="bg-white rounded-2xl shadow-2xl max-w-[620px] w-full overflow-hidden border border-[#E2E8F0]">
+      <div class="bg-white px-6 py-4 border-b border-[#E2E8F0] flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-[#FF4F00]/10 text-[#FF4F00] flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           </div>
-          <div>
-            <span class="block text-[10px] font-extrabold uppercase tracking-wider text-[#FF4F00]">OPORTUNIDADE DE COBERTURA</span>
-            <h3 class="text-base font-extrabold text-[#1E293B] leading-snug">Complete sua rota com os pontos vizinhos da sua busca</h3>
-          </div>
+          <h3 class="text-sm font-bold text-[#282E38]">Outros pontos na mesma região</h3>
         </div>
         <button type="button" onclick="closeModalSugestao3()" class="w-7 h-7 rounded-full bg-white border border-gray-200 text-gray-400 hover:text-gray-600 flex items-center justify-center cursor-pointer transition">
           ✕
         </button>
       </div>
-      <div class="px-6 py-4 space-y-3.5">
-        <p class="text-xs text-[#475569] leading-relaxed">
-          Identificamos <strong class="text-[#1E293B]">3 telas que estavam nos seus resultados de busca</strong> em Vila Olímpia e Brooklin. Adicione agora para ampliar seu alcance antes de fechar:
-        </p>
+      <div class="p-5 bg-[#F8FAFC]">
         <div id="upsell-container-modal" class="space-y-2.5"></div>
       </div>
-      <div class="px-6 py-3.5 bg-[#F8FAFC] border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="px-6 py-3.5 bg-white border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-3">
         <div>
-          <span class="block text-[11px] text-[#64748B]">Total atual do pedido:</span>
-          <strong id="modal-sug3-total" class="text-sm font-extrabold text-[#1E293B]">R$ 529,92</strong>
+          <span class="block text-[11px] text-[#64748B]">Total do plano:</span>
+          <strong id="modal-sug3-total" class="text-sm font-extrabold text-[#282E38]">R$ 529,92</strong>
         </div>
         <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-          <button type="button" onclick="proceedToPaymentDirect()" class="px-3.5 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-[#475569] text-xs font-bold transition cursor-pointer">
+          <button type="button" onclick="proceedToPaymentDirect()" class="px-3.5 py-2 rounded-lg border border-[#E2E8F0] bg-white hover:bg-gray-50 text-[#282E38] text-xs font-bold transition cursor-pointer">
             Continuar sem adicionar
           </button>
           <button type="button" onclick="proceedToPaymentDirect()" class="px-4 py-2 rounded-lg bg-[#FF4F00] hover:bg-[#E04500] text-white text-xs font-bold transition shadow-xs cursor-pointer inline-flex items-center gap-1.5">
-            <span>Ir para o Pagamento</span>
-            <span>✓</span>
+            <span>realizar pagamento</span>
           </button>
         </div>
       </div>
@@ -89,14 +83,9 @@
     window.SUGGESTED_UPSELL_ITEMS = [
       {
         id: 'sug-1',
-        rankBadge: 'PONTO #3 DA BUSCA',
-        rankShort: '#3',
         name: 'Edifício Berrini Plaza',
         address: 'R. Funchal, 418 – Vila Olímpia, São Paulo, SP',
-        neighborNote: 'Mesma microrregião do Vn Alvorada',
         environment: 'residencial',
-        environmentLabel: 'Elevadores Residenciais',
-        environmentShort: 'residencial',
         format: 'digital',
         basePrice2w: 264.96,
         price2w: 264.96,
@@ -104,19 +93,13 @@
         impressions: 12800,
         reach: 1150,
         screens: 2,
-        freq: 11.1,
-        fromUpsell: true
+        freq: 11.1
       },
       {
         id: 'sug-2',
-        rankBadge: 'PONTO #4 DA BUSCA',
-        rankShort: '#4',
         name: 'Morumbi Prime Center',
         address: 'Av. Roque Petroni Jr, 850 – Brooklin, SP',
-        neighborNote: 'A 450m dos pontos selecionados',
         environment: 'comercial',
-        environmentLabel: 'Elevadores Comerciais',
-        environmentShort: 'comercial',
         format: 'digital',
         basePrice2w: 264.96,
         price2w: 264.96,
@@ -124,19 +107,13 @@
         impressions: 14500,
         reach: 1310,
         screens: 2,
-        freq: 11.1,
-        fromUpsell: true
+        freq: 11.1
       },
       {
         id: 'sug-3',
-        rankBadge: 'PONTO #5 DA BUSCA',
-        rankShort: '#5',
         name: 'Condomínio Itaim Life',
         address: 'R. Joaquim Floriano, 720 – Itaim Bibi, SP',
-        neighborNote: 'Alta afinidade com seu público-alvo',
         environment: 'residencial',
-        environmentLabel: 'Elevadores Residenciais',
-        environmentShort: 'residencial',
         format: 'digital',
         basePrice2w: 264.96,
         price2w: 264.96,
@@ -144,16 +121,18 @@
         impressions: 9900,
         reach: 890,
         screens: 1,
-        freq: 11.1,
-        fromUpsell: true
+        freq: 11.1
       }
     ];
 
     function getActiveCartState() {
-      if (window.AquiAdsUI && typeof window.AquiAdsUI.getState === 'function') {
-        return window.AquiAdsUI.getState().cartState;
-      }
-      return window.cartState;
+      if (window.cartState) return window.cartState;
+      try {
+        if (window.AquiAdsUI && typeof window.AquiAdsUI.getState === 'function') {
+          return window.AquiAdsUI.getState().cartState;
+        }
+      } catch (e) {}
+      return null;
     }
 
     function formatBRLCurrency(num) {
@@ -176,7 +155,7 @@
           window.showToast('"' + item.name + '" removido do plano de mídia.');
         }
       } else {
-        cs.oohItems.push(Object.assign({}, item, { fromUpsell: true, selectedForBatch: false }));
+        cs.oohItems.push(Object.assign({}, item, { selectedForBatch: false }));
         if (typeof window.showToast === 'function') {
           window.showToast('"' + item.name + '" adicionado ao plano de mídia!');
         }
@@ -201,29 +180,18 @@
       if (typeof window.showToast === 'function') window.showToast('Estado do plano resetado para a configuração inicial (somente OOH).');
     };
 
-    function highlightAddedUpsellRowsInList() {
-      var cs = getActiveCartState();
-      var oohListEl = document.getElementById('resumo-ooh-list');
-      if (!cs || !oohListEl || !cs.oohItems) return;
-      var rows = oohListEl.children;
-      for (var i = 0; i < cs.oohItems.length; i++) {
-        var item = cs.oohItems[i];
-        var row = rows[i];
-        if (!row) continue;
-        var isUp = item.fromUpsell || window.SUGGESTED_UPSELL_ITEMS.some(function(u) { return u.id === item.id; });
-        if (isUp) {
-          row.className = 'py-3 px-3.5 pt-4 border border-[#FF4F00]/70 bg-[#FFFDFB] rounded-xl relative mt-3.5 mb-1 shadow-2xs';
-          if (!row.querySelector('.upsell-added-pill')) {
-            var pill = document.createElement('span');
-            pill.className = 'upsell-added-pill absolute -top-2.5 left-3 bg-[#FF4F00] text-white text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-2xs';
-            pill.textContent = 'ITEM ADICIONADO DO UPSELL';
-            row.insertBefore(pill, row.firstChild);
-          }
-        }
-      }
+    function renderDsTagsHtml(imp, envLabel, fmtLabel) {
+      return '<div class="flex items-center gap-1.5 flex-wrap">' +
+        '<span class="bg-[#94A3B8] text-white text-[10px] font-semibold px-2 py-0.5 rounded-sm inline-flex items-center gap-1">👁 ' + imp.toLocaleString('pt-BR') + '</span>' +
+        '<span class="bg-[#E2E8F0] text-[#282E38] text-[10px] font-semibold px-2 py-0.5 rounded-sm inline-flex items-center gap-1">🏢 ' + envLabel + '</span>' +
+        '<span class="bg-[#3F1195] text-white text-[10px] font-semibold px-2 py-0.5 rounded-sm inline-flex items-center gap-1">🖥 ' + fmtLabel + '</span>' +
+      '</div>';
     }
 
     window.renderUpsellViews = function() {
+      if (typeof window.ensureUpsellDOM === 'function') {
+        window.ensureUpsellDOM();
+      }
       var cs = getActiveCartState();
       var inlineEl = document.getElementById('upsell-container-inline');
       var sidebarEl = document.getElementById('upsell-container-sidebar');
@@ -232,117 +200,117 @@
       var mult = is4w ? 1.85 : 1;
       var periodLabel = is4w ? '4 semanas' : '2 semanas';
 
-      highlightAddedUpsellRowsInList();
+      var sectionHeaderHtml =
+        '<div class="flex items-center gap-2">' +
+          '<span class="w-6 h-6 rounded-lg bg-[#FF4F00]/10 text-[#FF4F00] flex items-center justify-center shrink-0">' +
+            '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' +
+          '</span>' +
+          '<h4 class="text-xs font-bold text-[#282E38]">Outros pontos na mesma região</h4>' +
+        '</div>';
 
+      // Posicionamento 1: Bloco destacado na coluna esquerda com grid de 3 cards brancos no DS
       if (inlineEl) {
         inlineEl.classList.toggle('hidden', window.activeUpsellVariant !== 'sugestao1');
-        var cardsHtml = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
+        var inlineCardsHtml = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
           var added = isUpsellAdded(u.id);
           var price = u.basePrice2w * mult;
           var imp = Math.round(u.impressions * (is4w ? 2 : 1));
-          return '<div class="rounded-xl border p-3 flex flex-col justify-between transition-all ' +
-            (added ? 'border-[#10B981] bg-[#F0FDF4]/60' : 'border-[#F1F5F9] bg-white shadow-2xs hover:border-[#FED7AA]') + '">' +
+          var envLabel = (u.environment || 'residencial').toLowerCase();
+          var fmtLabel = (u.format || 'digital').toLowerCase();
+
+          return '<div class="rounded-xl border p-3.5 flex flex-col justify-between transition-all bg-white shadow-2xs ' +
+            (added ? 'border-[#10B981]' : 'border-[#E2E8F0] hover:border-[#CBD5E1]') + '">' +
             '<div>' +
-              '<div class="flex items-center justify-between gap-1 mb-1.5">' +
-                '<span class="text-[9px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded ' +
-                  (added ? 'bg-[#D1FAE5] text-[#047857]' : 'bg-[#FFF0E6] text-[#FF4F00]') + '">' + u.rankBadge + '</span>' +
-                '<span class="text-[10px] text-[#64748B] font-medium">' + u.environment + '</span>' +
-              '</div>' +
-              '<h4 class="text-xs font-bold text-[#1E293B] truncate" title="' + u.name + '">' + u.name + '</h4>' +
-              '<p class="text-[10.5px] text-[#64748B] line-clamp-2 mt-0.5 min-h-[30px]">' + u.address + '</p>' +
+              '<h5 class="text-xs font-bold text-[#282E38] truncate" title="' + u.name + '">' + u.name + '</h5>' +
+              '<p class="text-[11px] text-[#64748B] line-clamp-2 mt-1 min-h-[32px]">' + u.address + '</p>' +
+              '<div class="mt-2.5">' + renderDsTagsHtml(imp, envLabel, fmtLabel) + '</div>' +
             '</div>' +
-            '<div class="mt-2.5 pt-2 border-t border-gray-100">' +
-              '<div class="flex items-center justify-between text-[10.5px] mb-2">' +
-                '<span class="text-[#64748B]">👁 ' + imp.toLocaleString('pt-BR') + '</span>' +
-                '<div class="text-right">' +
-                  '<span class="block text-[9px] text-[#94A3B8] leading-none">adicional</span>' +
-                  '<strong class="text-xs font-extrabold text-[#1E293B]">+' + formatBRLCurrency(price) + '</strong>' +
-                '</div>' +
+            '<div class="mt-3 pt-2.5 border-t border-gray-100 flex flex-col gap-2">' +
+              '<div class="flex items-baseline justify-between">' +
+                '<strong class="text-xs font-extrabold text-[#282E38]">' + formatBRLCurrency(price) + '</strong>' +
+                '<span class="text-[11px] text-[#64748B]">/ ' + periodLabel + '</span>' +
               '</div>' +
               '<button type="button" onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="w-full py-1.5 px-2.5 rounded-lg text-[11px] font-bold transition cursor-pointer flex items-center justify-center gap-1 ' +
                 (added ? 'bg-[#ECFDF5] border border-[#10B981] text-[#047857] hover:bg-[#D1FAE5]' : 'bg-white border border-[#FF4F00] text-[#FF4F00] hover:bg-[#FF4F00] hover:text-white') + '">' +
-                (added ? '✓ Adicionado' : '+ Adicionar') +
+                (added ? '✓ adicionado' : '+ adicionar') +
               '</button>' +
             '</div>' +
           '</div>';
         }).join('');
 
         inlineEl.innerHTML =
-          '<div class="rounded-xl border border-[#FED7AA] bg-[#FFFDF9] p-4 space-y-3">' +
-            '<div class="flex items-start justify-between gap-2">' +
-              '<div class="flex items-start gap-2.5">' +
-                '<span class="w-6 h-6 rounded-lg bg-[#FF4F00] text-white text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5">+</span>' +
-                '<div>' +
-                  '<h4 class="text-xs font-extrabold text-[#1E293B]">Complete sua rota OOH (3 pontos seguintes da sua busca)</h4>' +
-                  '<p class="text-[11px] text-[#64748B]">Telas na mesma região para potencializar a frequência da sua campanha:</p>' +
-                '</div>' +
-              '</div>' +
-              '<span class="text-[10px] font-bold text-[#FF4F00] bg-white border border-[#FED7AA] px-2 py-0.5 rounded-full shrink-0">1-Clique</span>' +
-            '</div>' +
-            '<div class="grid grid-cols-1 md:grid-cols-3 gap-3">' + cardsHtml + '</div>' +
+          '<div class="mt-4 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] p-4 space-y-3">' +
+            sectionHeaderHtml +
+            '<div class="grid grid-cols-1 md:grid-cols-3 gap-3">' + inlineCardsHtml + '</div>' +
           '</div>';
       }
 
+      // Posicionamento 2: Bloco destacado na coluna direita com 3 cards empilhados no DS
       if (sidebarEl) {
         sidebarEl.classList.toggle('hidden', window.activeUpsellVariant !== 'sugestao2');
-        var sidebarCards = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
+        var sidebarCardsHtml = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
           var added = isUpsellAdded(u.id);
           var price = u.basePrice2w * mult;
           var imp = Math.round(u.impressions * (is4w ? 2 : 1));
-          return '<div class="p-2.5 rounded-xl border ' + (added ? 'border-[#10B981] bg-[#F0FDF4]' : 'border-[#FED7AA]/80 bg-white') + ' flex items-center justify-between gap-2.5 shadow-2xs">' +
-            '<div class="min-w-0">' +
-              '<div class="flex items-center gap-1.5">' +
-                '<p class="text-xs font-bold text-[#1E293B] truncate">' + u.name + '</p>' +
-                '<span class="text-[9.5px] font-semibold text-[#64748B] bg-gray-100 px-1.5 py-0.5 rounded shrink-0">' + u.environment + '</span>' +
+          var envLabel = (u.environment || 'residencial').toLowerCase();
+          var fmtLabel = (u.format || 'digital').toLowerCase();
+
+          return '<div class="rounded-xl border p-3 bg-white shadow-2xs transition-all ' +
+            (added ? 'border-[#10B981]' : 'border-[#E2E8F0]') + '">' +
+            '<div class="flex items-start justify-between gap-2">' +
+              '<div class="min-w-0">' +
+                '<h5 class="text-xs font-bold text-[#282E38] truncate">' + u.name + '</h5>' +
+                '<p class="text-[11px] text-[#64748B] truncate mt-0.5">' + u.address + '</p>' +
               '</div>' +
-              '<p class="text-[10.5px] text-[#64748B] truncate mt-0.5">' + u.address + '</p>' +
-              '<p class="text-[11px] font-extrabold text-[#FF4F00] mt-0.5">+' + formatBRLCurrency(price) + ' <span class="font-normal text-[#64748B]">· 👁 ' + imp.toLocaleString('pt-BR') + ' imp.</span></p>' +
+              '<button type="button" onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ' +
+                (added ? 'bg-[#ECFDF5] border border-[#10B981] text-[#047857]' : 'bg-white border border-[#FF4F00] text-[#FF4F00] hover:bg-[#FF4F00] hover:text-white') + '">' +
+                (added ? '✓ adicionado' : '+ adicionar') +
+              '</button>' +
             '</div>' +
-            '<button type="button" onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="shrink-0 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer ' +
-              (added ? 'bg-[#10B981] text-white' : 'bg-[#FFF5EB] border border-[#FF4F00] text-[#FF4F00] hover:bg-[#FF4F00] hover:text-white') + '">' +
-              (added ? '✓ Incluído' : '+ Incluir') +
-            '</button>' +
+            '<div class="mt-2.5 flex items-center justify-between gap-2 flex-wrap">' +
+              renderDsTagsHtml(imp, envLabel, fmtLabel) +
+              '<div class="shrink-0">' +
+                '<strong class="text-xs font-extrabold text-[#282E38]">' + formatBRLCurrency(price) + '</strong>' +
+                '<span class="text-[11px] text-[#64748B]">/ ' + periodLabel + '</span>' +
+              '</div>' +
+            '</div>' +
           '</div>';
         }).join('');
 
         sidebarEl.innerHTML =
-          '<div class="rounded-xl bg-[#FFF9F2] border border-[#FDBA74] p-3.5 space-y-2.5">' +
-            '<div class="flex items-center justify-between gap-2">' +
-              '<span class="text-[11px] font-extrabold uppercase tracking-wider text-[#EA580C] flex items-center gap-1">✨ POTENCIALIZE SEU ALCANCE OOH</span>' +
-              '<span class="text-[10px] font-bold text-[#EA580C] bg-[#FFEDD5] px-2 py-0.5 rounded-full">Sugestão</span>' +
-            '</div>' +
-            '<p class="text-[11px] text-[#475569] leading-snug">Adicione 1 ou mais pontos sugeridos da sua busca com o mesmo período (' + periodLabel + '):</p>' +
-            '<div class="space-y-2">' + sidebarCards + '</div>' +
+          '<div class="my-4 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] p-3.5 space-y-2.5">' +
+            sectionHeaderHtml +
+            '<div class="space-y-2.5">' + sidebarCardsHtml + '</div>' +
           '</div>';
       }
 
+      // Posicionamento 3: Cards brancos no DS dentro do Modal
       if (modalEl) {
         modalEl.innerHTML = window.SUGGESTED_UPSELL_ITEMS.map(function(u) {
           var added = isUpsellAdded(u.id);
           var price = u.basePrice2w * mult;
           var imp = Math.round(u.impressions * (is4w ? 2 : 1));
-          return '<div class="flex items-center justify-between gap-3 p-3.5 rounded-xl border ' +
-            (added ? 'border-[#10B981] bg-[#F0FDF4]' : 'border-gray-200 bg-white') + ' shadow-2xs">' +
-            '<div class="flex items-start gap-3 min-w-0">' +
-              '<span class="w-7 h-7 rounded-lg bg-[#FFF0E6] border border-[#FED7AA] text-[#FF4F00] text-[11px] font-extrabold flex items-center justify-center shrink-0 mt-0.5">' + u.rankShort + '</span>' +
-              '<div class="min-w-0">' +
-                '<div class="flex items-center gap-1.5 flex-wrap">' +
-                  '<p class="text-xs font-bold text-[#1E293B] truncate">' + u.name + '</p>' +
-                  '<span class="text-[10px] font-medium text-[#64748B] bg-gray-100 px-1.5 py-0.5 rounded">' + u.environment + '</span>' +
-                '</div>' +
-                '<p class="text-[11px] text-[#64748B] truncate mt-0.5">' + u.address + '</p>' +
-                '<p class="text-[10.5px] text-[#475569] mt-1">👁 ' + imp.toLocaleString('pt-BR') + ' impactos · <span class="text-[#16A34A] font-medium">' + u.neighborNote + '</span></p>' +
+          var envLabel = (u.environment || 'residencial').toLowerCase();
+          var fmtLabel = (u.format || 'digital').toLowerCase();
+
+          return '<div class="rounded-xl border p-3.5 bg-white shadow-2xs transition-all ' +
+            (added ? 'border-[#10B981]' : 'border-[#E2E8F0]') + '">' +
+            '<div class="flex items-center justify-between gap-2 flex-wrap">' +
+              '<span class="text-xs font-bold text-[#282E38]">' + u.name + '</span>' +
+              '<div class="flex items-center gap-2">' +
+                renderDsTagsHtml(imp, envLabel, fmtLabel) +
+                '<button type="button" onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="px-3 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer shrink-0 ' +
+                  (added ? 'bg-[#ECFDF5] border border-[#10B981] text-[#047857]' : 'bg-white border border-[#FF4F00] text-[#FF4F00] hover:bg-[#FF4F00] hover:text-white') + '">' +
+                  (added ? '✓ adicionado' : '+ adicionar') +
+                '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="flex items-center gap-3 shrink-0">' +
-              '<div class="text-right">' +
-                '<span class="block text-[10px] text-[#64748B]">por ' + periodLabel + '</span>' +
-                '<strong class="text-xs font-extrabold text-[#1E293B]">+' + formatBRLCurrency(price) + '</strong>' +
+            '<div class="mt-2.5 flex items-baseline justify-between gap-4">' +
+              '<span class="text-[11px] text-[#64748B]">' + u.address + '</span>' +
+              '<div class="shrink-0">' +
+                '<strong class="text-xs font-extrabold text-[#282E38]">' + formatBRLCurrency(price) + '</strong>' +
+                '<span class="text-[11px] text-[#64748B]">/ ' + periodLabel + '</span>' +
               '</div>' +
-              '<button type="button" onclick="toggleSuggestedUpsellItem(\'' + u.id + '\')" class="px-3.5 py-2 rounded-lg text-xs font-bold cursor-pointer transition ' +
-                (added ? 'bg-[#10B981] text-white' : 'bg-[#FF4F00] text-white hover:bg-[#E04500]') + '">' +
-                (added ? '✓ Adicionado' : '+ Adicionar') +
-              '</button>' +
             '</div>' +
           '</div>';
         }).join('');
@@ -363,12 +331,6 @@
           btn.className = 'px-3 py-1 rounded-md text-[11px] font-semibold transition-all text-gray-300 hover:text-white cursor-pointer';
         }
       });
-      var exp = document.getElementById('variant-explainer-banner');
-      if (exp) {
-        if (v === 'sugestao1') exp.innerHTML = '💡 <strong>Sugestão 1 (Inline OOH):</strong> Os 3 pontos seguintes da busca aparecem logo abaixo da lista de pontos OOH selecionados. Clique em "+ Adicionar" para ver o recálculo.';
-        if (v === 'sugestao2') exp.innerHTML = '💡 <strong>Sugestão 2 (Sidebar Direita):</strong> Os 3 pontos sugeridos aparecem no card lateral direito, logo acima do bloco de Valor, facilitando a decisão junto ao orçamento total.';
-        if (v === 'sugestao3') exp.innerHTML = '💡 <strong>Sugestão 3 (Modal Interstitial):</strong> O upsell aparece no momento em que o anunciante clica em "realizar pagamento". (Modal aberto automaticamente para visualização)';
-      }
       if (typeof window.showScreen === 'function') window.showScreen('view-resumo');
       window.renderUpsellViews();
       if (v === 'sugestao3') {
@@ -382,12 +344,12 @@
     window.openModalSugestao3 = function() {
       window.renderUpsellViews();
       var m = document.getElementById('modal-sugestao3');
-      if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
+      if (m) { m.classList.remove('hidden'); m.classList.add('flex'); m.style.display = 'flex'; }
     };
 
     window.closeModalSugestao3 = function() {
       var m = document.getElementById('modal-sugestao3');
-      if (m) { m.classList.add('hidden'); m.classList.remove('flex'); }
+      if (m) { m.classList.add('hidden'); m.classList.remove('flex'); m.style.display = ''; }
     };
 
     window.proceedToPaymentDirect = function() {
@@ -395,49 +357,32 @@
       if (typeof window.showScreen === 'function') window.showScreen('view-pagamento');
     };
 
-    window.setupUpsellPrototype = function() {
-      var topBarInner = document.querySelector('#aqui-ads-shell-root > header > div');
-      if (!topBarInner) return;
-      if (window.__upsellPrototypeInitialized) {
-        window.renderUpsellViews();
-        return;
-      }
-      window.__upsellPrototypeInitialized = true;
-
-      // Garantir estado inicial 100% OOH (2 pontos, 2 semanas) sem outros produtos
-      if (window.AquiAdsUI && typeof window.AquiAdsUI.setCartPreset === 'function') {
-        window.AquiAdsUI.setCartPreset('ooh_only', true);
-      }
-      var cs = getActiveCartState();
-      if (cs) {
-        cs.digitalItems = [];
-        cs.durationDays = 14;
-        cs.startDate = '03/11/2026';
-        cs.endDate = '17/11/2026';
-      }
-
-      // Ocultar acordeões de outros canais no Resumo (deixar apenas OOH)
+    window.ensureUpsellDOM = function() {
+      // Ocultar acordeões de outros canais no Resumo (deixar apenas OOH visível)
       ['resumo-accordion-digital', 'resumo-accordion-radio', 'resumo-accordion-tv', 'resumo-accordion-combos'].forEach(function(accId) {
         var el = document.getElementById(accId);
         if (el) el.classList.add('hidden');
       });
+      var oohAcc = document.getElementById('resumo-accordion-ooh');
+      if (oohAcc) oohAcc.classList.remove('hidden');
 
       // 1. Personalizar a barra escura de topo do protótipo
-      if (!document.getElementById('btn-var-sugestao1')) {
+      var topBarInner = document.querySelector('#aqui-ads-shell-root > header > div');
+      if (topBarInner && !document.getElementById('btn-var-sugestao1')) {
         var leftTitle = document.createElement('div');
         leftTitle.className = 'flex items-center gap-2.5';
         leftTitle.innerHTML =
-          '<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#FF4F00]/20 text-[#FF6B2B] border border-[#FF4F00]/40">● PRODUCT OS · TESTE DE UPSELL</span>' +
-          '<span class="text-xs text-gray-300 font-semibold hidden md:inline">Aqui Ads · Tela de Resumo (Somente OOH)</span>';
+          '<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#FF4F00]/20 text-[#FF6B2B] border border-[#FF4F00]/40">● PRODUCT OS</span>' +
+          '<span class="text-xs text-gray-300 font-semibold hidden md:inline">Aqui Ads · Tela de Resumo (OOH)</span>';
 
         var centerControls = document.createElement('div');
         centerControls.className = 'flex items-center gap-2 flex-wrap';
         centerControls.innerHTML =
           '<span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">POSICIONAMENTO:</span>' +
           '<div class="inline-flex bg-gray-900 rounded-lg p-0.5 border border-gray-800 gap-1">' +
-            '<button id="btn-var-sugestao1" type="button" onclick="setUpsellVariant(\'sugestao1\')" class="px-3 py-1 rounded-md text-[11px] font-bold transition-all bg-[#FF4F00] text-white shadow-xs cursor-pointer">Sugestão 1: Inline OOH (Esq.)</button>' +
-            '<button id="btn-var-sugestao2" type="button" onclick="setUpsellVariant(\'sugestao2\')" class="px-3 py-1 rounded-md text-[11px] font-semibold transition-all text-gray-300 hover:text-white cursor-pointer">Sugestão 2: Sidebar (Dir.)</button>' +
-            '<button id="btn-var-sugestao3" type="button" onclick="setUpsellVariant(\'sugestao3\')" class="px-3 py-1 rounded-md text-[11px] font-semibold transition-all text-gray-300 hover:text-white cursor-pointer">Sugestão 3: Modal Interstitial</button>' +
+            '<button id="btn-var-sugestao1" type="button" onclick="setUpsellVariant(\'sugestao1\')" class="px-3 py-1 rounded-md text-[11px] font-bold transition-all bg-[#FF4F00] text-white shadow-xs cursor-pointer">Posicionamento 1 (Lista OOH)</button>' +
+            '<button id="btn-var-sugestao2" type="button" onclick="setUpsellVariant(\'sugestao2\')" class="px-3 py-1 rounded-md text-[11px] font-semibold transition-all text-gray-300 hover:text-white cursor-pointer">Posicionamento 2 (Coluna Direita)</button>' +
+            '<button id="btn-var-sugestao3" type="button" onclick="setUpsellVariant(\'sugestao3\')" class="px-3 py-1 rounded-md text-[11px] font-semibold transition-all text-gray-300 hover:text-white cursor-pointer">Posicionamento 3 (Modal)</button>' +
           '</div>';
 
         var rightExtra = document.createElement('div');
@@ -457,25 +402,14 @@
         topBarInner.appendChild(rightWrapper);
       }
 
-      // 2. Inserir faixa âmbar explicativa logo acima do #main-header
-      var vpContainer = document.getElementById('viewport-container');
-      var mainHdr = document.getElementById('main-header');
-      if (vpContainer && mainHdr && !document.getElementById('upsell-top-context-banner')) {
-        var banner = document.createElement('div');
-        banner.id = 'upsell-top-context-banner';
-        banner.className = 'bg-[#FFFBEB] border-b border-[#FDE68A] px-4 sm:px-6 lg:px-[90px] py-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[#92400E]';
-        banner.innerHTML =
-          '<span id="variant-explainer-banner">💡 <strong>Sugestão 1 (Inline OOH):</strong> Os 3 pontos seguintes da busca aparecem logo abaixo da lista de pontos OOH selecionados. Clique em "+ Adicionar" para ver o recálculo.</span>' +
-          '<span class="text-[11px] font-semibold text-[#B45309] bg-[#FEF3C7] px-2.5 py-0.5 rounded-full border border-[#FDE68A]">Recálculo de preço e performance em tempo real ativado</span>';
-        vpContainer.insertBefore(banner, mainHdr);
-      }
-
-      // 3. Injetar containers de Upsell no Resumo
+      // 2. Injetar containers de pontos no Resumo (sem banners ou mensagens de sugestão)
       var oohAccBody = document.getElementById('resumo-acc-body-ooh');
       if (oohAccBody && !document.getElementById('upsell-container-inline')) {
         var inlineDiv = document.createElement('div');
         inlineDiv.id = 'upsell-container-inline';
-        inlineDiv.className = 'pt-3 border-t border-gray-100 mt-2';
+        inlineDiv.className = (window.activeUpsellVariant && window.activeUpsellVariant !== 'sugestao1')
+          ? 'hidden'
+          : '';
         oohAccBody.appendChild(inlineDiv);
       }
 
@@ -483,7 +417,7 @@
       if (sidebarCard && !document.getElementById('upsell-container-sidebar')) {
         var sidebarDiv = document.createElement('div');
         sidebarDiv.id = 'upsell-container-sidebar';
-        sidebarDiv.className = 'hidden';
+        sidebarDiv.className = (window.activeUpsellVariant === 'sugestao2') ? '' : 'hidden';
         var hrs = sidebarCard.querySelectorAll('hr');
         var targetHr = hrs.length > 1 ? hrs[1] : hrs[0];
         if (targetHr) {
@@ -492,46 +426,74 @@
           sidebarCard.appendChild(sidebarDiv);
         }
       }
+    };
 
-      // 4. Garantir aliases e interceptação da Sugestão 3 no avanço do Resumo
-      var origPopulateResumo = window.populateResumoScreen;
-      window.populateResumoScreen = function() {
-        if (typeof origPopulateResumo === 'function') origPopulateResumo();
+    window.setupUpsellPrototype = function() {
+      var topBarInner = document.querySelector('#aqui-ads-shell-root > header > div');
+      if (!topBarInner) return;
+
+      window.ensureUpsellDOM();
+
+      if (window.__upsellPrototypeInitialized) {
         window.renderUpsellViews();
-      };
+        return;
+      }
+      window.__upsellPrototypeInitialized = true;
+
+      // Garantir estado inicial 100% OOH (2 pontos, 2 semanas) sem outros produtos
+      if (window.AquiAdsUI && typeof window.AquiAdsUI.setCartPreset === 'function') {
+        window.AquiAdsUI.setCartPreset('ooh_only', true);
+      }
+      var cs = getActiveCartState();
+      if (cs) {
+        cs.digitalItems = [];
+        cs.selectedCombos = [];
+        cs.radioSelected = false;
+        cs.tvSelected = false;
+        cs.durationDays = 14;
+        cs.startDate = '03/11/2026';
+        cs.endDate = '17/11/2026';
+      }
+
       window.renderResumoView = window.populateResumoScreen;
 
-      var origGoToPagamento = window.goToPagamento;
-      window.goToPagamento = function() {
-        if (window.activeUpsellVariant === 'sugestao3') {
-          window.openModalSugestao3();
-          return;
-        }
-        if (typeof origGoToPagamento === 'function') origGoToPagamento();
-      };
+      if (!window.__upsellHooksBound) {
+        window.__upsellHooksBound = true;
+        var origGoToPagamento = window.goToPagamento;
+        window.goToPagamento = function() {
+          if (window.activeUpsellVariant === 'sugestao3') {
+            window.openModalSugestao3();
+            return;
+          }
+          if (typeof origGoToPagamento === 'function') origGoToPagamento();
+        };
 
-      var origOpenEnvioArte = window.openEnvioArteFromResumo;
-      window.openEnvioArteFromResumo = function() {
-        if (window.activeUpsellVariant === 'sugestao3') {
-          window.openModalSugestao3();
-          return;
-        }
-        if (typeof origOpenEnvioArte === 'function') origOpenEnvioArte();
-      };
+        var origOpenEnvioArte = window.openEnvioArteFromResumo;
+        window.openEnvioArteFromResumo = function() {
+          if (window.activeUpsellVariant === 'sugestao3') {
+            window.openModalSugestao3();
+            return;
+          }
+          if (typeof origOpenEnvioArte === 'function') origOpenEnvioArte();
+        };
+      }
 
       if (typeof window.showScreen === 'function') window.showScreen('view-resumo');
       if (typeof window.populateResumoScreen === 'function') window.populateResumoScreen();
       window.renderUpsellViews();
     };
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        if (window.AquiAdsUI && !window.__aquiAdsMounted) window.AquiAdsUI.mount(window.AQUI_ADS_CONFIG);
-        window.setupUpsellPrototype();
-      });
-    } else {
-      if (window.AquiAdsUI && !window.__aquiAdsMounted) window.AquiAdsUI.mount(window.AQUI_ADS_CONFIG);
+    function bootUpsellPrototype() {
+      if (window.AquiAdsUI && !window.AquiAdsUI.mounted) {
+        window.AquiAdsUI.mount(window.AQUI_ADS_CONFIG);
+      }
       window.setupUpsellPrototype();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bootUpsellPrototype);
+    } else {
+      bootUpsellPrototype();
     }
   </script>
 </body>
