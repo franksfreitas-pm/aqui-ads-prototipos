@@ -202,12 +202,281 @@
       }
     ];
 
+    // Catálogo OOH oficial embarcado como fallback resiliente (garante que os pontos sempre apareçam mesmo em preview isolado)
+    const CALC_FALLBACK_OOH_CATALOG = [
+      {
+        id: 'ooh-1',
+        name: 'Jardins Da Vila Olímpia',
+        address: 'Rua Gomes de Carvalho, 809 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_residencial',
+        environmentShort: 'residencial',
+        environmentLabel: 'Edifícios residenciais',
+        format: 'digital',
+        distance: '140 m',
+        views2w: 16200,
+        impressions: 16200,
+        reach2w: 872,
+        reach: 872,
+        frequency2w: 19,
+        freq: 19,
+        screens: 4,
+        price2w: 264.96,
+        basePrice2w: 264.96,
+        price4w: 476.92
+      },
+      {
+        id: 'ooh-2',
+        name: 'Adagio Aparthotel',
+        address: 'Rua Gomes de Carvalho, 1005 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_residencial',
+        environmentShort: 'residencial',
+        environmentLabel: 'Edifícios residenciais',
+        format: 'digital',
+        distance: '210 m',
+        views2w: 10800,
+        impressions: 10800,
+        reach2w: 581,
+        reach: 581,
+        frequency2w: 19,
+        freq: 19,
+        screens: 2,
+        price2w: 198.72,
+        basePrice2w: 198.72,
+        price4w: 357.70
+      },
+      {
+        id: 'ooh-3',
+        name: 'Continental Tower Corporate',
+        address: 'Rua Olimpíadas, 205 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_comercial',
+        environmentShort: 'comercial',
+        environmentLabel: 'Edifícios comerciais',
+        format: 'digital',
+        distance: '320 m',
+        views2w: 42500,
+        impressions: 42500,
+        reach2w: 2340,
+        reach: 2340,
+        frequency2w: 18,
+        freq: 18,
+        screens: 6,
+        price2w: 496.80,
+        basePrice2w: 496.80,
+        price4w: 894.24
+      },
+      {
+        id: 'ooh-4',
+        name: 'Vila Olímpia Residence',
+        address: 'Rua Clodomiro Amazonas, 1158 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_residencial',
+        environmentShort: 'residencial',
+        environmentLabel: 'Edifícios residenciais',
+        format: 'digital',
+        distance: '380 m',
+        views2w: 12420,
+        impressions: 12420,
+        reach2w: 690,
+        reach: 690,
+        frequency2w: 18,
+        freq: 18,
+        screens: 3,
+        price2w: 198.72,
+        basePrice2w: 198.72,
+        price4w: 357.70
+      },
+      {
+        id: 'ooh-5',
+        name: 'Edifício Alpha',
+        address: 'Rua Gomes de Carvalho, 911 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_residencial',
+        environmentShort: 'residencial',
+        environmentLabel: 'Edifícios residenciais',
+        format: 'impresso',
+        distance: '450 m',
+        views2w: 5400,
+        impressions: 5400,
+        reach2w: 291,
+        reach: 291,
+        frequency2w: 19,
+        freq: 19,
+        screens: 2,
+        price2w: 132.48,
+        basePrice2w: 132.48,
+        price4w: 238.46
+      },
+      {
+        id: 'ooh-6',
+        name: 'Millennium Office Park',
+        address: 'Av. Chedid Jafet, 222 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_comercial',
+        environmentShort: 'comercial',
+        environmentLabel: 'Edifícios comerciais',
+        format: 'digital',
+        distance: '520 m',
+        views2w: 58900,
+        impressions: 58900,
+        reach2w: 3120,
+        reach: 3120,
+        frequency2w: 19,
+        freq: 19,
+        screens: 8,
+        price2w: 662.40,
+        basePrice2w: 662.40,
+        price4w: 1192.32
+      },
+      {
+        id: 'ooh-7',
+        name: 'Berrini One Corporate',
+        address: 'Av. Eng. Luís Carlos Berrini, 105 - Itaim Bibi, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_comercial',
+        environmentShort: 'comercial',
+        environmentLabel: 'Edifícios comerciais',
+        format: 'digital',
+        distance: '690 m',
+        views2w: 64200,
+        impressions: 64200,
+        reach2w: 3480,
+        reach: 3480,
+        frequency2w: 18,
+        freq: 18,
+        screens: 8,
+        price2w: 728.64,
+        basePrice2w: 728.64,
+        price4w: 1311.55
+      },
+      {
+        id: 'ooh-8',
+        name: 'Shopping Vila Olímpia Media Net',
+        address: 'Rua Olimpíadas, 360 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=400&q=80',
+        environment: 'shopping',
+        environmentShort: 'comercial',
+        environmentLabel: 'Shoppings',
+        format: 'digital',
+        distance: '410 m',
+        views2w: 112000,
+        impressions: 112000,
+        reach2w: 18400,
+        reach: 18400,
+        frequency2w: 6,
+        freq: 6,
+        screens: 12,
+        price2w: 1290.00,
+        basePrice2w: 1290.00,
+        price4w: 2322.00
+      },
+      {
+        id: 'ooh-9',
+        name: 'Edifício Piazza Navona',
+        address: 'Rua Alvorada, 1045 - Vila Olímpia, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_residencial',
+        environmentShort: 'residencial',
+        environmentLabel: 'Edifícios residenciais',
+        format: 'digital',
+        distance: '190 m',
+        views2w: 14100,
+        impressions: 14100,
+        reach2w: 760,
+        reach: 760,
+        frequency2w: 19,
+        freq: 19,
+        screens: 3,
+        price2w: 231.84,
+        basePrice2w: 231.84,
+        price4w: 417.31
+      },
+      {
+        id: 'ooh-10',
+        name: 'Faria Lima Financial Center',
+        address: 'Av. Brig. Faria Lima, 3477 - Itaim Bibi, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_comercial',
+        environmentShort: 'comercial',
+        environmentLabel: 'Edifícios comerciais',
+        format: 'digital',
+        distance: '850 m',
+        views2w: 89400,
+        impressions: 89400,
+        reach2w: 4820,
+        reach: 4820,
+        frequency2w: 19,
+        freq: 19,
+        screens: 10,
+        price2w: 980.00,
+        basePrice2w: 980.00,
+        price4w: 1764.00
+      },
+      {
+        id: 'ooh-11',
+        name: 'Residencial Maison Itaim',
+        address: 'Rua João Cachoeira, 890 - Itaim Bibi, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=80',
+        environment: 'edificio_residencial',
+        environmentShort: 'residencial',
+        environmentLabel: 'Edifícios residenciais',
+        format: 'impresso',
+        distance: '920 m',
+        views2w: 7200,
+        impressions: 7200,
+        reach2w: 410,
+        reach: 410,
+        frequency2w: 18,
+        freq: 18,
+        screens: 2,
+        price2w: 148.00,
+        basePrice2w: 148.00,
+        price4w: 266.40
+      },
+      {
+        id: 'ooh-12',
+        name: 'Abrigo de Ônibus Av. Santo Amaro 1420',
+        address: 'Av. Santo Amaro, 1420 - Vila Nova Conceição, São Paulo - SP',
+        photo: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80',
+        environment: 'vias_publicas',
+        environmentShort: 'comercial',
+        environmentLabel: 'Vias públicas',
+        format: 'digital',
+        distance: '780 m',
+        views2w: 95000,
+        impressions: 95000,
+        reach2w: 22100,
+        reach: 22100,
+        frequency2w: 4,
+        freq: 4,
+        screens: 2,
+        price2w: 840.00,
+        basePrice2w: 840.00,
+        price4w: 1512.00
+      }
+    ];
+
     const calcState = {
       dailyBudget: 50,
-      selectedAddress: CALC_SUGGESTED_ADDRESSES[0].full,
-      addressMeta: CALC_SUGGESTED_ADDRESSES[0],
+      selectedAddress: '',
+      addressMeta: null,
+      hasCalculated: false,
       currentStep: 1, // 1 = Página 1 (#calc-step-1), 2 = Página 2 (#calc-step-2)
-      recommendedPoints: []
+      recommendedPoints: CALC_FALLBACK_OOH_CATALOG.slice(0, 4)
     };
 
     function formatIntPT(n) {
@@ -225,10 +494,10 @@
           <!-- PÁGINA 1: ENTRADA (VALOR/DIA + LOCALIZAÇÃO) E RESULTADO 30 DIAS -->
           <!-- =============================================================== -->
           <div id="calc-step-1" class="max-w-5xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-7 items-start">
+            <div id="calc-step-1-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-7 items-start">
 
               <!-- COLUNA ESQUERDA: CARD DE ENTRADA DA SIMULAÇÃO -->
-              <div class="lg:col-span-7 bg-white border border-[#DFE7EF] rounded-2xl p-5 sm:p-7 shadow-[0_4px_20px_rgba(0,9,41,0.04)]">
+              <div id="calc-input-card" class="lg:col-span-8 lg:col-start-3 bg-white border border-[#DFE7EF] rounded-2xl p-5 sm:p-7 shadow-[0_4px_20px_rgba(0,9,41,0.04)] transition-all duration-200">
                 <!-- Pílula de Contexto Superior -->
                 <div class="mb-3">
                   <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#FFF3ED] border border-[#FFD8C2] text-[#FF4F00] text-[10.5px] sm:text-[11px] font-extrabold tracking-wide uppercase">
@@ -325,7 +594,7 @@
                   <div id="calc-address-row" class="flex flex-col sm:flex-row items-stretch gap-2.5 relative">
                     <!-- Input de Endereço / CEP com Autocomplete -->
                     <div class="relative flex-1">
-                      <div class="bg-white border-[1.5px] border-[#DFE7EF] focus-within:border-[#FF4F00] rounded-xl px-3.5 py-2.5 flex items-center gap-2 transition h-full">
+                      <div id="calc-address-box" class="bg-white border-[1.5px] border-[#DFE7EF] focus-within:border-[#FF4F00] rounded-xl px-3.5 py-2.5 flex items-center gap-2 transition h-full">
                         <svg class="w-4 h-4 text-[#282E38] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                           <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -333,15 +602,16 @@
                         <input
                           id="calc-address-input"
                           type="text"
-                          value="Rua Alvorada, 1217 - Vila Olímpia, São Paulo"
+                          value=""
                           placeholder="Digite rua, bairro, CEP ou cidade..."
                           autocomplete="off"
                           onfocus="openCalcAddressDropdown()"
                           oninput="filterCalcAddressDropdown(this.value)"
+                          onkeydown="if(event.key==='Enter'){event.preventDefault();triggerCalcAction();}"
                           class="w-full text-xs sm:text-[13px] font-medium text-[#000929] bg-transparent outline-none truncate"
                         >
-                        <button type="button" onclick="clearCalcAddressInput(event)" title="Limpar endereço"
-                          class="w-4 h-4 rounded-full text-[#94A3B8] hover:text-[#282E38] text-xs flex items-center justify-center cursor-pointer shrink-0">
+                        <button id="calc-clear-address-btn" type="button" onclick="clearCalcAddressInput(event)" title="Limpar endereço"
+                          class="hidden w-4 h-4 rounded-full text-[#94A3B8] hover:text-[#282E38] text-xs flex items-center justify-center cursor-pointer shrink-0">
                           ✕
                         </button>
                       </div>
@@ -364,6 +634,9 @@
                       <span>Usar minha localização atual</span>
                     </button>
                   </div>
+                  <p id="calc-address-error" class="hidden text-xs font-semibold text-[#D92D20] mt-1.5">
+                    Informe o endereço, bairro ou CEP onde você quer anunciar para calcular o alcance.
+                  </p>
                 </div>
 
                 <!-- Botão Primário de Cálculo -->
@@ -377,8 +650,8 @@
                 </div>
               </div>
 
-              <!-- COLUNA DIREITA: CARD DE RESULTADO ESTIMADO EM 30 DIAS -->
-              <div id="calc-result-card" class="lg:col-span-5 bg-white border border-[#DFE7EF] border-t-4 border-t-[#FF4F00] rounded-2xl p-5 sm:p-7 shadow-[0_4px_20px_rgba(0,9,41,0.04)] flex flex-col justify-between">
+              <!-- COLUNA DIREITA: CARD DE RESULTADO ESTIMADO EM 30 DIAS (OCULTO ATÉ O PREENCHIMENTO) -->
+              <div id="calc-result-card" class="hidden lg:col-span-5 bg-white border border-[#DFE7EF] border-t-4 border-t-[#FF4F00] rounded-2xl p-5 sm:p-7 shadow-[0_4px_20px_rgba(0,9,41,0.04)] flex flex-col justify-between">
                 <div>
                   <h2 class="text-[#000929] font-extrabold text-lg sm:text-[22px] leading-snug">
                     Resultado estimado em 30 dias na sua região
@@ -550,7 +823,7 @@
                 </h3>
 
                 <div id="calc-p2-points-list" class="space-y-3">
-                  <!-- Preenchido dinamicamente por renderCalculatorRecommendedPoints() -->
+                  ${renderOohPointCardsHTML(CALC_FALLBACK_OOH_CATALOG.slice(0, 4))}
                 </div>
               </div>
 
@@ -558,6 +831,52 @@
           </div>
         </section>
       `;
+    }
+
+    function getActiveOohCatalog() {
+      try {
+        const state = window.AquiAdsUI && typeof window.AquiAdsUI.getState === 'function'
+          ? window.AquiAdsUI.getState()
+          : null;
+        if (state && Array.isArray(state.oohCatalog) && state.oohCatalog.length > 0) {
+          return state.oohCatalog;
+        }
+      } catch (e) {
+        // Fallback silencioso caso getState falhe
+      }
+      if (window.AQUI_ADS_MOCK_DATA && Array.isArray(window.AQUI_ADS_MOCK_DATA.oohCatalog) && window.AQUI_ADS_MOCK_DATA.oohCatalog.length > 0) {
+        return window.AQUI_ADS_MOCK_DATA.oohCatalog;
+      }
+      return CALC_FALLBACK_OOH_CATALOG;
+    }
+
+    function resolveAddressMeta(rawAddr) {
+      const trimmed = String(rawAddr || '').trim();
+      if (!trimmed) return null;
+      const lower = trimmed.toLowerCase();
+      const exactIdx = CALC_SUGGESTED_ADDRESSES.findIndex(a => a.full.toLowerCase() === lower || a.short.toLowerCase() === lower);
+      if (exactIdx !== -1) {
+        const found = CALC_SUGGESTED_ADDRESSES[exactIdx];
+        return {
+          ...found,
+          offset: exactIdx * 2
+        };
+      }
+      let hash = 0;
+      for (let i = 0; i < lower.length; i++) {
+        hash = ((hash << 5) - hash + lower.charCodeAt(i)) | 0;
+      }
+      const absHash = Math.abs(hash);
+      const customFactor = Number((0.88 + (absHash % 31) * 0.01).toFixed(2));
+      const shortPart = trimmed.split(',')[0] || trimmed;
+      return {
+        full: trimmed,
+        short: trimmed.length > 42 ? shortPart : trimmed,
+        pillMob: shortPart + ' (raio próximo)',
+        pillDesk: shortPart + ' • Raio de 1,5 km',
+        factor: customFactor,
+        offset: (absHash % 11) + 1
+      };
     }
 
     function syncMainHeaderForScreen(screenId) {
@@ -624,10 +943,53 @@
         }
       });
 
-      // 6. Renderizar estado inicial (R$ 50/dia em Rua Alvorada, 1217 - Vila Olímpia) e ativar a Calculadora
+      // 6. Pré-carregar os pontos recomendados na Página 2 mantendo o card de resultado da Página 1 oculto até o cliente preencher e calcular
       populateCalcAddressDropdown('');
-      recalculateOohImpact();
+      recalculateOohImpact(false);
+      syncResultCardVisibility();
       showScreen('view-calculadora-ooh');
+    }
+
+    function syncResultCardVisibility() {
+      const resCard = document.getElementById('calc-result-card');
+      const inputCard = document.getElementById('calc-input-card');
+      const clearBtn = document.getElementById('calc-clear-address-btn');
+      const hasAddr = Boolean(String(calcState.selectedAddress || '').trim());
+
+      if (clearBtn) {
+        if (hasAddr) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }
+
+      if (!resCard || !inputCard) return;
+
+      if (calcState.hasCalculated && hasAddr) {
+        resCard.classList.remove('hidden');
+        inputCard.classList.remove('lg:col-span-8', 'lg:col-start-3');
+        inputCard.classList.add('lg:col-span-7');
+      } else {
+        resCard.classList.add('hidden');
+        inputCard.classList.remove('lg:col-span-7');
+        inputCard.classList.add('lg:col-span-8', 'lg:col-start-3');
+      }
+    }
+
+    function setAddressValidationError(showError) {
+      const box = document.getElementById('calc-address-box');
+      const err = document.getElementById('calc-address-error');
+      if (box) {
+        if (showError) {
+          box.classList.remove('border-[#DFE7EF]');
+          box.classList.add('border-[#D92D20]');
+        } else {
+          box.classList.remove('border-[#D92D20]');
+          box.classList.add('border-[#DFE7EF]');
+        }
+      }
+      if (err) {
+        if (showError) err.classList.remove('hidden');
+        else err.classList.add('hidden');
+      }
     }
 
     function updateSliderTrackFill(val) {
@@ -673,7 +1035,6 @@
       if (slider) slider.value = effective;
       updateSliderTrackFill(effective);
       updateQuickPillsHighlight(effective);
-      recalculateOohImpact();
     }
 
     function onCalcDailyBlur(rawVal) {
@@ -690,7 +1051,6 @@
       if (slider) slider.value = num;
       updateSliderTrackFill(num);
       updateQuickPillsHighlight(num);
-      recalculateOohImpact();
     }
 
     function onCalcSliderInput(val) {
@@ -700,7 +1060,6 @@
       if (inp) inp.value = num;
       updateSliderTrackFill(num);
       updateQuickPillsHighlight(num);
-      recalculateOohImpact();
     }
 
     function selectCalcQuickPill(val) {
@@ -712,7 +1071,6 @@
       if (slider) slider.value = num;
       updateSliderTrackFill(num);
       updateQuickPillsHighlight(num);
-      recalculateOohImpact(true);
     }
 
     function populateCalcAddressDropdown(query) {
@@ -741,66 +1099,107 @@
     }
 
     function filterCalcAddressDropdown(val) {
+      const trimmed = String(val || '').trim();
       calcState.selectedAddress = val;
-      const found = CALC_SUGGESTED_ADDRESSES.find(a => a.full.toLowerCase() === String(val || '').toLowerCase().trim());
-      if (found) {
-        calcState.addressMeta = found;
+      const clearBtn = document.getElementById('calc-clear-address-btn');
+      if (clearBtn) {
+        if (trimmed) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }
+      if (trimmed) {
+        setAddressValidationError(false);
+        calcState.addressMeta = resolveAddressMeta(trimmed);
       } else {
-        const clean = String(val || 'Vila Olímpia, São Paulo').trim();
-        calcState.addressMeta = {
-          full: clean,
-          short: clean.split(',')[0] || 'Vila Olímpia',
-          pillMob: clean + ' (raio próximo)',
-          pillDesk: clean + ' • Raio de 1,5 km',
-          factor: 1.0
-        };
+        calcState.addressMeta = null;
+        calcState.hasCalculated = false;
+        syncResultCardVisibility();
       }
       populateCalcAddressDropdown(val);
       const dd = document.getElementById('calc-address-dropdown');
       if (dd) dd.classList.remove('hidden');
-      recalculateOohImpact();
     }
 
     function selectCalcAddressByIndex(idx) {
       const item = CALC_SUGGESTED_ADDRESSES[idx] || CALC_SUGGESTED_ADDRESSES[0];
       calcState.selectedAddress = item.full;
-      calcState.addressMeta = item;
+      calcState.addressMeta = resolveAddressMeta(item.full);
+      setAddressValidationError(false);
       const inp = document.getElementById('calc-address-input');
       const dd = document.getElementById('calc-address-dropdown');
+      const clearBtn = document.getElementById('calc-clear-address-btn');
       if (inp) inp.value = item.full;
       if (dd) dd.classList.add('hidden');
-      recalculateOohImpact(true);
+      if (clearBtn) clearBtn.classList.remove('hidden');
       if (typeof showToast === 'function') {
-        showToast(`Região atualizada: ${item.short}`);
+        showToast(`Região selecionada: ${item.short}`);
       }
     }
 
     function clearCalcAddressInput(evt) {
       if (evt) evt.stopPropagation();
+      calcState.selectedAddress = '';
+      calcState.addressMeta = null;
+      calcState.hasCalculated = false;
       const inp = document.getElementById('calc-address-input');
       if (inp) {
         inp.value = '';
         inp.focus();
       }
+      syncResultCardVisibility();
       openCalcAddressDropdown();
     }
 
     function useCurrentLocationForCalc() {
       const defaultLoc = CALC_SUGGESTED_ADDRESSES[0];
       calcState.selectedAddress = defaultLoc.full;
-      calcState.addressMeta = defaultLoc;
+      calcState.addressMeta = resolveAddressMeta(defaultLoc.full);
+      setAddressValidationError(false);
       const inp = document.getElementById('calc-address-input');
       const dd = document.getElementById('calc-address-dropdown');
+      const clearBtn = document.getElementById('calc-clear-address-btn');
       if (inp) inp.value = defaultLoc.full;
       if (dd) dd.classList.add('hidden');
-      recalculateOohImpact(true);
+      if (clearBtn) clearBtn.classList.remove('hidden');
       if (typeof showToast === 'function') {
-        showToast('📍 Localização atual aplicada: Rua Alvorada, 1217 - Vila Olímpia');
+        showToast('📍 Localização atual preenchida: Rua Alvorada, 1217 - Vila Olímpia');
       }
     }
 
     function triggerCalcAction() {
+      const dailyInp = document.getElementById('calc-daily-input');
+      const sliderInp = document.getElementById('calc-daily-slider');
+      if (dailyInp) {
+        let parsedDaily = Number(dailyInp.value);
+        if (isNaN(parsedDaily) || parsedDaily < 10) parsedDaily = 10;
+        if (parsedDaily > 1000) parsedDaily = 1000;
+        calcState.dailyBudget = parsedDaily;
+        dailyInp.value = parsedDaily;
+        if (sliderInp) sliderInp.value = parsedDaily;
+        updateSliderTrackFill(parsedDaily);
+        updateQuickPillsHighlight(parsedDaily);
+      }
+
+      const addrInp = document.getElementById('calc-address-input');
+      const dd = document.getElementById('calc-address-dropdown');
+      if (dd) dd.classList.add('hidden');
+
+      const currentAddr = String((addrInp ? addrInp.value : calcState.selectedAddress) || '').trim();
+      if (!currentAddr) {
+        setAddressValidationError(true);
+        if (addrInp) addrInp.focus();
+        if (typeof showToast === 'function') {
+          showToast('Informe o endereço, bairro ou CEP onde você quer anunciar.');
+        }
+        return;
+      }
+
+      setAddressValidationError(false);
+      calcState.selectedAddress = currentAddr;
+      calcState.addressMeta = resolveAddressMeta(currentAddr);
+      calcState.hasCalculated = true;
+      syncResultCardVisibility();
       recalculateOohImpact(true);
+
       const resCard = document.getElementById('calc-result-card');
       const container = document.getElementById('viewport-container');
       if (resCard) {
@@ -811,18 +1210,17 @@
         }
       }
       if (typeof showToast === 'function') {
-        showToast(`Alcance calculado para R$ ${calcState.dailyBudget}/dia na sua região!`);
+        const shortLoc = (calcState.addressMeta && calcState.addressMeta.short) || currentAddr;
+        showToast(`Alcance calculado para R$ ${calcState.dailyBudget}/dia em ${shortLoc}!`);
       }
     }
 
     function recalculateOohImpact(animate = false) {
-      const state = window.AquiAdsUI ? window.AquiAdsUI.getState() : {};
-      const catalog = (state && state.oohCatalog && state.oohCatalog.length)
-        ? state.oohCatalog
-        : (window.AQUI_ADS_MOCK_DATA ? window.AQUI_ADS_MOCK_DATA.oohCatalog : []);
+      const catalog = getActiveOohCatalog();
 
       const daily = Math.max(10, Math.min(1000, Number(calcState.dailyBudget) || 50));
       const locFactor = (calcState.addressMeta && calcState.addressMeta.factor) || 1.0;
+      const locOffset = (calcState.addressMeta && typeof calcState.addressMeta.offset === 'number') ? calcState.addressMeta.offset : 0;
       const ratio = (daily / 50) * locFactor;
 
       // 1. Cálculo das Faixas na Página 1 (Ancorado em 85.000 a 120.000 exibições e 28.000 a 42.000 pessoas para R$ 50/dia)
@@ -842,7 +1240,7 @@
         exactReach30d = Math.round(31400 * ratio);
       }
 
-      // 2. Seleção dinâmica das telas recomendadas de oohCatalog conforme o orçamento diário
+      // 2. Seleção dinâmica das telas recomendadas de oohCatalog conforme o orçamento diário e a região
       let numPoints = 4;
       if (daily <= 25) numPoints = 2;
       else if (daily <= 40) numPoints = 3;
@@ -852,7 +1250,11 @@
       else if (daily <= 500) numPoints = 10;
       else numPoints = Math.min(12, catalog.length);
 
-      calcState.recommendedPoints = catalog.slice(0, numPoints);
+      const rotatedCatalog = [];
+      for (let i = 0; i < catalog.length; i++) {
+        rotatedCatalog.push(catalog[(i + locOffset) % catalog.length]);
+      }
+      calcState.recommendedPoints = rotatedCatalog.slice(0, numPoints);
 
       // 3. Atualizar DOM da Página 1
       const addrLabelEl = document.getElementById('calc-res-address-label');
@@ -920,12 +1322,12 @@
                 .replace(/^Rua Ministro Jesuíno Cardoso/i, 'R. Min. Jesuíno Cardoso');
     }
 
-    function renderCalculatorRecommendedPoints() {
-      const listEl = document.getElementById('calc-p2-points-list');
-      if (!listEl) return;
+    function renderOohPointCardsHTML(pointsList) {
+      const points = (Array.isArray(pointsList) && pointsList.length > 0)
+        ? pointsList
+        : getActiveOohCatalog().slice(0, 4);
 
-      const points = calcState.recommendedPoints || [];
-      listEl.innerHTML = points.map(item => {
+      return points.map(item => {
         const imgUrl = item.photo || item.img;
         const shortAddr = shortenOohAddress(item.address);
         const envShort = item.environmentShort || (String(item.environmentLabel || '').includes('comercia') ? 'comercial' : 'residencial');
@@ -987,6 +1389,12 @@
       }).join('');
     }
 
+    function renderCalculatorRecommendedPoints() {
+      const listEl = document.getElementById('calc-p2-points-list');
+      if (!listEl) return;
+      listEl.innerHTML = renderOohPointCardsHTML(calcState.recommendedPoints);
+    }
+
     function goToCalculatorStep(stepNumber, focusField) {
       calcState.currentStep = stepNumber;
       const step1 = document.getElementById('calc-step-1');
@@ -995,10 +1403,20 @@
 
       if (stepNumber === 2) {
         step1.classList.add('hidden');
+        step1.style.display = 'none';
         step2.classList.remove('hidden');
+        step2.style.display = 'block';
+        try {
+          recalculateOohImpact(false);
+          renderCalculatorRecommendedPoints();
+        } catch (err) {
+          console.error('Erro ao renderizar Página 2:', err);
+        }
       } else {
         step2.classList.add('hidden');
+        step2.style.display = 'none';
         step1.classList.remove('hidden');
+        step1.style.display = 'block';
         if (focusField === 'budget') {
           setTimeout(() => {
             const inp = document.getElementById('calc-daily-input');
@@ -1021,7 +1439,10 @@
     }
 
     function convertCalculatorToCartSummary() {
-      const apiState = window.AquiAdsUI ? window.AquiAdsUI.getState() : null;
+      let apiState = null;
+      try {
+        apiState = window.AquiAdsUI ? window.AquiAdsUI.getState() : null;
+      } catch (e) {}
       if (apiState && apiState.cartState) {
         const cs = apiState.cartState;
         cs.durationDays = 28;
@@ -1037,7 +1458,7 @@
       }
 
       if (window.AquiAdsUI && typeof window.AquiAdsUI.refresh === 'function') {
-        window.AquiAdsUI.refresh();
+        try { window.AquiAdsUI.refresh(); } catch (e) {}
       }
       showScreen('view-resumo');
       if (typeof showToast === 'function') {
@@ -1046,7 +1467,10 @@
     }
 
     function convertCalculatorToResultsPage() {
-      const apiState = window.AquiAdsUI ? window.AquiAdsUI.getState() : null;
+      let apiState = null;
+      try {
+        apiState = window.AquiAdsUI ? window.AquiAdsUI.getState() : null;
+      } catch (e) {}
       if (apiState && apiState.cartState) {
         apiState.cartState.durationDays = 28;
       }

@@ -5,24 +5,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aqui Ads — Melhorias na Experiência do Mapa OOH</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
   <link rel="stylesheet" href="aqui_ads_official.css" />
-  <link rel="stylesheet" href="style.css?v=20261029b" />
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-slate-50 text-slate-900">
   <div id="aqui-ads-shell-root"></div>
 
   <script src="aqui_ads_mock_data.js"></script>
-  <script src="aqui_ads_ui.js?v=20261029b"></script>
+  <script src="aqui_ads_ui.js"></script>
   <script>
+    let mapZoomLevel = 1;
+    let isMapExpanded = false;
+    let isLassoActive = false;
+    let isDrawingLasso = false;
+    let lassoPoints = [];
+    let lassoSelectedIds = null;
+    let mapViewportSector = 0;
+
+    const MAP_COORDS = [
+      { top: 44, left: 48, cluster: 'sp-paulista', sector: 1 },
+      { top: 49, left: 53, cluster: 'sp-paulista', sector: 1 },
+      { top: 38, left: 43, cluster: 'sp-paulista', sector: 1 },
+      { top: 58, left: 36, cluster: 'sp-faria', sector: 2 },
+      { top: 64, left: 42, cluster: 'sp-faria', sector: 2 },
+      { top: 68, left: 62, cluster: 'sp-sul', sector: 2 },
+      { top: 75, left: 55, cluster: 'sp-sul', sector: 2 },
+      { top: 28, left: 66, cluster: 'sp-norte', sector: 1 },
+      { top: 22, left: 48, cluster: 'sp-norte', sector: 1 },
+      { top: 82, left: 32, cluster: 'sp-oeste', sector: 2 },
+      { top: 35, left: 26, cluster: 'sp-oeste', sector: 1 }
+    ];
+
+    function getFilteredMapCatalog() {
+      const base = (window.oohCatalog || []).filter(item => {
+        if (window.plpActiveCatFilter !== 'Todos' && item.cat !== window.plpActiveCatFilter) return false;
+        if (window.plpSearchQuery && !item.title.toLowerCase().includes(window.plpSearchQuery) && !item.sub.toLowerCase().includes(window.plpSearchQuery)) return false;
+        if (window.plpAdvancedFilters && window.plpAdvancedFilters.subcat && window.plpAdvancedFilters.subcat !== 'Todas' && item.subcat !== window.plpAdvancedFilters.subcat) return false;
+        if (window.plpAdvancedFilters && window.plpAdvancedFilters.onlyAvailable && item.available === false) return false;
+        return true;
+      });
+      return base.filter((item, idx) => {
+        if (lassoSelectedIds && Array.isArray(lassoSelectedIds)) {
+          return lassoSelectedIds.includes(item.id);
+        }
+        if (mapViewportSector > 0) {
+          const coord = MAP_COORDS[idx % MAP_COORDS.length];
+          return coord.sector === mapViewportSector;
+        }
+        return true;
+      });
+    }
+
+    function refreshMapAndList() {
+      if (typeof window.renderOohPlp === 'function') window.renderOohPlp();
+    }
+
+    function renderInteractiveMapPins(mapContainer, filteredCatalog) {
+      if (!mapContainer) return;
+      const catalog = window.oohCatalog || [];
+      if (mapZoomLevel === 1) {
+        const clusters = [
+          { id: 'c1', label: 'Av. Paulista & Jardins', top: 44, left: 48, items: filteredCatalog.filter((_, idx) => MAP_COORDS[idx % MAP_COORDS.length].cluster === 'sp-paulista') },
+          { id: 'c2', label: 'Itaim & Faria Lima', top: 61, left: 39, items: filteredCatalog.filter((_, idx) => MAP_COORDS[idx % MAP_COORDS.length].cluster === 'sp-faria') },
+          { id: 'c3', label: 'Moema & Zona Sul', top: 72, left: 58, items: filteredCatalog.filter((_, idx) => MAP_COORDS[idx % MAP_COORDS.length].cluster === 'sp-sul') },
+          { id: 'c4', label: 'Pinheiros & Zona Oeste', top: 52, left: 28, items: filteredCatalog.filter((_, idx) => ['sp-norte', 'sp-oeste'].includes(MAP_COORDS[idx % MAP_COORDS.length].cluster)) }
+        ];
+        mapContainer.innerHTML = clusters.filter(c => c.items.length > 0).map(c => {
+          const inCartCount = c.items.filter(i => (window.oohCartIds || []).includes(i.id)).length;
+          const allSelected = inCartCount === c.items.length && c.items.length > 0;
+          return `
+            <button type="button" onclick="changeMapZoom(1, '${c.id}')" style="top:${c.top}%; left:${c.left}%" class="pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 group transition-transform hover:scale-110 focus:outline-none z-20" title="${c.label}: Clique para aproximar">
+              <div class="relative flex items-center justify-center w-12 h-12 rounded-full shadow-lg border-[3px] border-white font-extrabold text-sm transition-colors ${allSelected ? 'bg-emerald-600 text-white ring-4 ring-emerald-500/30' : (inCartCount > 0 ? 'bg-[#FF4F00] text-white ring-4 ring-orange-500/30' : 'bg-[#FA3A00] text-white')}">
+                ${c.items.length}
+                ${inCartCount > 0 ? `<span class="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow flex items-center gap-0.5">✓${inCartCount}</span>` : ''}
+              </div>
+              <div class="mt-1 bg-slate-900/85 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded shadow whitespace-nowrap opacity-90 group-hover:opacity-100">${c.label}</div>
+            </button>
+          `;
+        }).join('');
+      } else {
+        mapContainer.innerHTML = filteredCatalog.map((item) => {
+          const idx = catalog.findIndex(x => x.id === item.id);
+          const coord = MAP_COORDS[(idx >= 0 ? idx : 0) % MAP_COORDS.length];
+          const inCart = (window.oohCartIds || []).includes(item.id);
+          return `
+            <button type="button" id="map-pin-${item.id}" onclick="openMapPinMiniCard(${item.id})" onmouseenter="highlightCardFromMap(${item.id})" style="top:${coord.top}%; left:${coord.left}%" class="map-pin-btn pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2 transition-all duration-200 hover:scale-125 hover:z-30 focus:outline-none z-20">
+              <div class="px-2.5 py-1 rounded-full shadow-md border-2 border-white font-bold text-xs flex items-center gap-1 transition-all ${inCart ? 'bg-emerald-600 text-white ring-4 ring-emerald-500/30 scale-105' : 'bg-[#FF4F00] text-white hover:bg-[#e04500]'}">
+                <span>${inCart ? '✓' : '●'}</span>
+                <span>R$ ${item.price.toLocaleString('pt-BR')}</span>
+              </div>
+            </button>
+          `;
+        }).join('');
+      }
+    }
+
+    function highlightPointOnMap(id) {
+      document.querySelectorAll('.map-pin-btn').forEach(b => b.classList.remove('scale-125', 'z-40', 'ring-4', 'ring-slate-900/40', 'rounded-full'));
+      const pin = document.getElementById('map-pin-' + id);
+      if (pin) pin.classList.add('scale-125', 'z-40', 'ring-4', 'ring-slate-900/40', 'rounded-full');
+    }
+
+    function clearMapHighlights() {
+      document.querySelectorAll('.map-pin-btn').forEach(b => b.classList.remove('scale-125', 'z-40', 'ring-4', 'ring-slate-900/40', 'rounded-full'));
+    }
+
+    function highlightCardFromMap(id) {
+      const card = document.getElementById('plp-card-' + id);
+      if (card) {
+        card.classList.add('ring-2', 'ring-[#FF4F00]');
+        setTimeout(() => card.classList.remove('ring-2', 'ring-[#FF4F00]'), 1200);
+      }
+    }
+
+    function openMapPinMiniCard(id) {
+      const item = (window.oohCatalog || []).find(i => i.id === id);
+      const cardEl = document.getElementById('map-pin-minicard');
+      if (!item || !cardEl) return;
+      const inCart = (window.oohCartIds || []).includes(item.id);
+      cardEl.innerHTML = `
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 p-3.5 flex gap-3.5 items-center relative animate-fadeIn">
+          <button type="button" onclick="closeMapPinMiniCard()" class="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold">✕</button>
+          <img src="${item.img}" alt="${item.title}" class="w-20 h-20 rounded-xl object-cover shrink-0 border border-slate-100" />
+          <div class="flex-1 min-w-0 pr-4">
+            <span class="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-50 text-[#FF4F00] mb-1">${item.cat} • ${item.Faces || 1} face(s)</span>
+            <h4 class="text-sm font-bold text-slate-900 truncate">${item.title}</h4>
+            <p class="text-xs text-slate-500 truncate mb-2">${item.sub} • Impacto: ${item.impacts}</p>
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[10px] text-slate-400 block">Investimento</span>
+                <span class="text-sm font-extrabold text-slate-900">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="openPdpModal(${item.id})" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50">Detalhes</button>
+                <button type="button" onclick="toggleOohItem(${item.id}); openMapPinMiniCard(${item.id})" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-[#FF4F00] text-white hover:bg-[#e04500]'}">
+                  ${inCart ? 'Remover' : '+ Adicionar'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      cardEl.classList.remove('hidden');
+    }
+
+    function closeMapPinMiniCard() {
+      const cardEl = document.getElementById('map-pin-minicard');
+      if (cardEl) cardEl.classList.add('hidden');
+    }
+
+    function changeMapZoom(delta) {
+      mapZoomLevel = Math.max(1, Math.min(2, mapZoomLevel + delta));
+      closeMapPinMiniCard();
+      refreshMapAndList();
+      if (typeof showToast === 'function') {
+        showToast(mapZoomLevel === 2 ? 'Zoom aproximado: exibindo pontos individuais com preço e status' : 'Zoom afastado: exibindo clusters inteligentes com contador de selecionados');
+      }
+    }
+
+    function simulateMapPan() {
+      mapViewportSector = (mapViewportSector + 1) % 3;
+      closeMapPinMiniCard();
+      refreshMapAndList();
+      const sectorNames = ['Grande São Paulo (Todos os bairros)', 'Quadrante Paulista, Jardins & Zona Norte', 'Quadrante Itaim, Faria Lima & Zona Sul'];
+      if (typeof showToast === 'function') {
+        showToast('Mapa movido: lista atualizada para ' + sectorNames[mapViewportSector]);
+      }
+    }
+
+    function toggleExpandMapMode() {
+      isMapExpanded = !isMapExpanded;
+      const leftCol = document.getElementById('ooh-left-list-col');
+      const gridWrap = document.getElementById('ooh-main-split-grid');
+      const btnText = document.getElementById('map-expand-btn-text');
+      if (!leftCol || !gridWrap) return;
+      if (isMapExpanded) {
+        leftCol.classList.add('hidden');
+        gridWrap.classList.remove('lg:grid-cols-12');
+        gridWrap.classList.add('lg:grid-cols-1');
+        if (btnText) btnText.textContent = 'Mostrar Lista + Mapa';
+        if (mapZoomLevel === 1) mapZoomLevel = 2;
+      } else {
+        leftCol.classList.remove('hidden');
+        gridWrap.classList.remove('lg:grid-cols-1');
+        gridWrap.classList.add('lg:grid-cols-12');
+        if (btnText) btnText.textContent = 'Expandir Mapa';
+      }
+      refreshMapAndList();
+    }
+
+    function toggleLassoTool() {
+      isLassoActive = !isLassoActive;
+      const svg = document.getElementById('map-drawing-svg');
+      const helper = document.getElementById('map-drawing-helper');
+      const btn = document.getElementById('btn-tool-polygon');
+      if (isLassoActive) {
+        if (mapZoomLevel === 1) mapZoomLevel = 2;
+        refreshMapAndList();
+        if (svg) svg.classList.remove('hidden');
+        if (helper) helper.classList.remove('hidden');
+        if (btn) btn.classList.add('bg-orange-50', 'text-[#FF4F00]', 'border-[#FF4F00]');
+      } else {
+        cancelLassoDrawing();
+      }
+    }
+
+    function cancelLassoDrawing() {
+      isLassoActive = false;
+      isDrawingLasso = false;
+      lassoPoints = [];
+      const svg = document.getElementById('map-drawing-svg');
+      const poly = document.getElementById('lasso-polygon-shape');
+      const helper = document.getElementById('map-drawing-helper');
+      const btn = document.getElementById('btn-tool-polygon');
+      if (svg) svg.classList.add('hidden');
+      if (poly) poly.setAttribute('points', '');
+      if (helper) helper.classList.add('hidden');
+      if (btn) btn.classList.remove('bg-orange-50', 'text-[#FF4F00]', 'border-[#FF4F00]');
+    }
+
+    function startLassoDraw(e) {
+      if (!isLassoActive) return;
+      isDrawingLasso = true;
+      lassoPoints = [];
+      const rect = e.currentTarget.getBoundingClientRect();
+      lassoPoints.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, rectW: rect.width, rectH: rect.height });
+    }
+
+    function moveLassoDraw(e) {
+      if (!isLassoActive || !isDrawingLasso) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      lassoPoints.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, rectW: rect.width, rectH: rect.height });
+      const poly = document.getElementById('lasso-polygon-shape');
+      if (poly) {
+        poly.setAttribute('points', lassoPoints.map(p => `${p.x},${p.y}`).join(' '));
+      }
+    }
+
+    function endLassoDraw() {
+      if (!isLassoActive || !isDrawingLasso) return;
+      isDrawingLasso = false;
+      const catalog = window.oohCatalog || [];
+      if (lassoPoints.length < 3) {
+        lassoSelectedIds = catalog.slice(0, 4).map(i => i.id);
+      } else {
+        const xs = lassoPoints.map(p => (p.x / p.rectW) * 100);
+        const ys = lassoPoints.map(p => (p.y / p.rectH) * 100);
+        const minX = Math.min(...xs), maxX = Math.max(...xs);
+        const minY = Math.min(...ys), maxY = Math.max(...ys);
+        const matched = catalog.filter((item, idx) => {
+          const c = MAP_COORDS[idx % MAP_COORDS.length];
+          return c.left >= (minX - 8) && c.left <= (maxX + 8) && c.top >= (minY - 8) && c.top <= (maxY + 8);
+        });
+        lassoSelectedIds = matched.length > 0 ? matched.map(i => i.id) : catalog.slice(0, 3).map(i => i.id);
+      }
+      cancelLassoDrawing();
+      const pill = document.getElementById('map-selection-pill');
+      const countText = document.getElementById('map-selection-count-text');
+      const clearBtn = document.getElementById('btn-clear-lasso-filter');
+      if (pill) pill.classList.remove('hidden');
+      if (clearBtn) clearBtn.classList.remove('hidden');
+      if (countText) countText.textContent = `${lassoSelectedIds.length} pontos na área desenhada`;
+      refreshMapAndList();
+      if (typeof showToast === 'function') {
+        showToast(`${lassoSelectedIds.length} pontos filtrados pela seleção por laço!`);
+      }
+    }
+
+    function addAllLassoPointsToCart() {
+      if (!lassoSelectedIds || !lassoSelectedIds.length) return;
+      let added = 0;
+      lassoSelectedIds.forEach(id => {
+        if (!(window.oohCartIds || []).includes(id)) {
+          window.oohCartIds.push(id);
+          added++;
+        }
+      });
+      if (typeof updateAllCartCounters === 'function') updateAllCartCounters();
+      refreshMapAndList();
+      if (typeof showToast === 'function') {
+        showToast(added > 0 ? `${added} ponto(s) da área adicionados ao carrinho!` : 'Todos os pontos desta área já estão no carrinho.');
+      }
+    }
+
+    function clearLassoSelection() {
+      lassoSelectedIds = null;
+      mapViewportSector = 0;
+      const pill = document.getElementById('map-selection-pill');
+      const clearBtn = document.getElementById('btn-clear-lasso-filter');
+      if (pill) pill.classList.add('hidden');
+      if (clearBtn) clearBtn.classList.add('hidden');
+      refreshMapAndList();
+    }
+
     AquiAdsUI.mount('#aqui-ads-shell-root', {
       title: 'Melhorias na Experiência do Mapa OOH',
       initialView: 'resultados',
       initialChannel: 'ooh',
       cartPreset: 'empty',
       viewport: 'desktop',
+      renderOohCard: function(item, state) {
+        const inCart = state.inCart;
+        const faces = item.Faces || 1;
+        return `
+          <article id="plp-card-${item.id}" onmouseenter="highlightPointOnMap(${item.id})" onmouseleave="clearMapHighlights()" class="rounded-xl border ${inCart ? 'border-[#FF4F00] ring-2 ring-[#FF4F00]/20 bg-orange-50/10' : 'border-slate-200 bg-white'} overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+            <div onclick="openPdpModal(${item.id})" class="h-36 bg-slate-200 relative overflow-hidden cursor-pointer group">
+              <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <span class="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">${item.cat}</span>
+              ${inCart ? '<span class="absolute top-2.5 right-2.5 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">✓ Selecionado</span>' : `<span class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded font-medium opacity-0 group-hover:opacity-100 transition-opacity">Ver detalhes</span>`}
+            </div>
+            <div class="p-3.5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1 mb-0.5">
+                  <span class="text-[10px] font-bold text-[#FF4F00] uppercase tracking-wider">${item.subcat || item.cat} • ${faces} ${faces > 1 ? 'faces' : 'face'}</span>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Disponível</span>
+                </div>
+                <h3 onclick="openPdpModal(${item.id})" class="text-xs font-bold text-slate-900 line-clamp-1 hover:text-[#FF4F00] cursor-pointer">${item.title}</h3>
+                <p class="text-[11px] text-slate-500 mt-0.5">${item.sub} • Impacto: <strong class="text-slate-700">${item.impacts}</strong></p>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Investimento período</span>
+                  <span class="text-sm font-extrabold text-slate-900">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                </div>
+                <button type="button" onclick="toggleOohItem(${item.id})" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-[#FF4F00] text-white hover:bg-[#e04500] shadow-sm'}">
+                  ${inCart ? 'Remover' : '+ Adicionar'}
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      },
       onReady: function() {
         const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
         if (topControls) {
@@ -30,7 +343,7 @@
           bar.className = 'flex items-center gap-2 text-xs';
           bar.innerHTML = `
             <span class="px-2.5 py-1 rounded-md bg-orange-500/20 text-orange-300 border border-orange-500/30 font-semibold hidden xl:inline-block">
-              Mapa 100% Fixo (Airbnb) • Scroll nos Pontos • Auto-Filtro Viewport • Clusters com Carrinho • Hover Sync • Desenhar Área (1 Gesto) • Modo 100% Mapa
+              Experiência do Mapa OOH: Auto-Filtro Viewport • Badge de Carrinho nos Clusters • Hover Sync • Seleção por Laço • Modo 100% Mapa
             </span>
             <a href="https://app.notion.com/p/Proposta-de-Melhorias-na-Experi-ncia-do-Mapa-Aqui-Ads-3fb9587e41378072bb4eda0296adf597?source=copy_link" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
               <span>📄</span><span>Doc Notion</span>
@@ -38,9 +351,97 @@
           `;
           topControls.insertBefore(bar, topControls.firstChild);
         }
+
+        const oohSubTab = document.getElementById('oohSubTab');
+        const cardsGrid = document.getElementById('plp-cards-grid');
+        const mapPins = document.getElementById('plp-ooh-map-pins');
+        if (oohSubTab && cardsGrid && mapPins) {
+          const splitGrid = oohSubTab.firstElementChild;
+          const leftCol = cardsGrid.parentElement;
+          const mapWrap = mapPins.parentElement;
+
+          if (splitGrid) splitGrid.id = 'ooh-main-split-grid';
+          if (leftCol) {
+            leftCol.id = 'ooh-left-list-col';
+            const headerBar = document.createElement('div');
+            headerBar.className = 'flex items-center justify-between mb-3 px-1';
+            headerBar.innerHTML = `
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="map-viewport-count-label" class="text-xs font-bold text-slate-700">Exibindo 11 pontos visíveis nesta área do mapa</span>
+              </div>
+              <button type="button" id="btn-clear-lasso-filter" onclick="clearLassoSelection()" class="hidden text-xs font-bold text-[#FF4F00] hover:underline flex items-center gap-1">
+                <span>✕ Limpar recorte de área</span>
+              </button>
+            `;
+            leftCol.insertBefore(headerBar, cardsGrid);
+          }
+
+          if (mapWrap) {
+            const overlay = document.createElement('div');
+            overlay.innerHTML = `
+              <div id="map-smart-actions-bar" class="absolute top-3 left-3 right-16 z-30 flex flex-wrap items-center gap-2 pointer-events-none">
+                <button type="button" id="map-expand-floating-button" onclick="toggleExpandMapMode()" class="pointer-events-auto bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs px-3 py-2 rounded-xl shadow-md border border-slate-200 flex items-center gap-1.5 transition-all">
+                  <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                  <span id="map-expand-btn-text">Expandir Mapa</span>
+                </button>
+                <button type="button" id="btn-tool-polygon" onclick="toggleLassoTool()" class="pointer-events-auto bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-3 py-2 rounded-xl shadow-md border border-slate-200 flex items-center gap-1.5 transition-all">
+                  <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                  <span id="lasso-btn-label">Selecionar área (Laço)</span>
+                </button>
+                <div id="map-drawing-helper" class="hidden pointer-events-auto bg-slate-900/90 text-white text-xs font-medium px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
+                  <span>Arraste o cursor sobre o mapa para contornar os quarteirões desejados</span>
+                  <button type="button" onclick="cancelLassoDrawing()" class="ml-1 text-slate-300 hover:text-white underline font-semibold">Cancelar</button>
+                </div>
+                <div id="map-selection-pill" class="hidden pointer-events-auto bg-emerald-950/95 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg border border-emerald-700 flex items-center gap-2.5">
+                  <span id="map-selection-count-text">4 pontos na área desenhada</span>
+                  <button type="button" onclick="addAllLassoPointsToCart()" class="bg-[#FF4F00] hover:bg-[#e04500] text-white font-bold px-2.5 py-1 rounded-lg transition-colors">+ Adicionar todos ao carrinho</button>
+                  <button type="button" onclick="clearLassoSelection()" class="text-emerald-200 hover:text-white text-xs underline">Limpar</button>
+                </div>
+              </div>
+              <div class="absolute top-3 right-3 z-30 flex flex-col gap-1.5">
+                <button type="button" onclick="changeMapZoom(1)" title="Aproximar mapa (Ver pinos individuais)" class="w-9 h-9 rounded-xl bg-white shadow-md border border-slate-200 flex items-center justify-center font-bold text-slate-700 hover:bg-slate-50 text-base">+</button>
+                <button type="button" onclick="changeMapZoom(-1)" title="Afastar mapa (Ver clusters por região)" class="w-9 h-9 rounded-xl bg-white shadow-md border border-slate-200 flex items-center justify-center font-bold text-slate-700 hover:bg-slate-50 text-base">−</button>
+                <button type="button" onclick="simulateMapPan()" title="Simular arraste de mapa (Auto-atualizar lista para nova região)" class="w-9 h-9 rounded-xl bg-white shadow-md border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-50">
+                  <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                </button>
+              </div>
+              <svg id="map-drawing-svg" class="hidden absolute inset-0 w-full h-full z-20 cursor-crosshair" onmousedown="startLassoDraw(event)" onmousemove="moveLassoDraw(event)" onmouseup="endLassoDraw(event)">
+                <polygon id="lasso-polygon-shape" points="" fill="rgba(255, 79, 0, 0.18)" stroke="#FF4F00" stroke-width="2.5" stroke-dasharray="6,4" />
+              </svg>
+              <div id="map-pin-minicard" class="hidden absolute bottom-14 left-4 right-4 max-w-md mx-auto z-30"></div>
+            `;
+            while (overlay.firstElementChild) {
+              mapWrap.appendChild(overlay.firstElementChild);
+            }
+          }
+        }
+
+        const origRenderOohPlp = window.renderOohPlp;
+        window.renderOohPlp = function() {
+          const fullCatalog = window.oohCatalog || [];
+          const filtered = getFilteredMapCatalog();
+          window.oohCatalog = filtered;
+          origRenderOohPlp();
+          window.oohCatalog = fullCatalog;
+
+          const countLbl = document.getElementById('map-viewport-count-label');
+          if (countLbl) {
+            if (lassoSelectedIds) {
+              countLbl.textContent = `Exibindo ${filtered.length} ponto(s) dentro da área desenhada no mapa`;
+            } else if (mapViewportSector > 0) {
+              countLbl.textContent = `Exibindo ${filtered.length} ponto(s) visíveis neste quadrante do mapa`;
+            } else {
+              countLbl.textContent = `Exibindo ${filtered.length} ponto(s) visíveis nesta área do mapa`;
+            }
+          }
+          renderInteractiveMapPins(document.getElementById('plp-ooh-map-pins'), filtered);
+        };
+
+        window.renderOohPlp();
       }
     });
   </script>
-  <script src="app.js?v=20261029c"></script>
 </body>
 </html>

@@ -3396,8 +3396,8 @@ window.AquiAdsUI = {
       oohCatalog,
       digitalSections,
       digitalCatalog,
-      mediaPlansCatalog,
-      draftsCatalog,
+      mediaPlansCatalog: typeof campaignsData !== 'undefined' ? campaignsData : [],
+      draftsCatalog: typeof draftsData !== 'undefined' ? draftsData : [],
       currentPlpChannel,
       currentOohAmbience
     };

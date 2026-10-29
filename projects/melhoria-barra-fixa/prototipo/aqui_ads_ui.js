@@ -1605,14 +1605,15 @@ const AQUI_ADS_SHELL_FOOTER_HTML = "      \u003c!-- ============================
         if (badgeEl) {
           badgeEl.textContent = count;
           badgeEl.classList.remove('hidden');
-          if (window.AquiAdsUI && window.AquiAdsUI.hooks && typeof window.AquiAdsUI.hooks.renderBottomBar === 'function') {
+        }
+      }
+
+      if (window.AquiAdsUI && window.AquiAdsUI.hooks && typeof window.AquiAdsUI.hooks.renderBottomBar === 'function') {
         const barEl = document.getElementById('actions-bar-results');
         const customBar = window.AquiAdsUI.hooks.renderBottomBar({ cartState, currentPlpChannel, formatBRL, barEl, total, count }, () => barEl ? barEl.innerHTML : '');
         if (typeof customBar === 'string' && barEl) {
           barEl.innerHTML = customBar;
         }
-      }
-    }
       }
     }
 
@@ -3396,8 +3397,8 @@ window.AquiAdsUI = {
       oohCatalog,
       digitalSections,
       digitalCatalog,
-      mediaPlansCatalog,
-      draftsCatalog,
+      mediaPlansCatalog: campaignsData,
+      draftsCatalog: draftsData,
       currentPlpChannel,
       currentOohAmbience
     };

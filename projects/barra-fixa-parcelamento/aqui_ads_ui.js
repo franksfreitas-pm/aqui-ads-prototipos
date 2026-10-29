@@ -1605,14 +1605,15 @@ const AQUI_ADS_SHELL_FOOTER_HTML = "      \u003c!-- ============================
         if (badgeEl) {
           badgeEl.textContent = count;
           badgeEl.classList.remove('hidden');
-          if (window.AquiAdsUI && window.AquiAdsUI.hooks && typeof window.AquiAdsUI.hooks.renderBottomBar === 'function') {
+        }
+      }
+
+      if (window.AquiAdsUI && window.AquiAdsUI.hooks && typeof window.AquiAdsUI.hooks.renderBottomBar === 'function') {
         const barEl = document.getElementById('actions-bar-results');
         const customBar = window.AquiAdsUI.hooks.renderBottomBar({ cartState, currentPlpChannel, formatBRL, barEl, total, count }, () => barEl ? barEl.innerHTML : '');
         if (typeof customBar === 'string' && barEl) {
           barEl.innerHTML = customBar;
         }
-      }
-    }
       }
     }
 
@@ -3396,8 +3397,8 @@ window.AquiAdsUI = {
       oohCatalog,
       digitalSections,
       digitalCatalog,
-      mediaPlansCatalog,
-      draftsCatalog,
+      mediaPlansCatalog: campaignsData,
+      draftsCatalog: draftsData,
       currentPlpChannel,
       currentOohAmbience
     };
@@ -3457,17 +3458,23 @@ window.AquiAdsUI = {
         ? '<main id="custom-prototype-root" class="flex-1 bg-[#F8F9FA] apply-zoom">' + preservedCustomHtml + '</main>'
         : AQUI_ADS_JOURNEY_VIEWS_HTML;
 
-      const mountContainer = document.getElementById('aqui-ads-app') || document.body;
-      const wrapper = document.createElement('div');
-      wrapper.id = 'aqui-ads-shell-root';
-      wrapper.className = 'flex-1 flex flex-col min-h-screen';
-      wrapper.innerHTML = AQUI_ADS_SHELL_HEADER_HTML + centerViewsHtml + AQUI_ADS_SHELL_FOOTER_HTML;
-
-      if (mountContainer === document.body) {
-        document.body.insertBefore(wrapper, document.body.firstChild);
+      const existingShellRoot = document.getElementById('aqui-ads-shell-root');
+      if (existingShellRoot) {
+        existingShellRoot.className = 'flex-1 flex flex-col min-h-screen';
+        existingShellRoot.innerHTML = AQUI_ADS_SHELL_HEADER_HTML + centerViewsHtml + AQUI_ADS_SHELL_FOOTER_HTML;
       } else {
-        mountContainer.innerHTML = '';
-        mountContainer.appendChild(wrapper);
+        const mountContainer = document.getElementById('aqui-ads-app') || document.body;
+        const wrapper = document.createElement('div');
+        wrapper.id = 'aqui-ads-shell-root';
+        wrapper.className = 'flex-1 flex flex-col min-h-screen';
+        wrapper.innerHTML = AQUI_ADS_SHELL_HEADER_HTML + centerViewsHtml + AQUI_ADS_SHELL_FOOTER_HTML;
+
+        if (mountContainer === document.body) {
+          document.body.insertBefore(wrapper, document.body.firstChild);
+        } else {
+          mountContainer.innerHTML = '';
+          mountContainer.appendChild(wrapper);
+        }
       }
     }
 

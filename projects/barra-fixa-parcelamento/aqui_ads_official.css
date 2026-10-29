@@ -110,6 +110,7 @@
       overflow-x: hidden !important;
       background-color: #FFFFFF !important;
       position: relative !important;
+      display: block !important;
     }
     /* Ajustes de Grid e Layout automáticos quando dentro da moldura Mobile 390px */
     #viewport-container.mobile-frame .responsive-cards-grid,
@@ -220,6 +221,18 @@
       gap: 8px !important;
       padding: 10px 14px !important;
     }
+    #viewport-container.mobile-frame > #view-resultados.active {
+      display: flex !important;
+      flex-direction: column !important;
+      min-height: calc(844px - 62px) !important;
+      height: auto !important;
+    }
+    #actions-bar-results {
+      position: sticky !important;
+      bottom: 0 !important;
+      z-index: 40 !important;
+      margin-top: auto !important;
+    }
     #viewport-container.mobile-frame .hide-on-mobile-frame {
       display: none !important;
     }
@@ -234,7 +247,7 @@
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(3px); }
-      to { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: none; }
     }
 
     /* Scrollbar fina para tabelas e frame mobile */
