@@ -149,6 +149,17 @@
 
       hooks: {
         onReady(api) {
+          const topbarRow = document.querySelector('#aqui-ads-shell-root > header > div');
+          if (topbarRow && !document.getElementById('notion-doc-link')) {
+            topbarRow.insertAdjacentHTML('beforeend', `
+              <a id="notion-doc-link" href="https://app.notion.com/p/Novos-Canais-e-Alavancas-de-Aquisi-o-de-Clientes-Aqui-Ads-3ff9587e41378139bdf9c284739ca599" target="_blank" rel="noopener noreferrer"
+                class="px-3 py-1 rounded-lg text-[11px] font-bold bg-indigo-950/90 hover:bg-indigo-900 text-indigo-200 border border-indigo-700/70 flex items-center gap-1.5 transition cursor-pointer shadow-2xs">
+                <span>📄</span>
+                <span>Doc Notion</span>
+                <span class="text-[10px] opacity-75">↗</span>
+              </a>
+            `);
+          }
           initOohDailyCalculator(api);
         }
       }

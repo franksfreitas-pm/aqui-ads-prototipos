@@ -391,6 +391,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
       padding-top: 1rem;
       border-top: 1px solid #F1F5F9;
     }
@@ -404,14 +406,15 @@
     .btn-access {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.35rem;
       background-color: var(--brand-primary);
       color: #FFFFFF;
       text-decoration: none;
-      padding: 0.65rem 1.2rem;
+      padding: 0.55rem 0.95rem;
       border-radius: 8px;
-      font-size: 0.875rem;
+      font-size: 0.82rem;
       font-weight: 700;
+      white-space: nowrap;
       transition: background-color 0.15s ease, transform 0.15s ease;
     }
 
@@ -611,7 +614,7 @@
 
       <div class="prototypes-grid">
         <!-- CARD DECIDIDO 1: Barra Fixa — Versão Final (⭐ 3. Parcela 3x + Alcance) -->
-        <article class="proto-card is-expanded" style="border-color: #6EE7B7; box-shadow: 0 6px 20px rgba(5, 150, 105, 0.08);">
+        <article class="proto-card" style="border-color: #6EE7B7; box-shadow: 0 6px 20px rgba(5, 150, 105, 0.08);">
           <div>
             <div class="proto-tags">
               <span class="tag tag-final">✅ Versão Final Decidida</span>
@@ -622,26 +625,27 @@
             <p class="proto-desc">
               Versão oficial definida para implementação na barra fixa inferior da página de resultados: prioriza em 1º lugar o parcelamento em até 3x sem juros seguido do alcance estimado de impressões, mantendo o valor total do período transparente.
             </p>
-            <div class="proto-features" style="display: block;">
+            <div class="proto-features">
               <ul>
                 <li><i class="uil uil-check-circle"></i> <strong>Decisão Oficial (Opção ⭐ 3):</strong> 1º Destaque <strong>Até 3x sem juros</strong> + 2º Alcance estimado (+impressões)</li>
                 <li><i class="uil uil-check-circle"></i> <strong>Visão Mobile (390px):</strong> Destaque laranja <em>"em até 3x sem juros"</em> logo abaixo do Total + faixa contextual de alcance estimado</li>
                 <li><i class="uil uil-check-circle"></i> <strong>Alternância 1-clique no topo:</strong> Permite consultar o Simulador Completo (7 Opções) a qualquer momento</li>
               </ul>
             </div>
+            <button type="button" class="btn-toggle-more" onclick="toggleCard(this)">
+              <span>Ver mais</span>
+              <i class="uil uil-angle-down"></i>
+            </button>
           </div>
           <div class="proto-footer">
             <span class="proto-version" style="color: #047857; font-weight: 700;">Versão Final • AQ-9010</span>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <a href="https://app.notion.com/p/Test-Card-Simulador-Executivo-Valor-por-Dia-Parcelamento-em-at-3x-e-Alcance-na-Barra-Fixa-da-4019587e413781a6984ac50b430021a3" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+              <a href="https://app.notion.com/p/Proposta-Executiva-Simulador-Valor-por-Dia-Parcelamento-em-at-3x-e-Alcance-na-Barra-Fixa-da--4019587e413781a6984ac50b430021a3" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
                 <i class="uil uil-file-alt"></i>
                 <span>Doc</span>
               </a>
-              <a href="projects/barra-fixa-parcelamento/index.html?mode=simulador" class="btn-access" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">
-                <span>Simulador (7)</span>
-              </a>
               <a href="projects/barra-fixa-parcelamento/index.html?mode=final" class="btn-access" style="background: #059669; color: #FFFFFF;">
-                <span>Abrir Versão Final</span>
+                <span>Abrir Protótipo</span>
                 <i class="uil uil-arrow-up-right"></i>
               </a>
             </div>
@@ -666,47 +670,47 @@
             Portas de entrada de topo de funil para atrair anunciantes PME acostumados à compra de mídia digital, estruturadas em 3 fluxos independentes de aquisição (começando pela Calculadora de OOH por Dia).
           </p>
 
-          <!-- Lista Estruturada dos 3 Fluxos dentro do Card -->
-          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
-            <!-- Fluxo 1 -->
-            <div style="background: #FFF7F4; border: 1px solid #FFD8C2; border-radius: 10px; padding: 11px 12px;">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
-                <strong style="font-size: 0.84rem; color: #0F172A;">1. Calculadora de Exibições e Alcance OOH por Dia</strong>
-                <span style="background: #FF4F00; color: #FFFFFF; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase;">Protótipo Ativo</span>
-              </div>
-              <p style="font-size: 0.78rem; color: #475569; line-height: 1.45; margin-bottom: 8px;">
-                Simula a faixa de Exibições e Alcance em 4 semanas a partir do valor por dia (<code>R$ XX/dia</code>) e endereço, montando o plano OOH recomendado com saída para o resumo do pedido ou página de resultados.
-              </p>
-              <a href="projects/novos-canais-aquisicao/index.html" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: #FF4F00; text-decoration: none;">
-                <span>Acessar protótipo da Calculadora (Desktop &amp; Mobile)</span>
-                <i class="uil uil-arrow-up-right"></i>
-              </a>
-            </div>
-
-            <!-- Fluxo 2 -->
-            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 12px;">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap;">
-                <strong style="font-size: 0.82rem; color: #0F172A;">2. "Suba sua Campanha da Meta/Google" (Tradutor OOH + Digital)</strong>
-                <span style="background: #E2E8F0; color: #475569; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">Mapeado</span>
-              </div>
-              <p style="font-size: 0.77rem; color: #64748B; line-height: 1.4;">
-                Monta automaticamente o carrinho sugerido de OOH + Globo Digital a partir do link do post/site ou do print do gerenciador de anúncios.
-              </p>
-            </div>
-
-            <!-- Fluxo 3 -->
-            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 12px;">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap;">
-                <strong style="font-size: 0.82rem; color: #0F172A;">3. Gerador Gratuito de Mockup + Raio-X do Endereço</strong>
-                <span style="background: #E2E8F0; color: #475569; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">Mapeado</span>
-              </div>
-              <p style="font-size: 0.77rem; color: #64748B; line-height: 1.4;">
-                Gera prévia realista da marca na tela do prédio e nos portais Globo + Raio-X hiperlocal do endereço com compartilhamento via WhatsApp.
-              </p>
-            </div>
-          </div>
-
           <div class="proto-features">
+            <!-- Lista Estruturada dos 3 Fluxos dentro do bloco colapsável -->
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
+              <!-- Fluxo 1 -->
+              <div style="background: #FFF7F4; border: 1px solid #FFD8C2; border-radius: 10px; padding: 11px 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
+                  <strong style="font-size: 0.84rem; color: #0F172A;">1. Calculadora de Exibições e Alcance OOH por Dia</strong>
+                  <span style="background: #FF4F00; color: #FFFFFF; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase;">Protótipo Ativo</span>
+                </div>
+                <p style="font-size: 0.78rem; color: #475569; line-height: 1.45; margin-bottom: 8px;">
+                  Simula a faixa de Exibições e Alcance em 4 semanas a partir do valor por dia (<code>R$ XX/dia</code>) e endereço, montando o plano OOH recomendado com saída para o resumo do pedido ou página de resultados.
+                </p>
+                <a href="projects/novos-canais-aquisicao/index.html" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: #FF4F00; text-decoration: none;">
+                  <span>Acessar protótipo da Calculadora (Desktop &amp; Mobile)</span>
+                  <i class="uil uil-arrow-up-right"></i>
+                </a>
+              </div>
+
+              <!-- Fluxo 2 -->
+              <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap;">
+                  <strong style="font-size: 0.82rem; color: #0F172A;">2. "Suba sua Campanha da Meta/Google" (Tradutor OOH + Digital)</strong>
+                  <span style="background: #E2E8F0; color: #475569; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">Mapeado</span>
+                </div>
+                <p style="font-size: 0.77rem; color: #64748B; line-height: 1.4;">
+                  Monta automaticamente o carrinho sugerido de OOH + Globo Digital a partir do link do post/site ou do print do gerenciador de anúncios.
+                </p>
+              </div>
+
+              <!-- Fluxo 3 -->
+              <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap;">
+                  <strong style="font-size: 0.82rem; color: #0F172A;">3. Gerador Gratuito de Mockup + Raio-X do Endereço</strong>
+                  <span style="background: #E2E8F0; color: #475569; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">Mapeado</span>
+                </div>
+                <p style="font-size: 0.77rem; color: #64748B; line-height: 1.4;">
+                  Gera prévia realista da marca na tela do prédio e nos portais Globo + Raio-X hiperlocal do endereço com compartilhamento via WhatsApp.
+                </p>
+              </div>
+            </div>
+
             <ul>
               <li><i class="uil uil-check-circle"></i> <strong>Fluxo 1 — Página 1 (Simulador):</strong> Input editável e slider até R$ 1.000/dia + endereço + exibição condicional de Exibições e Alcance em 4 semanas</li>
               <li><i class="uil uil-check-circle"></i> <strong>Fluxo 1 — Página 2 (Plano OOH):</strong> Resumo enxuto com parcelamento em até 3x sem juros + lista de telas OOH recomendadas</li>
@@ -721,12 +725,12 @@
         <div class="proto-footer">
           <span class="proto-version">3 Fluxos • AQ-8930</span>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="https://app.notion.com/p/Novos-Canais-e-Alavancas-de-Aquisi-o-de-Clientes-Aqui-Ads-3ff9587e41378139bdf9c284739ca599" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+            <a href="https://app.notion.com/p/Novos-Canais-e-Alavancas-de-Aquisi-o-de-Clientes-Aqui-Ads-3ff9587e41378139bdf9c284739ca599" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
-              <span>Doc (3 Fluxos)</span>
+              <span>Doc</span>
             </a>
             <a href="projects/novos-canais-aquisicao/index.html" class="btn-access">
-              <span>Abrir Fluxo 1</span>
+              <span>Abrir Protótipo</span>
               <i class="uil uil-arrow-up-right"></i>
             </a>
           </div>
@@ -759,11 +763,11 @@
           </button>
         </div>
         <div class="proto-footer">
-          <span class="proto-version">v1.0 • 4 Variantes + Test Card</span>
-          <div style="display: flex; gap: 8px;">
-            <a href="projects/teste-ab-preco-por-dia-card/index.html#doc" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+          <span class="proto-version">v1.0 • 4 Variantes</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Test-Card-Pre-o-por-Dia-nos-Cards-da-P-gina-de-Resultados-OOH-3ff9587e4137819b8de7eb645face07c" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
-              <span>Test Card</span>
+              <span>Doc</span>
             </a>
             <a href="projects/teste-ab-preco-por-dia-card/index.html" class="btn-access">
               <span>Abrir Protótipo</span>
@@ -799,9 +803,9 @@
           </button>
         </div>
         <div class="proto-footer">
-          <span class="proto-version">v2.0 • Dupla Ação + Versões A/B</span>
-          <div style="display: flex; gap: 8px;">
-            <a href="https://app.notion.com/p/Especifica-o-de-Produto-e-UX-Barra-de-Aviso-Contextual-na-P-gina-de-Resultados-Aqui-Ads-4029587e413781ae9591f886ca7f579a" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+          <span class="proto-version">v2.0 • Versões A/B</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Especifica-o-de-Produto-e-UX-Barra-de-Aviso-Contextual-na-P-gina-de-Resultados-Aqui-Ads-4029587e413781ae9591f886ca7f579a" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
               <span>Doc</span>
             </a>
@@ -839,18 +843,15 @@
           </button>
         </div>
         <div class="proto-footer">
-          <span class="proto-version" style="color: #047857; font-weight: 700;">✅ Decidida: ⭐ 3. Parcela 3x + Alcance</span>
-          <div style="display: flex; gap: 8px;">
-            <a href="https://app.notion.com/p/Test-Card-Simulador-Executivo-Valor-por-Dia-Parcelamento-em-at-3x-e-Alcance-na-Barra-Fixa-da-4019587e413781a6984ac50b430021a3" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+          <span class="proto-version" style="color: #047857; font-weight: 700;">✅ Decidida: ⭐ 3. Parcela 3x</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Proposta-Executiva-Simulador-Valor-por-Dia-Parcelamento-em-at-3x-e-Alcance-na-Barra-Fixa-da--4019587e413781a6984ac50b430021a3" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
               <span>Doc</span>
             </a>
-            <a href="projects/barra-fixa-parcelamento/index.html?mode=simulador" class="btn-access" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1;">
-              <span>Simulador</span>
-            </a>
             <a href="projects/barra-fixa-parcelamento/index.html?mode=final" class="btn-access">
-              <span>Protótipo</span>
-              <i class="uil uil-arrow-right"></i>
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
             </a>
           </div>
         </div>
@@ -882,15 +883,15 @@
           </button>
         </div>
         <div class="proto-footer">
-          <span class="proto-version">v2.1 • Mapa Fixo + Template Oficial</span>
-          <div style="display: flex; gap: 8px;">
-            <a href="https://app.notion.com/p/Proposta-de-Melhorias-na-Experi-ncia-do-Mapa-Aqui-Ads-3fb9587e41378072bb4eda0296adf597?source=copy_link" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+          <span class="proto-version">v2.1 • Mapa Fixo</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Proposta-de-Melhorias-na-Experi-ncia-do-Mapa-Aqui-Ads-3fb9587e41378072bb4eda0296adf597" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
               <span>Doc</span>
             </a>
             <a href="projects/experiencia-mapa/prototipo/index.html" class="btn-access">
-              <span>Protótipo</span>
-              <i class="uil uil-arrow-right"></i>
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
             </a>
           </div>
         </div>
@@ -923,10 +924,16 @@
         </div>
         <div class="proto-footer">
           <span class="proto-version">v1.2 • Stepper Guiado</span>
-          <a href="projects/jornada-rascunhos/" class="btn-access">
-            <span>Acessar Protótipo</span>
-            <i class="uil uil-arrow-right"></i>
-          </a>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Especifica-o-de-Produto-e-UX-Melhorias-no-Fluxo-de-Meus-Rascunhos-Aqui-Ads-4009587e41378138b2fef2fd66e6123d" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+              <i class="uil uil-file-alt"></i>
+              <span>Doc</span>
+            </a>
+            <a href="projects/jornada-rascunhos/" class="btn-access">
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
+            </a>
+          </div>
         </div>
       </article>
 
@@ -957,10 +964,16 @@
         </div>
         <div class="proto-footer">
           <span class="proto-version">v1.0 • Checkout</span>
-          <a href="projects/upsell-ooh-resumo/" class="btn-access">
-            <span>Acessar Protótipo</span>
-            <i class="uil uil-arrow-right"></i>
-          </a>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Especifica-o-de-Produto-e-UX-Upsell-Contextual-de-Pontos-OOH-na-Tela-de-Resumo-Aqui-Ads-4009587e413781e3b2bde10791a02aef" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+              <i class="uil uil-file-alt"></i>
+              <span>Doc</span>
+            </a>
+            <a href="projects/upsell-ooh-resumo/" class="btn-access">
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
+            </a>
+          </div>
         </div>
       </article>
 
@@ -991,10 +1004,12 @@
         </div>
         <div class="proto-footer">
           <span class="proto-version">v1.0 • Sticky UX</span>
-          <a href="projects/barra-filtros-fixa/" class="btn-access">
-            <span>Acessar Protótipo</span>
-            <i class="uil uil-arrow-right"></i>
-          </a>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="projects/barra-filtros-fixa/" class="btn-access">
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
+            </a>
+          </div>
         </div>
       </article>
 
@@ -1025,14 +1040,15 @@
           </button>
         </div>
         <div class="proto-footer">
-          <div style="display: flex; gap: 8px;">
-            <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2?source=copy_link" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+          <span class="proto-version">v1.0 • Busca Guiada</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
               <span>Doc</span>
             </a>
             <a href="projects/pre-pagina-resultado/prototipo/index.html" class="btn-access">
-              <span>Protótipo</span>
-              <i class="uil uil-arrow-right"></i>
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
             </a>
           </div>
         </div>
@@ -1064,14 +1080,15 @@
           </button>
         </div>
         <div class="proto-footer">
-          <div style="display: flex; gap: 8px;">
-            <a href="https://app.notion.com/p/Quick-Wins-de-Experi-ncia-Mobile-Aqui-Ads-3f99587e4137806ebf28e0b58a2df935?source=copy_link" target="_blank" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
+          <span class="proto-version">v1.0 • Quick Wins Mobile</span>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="https://app.notion.com/p/Quick-Wins-de-Experi-ncia-Mobile-Aqui-Ads-3f99587e4137806ebf28e0b58a2df935" target="_blank" rel="noopener noreferrer" class="btn-access" style="background: #DBEAFE; color: #3B82F6; border: 1px solid #BFDBFE;">
               <i class="uil uil-file-alt"></i>
               <span>Doc</span>
             </a>
             <a href="projects/revisao-experiencia-mobile/prototipo/vitrine.html" class="btn-access">
-              <span>Protótipo</span>
-              <i class="uil uil-arrow-right"></i>
+              <span>Abrir Protótipo</span>
+              <i class="uil uil-arrow-up-right"></i>
             </a>
           </div>
         </div>
