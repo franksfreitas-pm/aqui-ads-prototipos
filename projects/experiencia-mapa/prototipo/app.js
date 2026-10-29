@@ -627,150 +627,157 @@
   }
 
   // ==========================================================================
-  // 4. TEMPLATES HTML REAIS DE PRODUÇÃO (CARDS + BANNERS PROMOCIONAIS)
+  // 4. TEMPLATES HTML OFICIAIS DE PRODUÇÃO (SINCRONIZADOS 100% COM aqui_ads_ui.js)
   // ==========================================================================
   const PROMO_BANNER_1_HTML = `
-    <li data-v-fc771bb1="" class="col-span-full">
-      <div data-v-fc771bb1="" class="mx-auto w-[290px] md:w-full">
-        <div data-v-fc771bb1="" class="relative left-1/2 w-[336px] -translate-x-1/2 md:left-0 md:w-full md:translate-x-0">
-          <section class="relative flex w-full gap-6 rounded-2xl md:my-3 md:h-[121px]" style="background-color: rgb(201, 184, 255);">
-            <div class="mx-auto flex flex-col items-center px-6 py-8 md:w-[816px] md:flex-row md:items-center md:justify-between md:px-10 md:py-6">
-              <div class="-mb-8 flex flex-shrink-0 justify-center md:mr-9 md:justify-start">
-                <img src="https://aqui.globo/images/banners/results/ilustracao-olho.webp" alt="Ilustração de criação" class="h-40 w-40 object-contain md:h-[117px] md:w-[121px]">
-              </div>
-              <div class="flex-1 text-center text-secondary-dark md:max-w-[467px] md:text-left">
-                <h2 class="text-2xl font-bold md:text-3xl">Deixa que a gente cuida da arte</h2>
-                <p class="mt-2 text-lg leading-7 md:text-lg">Nosso time de criação transforma sua ideia em uma peça linda, profissional e no formato certo pra mídia escolhida.</p>
-              </div>
-              <div class="flex flex-row items-center gap-2">
-                <div class="text-center md:text-right">
-                  <p class="text-secondary-dark line-through text-base">R$ 199,00</p>
-                  <p class="text-lg font-bold text-secondary-dark md:text-xl">R$ 99,00</p>
-                </div>
-                <button type="button" class="inline-flex items-center justify-center rounded-md bg-[#222222] px-5 py-2 font-semibold text-white hover:bg-black" aria-haspopup="dialog">saiba mais</button>
-              </div>
-            </div>
-          </section>
+    <li class="col-span-full rounded-xl bg-[#C8B6FF] p-4 sm:px-5 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-xl bg-white/80 flex items-center justify-center shrink-0 shadow-2xs">
+          <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 15.5C7 14.1193 8.11929 13 9.5 13H13.5L24 7.5V28.5L13.5 23H9.5C8.11929 23 7 21.8807 7 20.5V15.5Z" fill="#FF4F00"/>
+            <path d="M10 23H13.5L15.5 29.5C15.7 30.2 15.2 31 14.4 31H11.8C11.1 31 10.5 30.5 10.4 29.8L10 23Z" fill="#3F1195"/>
+            <path d="M27 13.5C28.8 15.3 28.8 20.7 27 22.5" stroke="#1E1B4B" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M30 10.5C33 13.8 33 22.2 30 25.5" stroke="#009E60" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
         </div>
+        <div>
+          <h3 class="text-sm font-extrabold text-[#1E1B4B] leading-snug">Deixe que a gente cuida da arte</h3>
+          <p class="text-xs text-[#282E38] mt-0.5 leading-relaxed">Você envia as informações e nossa equipe cria a arte no formato certo para os pontos escolhidos.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3.5 shrink-0 self-end sm:self-center">
+        <div class="text-right">
+          <span class="block text-[10px] font-semibold text-[#282E38] leading-none">Apenas</span>
+          <strong class="text-sm font-extrabold text-[#1E1B4B]">R$ 99,00</strong>
+        </div>
+        <button type="button" onclick="if (typeof showToast === 'function') showToast('Serviço Contrate uma Arte (R$ 99,00): disponível na etapa de Envio de Arte!')" class="bg-[#282E38] hover:bg-[#1E2229] text-white text-xs font-bold px-4 py-2 rounded-md cursor-pointer transition">
+          saiba mais
+        </button>
       </div>
     </li>`;
 
   const PROMO_BANNER_2_HTML = `
-    <li data-v-fc771bb1="">
-      <article data-v-fc771bb1="" class="flex h-full w-full flex-col gap-4 rounded border border-[#e3e8ef] p-7 pb-6 pt-4 bg-white">
-        <div class="flex flex-1 flex-col justify-between">
-          <div class="space-y-2">
-            <h2 class="text-xl font-bold leading-6 text-[#222]">Sua campanha completa, do ponto à criação.</h2>
-            <p class="text-md leading-[18px] text-[#717182]">Caso você ainda não tenha a arte da campanha, nós criamos uma peça profissional pronta para veiculação.</p>
-          </div>
-          <div class="flex justify-center">
-            <img src="https://aqui.globo/images/banners/results/arte.webp" alt="" class="max-h-28 w-auto object-contain">
-          </div>
-          <div class="space-y-1">
-            <p class="text-base text-[#8c97a6] line-through">R$ 199,00</p>
-            <div class="flex items-baseline gap-1 text-[#282e38]">
-              <span class="text-2xl font-extrabold leading-6 tracking-[0.5px]">R$ 99,00</span>
-              <span class="text-base text-[#8c97a6]">/ Campanha</span>
-            </div>
-          </div>
-        </div>
-        <button type="button" class="mt-auto inline-flex h-[38px] w-full items-center justify-center rounded-md bg-[#222222] px-4 py-2 text-base font-semibold text-white hover:bg-black">saiba mais</button>
-      </article>
+    <li class="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden shadow-2xs flex flex-col justify-between p-5">
+      <div>
+        <h3 class="text-base font-bold text-[#282E38] leading-snug mb-2">Crie sua conta ou entre para guardar sua seleção</h3>
+        <p class="text-xs text-[#64748B] leading-relaxed mb-4">Salve os pontos escolhidos, compartilhe seu plano e continue sua campanha de onde parou.</p>
+        <button type="button" onclick="if (typeof showToast === 'function') showToast('Fluxo de autenticação / criação de conta')" class="w-full py-2.5 px-4 rounded-lg border border-[#282E38] text-[#282E38] text-xs font-bold hover:bg-gray-50 transition cursor-pointer">
+          entrar ou criar conta
+        </button>
+      </div>
+      <div class="mt-4 flex justify-center">
+        <img src="https://aqui.globo/images/banners/results/campanha-completa.webp" alt="Campanha completa" class="h-[130px] w-auto object-contain">
+      </div>
     </li>`;
+
+  function getOfficialEnvIconSvg(envStr) {
+    const s = String(envStr || '').toLowerCase();
+    if (s.includes('residencia')) {
+      return '<svg class="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-10.5z"/></svg>';
+    }
+    if (s.includes('ônibus') || s.includes('onibus')) {
+      return '<svg class="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M4 11h16M8 15h.01M16 15h.01M6 18v3M18 18v3"/></svg>';
+    }
+    return '<svg class="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>';
+  }
+
+  function isFourWeeksSelected() {
+    try {
+      const durLabel = document.getElementById('plp-ooh-duration-label');
+      if (durLabel && durLabel.textContent && durLabel.textContent.includes('4')) {
+        return true;
+      }
+      if (window.AquiAdsUI && typeof window.AquiAdsUI.getState === 'function') {
+        const uiState = window.AquiAdsUI.getState();
+        return Boolean(uiState && uiState.cartState && uiState.cartState.durationDays === 28);
+      }
+    } catch (err) {
+      // fallback seguro para 2 semanas
+    }
+    return false;
+  }
 
   function renderCardHTML(point) {
     const isAdded = state.cart.has(point.id);
-    const screensLabel = point.screens === 1 ? 'Tela: 1' : `Telas: ${point.screens}`;
-    const formattedPrice = formatCurrencyBRL(point.price);
-    const btnClasses = isAdded
-      ? 'p-button p-component add-to-cart is-added block w-full text-center transition-all !bg-[#3A9F3A] !text-white !border-[#3A9F3A]'
-      : 'p-button p-component add-to-cart block w-full text-center transition-all !bg-white !text-[#3A9F3A] !border-[#3A9F3A]';
-    const btnLabel = isAdded ? 'ponto adicionado' : 'adicionar ponto';
-    const btnIcon = isAdded ? 'uil-check' : 'uil-shopping-cart';
+    const is4w = isFourWeeksSelected();
+    const periodLabel = is4w ? '4 semanas' : '2 semanas';
+    const displayPrice = is4w ? point.price * 1.8 : point.price;
+    const formattedPrice = formatCurrencyBRL(displayPrice);
+    const envIconSvg = getOfficialEnvIconSvg(point.category);
+    const fmtIconSvg = '<svg class="w-2.5 h-2.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 20h8M12 16v4"/></svg>';
 
     return `
-      <li data-v-fc771bb1="" data-point-id="${point.id}" class="group/card carditem relative flex h-full w-full flex-col overflow-hidden rounded-t transition-all" isaddedtocart="${isAdded}">
-        <div class="group/card relative w-full shrink-0 overflow-hidden rounded-t border border-b-0 border-neutral-light8 transition-colors duration-300 group-hover/card:!border-neutral-light8 h-[108px] bg-white">
-          <div class="h-full thumb-product">
-            <figure class="cursor-pointer relative h-full w-full overflow-hidden">
-              <img class="relative h-full w-full object-cover object-center transition-all" src="${point.img}" alt="${point.title}" loading="lazy">
-              <div class="absolute bottom-0 left-0 right-0 top-0 flex cursor-pointer items-center justify-center bg-black opacity-0 transition duration-300 ease-in-out hover:opacity-75">
-                <span class="uil uil-search-plus text-3xl text-white"></span>
-              </div>
-            </figure>
-          </div>
-          <div class="absolute left-4 right-4 top-4 flex w-auto gap-2">
-            <div class="p-chip p-component !max-h-[22px] text-nowrap !rounded-sm !text-md !font-semibold !px-[5px]" aria-label="${point.category}">
-              <span class="p-chip-icon uil ${point.iconClass} text-lg"></span>
-              <div class="p-chip-text">${point.category}</div>
+      <li data-point-id="${point.id}" isaddedtocart="${isAdded}" class="carditem min-h-[462px] rounded-[12px] overflow-hidden transition-all duration-200 flex flex-col justify-between ${isAdded ? 'bg-[#F0FDF4] border-[1.5px] border-[#22C55E] shadow-[0_2px_10px_rgba(34,197,94,0.08)]' : 'bg-white border border-[#d9d9d9] shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md'}">
+        <div data-action="focus-map" data-point-id="${point.id}" class="relative h-[122px] w-full bg-slate-200 overflow-hidden cursor-pointer group">
+          <img src="${point.img}" alt="${point.title}" loading="lazy" class="relative h-full w-full object-cover object-center group-hover:scale-105 transition duration-300">
+          <div class="absolute left-3 right-3 top-3 flex items-center justify-between gap-1 z-10">
+            <div class="flex items-center gap-1 min-w-0">
+              <span class="bg-white/95 backdrop-blur-sm text-slate-800 text-[10.5px] leading-tight font-medium px-2 py-1 rounded-[5px] whitespace-nowrap flex items-center gap-1 shadow-xs">
+                ${envIconSvg}
+                <span>${point.category}</span>
+              </span>
+              <span class="bg-[#430099] text-white text-[10.5px] leading-tight font-medium px-2 py-1 rounded-[5px] whitespace-nowrap flex items-center gap-1 shadow-xs">
+                ${fmtIconSvg}
+                <span>digital</span>
+              </span>
             </div>
-            <div class="p-chip p-component !max-h-[22px] !rounded-sm !text-md !font-semibold !bg-special-digital !text-white !px-[5px]" aria-label="digital">
-              <span class="p-chip-icon uil uil-desktop-alt"></span>
-              <div class="p-chip-text">digital</div>
-            </div>
-            <div class="p-chip p-component ml-auto !max-h-[22px] text-nowrap !rounded-sm !bg-[#9E9E9E] !text-md !font-semibold lowercase !text-white !px-[5px]" aria-label="${point.dist}">
-              <span class="p-chip-icon uil !text-[15px] uil-map-marker"></span>
-              <div class="p-chip-text">${point.dist}</div>
-            </div>
+            <span class="bg-[#8E8E93]/90 backdrop-blur-sm text-white text-[10.5px] leading-tight font-medium px-2 py-1 rounded-[5px] whitespace-nowrap flex items-center gap-1 flex-shrink-0">
+              <svg class="w-2.5 h-2.5 text-white shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>${point.dist}</span>
+            </span>
           </div>
         </div>
-        <div class="group flex h-full w-full rounded-bl rounded-br border border-neutral-light8 p-6 transition-colors duration-300 ease-in-out hover:!bg-surface-ground pt-4 border-t-0 px-[20px] py-[16px] bg-white">
-          <div class="relative flex h-full w-full flex-grow-0 flex-col justify-around">
-            <div class="flex w-full flex-col mb-[20px]">
-              <div class="flex" style="position: relative;">
-                <strong class="block truncate text-ellipsis text-xl leading-7 tracking-[0.01em] mb-[4px]">${point.title}</strong>
-              </div>
-              <div class="flex flex-col">
-                <p class="text-[12px] leading-normal text-[#8c97a6] max-lg:w-[80%]">${point.addr}</p>
-              </div>
+        <div class="px-[20px] pt-[18px] pb-[20px] flex-1 flex flex-col justify-between">
+          <div>
+            <div class="mb-[20px]">
+              <h3 data-action="focus-map" data-point-id="${point.id}" class="text-xl leading-7 font-bold text-[#0c0a09] mb-[4px] truncate cursor-pointer hover:text-[#FF4F00] transition" title="${point.title}">${point.title}</h3>
+              <p class="text-[12px] leading-normal text-[#8c97a6] line-clamp-2 min-h-[36px]" title="${point.addr}">${point.addr}</p>
             </div>
-            <div class="mt-auto flex flex-col justify-between" style="position: relative;">
-              <div class="flex flex-col">
-                <div class="flex w-full justify-between lg:w-auto lg:justify-normal">
-                  <dl class="mr-4 flex flex-col gap-[4px]">
-                    <dt class="block text-nowrap text-[12px] text-neutral-gray6"> exibições <i class="uil uil-play"></i></dt>
-                    <dd class="block text-[14px] font-bold">${point.views}</dd>
-                  </dl>
-                  <dl class="mr-4 flex flex-col gap-[4px]">
-                    <dt class="block text-nowrap text-[12px] text-neutral-gray6"> alcance <i class="uil uil-user"></i></dt>
-                    <dd class="block text-[14px] font-bold">${point.reach}</dd>
-                  </dl>
-                  <dl class="flex flex-col gap-[4px]">
-                    <dt class="block text-nowrap text-[12px] text-neutral-gray6"> frequência <i class="uil uil-sync"></i></dt>
-                    <dd class="block text-[14px] font-bold">${point.freq}</dd>
-                  </dl>
+
+            <div>
+              <div class="flex justify-normal text-left">
+                <div class="mr-4">
+                  <span class="text-[12px] text-[#5f6b7a] flex items-center gap-1 mb-[4px]">
+                    <span>exibições</span>
+                    <svg class="w-3 h-3 text-[#5f6b7a] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                  <strong class="block text-[14px] font-bold text-[#0c0a09] leading-tight">${point.views}</strong>
                 </div>
-                <div class="flex justify-between">
-                  <p class="mt-[8px] text-[10px] text-[#64748B]">${screensLabel}</p>
+                <div class="mr-4">
+                  <span class="text-[12px] text-[#5f6b7a] flex items-center gap-1 mb-[4px]">
+                    <span>alcance</span>
+                    <svg class="w-3 h-3 text-[#5f6b7a] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                  </span>
+                  <strong class="block text-[14px] font-bold text-[#0c0a09] leading-tight">${point.reach}</strong>
                 </div>
-              </div>
-              <div class="flex duration-300">
-                <div class="mt-5 overflow-hidden">
-                  <div class="flex w-full flex-col items-start justify-end">
-                    <div class="flex w-full items-start justify-between gap-2">
-                      <div class="whitespace-nowrap text-neutral-low-dark">
-                        <strong class="tr text-2xl font-extrabold leading-6 tracking-[0.5px]">R$&nbsp;${formattedPrice}</strong>
-                        <span class="text-base tracking-[1%] text-neutral-gray4"> / 2 semanas</span>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <span class="text-[12px] text-[#5f6b7a] flex items-center gap-1 mb-[4px]">
+                    <span>frequência</span>
+                    <svg class="w-3 h-3 text-[#5f6b7a] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                  </span>
+                  <strong class="block text-[14px] font-bold text-[#0c0a09] leading-tight">${point.freq}</strong>
                 </div>
               </div>
-              <div class="mt-5 flex w-full">
-                <div class="w-full">
-                  <button data-v-b8d20713="" data-action="toggle-cart" data-point-id="${point.id}" class="${btnClasses}" type="button">
-                    <span class="mx-auto inline-flex items-center justify-center gap-2 pointer-events-none">
-                      <span class="p-button-label">${btnLabel}</span>
-                      <span class="relative inline-flex flex-none items-center justify-center">
-                        <span class="uil ${btnIcon}"></span>
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <button type="button" class="ml-7 group/favorite relative ml-8 flex w-[18px] items-center justify-center rounded !border-none !bg-transparent !shadow-transparent transition-all duration-300 hover:bg-transparent">
-                  <i class="uil uil-heart absolute !text-2xl leading-6 text-special-favorite transition-all duration-300"></i>
-                </button>
-              </div>
+              <div class="mt-[10px] text-[10px] font-normal text-[#5f6b7a]">Telas: ${point.screens}</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="mt-[38px] flex items-baseline gap-1 min-h-[28px] mb-1">
+              <strong class="text-2xl font-extrabold leading-6 text-[#0c0a09]">R$&nbsp;${formattedPrice}</strong>
+              <span class="text-base font-normal text-[#8c97a6]">/ ${periodLabel}</span>
+            </div>
+
+            <div class="mt-[26px] flex items-center justify-between">
+              <button type="button" data-action="toggle-cart" data-point-id="${point.id}" class="flex-1 h-10 px-4 rounded-[8px] font-semibold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer ${isAdded ? 'bg-white hover:bg-slate-50 text-[#0c0a09] border border-transparent shadow-2xs' : 'border border-[#3A9F3A] bg-white text-[#3A9F3A] hover:bg-green-50'}">
+                <span class="p-button-label">${isAdded ? 'remover ponto' : 'adicionar ponto'}</span>
+                ${isAdded
+                  ? '<svg class="w-4 h-4 text-[#0c0a09]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>'
+                  : '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>'}
+              </button>
+              <button type="button" onclick="if (typeof showToast === 'function') showToast('Ponto salvo nos seus favoritos!')" aria-label="Favoritar ponto" class="ml-5 w-6 h-6 flex items-center justify-center text-[#94a3b8] hover:text-[#EF4444] transition-colors shrink-0 cursor-pointer">
+                <svg class="w-5 h-5 text-[#94a3b8]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              </button>
             </div>
           </div>
         </div>
@@ -790,6 +797,7 @@
     if (!mapContainer) return;
     mapContainer.innerHTML = '';
 
+    // Tiles Esri ArcGIS World Street Map: 100% compatível com file:// e sem marca d'água de API Key
     const arcgisLightStyle = {
       version: 8,
       sources: {
@@ -825,7 +833,15 @@
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
 
+    // Renderiza pinos, clusters e cards imediatamente (mesmo antes do download completo dos tiles externos)
+    try {
+      filterAndSyncAll();
+    } catch (err) {
+      console.error('Erro inicial em filterAndSyncAll:', err);
+    }
+
     map.on('load', () => {
+      map.resize();
       renderDrawingSVG();
       filterAndSyncAll();
     });
@@ -1253,7 +1269,7 @@
   }
 
   function renderCardList() {
-    const container = document.getElementById('cardlist_container');
+    const container = document.getElementById('plp-cards-grid') || document.getElementById('cardlist_container');
     if (!container) return;
 
     const pointsToShow = state.visiblePoints.slice(0, state.displayedCardLimit);
@@ -1283,10 +1299,10 @@
     const htmlParts = [];
     pointsToShow.forEach((pt, idx) => {
       htmlParts.push(renderCardHTML(pt));
-      // Insere os banners promocionais originais da produção na mesma posição
-      if (idx === 5) {
+      // Insere os banners promocionais oficiais do template na mesma posição (após 6º e 11º cards)
+      if (idx === 5 && state.activeCategory === 'todos') {
         htmlParts.push(PROMO_BANNER_1_HTML);
-      } else if (idx === 10) {
+      } else if (idx === 10 && state.activeCategory === 'todos') {
         htmlParts.push(PROMO_BANNER_2_HTML);
       }
     });
@@ -1298,10 +1314,7 @@
     if (loadMoreBtn) {
       if (state.visiblePoints.length > state.displayedCardLimit) {
         loadMoreBtn.style.display = 'inline-flex';
-        const label = loadMoreBtn.querySelector('.p-button-label');
-        if (label) {
-          label.textContent = `ver mais`;
-        }
+        loadMoreBtn.classList.add('items-center', 'justify-center');
       } else {
         loadMoreBtn.style.display = 'none';
       }
@@ -1311,7 +1324,7 @@
   }
 
   function bindCardEvents() {
-    const cards = document.querySelectorAll('#cardlist_container .carditem');
+    const cards = document.querySelectorAll('#plp-cards-grid .carditem, #cardlist_container .carditem');
     cards.forEach((cardEl) => {
       const pointId = Number(cardEl.getAttribute('data-point-id'));
       if (!pointId) return;
@@ -1325,10 +1338,10 @@
         clearMapHighlights();
       });
 
-      // Clique na foto do card -> destaca e abre o popup do ponto no mapa
-      const fig = cardEl.querySelector('figure');
-      if (fig) {
-        fig.addEventListener('click', (e) => {
+      // Clique na foto ou no título do card -> destaca e abre o popup do ponto no mapa
+      const focusEls = cardEl.querySelectorAll('[data-action="focus-map"]');
+      focusEls.forEach((el) => {
+        el.addEventListener('click', (e) => {
           e.stopPropagation();
           const pt = ALL_POINTS.find((p) => p.id === pointId);
           if (pt && map) {
@@ -1336,11 +1349,11 @@
             setTimeout(() => openPinPopup(pt), 580);
           }
         });
-      }
+      });
     });
 
-    // Botões "adicionar ponto" dentro dos cards
-    const addButtons = document.querySelectorAll('#cardlist_container button[data-action="toggle-cart"]');
+    // Botões "adicionar ponto" / "remover ponto" dentro dos cards
+    const addButtons = document.querySelectorAll('#plp-cards-grid button[data-action="toggle-cart"], #cardlist_container button[data-action="toggle-cart"]');
     addButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1352,7 +1365,6 @@
 
   // ==========================================================================
   // 11. GESTÃO DO CARRINHO E SINCRONIZAÇÃO DE SMART ACTIONS
-  // No Mapa 100%, a quantidade de pontos SÓ aparece quando o usuário faz alguma marcação!
   // ==========================================================================
   function togglePointInCart(pointId) {
     if (state.cart.has(pointId)) {
@@ -1375,23 +1387,13 @@
   }
 
   function syncCartStateEverywhere() {
-    // 1. Atualiza cards visíveis no DOM sem precisar recriar a lista inteira
-    document.querySelectorAll('#cardlist_container .carditem').forEach((cardEl) => {
-      const id = Number(cardEl.getAttribute('data-point-id'));
-      const isAdded = state.cart.has(id);
-      cardEl.setAttribute('isaddedtocart', String(isAdded));
-      const btn = cardEl.querySelector('button.add-to-cart');
-      if (btn) {
-        btn.classList.toggle('is-added', isAdded);
-        const label = btn.querySelector('.p-button-label');
-        if (label) label.textContent = isAdded ? 'ponto adicionado' : 'adicionar ponto';
-      }
-    });
+    // 1. Atualiza cards visíveis com o estilo oficial (borda verde, fundo #F0FDF4 e ícone de lixeira/carrinho)
+    renderCardList();
 
     // 2. Atualiza marcadores e clusters no mapa
     renderMapClustersAndPins();
 
-    // 3. Atualiza barra de Smart Actions e barra inferior
+    // 3. Atualiza barra de Smart Actions e barra inferior oficial
     updateCountersAndSmartActionsUI();
     updateBottomCartBarUI();
   }
@@ -1461,7 +1463,36 @@
     const totalPrice = selectedPoints.reduce((acc, p) => acc + p.price, 0);
     const totalScreens = selectedPoints.reduce((acc, p) => acc + p.screens, 0);
 
+    // Sincroniza com o estado global do AquiAdsUI (para permitir avançar para Resumo do Plano / Checkout)
+    try {
+      const uiState = (window.AquiAdsUI && typeof window.AquiAdsUI.getState === 'function') ? window.AquiAdsUI.getState() : null;
+      if (uiState && uiState.cartState) {
+        uiState.cartState.oohItems = selectedPoints.map((p) => ({
+          id: String(p.id),
+          name: p.title,
+          title: p.title,
+          address: p.addr,
+          sub: p.addr,
+          environment: p.category,
+          environmentLabel: p.category,
+          format: 'digital',
+          basePrice2w: p.price,
+          price4w: p.price * 1.8,
+          price: p.price,
+          impressions: p.screens * 18000,
+          reach: p.screens * 2400,
+          freq: p.freq,
+          screens: p.screens,
+          img: p.img,
+          selectedForBatch: false
+        }));
+      }
+    } catch (err) {
+      // ignora caso AquiAdsUI.getState não esteja disponível
+    }
+
     const headerBadge = document.getElementById('header-cart-badge');
+    const hdrCartBadge = document.getElementById('hdr-cart-badge');
     const bottomBadge = document.getElementById('bottom-cart-badge');
     const bottomTitle = document.getElementById('bottom-cart-title');
     const bottomMetrics = document.getElementById('bottom-cart-metrics');
@@ -1469,9 +1500,44 @@
     const clearCartBtn = document.getElementById('btn-clear-cart');
     const nextBtn = document.getElementById('resultpage_next-button');
 
+    // Elementos da barra inferior oficial do AquiAdsUI (#actions-bar-results)
+    const plpBarLeft = document.getElementById('plp-bar-summary-left');
+    const plpBarCount = document.getElementById('plp-bar-count');
+    const plpBarLabel = document.getElementById('plp-bar-count-label');
+    const plpBarTotal = document.getElementById('plp-bar-total');
+
     if (headerBadge) {
       headerBadge.textContent = String(count);
       headerBadge.classList.toggle('hidden', count === 0);
+    }
+
+    if (hdrCartBadge) {
+      hdrCartBadge.textContent = String(count);
+      hdrCartBadge.classList.toggle('hidden', count === 0);
+    }
+
+    if (plpBarLeft) {
+      if (count > 0) {
+        plpBarLeft.classList.remove('hidden');
+        plpBarLeft.classList.add('flex');
+      } else {
+        plpBarLeft.classList.add('hidden');
+        plpBarLeft.classList.remove('flex');
+      }
+    }
+
+    if (plpBarCount) {
+      plpBarCount.textContent = String(count);
+    }
+
+    if (plpBarLabel) {
+      plpBarLabel.textContent = count === 1
+        ? 'ponto adicionado ao plano de mídia'
+        : 'pontos adicionados ao plano de mídia';
+    }
+
+    if (plpBarTotal) {
+      plpBarTotal.textContent = `R$ ${formatCurrencyBRL(totalPrice)}`;
     }
 
     if (bottomBadge) {
@@ -1505,23 +1571,102 @@
       if (count > 0) {
         nextBtn.removeAttribute('disabled');
         nextBtn.setAttribute('aria-disabled', 'false');
-        nextBtn.classList.remove('p-disabled');
+        nextBtn.classList.remove('p-disabled', 'bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+        nextBtn.classList.add('bg-[#FF4F00]', 'hover:bg-[#e04500]', 'text-white', 'cursor-pointer', 'shadow-md');
       } else {
         nextBtn.setAttribute('disabled', '');
         nextBtn.setAttribute('aria-disabled', 'true');
-        nextBtn.classList.add('p-disabled');
+        nextBtn.classList.add('p-disabled', 'bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+        nextBtn.classList.remove('bg-[#FF4F00]', 'hover:bg-[#e04500]', 'text-white', 'cursor-pointer', 'shadow-md');
       }
     }
   }
 
   // ==========================================================================
-  // 12. TRANSIÇÃO SPLIT-SCREEN <-> MODO MAPA 100% (SEÇÃO 4.2)
-  // Calcula a altura exata até 24px acima da barra fixa inferior para que o mapa
-  // termine sempre acima dela em qualquer tamanho de monitor, sem parecer que há rolagem abaixo!
+  // 12. TRANSIÇÃO SPLIT-SCREEN <-> MODO MAPA 100% (SEÇÃO 4.2) & SCROLL LOCK AIRBNB
   // ==========================================================================
+  function syncOohScrollLockMode() {
+    const viewResultados = document.getElementById('view-resultados');
+    const plpModeOoh = document.getElementById('plp-mode-ooh');
+    const vpContainer = document.getElementById('viewport-container');
+
+    const isResultadosActive = viewResultados
+      ? (viewResultados.classList.contains('active') && !viewResultados.classList.contains('hidden'))
+      : true;
+    const isOohVisible = plpModeOoh ? !plpModeOoh.classList.contains('hidden') : true;
+    const isMobileFrame = vpContainer ? vpContainer.classList.contains('mobile-frame') : false;
+
+    document.body.classList.toggle('mobile-frame-active', isMobileFrame);
+    const shouldLock = isResultadosActive && isOohVisible && !isMobileFrame && window.innerWidth >= 1024;
+    document.body.classList.toggle('ooh-split-scroll-lock', shouldLock);
+
+    const layoutEl = document.querySelector('.results-ooh-layout');
+    const listWrap = document.getElementById('list-column-wrapper');
+    const mapWrap = document.getElementById('map-sticky-wrapper');
+    const mapaEl = document.getElementById('mapa');
+
+    if (layoutEl) {
+      if (shouldLock) {
+        const bottomBar = document.querySelector('#actions-bar-results, .actions-bar-results');
+        const bottomBarHeight = bottomBar && bottomBar.offsetHeight > 0 ? bottomBar.offsetHeight : 68;
+        const rectTop = Math.round(layoutEl.getBoundingClientRect().top);
+        const layoutTop = rectTop > 80 && rectTop < 420 ? rectTop : 210;
+        const splitHeight = Math.max(460, Math.floor(window.innerHeight - layoutTop - bottomBarHeight - 10));
+
+        document.documentElement.style.setProperty('--ooh-split-height', `${splitHeight}px`);
+        layoutEl.style.setProperty('--ooh-split-height', `${splitHeight}px`);
+        layoutEl.style.height = `${splitHeight}px`;
+
+        if (listWrap && !state.isMapExpanded) {
+          listWrap.style.height = `${splitHeight}px`;
+          listWrap.style.maxHeight = `${splitHeight}px`;
+        }
+        if (mapWrap) {
+          mapWrap.style.height = `${splitHeight}px`;
+          mapWrap.style.minHeight = '460px';
+        }
+        if (mapaEl) {
+          mapaEl.style.height = `${splitHeight}px`;
+          mapaEl.style.minHeight = '460px';
+        }
+      } else {
+        document.documentElement.style.removeProperty('--ooh-split-height');
+        layoutEl.style.removeProperty('--ooh-split-height');
+        layoutEl.style.removeProperty('height');
+        if (listWrap) {
+          listWrap.style.removeProperty('height');
+          listWrap.style.removeProperty('max-height');
+        }
+        if (mapWrap && !state.isMapExpanded) {
+          mapWrap.style.height = isMobileFrame ? '260px' : '580px';
+        }
+        if (mapaEl && !state.isMapExpanded) {
+          mapaEl.style.height = isMobileFrame ? '260px' : '580px';
+        }
+      }
+    }
+
+    if (map) {
+      map.resize();
+      renderDrawingSVG();
+      setTimeout(() => {
+        if (map) {
+          map.resize();
+          renderDrawingSVG();
+        }
+      }, 60);
+    }
+  }
+
   function syncExpandedMapHeight() {
     const mapWrapper = document.getElementById('map-sticky-wrapper');
     if (!mapWrapper) return;
+
+    // No modo Airbnb (body.ooh-split-scroll-lock), syncOohScrollLockMode já aplica a altura exata em pixels
+    if (document.body.classList.contains('ooh-split-scroll-lock')) {
+      syncOohScrollLockMode();
+      return;
+    }
 
     if (!state.isMapExpanded) {
       mapWrapper.style.removeProperty('--expanded-map-height');
@@ -1529,13 +1674,12 @@
       return;
     }
 
-    const bottomBar = document.querySelector('.actions-bar-results');
+    const bottomBar = document.querySelector('#actions-bar-results, .actions-bar-results');
     const mapRect = mapWrapper.getBoundingClientRect();
     const bottomBarTop = bottomBar
       ? bottomBar.getBoundingClientRect().top
       : window.innerHeight - 80;
 
-    // Deixa 24px de respiro branco limpo entre a base arredondada do mapa e o topo da barra fixa inferior
     const desiredGapPx = 24;
     const calculatedHeight = Math.max(260, Math.floor(bottomBarTop - mapRect.top - desiredGapPx));
 
@@ -1560,7 +1704,6 @@
     }
 
     if (expandBtn) {
-      // No HTML real de produção, o texto fica no último <span> filho dentro de #map-expand-floating-button
       const spans = expandBtn.querySelectorAll('span');
       const labelEl = spans.length > 0 ? spans[spans.length - 1] : null;
       if (labelEl) {
@@ -1572,14 +1715,12 @@
       );
     }
 
-    // Se o usuário sair do modo 100% enquanto desenhava, cancela o rascunho em aberto
     if (!state.isMapExpanded && state.drawingMode) {
       cancelDrawingMode();
     }
 
     syncExpandedMapHeight();
 
-    // Redimensiona o canvas do MapLibre suavemente durante e após a transição de layout
     if (map) {
       map.resize();
       setTimeout(() => {
@@ -1694,7 +1835,6 @@
     if (state.drawingMode !== 'polygon' || !isPointerDraggingDraw) return;
     isPointerDraggingDraw = false;
 
-    // Se o usuário arrastou formando uma área válida (>= 3 pontos), fecha e aplica em 1 único gesto!
     if (state.polygonVertices.length >= 3) {
       state.activeGeometry = {
         type: 'polygon',
@@ -1710,7 +1850,6 @@
       renderDrawingSVG();
       filterAndSyncAll();
     } else {
-      // Caso tenha dado apenas 1 clique rápido sem arrastar, orienta a segurar e arrastar
       state.polygonVertices = [];
       renderDrawingSVG();
       syncDrawingUI('Segure o botão do mouse pressionado e arraste para desenhar o contorno de uma só vez');
@@ -1718,18 +1857,156 @@
   }
 
   // ==========================================================================
-  // 14. EVENT LISTENERS DOS CONTROLES DO HEADER, FILTROS E BOTÕES
+  // 14. ADAPTAÇÃO CIRÚRGICA DO TEMPLATE OFICIAL (PRESERVA 100% DO DOM DE aqui_ads_ui.js)
   // ==========================================================================
+  function mountOohSplitScreenDOM() {
+    const oohSubTab = document.getElementById('oohSubTab');
+    if (!oohSubTab || document.getElementById('mapa')) return;
+
+    const mainGrid = oohSubTab.querySelector('.grid');
+    if (!mainGrid || mainGrid.children.length < 2) return;
+
+    mainGrid.classList.add('results-ooh-layout');
+
+    const leftCol = mainGrid.children[0];
+    const rightCol = mainGrid.children[1];
+
+    leftCol.id = 'list-column-wrapper';
+
+    // Coleta as 3 seções inferiores oficiais do template ("Explore outros ambientes", FAQ e SEO)
+    // para que fiquem dentro do scroll da coluna esquerda enquanto o mapa à direita permanece 100% fixo
+    const bottomSections = [];
+    Array.from(oohSubTab.children).forEach((child) => {
+      if (child !== mainGrid) {
+        bottomSections.push(child);
+      }
+    });
+
+    // Preserva o zoom 0.8 oficial do template exclusivamente nos cards e nas seções inferiores
+    // mantendo coordenadas 1:1 no MapLibre GL JS e no SVG de desenho à direita
+    const zoomWrap = document.createElement('div');
+    zoomWrap.id = 'list-zoom-content';
+    zoomWrap.className = 'apply-zoom w-full';
+
+    while (leftCol.firstChild) {
+      zoomWrap.appendChild(leftCol.firstChild);
+    }
+
+    // Configura o botão oficial "ver mais" (#FF4F00) para carregar mais pontos reais sem disparar apenas toast
+    const officialLoadMoreBtn = zoomWrap.querySelector('button');
+    if (officialLoadMoreBtn) {
+      officialLoadMoreBtn.classList.add('load-more-products');
+      officialLoadMoreBtn.removeAttribute('onclick');
+    }
+
+    bottomSections.forEach((sec) => {
+      zoomWrap.appendChild(sec);
+    });
+
+    leftCol.appendChild(zoomWrap);
+
+    // Substitui apenas o quadro estático do mapa à direita pelo Mapa Interativo MapLibre + Overlays
+    rightCol.id = 'map-sticky-wrapper';
+    rightCol.className = 'w-full h-[560px] lg:h-[580px] rounded-[20px] overflow-hidden shadow-sm border border-[#E2E8F0] relative bg-[#EDF2F7]';
+    rightCol.style.minHeight = '480px';
+    rightCol.style.height = '580px';
+    rightCol.innerHTML = `
+      <div id="mapa" class="w-full h-full" style="position:absolute;inset:0;width:100%;height:100%;min-height:480px;"></div>
+
+      <!-- Camada SVG para Desenho de Área em 1 Gesto (Freehand Lasso) -->
+      <svg id="map-drawing-svg" class="pointer-events-none absolute inset-0 w-full h-full z-[15]"></svg>
+
+      <!-- Botão Flutuante Expandir Mapa / Voltar para Lista -->
+      <button
+        type="button"
+        id="map-expand-floating-button"
+        aria-label="Expandir mapa"
+        class="map-expand-floating-btn"
+      >
+        <i class="uil uil-expand-arrows-alt text-sm text-[#FF4F00]"></i>
+        <span>expandir mapa</span>
+      </button>
+
+      <!-- Barra de Ações Inteligentes do Modo Mapa 100% (Desenhar Área) -->
+      <div id="map-smart-actions-bar" aria-label="Ferramentas de seleção no mapa">
+        <button type="button" id="btn-tool-polygon" class="smart-action-btn">
+          <i class="uil uil-pen text-sm text-[#FF4F00]"></i>
+          <span>Desenhar área</span>
+        </button>
+        <button type="button" id="btn-add-visible-area" class="smart-action-btn smart-action-btn--primary hidden">
+          <i class="uil uil-shopping-cart text-sm"></i>
+          <span id="btn-add-visible-area-label">Adicionar pontos da área</span>
+        </button>
+        <button type="button" id="btn-clear-geometry" class="smart-action-btn hidden text-red-600 border-red-200 bg-red-50">
+          <i class="uil uil-times-circle text-sm"></i>
+          <span>Limpar área</span>
+        </button>
+      </div>
+
+      <!-- Helper Flutuante durante o Desenho à Mão Livre -->
+      <div id="map-drawing-helper" class="hidden">
+        <span class="w-2 h-2 rounded-full bg-[#FF4F00] animate-ping"></span>
+        <span id="map-drawing-helper-text">Segure o clique e arraste à mão livre para contornar a região desejada</span>
+        <button type="button" id="btn-cancel-drawing" class="ml-2 underline font-bold text-orange-300 hover:text-white">
+          Cancelar (Esc)
+        </button>
+      </div>
+
+      <!-- Pill Inferior de Conversão em Lote (Exibida após desenhar área no mapa) -->
+      <div id="map-selection-pill" class="hidden">
+        <div class="flex flex-col">
+          <span id="selection-pill-title" class="text-xs font-extrabold text-slate-900">0 pontos na área desenhada</span>
+          <span id="selection-pill-subtitle" class="text-[11px] font-medium text-slate-500">0 telas • Total estimado: R$ 0,00</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="btn-add-selection-batch" class="px-3.5 py-2 rounded-full bg-[#FF4F00] hover:bg-[#e04500] text-white text-xs font-bold shadow-sm transition-all cursor-pointer">
+            + Adicionar todos da área
+          </button>
+          <button type="button" id="btn-pill-clear-geom" class="px-2.5 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 text-slate-600 text-xs font-semibold transition-all cursor-pointer">
+            Limpar área
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  // ==========================================================================
+  // 15. EVENT LISTENERS DOS CONTROLES DO HEADER, FILTROS OFICIAIS E BOTÕES
+  // ==========================================================================
+  const AMBIENCE_MAP_TO_CATEGORY = {
+    todos: 'todos',
+    comercial: 'elevadores comerciais',
+    residencial: 'elevadores residenciais',
+    onibus: 'pontos de ônibus',
+    shopping: 'shoppings',
+    academia: 'academias'
+  };
+
   function syncFilterChipsUI() {
-    const chips = document.querySelectorAll('#tour-filter .ambience-chip:not(.ambience-chip--more)');
-    chips.forEach((chip) => {
-      const text = (chip.textContent || '').trim().toLowerCase();
-      chip.classList.toggle('ambience-chip--active', text === state.activeCategory);
+    const officialBtns = document.querySelectorAll('#plp-ambience-chips .plp-ambience-btn');
+    officialBtns.forEach((btn) => {
+      const ambKey = btn.getAttribute('data-amb') || 'todos';
+      const mappedCategory = AMBIENCE_MAP_TO_CATEGORY[ambKey] || ambKey;
+      const isActive = mappedCategory === state.activeCategory;
+      btn.className = isActive
+        ? 'plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-semibold bg-[#4E5D6C] border border-[#4E5D6C] text-white cursor-pointer transition'
+        : 'plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition';
     });
   }
 
+  function applyAmbienceCategoryFilter(ambKeyOrCategory) {
+    const raw = String(ambKeyOrCategory || 'todos').trim().toLowerCase();
+    const mapped = AMBIENCE_MAP_TO_CATEGORY[raw] || raw || 'todos';
+    state.activeCategory = mapped;
+    state.displayedCardLimit = 20;
+    syncFilterChipsUI();
+    filterAndSyncAll();
+    const listWrap = document.getElementById('list-column-wrapper');
+    if (listWrap) listWrap.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function bindGlobalUIEvents() {
-    // 1. Garante classe .uil em todos os ícones Unicons existentes no HTML estático
+    // 1. Garante classe .uil em todos os ícones Unicons existentes
     document.querySelectorAll('[class*="uil-"]').forEach((el) => {
       if (!el.classList.contains('uil')) el.classList.add('uil');
     });
@@ -1743,50 +2020,133 @@
       });
     }
 
-    // Recalcula altura do Mapa 100% ao redimensionar a janela para terminar sempre acima da barra fixa
+    // Recalcula modo scroll-lock e altura do Mapa ao redimensionar a janela
     window.addEventListener('resize', () => {
+      syncOohScrollLockMode();
       if (state.isMapExpanded) {
         syncExpandedMapHeight();
         if (map) map.resize();
       }
     });
 
-    // 3. Chips de filtro (#tour-filter)
-    const chips = document.querySelectorAll('#tour-filter .ambience-chip:not(.ambience-chip--more)');
-    chips.forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const category = (chip.textContent || '').trim().toLowerCase();
-        state.activeCategory = category || 'todos';
-        state.displayedCardLimit = 20;
-        syncFilterChipsUI();
-        filterAndSyncAll();
+    // Encaminha rolagem do mouse (wheel) sobre áreas neutras da página OOH diretamente para a lista de pontos (#list-column-wrapper)
+    const plpModeOoh = document.getElementById('plp-mode-ooh');
+    if (plpModeOoh) {
+      plpModeOoh.addEventListener(
+        'wheel',
+        (e) => {
+          if (!document.body.classList.contains('ooh-split-scroll-lock') || state.isMapExpanded) return;
+          const mapWrap = document.getElementById('map-sticky-wrapper');
+          const listWrap = document.getElementById('list-column-wrapper');
+          if (!listWrap) return;
+          if (mapWrap && mapWrap.contains(e.target)) return;
+          if (listWrap.contains(e.target)) return;
+          listWrap.scrollTop += e.deltaY;
+          e.preventDefault();
+        },
+        { passive: false }
+      );
+    }
+
+    // Intercepta funções globais da shell oficial (aqui_ads_ui.js) para manter 100% de integração
+    window.renderOohPlp = function () {
+      renderCardList();
+    };
+
+    window.filterPlpAmbience = function (ambKey) {
+      applyAmbienceCategoryFilter(ambKey);
+    };
+
+    if (typeof window.toggleOohSearchDuration === 'function' && !window.__oohDurationHooked) {
+      window.__oohDurationHooked = true;
+      const origToggleDuration = window.toggleOohSearchDuration;
+      window.toggleOohSearchDuration = function () {
+        origToggleDuration();
+        renderCardList();
+        updateCountersAndSmartActionsUI();
+      };
+    }
+
+    if (typeof window.showScreen === 'function' && !window.__oohShowScreenHooked) {
+      window.__oohShowScreenHooked = true;
+      const origShowScreen = window.showScreen;
+      window.showScreen = function (screenId) {
+        origShowScreen(screenId);
+        syncOohScrollLockMode();
+      };
+    }
+
+    if (typeof window.switchPlpChannel === 'function' && !window.__oohSwitchChannelHooked) {
+      window.__oohSwitchChannelHooked = true;
+      const origSwitchPlpChannel = window.switchPlpChannel;
+      window.switchPlpChannel = function (channel) {
+        origSwitchPlpChannel(channel);
+        syncOohScrollLockMode();
+      };
+    }
+
+    if (typeof window.setViewportMode === 'function' && !window.__oohViewportHooked) {
+      window.__oohViewportHooked = true;
+      const origSetViewportMode = window.setViewportMode;
+      window.setViewportMode = function (mode) {
+        origSetViewportMode(mode);
+        syncOohScrollLockMode();
+      };
+    }
+
+    // 3. Pílulas oficiais de filtro de ambientes (#plp-ambience-chips .plp-ambience-btn)
+    const officialChips = document.querySelectorAll('#plp-ambience-chips .plp-ambience-btn');
+    officialChips.forEach((chip) => {
+      chip.removeAttribute('onclick');
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        const ambKey = chip.getAttribute('data-amb') || chip.textContent || 'todos';
+        applyAmbienceCategoryFilter(ambKey);
       });
     });
 
-    // 4. Barra de Busca (#tour-plp-search-placeholder e #endereco)
-    const searchForm = document.getElementById('tour-plp-search-placeholder');
-    const addressInput = document.getElementById('endereco');
-    const clearAddressBtn = document.querySelector('.clear-address-btn');
+    // 4. Barra de Busca Oficial (#plp-search-address e botão Lupa Laranja #FF4F00)
+    const addressInput = document.getElementById('plp-search-address');
+    const searchBarWrap = addressInput ? addressInput.closest('.max-w-\\[688px\\]') : null;
+    const searchSubmitBtn = searchBarWrap ? searchBarWrap.querySelector('button.bg-\\[\\#FF4F00\\]') : null;
+    const clearAddrBtn = addressInput && addressInput.parentElement ? addressInput.parentElement.querySelector('button') : null;
 
-    if (searchForm) {
-      searchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!addressInput || !map) return;
-        const val = addressInput.value.toLowerCase();
-        if (val.includes('itaim')) {
-          map.flyTo({ center: [-46.6788, -23.5882], zoom: 14.8, duration: 750 });
-        } else if (val.includes('berrini') || val.includes('moema')) {
-          map.flyTo({ center: [-46.6885, -23.6042], zoom: 14.6, duration: 750 });
-        } else if (val.includes('funchal') || val.includes('jk')) {
-          map.flyTo({ center: [-46.6902, -23.5948], zoom: 15.0, duration: 750 });
-        } else {
-          map.flyTo({ center: [-46.6842, -23.5968], zoom: 14.2, duration: 750 });
+    function executeAddressFlyTo() {
+      if (!addressInput || !map) return;
+      const val = addressInput.value.toLowerCase();
+      if (val.includes('itaim')) {
+        map.flyTo({ center: [-46.6788, -23.5882], zoom: 14.8, duration: 750 });
+      } else if (val.includes('berrini') || val.includes('moema')) {
+        map.flyTo({ center: [-46.6885, -23.6042], zoom: 14.6, duration: 750 });
+      } else if (val.includes('funchal') || val.includes('jk')) {
+        map.flyTo({ center: [-46.6902, -23.5948], zoom: 15.0, duration: 750 });
+      } else {
+        map.flyTo({ center: [-46.6842, -23.5968], zoom: 14.2, duration: 750 });
+      }
+      const listWrap = document.getElementById('list-column-wrapper');
+      if (listWrap) listWrap.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (addressInput) {
+      addressInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeAddressFlyTo();
         }
       });
     }
 
-    if (clearAddressBtn && addressInput) {
-      clearAddressBtn.addEventListener('click', () => {
+    if (searchSubmitBtn) {
+      searchSubmitBtn.removeAttribute('onclick');
+      searchSubmitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        executeAddressFlyTo();
+      });
+    }
+
+    if (clearAddrBtn && addressInput) {
+      clearAddrBtn.removeAttribute('onclick');
+      clearAddrBtn.addEventListener('click', () => {
         addressInput.value = '';
         state.searchQuery = '';
         addressInput.focus();
@@ -1794,10 +2154,11 @@
       });
     }
 
-    // 5. Botão "ver mais" (.load-more-products)
+    // 5. Botão oficial "ver mais" (.load-more-products)
     const loadMoreBtn = document.querySelector('.load-more-products');
     if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => {
+      loadMoreBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         state.displayedCardLimit += 24;
         renderCardList();
       });
@@ -1845,30 +2206,71 @@
 
     const nextBtn = document.getElementById('resultpage_next-button');
     if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
+      nextBtn.removeAttribute('onclick');
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         if (state.cart.size === 0) return;
-        const selected = ALL_POINTS.filter((p) => state.cart.has(p.id));
-        const total = selected.reduce((acc, p) => acc + p.price, 0);
-        alert(
-          `Plano de Mídia Aqui Ads pronto para avançar!\n\n` +
-          `• ${selected.length} pontos OOH selecionados em Vila Olímpia e região\n` +
-          `• Período: 2 semanas (Início: 21/10/2026)\n` +
-          `• Investimento Total: R$ ${formatCurrencyBRL(total)}`
-        );
+        if (typeof window.showScreen === 'function') {
+          window.showScreen('view-resumo');
+        }
       });
     }
   }
 
+  function bootOohInteractiveMapApp() {
+    try {
+      if (window.AquiAdsUI && !window.AquiAdsUI.mounted && typeof window.AquiAdsUI.mount === 'function') {
+        window.AquiAdsUI.mount();
+      }
+    } catch (err) {
+      console.error('Erro em AquiAdsUI.mount:', err);
+    }
+
+    try {
+      mountOohSplitScreenDOM();
+    } catch (err) {
+      console.error('Erro em mountOohSplitScreenDOM:', err);
+    }
+
+    try {
+      initMap();
+    } catch (err) {
+      console.error('Erro em initMap:', err);
+    }
+
+    try {
+      renderCardList();
+    } catch (err) {
+      console.error('Erro em renderCardList:', err);
+    }
+
+    try {
+      syncOohScrollLockMode();
+    } catch (err) {
+      console.error('Erro em syncOohScrollLockMode:', err);
+    }
+
+    try {
+      bindGlobalUIEvents();
+    } catch (err) {
+      console.error('Erro em bindGlobalUIEvents:', err);
+    }
+
+    try {
+      updateBottomCartBarUI();
+    } catch (err) {
+      console.error('Erro em updateBottomCartBarUI:', err);
+    }
+
+    requestAnimationFrame(() => syncOohScrollLockMode());
+    setTimeout(syncOohScrollLockMode, 180);
+    setTimeout(syncOohScrollLockMode, 500);
+  }
+
   // Inicialização quando o DOM estiver pronto
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      bindGlobalUIEvents();
-      renderCardList();
-      initMap();
-    });
+    document.addEventListener('DOMContentLoaded', bootOohInteractiveMapApp);
   } else {
-    bindGlobalUIEvents();
-    renderCardList();
-    initMap();
+    bootOohInteractiveMapApp();
   }
 })();

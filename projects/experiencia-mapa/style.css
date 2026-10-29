@@ -322,35 +322,9 @@ header.sticky {
   background-color: #2F852F !important;
 }
 
-/* Botão Ver Mais (.load-more-products) */
-.load-more-products {
-  height: 44px;
-  border-radius: 8px !important;
-  border: 1.5px solid #282E38 !important;
-  background: #FFFFFF !important;
-  color: #282E38 !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.load-more-products:hover {
-  background: #282E38 !important;
-  color: #FFFFFF !important;
-}
-
 /* ==========================================================================
    Layout Split-Screen Original vs Modo Mapa 100% (Com Margens e Respiros)
    ========================================================================== */
-
-/* No Split-Screen, preservamos EXATAMENTE a proporção original de produção:
-   lg:grid-cols-[minmax(0,890px)_minmax(0,1fr)] com max-w-[1280px] */
-#map-sticky-wrapper {
-  top: 205px !important;
-  height: calc(100vh - 285px) !important;
-  min-height: 520px !important;
-  transition: height 0.3s ease;
-}
 
 /* Modo Mapa 100% (Estilo Airbnb: respeita container max-w-[1280px], margens laterais, bordas arredondadas e termina sempre acima da barra fixa inferior) */
 body.is-map-100-mode {
@@ -850,4 +824,259 @@ button[aria-label="Pesquisar nessa área"] {
   background-color: #BFDBFE;
   color: #1E40AF;
 }
+
+/* ==========================================================================
+   11. MAPA 100% FIXO NA TELA & SCROLL INDEPENDENTE NOS PONTOS (PADRÃO AIRBNB)
+   ========================================================================== */
+
+/* Mantém coordenadas 1:1 no #oohSubTab para o MapLibre e o Laço SVG, enquanto #list-zoom-content herda o zoom 0.8 oficial do template */
+#oohSubTab.apply-zoom,
+#oohSubTab {
+  zoom: 1 !important;
+}
+
+/* Estrutura base do Split-Screen (Proporção idêntica ao template oficial: 58.6% lista | restante mapa) */
+.results-ooh-layout {
+  display: grid !important;
+  grid-template-columns: 58.6% minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  gap: 22px !important;
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
+#map-sticky-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  height: var(--ooh-split-height, 580px) !important;
+  min-height: 480px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background-color: #EDF2F7 !important;
+}
+
+#mapa {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 480px !important;
+  display: block !important;
+}
+
+/* Overlays flutuantes sobre o Mapa (Expandir, Desenhar Área, Helper e Pill de Conversão) */
+#map-expand-floating-button {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  z-index: 30 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: 9999px !important;
+  background: #FFFFFF !important;
+  color: #282E38 !important;
+  border: 1px solid #E2E8F0 !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(40, 46, 56, 0.12) !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease !important;
+}
+
+#map-expand-floating-button:hover {
+  border-color: #FF4F00 !important;
+  color: #FF4F00 !important;
+  transform: translateY(-1px);
+}
+
+#map-smart-actions-bar {
+  position: absolute !important;
+  top: 14px !important;
+  left: 172px !important;
+  z-index: 30 !important;
+  gap: 8px !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+
+#map-drawing-helper {
+  position: absolute !important;
+  top: 60px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 35 !important;
+  background: rgba(40, 46, 56, 0.94) !important;
+  color: #FFFFFF !important;
+  padding: 8px 16px !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+  align-items: center !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+}
+
+#map-selection-pill {
+  position: absolute !important;
+  bottom: 18px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 35 !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #FF4F00 !important;
+  border-radius: 16px !important;
+  padding: 12px 18px !important;
+  box-shadow: 0 12px 32px rgba(40, 46, 56, 0.22) !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  min-width: 340px !important;
+  max-width: calc(100% - 28px) !important;
+}
+
+@media (min-width: 1024px) {
+  html:has(body.ooh-split-scroll-lock:not(.mobile-frame-active)),
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #app-Stage {
+    padding: 0 !important;
+  }
+
+  /* 1660px * 0.8 (apply-zoom oficial) = 1328px exatos de largura visual do template */
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #oohSubTab {
+    max-width: 1328px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 12px 24px 0 !important;
+  }
+
+  /* Barra inferior fixa no rodapé da tela */
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #actions-bar-results,
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) .actions-bar-results {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 50 !important;
+    background: #FFFFFF !important;
+    border-top: 1px solid #E2E8F0 !important;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) .results-ooh-layout {
+    display: grid !important;
+    grid-template-columns: 58.6% minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+    gap: 22px !important;
+    height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    max-height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    min-height: 460px !important;
+    align-items: stretch !important;
+  }
+
+  /* Coluna esquerda: lista de pontos e seções inferiores do template com rolagem vertical independente */
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #list-column-wrapper {
+    height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    max-height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain;
+    padding-right: 8px !important;
+    padding-bottom: 32px !important;
+    scroll-behavior: smooth;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #list-column-wrapper::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #list-column-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #list-column-wrapper::-webkit-scrollbar-thumb {
+    background-color: #CBD5E1;
+    border-radius: 9999px;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #list-column-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: #94A3B8;
+  }
+
+  /* Coluna direita: Mapa 100% fixo na tela sem nunca rolar para fora */
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) #map-sticky-wrapper {
+    position: relative !important;
+    top: 0 !important;
+    height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    min-height: 460px !important;
+    max-height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    border-radius: 20px !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 4px 16px rgba(40, 46, 56, 0.06) !important;
+  }
+
+  /* Modo Mapa 100% Expandido */
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) .results-ooh-layout.map-expanded-mode {
+    display: block !important;
+    height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    max-height: var(--ooh-split-height, calc(100vh - 230px)) !important;
+    padding-bottom: 0 !important;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) .results-ooh-layout.map-expanded-mode #list-column-wrapper {
+    display: none !important;
+  }
+
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) .results-ooh-layout.map-expanded-mode #map-sticky-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 400px !important;
+    max-height: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Oculta o footer global da shell enquanto a visão split-screen de mapa fixo estiver ativa */
+  body.ooh-split-scroll-lock:not(.mobile-frame-active) footer {
+    display: none !important;
+  }
+}
+
+/* Suporte ao modo Mobile Frame (390px) */
+#viewport-container.mobile-frame .results-ooh-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+#viewport-container.mobile-frame #map-sticky-wrapper {
+  order: -1 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 25 !important;
+  height: 240px !important;
+  min-height: 240px !important;
+  max-height: 240px !important;
+  border-radius: 12px !important;
+}
+
+#viewport-container.mobile-frame #list-column-wrapper {
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
 

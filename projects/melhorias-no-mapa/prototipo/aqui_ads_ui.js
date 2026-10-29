@@ -3392,14 +3392,14 @@ window.AquiAdsUI = {
 
   getState() {
     return {
-      cartState,
-      oohCatalog,
-      digitalSections,
-      digitalCatalog,
-      mediaPlansCatalog,
-      draftsCatalog,
-      currentPlpChannel,
-      currentOohAmbience
+      cartState: typeof cartState !== 'undefined' ? cartState : null,
+      oohCatalog: typeof oohCatalog !== 'undefined' ? oohCatalog : [],
+      digitalSections: typeof digitalSections !== 'undefined' ? digitalSections : [],
+      digitalCatalog: typeof digitalCatalog !== 'undefined' ? digitalCatalog : [],
+      mediaPlansCatalog: typeof campaignsData !== 'undefined' ? campaignsData : [],
+      draftsCatalog: typeof draftsData !== 'undefined' ? draftsData : [],
+      currentPlpChannel: typeof currentPlpChannel !== 'undefined' ? currentPlpChannel : 'ooh',
+      currentOohAmbience: typeof currentOohAmbience !== 'undefined' ? currentOohAmbience : 'todos'
     };
   },
 
