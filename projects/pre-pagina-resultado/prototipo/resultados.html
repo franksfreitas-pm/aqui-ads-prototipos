@@ -440,29 +440,49 @@
       display: none;
     }
     .filter-pill {
-      padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid #DFE7EF;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
       background: #FFFFFF;
-      font-size: 13px;
-      font-weight: 400;
-      color: #4E5D6C;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+      color: #282E38;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.15s;
+      justify-content: center;
+      transition: all 0.15s ease;
     }
     .filter-pill:hover {
-      border-color: #8C97A6;
-      color: #241E17;
+      background: #F8FAFC;
     }
     .filter-pill.active {
       background: #4E5D6C;
       color: #FFFFFF;
       border-color: #4E5D6C;
-      font-weight: 500;
+      font-weight: 600;
+    }
+    .filter-pill-more {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #E2E8F0;
+      background: #E2E8F0;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 600;
+      color: #282E38;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .filter-pill-more:hover {
+      background: #CBD5E1;
+      border-color: #CBD5E1;
     }
 
     .view-toggle-group {
@@ -552,30 +572,37 @@
       grid-template-columns: 1fr;
     }
 
-    /* CARD DE PONTO DE MÍDIA FIEL AO ESPELHO DE PRODUÇÃO */
+    /* CARD DE PONTO DE MÍDIA FIEL AO TEMPLATE OFICIAL AQUI_ADS_UI.JS — TAMANHO FIXO E UNIFORME */
     .product-card {
+      height: 462px;
+      min-height: 462px;
+      max-height: 462px;
       background: #FFFFFF;
-      border: 1px solid #DFE7EF;
-      border-radius: 8px;
-      padding: 12px;
+      border: 1px solid #D9D9D9;
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
       transition: all 0.2s ease;
     }
     .product-card:hover,
     .product-card.highlighted {
-      border-color: #3A9F3A;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border-color: #009E60;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
       transform: translateY(-2px);
     }
     .card-media {
       position: relative;
       width: 100%;
-      height: 118px;
-      border-radius: 6px;
+      height: 122px;
+      min-height: 122px;
+      max-height: 122px;
       background: #E5E7EB;
       overflow: hidden;
-      margin-bottom: 10px;
+      flex-shrink: 0;
     }
     .card-img {
       width: 100%;
@@ -584,9 +611,9 @@
     }
     .badges-top {
       position: absolute;
-      top: 6px;
-      left: 6px;
-      right: 6px;
+      top: 8px;
+      left: 8px;
+      right: 8px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -598,62 +625,75 @@
       gap: 4px;
     }
     .badge-pill {
-      padding: 3px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      line-height: 1.2;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
     }
     .badge-env {
-      background: #FFFFFF;
-      color: #241E17;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.95);
+      color: #1E293B;
     }
-    .badge-digital,
-    .badge-impresso {
-      background: #241E17;
+    .badge-digital {
+      background: #430099;
       color: #FFFFFF;
+      font-weight: 600;
+    }
+    .badge-impresso {
+      background: #009E60;
+      color: #FFFFFF;
+      font-weight: 600;
     }
     .badge-dist {
-      background: rgba(36, 30, 23, 0.85);
-      color: #FFFFFF;
-      font-weight: 500;
+      background: rgba(255, 255, 255, 0.95);
+      color: #1E293B;
+      font-weight: 600;
     }
 
     .card-body {
-      padding: 0;
+      padding: 12px 14px 14px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       flex: 1;
+      min-height: 0;
     }
     .card-title {
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
-      color: #241E17;
+      color: #1E293B;
+      line-height: 20px;
+      height: 20px;
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .card-address {
       font-size: 12px;
-      color: #8C97A6;
-      line-height: 1.3;
-      margin-bottom: 12px;
-      height: 31px;
+      color: #64748B;
+      line-height: 18px;
+      margin-bottom: 10px;
+      height: 36px;
+      min-height: 36px;
+      max-height: 36px;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
     .metrics-grid {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 4px;
       margin-bottom: 10px;
-      padding: 0;
       border: none;
     }
     .metric-col {
@@ -662,43 +702,48 @@
       gap: 2px;
     }
     .metric-label {
-      font-size: 10px;
-      color: #8C97A6;
+      font-size: 11px;
+      color: #64748B;
       display: flex;
       align-items: center;
       gap: 3px;
+      text-transform: lowercase;
     }
     .metric-value {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
-      color: #241E17;
+      color: #1E293B;
+      line-height: 1.2;
     }
     .screens-row {
       font-size: 12px;
-      color: #8C97A6;
+      color: #475569;
       margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      height: 18px;
     }
     .screens-row strong {
-      color: #241E17;
+      color: #1E293B;
     }
     .price-row {
       margin-top: auto;
+      padding-top: 8px;
       margin-bottom: 12px;
       display: flex;
       align-items: baseline;
-      gap: 4px;
+      gap: 6px;
     }
     .price-amount {
-      font-size: 20px;
-      font-weight: 800;
-      color: #241E17;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1;
     }
     .price-period {
-      font-size: 12px;
-      color: #8C97A6;
+      font-size: 11.5px;
+      color: #64748B;
       font-weight: 400;
     }
     .card-actions-row {
@@ -709,12 +754,12 @@
     .btn-add-point {
       flex: 1;
       height: 36px;
-      border: 1.5px solid #3A9F3A;
+      border: 1px solid #009E60;
       background: #FFFFFF;
-      color: #3A9F3A;
-      border-radius: 6px;
+      color: #009E60;
+      border-radius: 7px;
       padding: 0 10px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -724,11 +769,12 @@
       transition: all 0.2s;
     }
     .btn-add-point:hover {
-      background: #ECFDF5;
+      background: #009E60;
+      color: #FFFFFF;
     }
     .btn-add-point.added {
-      background: #3A9F3A;
-      border-color: #3A9F3A;
+      background: #009E60;
+      border-color: #009E60;
       color: #FFFFFF;
     }
     .btn-fav {
@@ -1277,21 +1323,18 @@
           </div>
 
           <div class="filters-toolbar">
-            <div class="filters-chips-scroll">
-              <button class="filter-pill active" data-env="todos" onclick="filterResults('todos', this)">todos os ambientes</button>
-              <button class="filter-pill" data-env="elevadores comerciais" onclick="filterResults('elevadores comerciais', this)">elevadores comerciais</button>
-              <button class="filter-pill" data-env="elevadores residenciais" onclick="filterResults('elevadores residenciais', this)">elevadores residenciais</button>
-              <button class="filter-pill" data-env="ponto de ônibus" onclick="filterResults('ponto de ônibus', this)">pontos de ônibus</button>
-              <button class="filter-pill" data-env="shopping" onclick="filterResults('shopping', this)">shoppings</button>
-              <button class="filter-pill" data-env="academias" onclick="filterResults('academias', this)">academias</button>
-              <button class="filter-pill" data-env="supermercados" onclick="filterResults('supermercados', this)">supermercados</button>
-              <button class="filter-pill" data-env="estação de trem" onclick="filterResults('estação de trem', this)">estações de trem</button>
-              <button class="filter-pill" data-env="estabelecimentos comerciais" onclick="filterResults('estabelecimentos comerciais', this)">estabelecimentos comerciais</button>
-              <button class="filter-pill" data-env="aeroportos" onclick="filterResults('aeroportos', this)">aeroportos</button>
-              <button class="filter-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-                mais filtros
-              </button>
+            <div class="filters-chips-scroll" id="plp-ambience-chips">
+              <button type="button" class="filter-pill active" data-env="todos" onclick="filterResults('todos', this)">todos</button>
+              <button type="button" class="filter-pill" data-env="elevadores comerciais" onclick="filterResults('elevadores comerciais', this)">elevadores comerciais</button>
+              <button type="button" class="filter-pill" data-env="elevadores residenciais" onclick="filterResults('elevadores residenciais', this)">elevadores residenciais</button>
+              <button type="button" class="filter-pill" data-env="ponto de ônibus" onclick="filterResults('ponto de ônibus', this)">pontos de ônibus</button>
+              <button type="button" class="filter-pill" data-env="shopping" onclick="filterResults('shopping', this)">shoppings</button>
+              <button type="button" class="filter-pill" data-env="academias" onclick="filterResults('academias', this)">academias</button>
+              <button type="button" class="filter-pill" data-env="supermercados" onclick="filterResults('supermercados', this)">supermercados</button>
+              <button type="button" class="filter-pill" data-env="estação de trem" onclick="filterResults('estação de trem', this)">estações de trem</button>
+              <button type="button" class="filter-pill" data-env="estabelecimentos comerciais" onclick="filterResults('estabelecimentos comerciais', this)">estabelecimentos comerciais</button>
+              <button type="button" class="filter-pill" data-env="aeroportos" onclick="filterResults('aeroportos', this)">aeroportos</button>
+              <button type="button" class="filter-pill-more">mais filtros</button>
             </div>
 
             <div class="view-toggle-group">

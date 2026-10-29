@@ -1,499 +1,3203 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aqui Ads — Pré-Página de Resultados OOH (Descoberta Guiada Multi-Praças)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="aqui_ads_official.css" />
-</head>
-<body class="bg-slate-50 text-slate-900">
-  <div id="aqui-ads-shell-root"></div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aqui Ads — Pré-Página de Resultados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM AQUI ADS — TOKENS & RESET (LIGHT MODE OBRIGATÓRIO)
+       ========================================================================== */
+    :root {
+      --brand-orange: #FF4F00;
+      --brand-orange-hover: #E04600;
+      --brand-orange-light: #FFF4EE;
+      --brand-purple: #4F46E5;
+      --brand-green: #10B981;
+      --brand-green-dark: #059669;
+      --brand-green-light: #ECFDF5;
+      --bg-page: #FFFFFF;
+      --bg-subtle: #F8FAFC;
+      --bg-muted: #F1F5F9;
+      --text-primary: #111827;
+      --text-secondary: #4B5563;
+      --text-muted: #6B7280;
+      --text-light: #9CA3AF;
+      --border-color: #E5E7EB;
+      --border-strong: #D1D5DB;
+      --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.05);
+      --shadow-md: 0 4px 16px rgba(17, 24, 39, 0.08);
+      --shadow-lg: 0 12px 32px rgba(17, 24, 39, 0.12);
+      --shadow-xl: 0 20px 48px rgba(17, 24, 39, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+    }
 
-  <script src="aqui_ads_mock_data.js"></script>
-  <script src="aqui_ads_ui.js"></script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #F1F5F9;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       BARRA DE CONTROLE DO PROTÓTIPO (TOP DEMO BAR)
+       ========================================================================== */
+    .demo-bar {
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      z-index: 3000;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid #1E293B;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .demo-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .demo-badge {
+      background: rgba(255, 84, 0, 0.2);
+      color: #FF7A33;
+      border: 1px solid rgba(255, 84, 0, 0.4);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+    .demo-title {
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+    .demo-bar-center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .demo-switch {
+      display: flex;
+      background: #1E293B;
+      border-radius: 8px;
+      padding: 3px;
+      gap: 4px;
+      border: 1px solid #334155;
+    }
+    .demo-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .demo-btn:hover {
+      color: #FFFFFF;
+    }
+    .demo-btn.active {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .demo-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .demo-doc-link {
+      text-decoration: none;
+      color: #93C5FD;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+    .demo-doc-link:hover {
+      background: rgba(59, 130, 246, 0.25);
+      color: #BFDBFE;
+    }
+
+    /* ==========================================================================
+       VIEWPORT CONTAINER & MOLDURA MOBILE (390x844 ENCAPSULADA)
+       ========================================================================== */
+    .workspace-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      transition: padding 0.3s ease;
+    }
+    .workspace-stage.is-mobile-stage {
+      padding: 24px 16px 40px;
+      background: radial-gradient(circle at center, #E2E8F0 0%, #CBD5E1 100%);
+    }
+
+    .viewport-container {
+      width: 100%;
+      min-height: calc(100vh - 45px);
+      background: var(--bg-page);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s ease;
+    }
+
+    /* LEI DE ENCAPSULAMENTO MOBILE: 390x844 centralizado com moldura de iPhone */
+    .viewport-container.mobile-mode {
+      width: 390px;
+      max-width: 390px;
+      height: 844px;
+      min-height: 844px;
+      max-height: 844px;
+      margin: 0 auto;
+      border: 12px solid #0F172A;
+      border-radius: 44px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35), 0 0 0 2px #334155;
+      overflow: hidden;
+      flex: none;
+    }
+
+    .mobile-notch {
+      display: none;
+    }
+    .viewport-container.mobile-mode .mobile-notch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 24px 4px;
+      background: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      color: #111827;
+      flex-shrink: 0;
+      z-index: 1200;
+    }
+    .notch-pill {
+      width: 96px;
+      height: 22px;
+      background: #0F172A;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+
+    .viewport-scroll-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+
+    /* ==========================================================================
+       HEADER AQUI ADS (FIEL AO ESPELHO DE PRODUÇÃO)
+       ========================================================================== */
+    .site-header {
+      height: 76px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #DFE7EF;
+      background: #FFFFFF;
+      flex-shrink: 0;
+      z-index: 500;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--brand-orange);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 100%;
+    }
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 100%;
+      font-size: 14px;
+      font-weight: 500;
+      color: #A6A6A6;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0 4px;
+    }
+    .nav-tab:hover {
+      color: #241E17;
+    }
+    .nav-tab.active {
+      color: #241E17;
+      font-weight: 600;
+      border-bottom-color: #241E17;
+    }
+    .nav-tab.active svg {
+      color: #241E17;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .assistant-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #241E17;
+      background: #FFFFFF;
+      border: 1px solid #DFE7EF;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .assistant-link:hover {
+      background: var(--bg-subtle);
+    }
+    .assistant-sparkle {
+      display: inline-flex;
+      align-items: center;
+    }
+    .cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: background 0.2s;
+    }
+    .cart-btn:hover {
+      background: var(--bg-subtle);
+    }
+    .cart-badge {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #FFFFFF;
+    }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 6px;
+      background: #F3F4F6;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .user-avatar {
+      width: 26px;
+      height: 26px;
+      background: #E5E7EB;
+      color: #374151;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* Ajustes do Header em Modo Mobile */
+    .viewport-container.mobile-mode .site-header {
+      height: 58px;
+      padding: 0 16px;
+    }
+    .viewport-container.mobile-mode .logo-link {
+      font-size: 21px;
+    }
+    .viewport-container.mobile-mode .header-nav {
+      display: none;
+    }
+    .viewport-container.mobile-mode .assistant-link span:first-child {
+      display: none;
+    }
+    .viewport-container.mobile-mode .user-pill span {
+      display: none;
+    }
+    .viewport-container.mobile-mode .user-pill {
+      padding: 4px;
+    }
+
+    /* ==========================================================================
+       JORNADA GUIADA DE BUSCA — BARRA DE BUSCA DESKTOP
+       ========================================================================== */
+    .hero-search-section {
+      padding: 28px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 400;
+      background: #FFFFFF;
+    }
+
+    .search-bar-container {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: 20px;
+      padding: 8px 10px 8px 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 6px 24px rgba(17, 24, 39, 0.07);
+      width: 100%;
+      max-width: 840px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .search-bar-container.active {
+      border-color: #CBD5E1;
+      box-shadow: 0 12px 36px rgba(17, 24, 39, 0.14);
+    }
+
+    .search-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 14px;
+      border: 1.5px solid transparent;
+      position: relative;
+      transition: all 0.2s;
+      min-width: 0;
+    }
+    .search-block.block-onde {
+      flex: 1.55;
+    }
+    .search-block:hover {
+      background: var(--bg-subtle);
+    }
+    .search-block.active {
+      background: #FFFFFF;
+      border-color: var(--brand-orange);
+      box-shadow: 0 4px 14px rgba(255, 84, 0, 0.12);
+    }
+
+    .search-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .search-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .search-input-desk {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .search-input-desk::placeholder {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .search-value {
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 400;
+    }
+    .search-value.filled {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .search-divider {
+      width: 1px;
+      height: 36px;
+      background: var(--border-color);
+      margin: 0 6px;
+      flex-shrink: 0;
+    }
+
+    .search-btn-desk {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      margin-left: 8px;
+      box-shadow: 0 4px 12px rgba(255, 84, 0, 0.25);
+    }
+    .search-btn-desk:hover {
+      background: var(--brand-orange-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255, 84, 0, 0.35);
+    }
+
+    /* ==========================================================================
+       POPOVERS DESKTOP (ETAPA 1: ONDE, ETAPA 2: PERÍODO, ETAPA 3: INÍCIO)
+       ========================================================================== */
+    .popover {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: var(--shadow-xl);
+      padding: 14px;
+      z-index: 600;
+    }
+    .popover.active {
+      display: block;
+      animation: popSlideDown 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes popSlideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Popover 1: Localização */
+    #popover-onde {
+      left: 0;
+      width: 400px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    /* Item discreto e elegante de "Usar minha localização atual" */
+    .use-current-location-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #F1F5F9;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    .use-current-location-item:hover {
+      background: var(--bg-subtle);
+    }
+    .loc-subtle-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #F3F4F6;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .loc-subtle-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .suggestion-item:hover {
+      background: var(--bg-subtle);
+    }
+    .suggestion-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #F3F4F6;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .suggestion-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+    .suggestion-main {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .suggestion-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Popover 2: Período */
+    #popover-periodo {
+      left: 34%;
+      width: 300px;
+      padding: 16px;
+    }
+    .popover-header-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .period-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .period-option {
+      padding: 11px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: #FFFFFF;
+    }
+    .period-option:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+    .period-option.selected {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange-light);
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+    .period-radio-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .period-option.selected .period-radio-dot {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange);
+      box-shadow: inset 0 0 0 3px #FFFFFF;
+    }
+
+    /* Popover 3: Início */
+    #popover-inicio {
+      right: 0;
+      width: 320px;
+      padding: 18px;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .calendar-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    .cal-nav {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    .cal-nav:hover {
+      background: var(--border-color);
+      color: var(--text-primary);
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .cal-day-name {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 600;
+      padding-bottom: 6px;
+    }
+    .cal-day {
+      font-size: 13px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .cal-day:hover {
+      background: var(--bg-muted);
+    }
+    .cal-day.selected {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       CATEGORY CHIPS ROW (MODELO OFICIAL DO TEMPLATE AQUI_ADS_UI.JS)
+       ========================================================================== */
+    .QuickCategoriesRow {
+      max-width: 1280px;
+      margin: 16px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 24px 16px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #DFE7EF;
+    }
+    .cat-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+      color: #282E38;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .cat-chip:hover {
+      background: #F8FAFC;
+    }
+    .cat-chip.active {
+      border-color: #4E5D6C;
+      background: #4E5D6C;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .cat-chip-more {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      background: #E2E8F0;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 600;
+      color: #282E38;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .cat-chip-more:hover,
+    .cat-chip-more.active {
+      background: #CBD5E1;
+      border-color: #CBD5E1;
+    }
+
+    /* ==========================================================================
+       MOBILE HERO SEARCH BAR & FULL-HEIGHT GUIDED SHEET (MOBILE-FIRST)
+       ========================================================================== */
+    .mobile-hero-card {
+      display: none;
+    }
+    .viewport-container.mobile-mode .hero-search-section {
+      display: none;
+    }
+    .viewport-container.mobile-mode .QuickCategoriesRow {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin-top: 8px;
+      padding: 8px 16px 12px;
+      scrollbar-width: none;
+    }
+    .viewport-container.mobile-mode .QuickCategoriesRow::-webkit-scrollbar {
+      display: none;
+    }
+    .viewport-container.mobile-mode .cat-chip,
+    .viewport-container.mobile-mode .cat-chip-more {
+      flex-shrink: 0;
+    }
+
+    .viewport-container.mobile-mode .mobile-hero-card {
+      display: flex;
+      flex-direction: column;
+      margin: 12px 16px 4px;
+    }
+    .mob-fake-search-trigger {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 12px 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.06);
+      transition: border-color 0.2s;
+    }
+    .mob-fake-search-trigger:hover {
+      border-color: var(--brand-orange);
+    }
+    .mob-trigger-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mob-trigger-texts {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+    .mob-trigger-main {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mob-trigger-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT — CARROSSÉIS DE CIDADES E CARDS DE PONTOS
+       ========================================================================== */
+    .main-vitrine {
+      flex: 1;
+      padding: 28px 40px 100px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .viewport-container.mobile-mode .main-vitrine {
+      padding: 16px 0 96px;
+    }
+
+    .city-section {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .viewport-container.mobile-mode .city-section {
+      margin-bottom: 28px;
+    }
+
+    .city-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .viewport-container.mobile-mode .city-header-row {
+      padding: 0 16px;
+      margin-bottom: 12px;
+    }
+
+    .city-title-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      text-align: left;
+    }
+    .city-title-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+    .city-title-btn:hover .city-title-text {
+      color: var(--brand-orange);
+    }
+    .viewport-container.mobile-mode .city-title-text {
+      font-size: 17px;
+    }
+
+    .carousel-nav-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .viewport-container.mobile-mode .carousel-nav-group {
+      display: none;
+    }
+    .carousel-arrow-top {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .carousel-arrow-top:hover {
+      border-color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      padding: 4px 2px 12px;
+    }
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+    .viewport-container.mobile-mode .carousel-track {
+      padding: 4px 16px 12px;
+      gap: 14px;
+    }
+
+    /* CARD DE PONTO DE MÍDIA (100% FIEL AO TEMPLATE OFICIAL AQUI_ADS_UI.JS — TAMANHO FIXO E UNIFORME) */
+    .product-card {
+      flex: 0 0 264px;
+      width: 264px;
+      min-width: 264px;
+      max-width: 264px;
+      height: 462px;
+      min-height: 462px;
+      max-height: 462px;
+      background: #FFFFFF;
+      border: 1px solid #D9D9D9;
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+    .viewport-container.mobile-mode .product-card {
+      flex: 0 0 250px;
+      width: 250px;
+      min-width: 250px;
+      max-width: 250px;
+      height: 462px;
+      min-height: 462px;
+      max-height: 462px;
+    }
+    .product-card:hover {
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+      border-color: #CBD5E1;
+    }
+
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 122px;
+      min-height: 122px;
+      max-height: 122px;
+      background: #E5E7EB;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badges-top {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .badge-group-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .badge-pill {
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1.2;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .badge-env {
+      background: rgba(255, 255, 255, 0.95);
+      color: #1E293B;
+    }
+    .badge-digital {
+      background: #430099;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .badge-impresso {
+      background: #009E60;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      min-height: 0;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 20px;
+      height: 20px;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+    }
+    .card-address {
+      font-size: 12px;
+      color: #64748B;
+      line-height: 18px;
+      height: 36px;
+      min-height: 36px;
+      max-height: 36px;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 4px;
+      margin-bottom: 10px;
+    }
+    .metric-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .metric-label {
+      font-size: 11px;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 2px;
+      text-transform: lowercase;
+    }
+    .metric-value {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.2;
+    }
+
+    .screens-row {
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 18px;
+    }
+    .price-row {
+      margin-top: auto;
+      padding-top: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .price-amount {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1;
+    }
+    .price-period {
+      font-size: 11.5px;
+      color: #64748B;
+      font-weight: 400;
+    }
+
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-add-point {
+      flex: 1;
+      height: 36px;
+      border: 1px solid #009E60;
+      background: #FFFFFF;
+      color: #009E60;
+      border-radius: 7px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-add-point:hover {
+      background: #009E60;
+      color: #FFFFFF;
+    }
+    .btn-add-point.added {
+      background: #009E60;
+      border-color: #009E60;
+      color: #FFFFFF;
+    }
+    .btn-fav {
+      width: 34px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .btn-fav:hover {
+      color: #EF4444;
+    }
+    .btn-fav.active {
+      color: #EF4444;
+    }
+    .btn-fav.active svg {
+      fill: #EF4444;
+      stroke: #EF4444;
+    }
+
+    /* ==========================================================================
+       CARD FINAL DO CARROSSEL ("VER TUDO" — MESMA ALTURA 462PX DOS CARDS, SEM CONTAGEM)
+       ========================================================================== */
+    .see-all-card {
+      flex: 0 0 264px;
+      width: 264px;
+      min-width: 264px;
+      max-width: 264px;
+      height: 462px;
+      min-height: 462px;
+      max-height: 462px;
+      background: #FFFFFF;
+      border: 1px solid #D9D9D9;
+      border-radius: 12px;
+      padding: 18px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .viewport-container.mobile-mode .see-all-card {
+      flex: 0 0 250px;
+      width: 250px;
+      min-width: 250px;
+      max-width: 250px;
+      height: 462px;
+      min-height: 462px;
+      max-height: 462px;
+      padding: 16px 14px 14px;
+    }
+    .see-all-card:hover {
+      border-color: #FF4F00;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+    }
+    .see-all-stack {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .see-all-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      margin-left: -12px;
+      background: #E5E7EB;
+    }
+    .see-all-thumb:first-child {
+      margin-left: 0;
+    }
+    .see-all-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: auto 0;
+    }
+    .see-all-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      color: #4E5D6C;
+    }
+    .see-all-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.3;
+    }
+    .see-all-sub {
+      font-size: 12px;
+      color: #64748B;
+      line-height: 1.45;
+    }
+    .see-all-cta {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: 7px;
+      background: #FFFFFF;
+      border: 1px solid #FF4F00;
+      color: #FF4F00;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .see-all-card:hover .see-all-cta {
+      background: #FF4F00;
+      color: #FFFFFF;
+    }
+
+    /* Sub-barra de filtros avançados (Formato Digital/Impresso e Ordenação) */
+    .more-filters-bar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 24px 14px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+    .more-filters-bar.open {
+      display: flex;
+    }
+    .sub-filter-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      padding: 4px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      font-size: 12px;
+    }
+    .sub-filter-label {
+      font-weight: 700;
+      color: var(--text-secondary);
+      padding: 0 4px;
+    }
+    .sub-filter-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sub-filter-btn.active {
+      background: var(--text-primary);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       BOTTOM STICKY CART BAR (ESPELHO DE PRODUÇÃO)
+       ========================================================================== */
+    .bottom-cart-bar {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 -4px 16px rgba(17, 24, 39, 0.06);
+      z-index: 450;
+    }
+    .viewport-container.mobile-mode .bottom-cart-bar {
+      padding: 10px 16px;
+    }
+    .cart-summary-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-summary-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .cart-summary-total {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .btn-continue-orange {
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-continue-orange:hover {
+      background: var(--brand-orange-hover);
+    }
+
+    /* ==========================================================================
+       MOBILE FULL-SCREEN GUIDED SEARCH SHEET (DENTRO DO CONTAINER 390x844)
+       ========================================================================== */
+    .mobile-sheet-backdrop {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 1500;
+      backdrop-filter: blur(2px);
+    }
+    .mobile-sheet-backdrop.open {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .mobile-sheet {
+      width: 100%;
+      height: 94%;
+      background: #F8FAFC;
+      border-radius: 24px 24px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.25);
+      animation: sheetUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes sheetUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .mobile-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    .sheet-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    .sheet-header-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .sheet-clear-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .mobile-sheet-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sheet-step-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: 18px;
+      padding: 14px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .sheet-step-card.active-step {
+      border-color: var(--brand-orange);
+      box-shadow: 0 6px 20px rgba(255, 84, 0, 0.08);
+    }
+    .sheet-step-card.locked-step {
+      opacity: 0.5;
+      pointer-events: none;
+      background: #F1F5F9;
+    }
+
+    .sheet-step-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .sheet-step-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .sheet-step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sheet-step-card.completed-step .sheet-step-num {
+      background: var(--brand-green);
+    }
+    .sheet-step-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-green-dark);
+    }
+
+    .mob-input-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-subtle);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+    }
+    .mob-input-box:focus-within {
+      border-color: var(--brand-orange);
+      background: #FFFFFF;
+    }
+    .mob-input-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .mob-suggestions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-height: 185px;
+      overflow-y: auto;
+    }
+
+    /* Etapa 2 Mobile — Seleção de Período Limpa, Elegante e Bem Alinhada */
+    .mob-period-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mob-period-btn {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .mob-period-btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+    .mob-period-btn.selected {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange-light);
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+    .mob-period-btn.selected .period-radio-dot {
+      border-color: var(--brand-orange);
+      background: var(--brand-orange);
+      box-shadow: inset 0 0 0 3px #FFFFFF;
+    }
+
+    .mobile-sheet-footer {
+      padding: 12px 16px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .btn-buscar-mob {
+      width: 100%;
+      background: var(--brand-orange);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 84, 0, 0.25);
+    }
+    .btn-buscar-mob:disabled {
+      background: #E5E7EB;
+      color: #9CA3AF;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* Overlay para fechar popovers no Desktop */
+    #desk-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      z-index: 350;
+    }
+    #desk-overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE CONTROLE DO PROTÓTIPO -->
+  <div class="demo-bar">
+    <div class="demo-bar-left">
+      <a href="../../../index.html" style="padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; background: #1F2937; color: #D1D5DB; text-decoration: none; border: 1px solid #374151;">← Catálogo</a>
+      <span class="demo-badge">PROTÓTIPO V2 • ARGON</span>
+      <span class="demo-title">Aqui Ads — Pré-Página de Resultados</span>
+    </div>
+
+    <div class="demo-bar-center">
+      <div class="demo-switch">
+        <button class="demo-btn active" id="btnModeDesktop" onclick="setViewportMode('desktop')">
+          <span>💻</span> Desktop
+        </button>
+        <button class="demo-btn" id="btnModeMobile" onclick="setViewportMode('mobile')">
+          <span>📱</span> Mobile (390×844)
+        </button>
+      </div>
+    </div>
+
+    <div class="demo-bar-right">
+      <a href="resultados.html" id="directResultsLink" class="demo-doc-link" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #6EE7B7;">
+        🗺️ Ir para Página de Resultados
+      </a>
+      <a href="https://app.notion.com/p/Diagn-stico-de-Comportamento-na-P-gina-de-Resultados-3f49587e413780bc9574e2cb2dfe8ed2" target="_blank" class="demo-doc-link">
+        📘 Ver Diagnóstico no Notion
+      </a>
+    </div>
+  </div>
+
+  <!-- PALCO DO VIEWPORT (ENCAPSULA MOLDURA 390x844 NO MOBILE) -->
+  <div class="workspace-stage" id="workspaceStage">
+    <div class="viewport-container" id="viewportContainer">
+
+      <!-- Barra de Status iOS simulada no modo Mobile -->
+      <div class="mobile-notch">
+        <span>9:41</span>
+        <div class="notch-pill"></div>
+        <span>5G 100%</span>
+      </div>
+
+      <!-- Área de rolagem interna da tela -->
+      <div class="viewport-scroll-area" id="viewportScrollArea">
+
+        <!-- Overlay Desktop para fechar Popovers -->
+        <div id="desk-overlay" onclick="closeAllPopovers()"></div>
+
+        <!-- HEADER OFICIAL AQUI ADS -->
+        <header class="site-header">
+          <a href="index.html" class="logo-link">
+            <img src="https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg" alt="Logotipo Aqui Ads" width="107">
+          </a>
+
+          <nav class="header-nav">
+            <a class="nav-tab active">
+              <img src="https://aqui.globo/images/header/ooh.svg" alt="OOH" width="32" height="32">
+              OOH
+            </a>
+            <a class="nav-tab">
+              <img src="https://aqui.globo/images/header/digital.svg" alt="Digital" width="32" height="32">
+              Digital
+            </a>
+            <a class="nav-tab">
+              <img src="https://aqui.globo/images/header/tv.svg" alt="TV" width="32" height="32">
+              TV
+            </a>
+            <a class="nav-tab">
+              <img src="https://aqui.globo/images/header/radio.svg" alt="Rádio" width="32" height="32">
+              Rádio
+            </a>
+            <a class="nav-tab">
+              <img src="https://aqui.globo/images/header/combos.svg" alt="Combos" width="32" height="32">
+              Combos
+            </a>
+          </nav>
+
+          <div class="header-actions">
+            <div class="assistant-link">
+              <span>Assistente de anúncios</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#695CFF">
+                <path d="M12 2L14.4 7.6L20 10L14.4 12.4L12 18L9.6 12.4L4 10L9.6 7.6L12 2Z"/>
+                <path d="M19 15L20.1 17.4L22.5 18.5L20.1 19.6L19 22L17.9 19.6L15.5 18.5L17.9 17.4L19 15Z"/>
+                <path d="M5 16L5.8 17.7L7.5 18.5L5.8 19.3L5 21L4.2 19.3L2.5 18.5L4.2 17.7L5 16Z"/>
+              </svg>
+            </div>
+            <button class="cart-btn" onclick="irParaResultados()" title="Carrinho">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              <span class="cart-badge" id="headerCartBadge">0</span>
+            </button>
+            <div class="user-pill">
+              <div class="user-avatar">F</div>
+              <span>Olá, FRANKS!</span>
+            </div>
+            <button class="cart-btn" title="Configurações" aria-label="Configurações" style="color: #4B5563;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+            <button class="cart-btn" title="Menu" aria-label="Menu" style="color: #4B5563;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- ==================================================================
+             BARRA DE BUSCA COMPACTA NO HERO MOBILE (MODO MOBILE 390x844)
+             ================================================================== -->
+        <div class="mobile-hero-card">
+          <div class="mob-fake-search-trigger" onclick="openMobileSheet()">
+            <div class="mob-trigger-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="mob-trigger-texts">
+              <span class="mob-trigger-main" id="mobTriggerTitle">Onde você quer anunciar?</span>
+              <span class="mob-trigger-sub" id="mobTriggerSub">Escolher período • Escolher data</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             HERO SEARCH BAR (MODO DESKTOP)
+             ================================================================== -->
+        <section class="hero-search-section">
+          <div class="search-bar-container" id="searchBar">
+            <!-- ETAPA 1: ONDE -->
+            <div class="search-block block-onde" id="block-onde" onclick="openPopover('onde')">
+              <div class="search-label-row">
+                <span class="search-label">Onde</span>
+              </div>
+              <input
+                type="text"
+                class="search-input-desk"
+                id="input-onde"
+                placeholder="Digite endereço, bairro ou cidade"
+                autocomplete="off"
+                oninput="handleDesktopAddressInput(this.value)"
+                onkeydown="handleDesktopAddressKey(event)"
+                onclick="event.stopPropagation(); openPopover('onde');"
+              />
+            </div>
+
+            <div class="search-divider"></div>
+
+            <!-- ETAPA 2: PERÍODO -->
+            <div class="search-block" id="block-periodo" onclick="openPopover('periodo')">
+              <div class="search-label-row">
+                <span class="search-label">Período</span>
+              </div>
+              <span class="search-value" id="val-periodo">Selecione a duração</span>
+            </div>
+
+            <div class="search-divider"></div>
+
+            <!-- ETAPA 3: INÍCIO -->
+            <div class="search-block" id="block-inicio" onclick="openPopover('inicio')">
+              <div class="search-label-row">
+                <span class="search-label">Início</span>
+              </div>
+              <span class="search-value" id="val-inicio">Quando começar?</span>
+            </div>
+
+            <!-- BOTÃO DE BUSCA -->
+            <button class="search-btn-desk" id="btnSearchDesk" onclick="executarBuscaGuiada()" title="Buscar pontos">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+
+            <!-- ==============================================================
+                 POPOVER 1: ONDE (LOCALIZAÇÃO ATUAL DISCRETA + AUTOCOMPLETE LIMPO)
+                 ============================================================== -->
+            <div class="popover" id="popover-onde" onclick="event.stopPropagation()">
+              <!-- Primeiro item discreto: Usar minha localização atual -->
+              <button type="button" class="use-current-location-item" onclick="useCurrentLocation(false)">
+                <div class="loc-subtle-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                </div>
+                <span class="loc-subtle-text">Usar minha localização atual</span>
+              </button>
+
+              <!-- Lista natural e limpa de sugestões -->
+              <div id="deskSuggestionsContainer"></div>
+            </div>
+
+            <!-- ==============================================================
+                 POPOVER 2: PERÍODO DE VEICULAÇÃO
+                 ============================================================== -->
+            <div class="popover" id="popover-periodo" onclick="event.stopPropagation()">
+              <div class="popover-header-title">Período de veiculação</div>
+              <div class="period-grid">
+                <div class="period-option" data-weeks="1" onclick="selectPeriodo('1 semana', 1, this)">
+                  <span>1 semana</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="2" onclick="selectPeriodo('2 semanas', 2, this)">
+                  <span>2 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="4" onclick="selectPeriodo('4 semanas', 4, this)">
+                  <span>4 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="12" onclick="selectPeriodo('12 semanas', 12, this)">
+                  <span>12 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+                <div class="period-option" data-weeks="24" onclick="selectPeriodo('24 semanas', 24, this)">
+                  <span>24 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==============================================================
+                 POPOVER 3: DATA DE INÍCIO DA CAMPANHA (APENAS CALENDÁRIO LIMPO)
+                 ============================================================== -->
+            <div class="popover" id="popover-inicio" onclick="event.stopPropagation()">
+              <div class="calendar-header">
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(-1)">◀</button>
+                <span class="calendar-title" id="cal-month-year">Outubro 2026</span>
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(1)">▶</button>
+              </div>
+              <div class="cal-grid" id="cal-days"></div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CHIPS DE AMBIENTES NO MODELO OFICIAL DO TEMPLATE (AQUI_ADS_UI.JS) -->
+        <div class="QuickCategoriesRow" id="plp-ambience-chips">
+          <button type="button" class="cat-chip active" onclick="filterEnvironment('todos', this)">todos</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('elevadores comerciais', this)">elevadores comerciais</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('elevadores residenciais', this)">elevadores residenciais</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('ponto de ônibus', this)">pontos de ônibus</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('shopping', this)">shoppings</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('academias', this)">academias</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('supermercados', this)">supermercados</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('estação de trem', this)">estações de trem</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('estabelecimentos comerciais', this)">estabelecimentos comerciais</button>
+          <button type="button" class="cat-chip" onclick="filterEnvironment('aeroportos', this)">aeroportos</button>
+          <button type="button" class="cat-chip-more" id="btnToggleMoreFilters" onclick="toggleMoreFiltersBar(this)">mais filtros</button>
+        </div>
+
+        <!-- SUB-BARRA DE MAIS FILTROS (FORMATO E FAIXA DE INVESTIMENTO) -->
+        <div class="more-filters-bar" id="moreFiltersBar">
+          <div class="sub-filter-group">
+            <span class="sub-filter-label">Formato:</span>
+            <button type="button" class="sub-filter-btn active" onclick="filterFormat('todos', this)">Todos</button>
+            <button type="button" class="sub-filter-btn" onclick="filterFormat('digital', this)">Digital</button>
+            <button type="button" class="sub-filter-btn" onclick="filterFormat('impresso', this)">Impresso</button>
+          </div>
+          <div class="sub-filter-group">
+            <span class="sub-filter-label">Investimento semanal:</span>
+            <button type="button" class="sub-filter-btn active" onclick="filterMaxPrice(0, this)">Qualquer valor</button>
+            <button type="button" class="sub-filter-btn" onclick="filterMaxPrice(600, this)">Até R$ 600/sem</button>
+            <button type="button" class="sub-filter-btn" onclick="filterMaxPrice(1500, this)">Até R$ 1.500/sem</button>
+          </div>
+        </div>
+
+        <!-- VITRINE DE PONTOS POR CIDADE -->
+        <main class="main-vitrine" id="mainVitrine"></main>
+
+        <!-- BARRA INFERIOR FIXA DO CARRINHO -->
+        <div class="bottom-cart-bar">
+          <div class="cart-summary-info">
+            <span class="cart-summary-count" id="cartCountText">Nenhum produto selecionado</span>
+            <span class="cart-summary-total" id="cartTotalText">Total R$ 0,00</span>
+          </div>
+          <button class="btn-continue-orange" onclick="irParaResultados()">
+            <span>continuar</span>
+            <span>›</span>
+          </button>
+        </div>
+
+      </div><!-- /viewport-scroll-area -->
+
+      <!-- ====================================================================
+           MODAL/SHEET GUIADO MOBILE (DENTRO DA MOLDURA 390x844)
+           ==================================================================== -->
+      <div class="mobile-sheet-backdrop" id="mobileSheetBackdrop" onclick="closeMobileSheet()">
+        <div class="mobile-sheet" onclick="event.stopPropagation()">
+          <div class="mobile-sheet-header">
+            <button type="button" class="sheet-close-btn" onclick="closeMobileSheet()">✕</button>
+            <span class="sheet-header-title">Buscar pontos</span>
+            <button type="button" class="sheet-clear-btn" onclick="resetGuidedSearch()">Limpar</button>
+          </div>
+
+          <div class="mobile-sheet-body">
+            <!-- ETAPA 1 MOBILE: ONDE -->
+            <div class="sheet-step-card active-step" id="mobStepCard1">
+              <div class="sheet-step-head">
+                <div class="sheet-step-title">
+                  <span class="sheet-step-num">1</span>
+                  <span>Onde quer anunciar?</span>
+                </div>
+                <span class="sheet-step-status" id="mobStepStatus1"></span>
+              </div>
+
+              <div class="mob-input-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input
+                  type="text"
+                  id="mob-input-onde"
+                  placeholder="Digite endereço, bairro ou cidade"
+                  autocomplete="off"
+                  oninput="handleMobileAddressInput(this.value)"
+                />
+              </div>
+
+              <!-- Primeiro item discreto dentro da etapa Onde no Mobile -->
+              <button type="button" class="use-current-location-item" onclick="useCurrentLocation(true)">
+                <div class="loc-subtle-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                </div>
+                <span class="loc-subtle-text">Usar minha localização atual</span>
+              </button>
+
+              <div class="mob-suggestions-list" id="mobSuggestionsContainer"></div>
+            </div>
+
+            <!-- ETAPA 2 MOBILE: PERÍODO (REFORMULADO, LIMPO E ALINHADO) -->
+            <div class="sheet-step-card locked-step" id="mobStepCard2">
+              <div class="sheet-step-head">
+                <div class="sheet-step-title">
+                  <span class="sheet-step-num">2</span>
+                  <span>Período de veiculação</span>
+                </div>
+                <span class="sheet-step-status" id="mobStepStatus2"></span>
+              </div>
+
+              <div class="mob-period-list">
+                <button type="button" class="mob-period-btn" data-weeks="1" onclick="selectPeriodo('1 semana', 1, this)">
+                  <span>1 semana</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="2" onclick="selectPeriodo('2 semanas', 2, this)">
+                  <span>2 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="4" onclick="selectPeriodo('4 semanas', 4, this)">
+                  <span>4 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="12" onclick="selectPeriodo('12 semanas', 12, this)">
+                  <span>12 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+                <button type="button" class="mob-period-btn" data-weeks="24" onclick="selectPeriodo('24 semanas', 24, this)">
+                  <span>24 semanas</span>
+                  <span class="period-radio-dot"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ETAPA 3 MOBILE: DATA DE INÍCIO (APENAS CALENDÁRIO LIMPO, SEM SUGESTÕES) -->
+            <div class="sheet-step-card locked-step" id="mobStepCard3">
+              <div class="sheet-step-head">
+                <div class="sheet-step-title">
+                  <span class="sheet-step-num">3</span>
+                  <span>Data de início</span>
+                </div>
+                <span class="sheet-step-status" id="mobStepStatus3"></span>
+              </div>
+
+              <div class="calendar-header" style="margin-top: 4px;">
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(-1)">◀</button>
+                <span class="calendar-title" id="mob-cal-month-year">Outubro 2026</span>
+                <button type="button" class="cal-nav" onclick="changeCalendarMonth(1)">▶</button>
+              </div>
+              <div class="cal-grid" id="mob-cal-days"></div>
+            </div>
+          </div>
+
+          <div class="mobile-sheet-footer">
+            <button type="button" class="btn-buscar-mob" id="btnSearchMob" disabled onclick="executarBuscaGuiada()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span id="btnSearchMobText">Buscar pontos</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /viewport-container -->
+  </div><!-- /workspace-stage -->
+
   <script>
-    const PRE_CITIES_DATA = [
+    /* ==========================================================================
+       ESTADO GLOBAL E CATÁLOGO DE ENDEREÇOS E PONTOS
+       ========================================================================== */
+    const searchState = {
+      onde: '',
+      periodoStr: '',
+      periodoSemanas: 2,
+      periodoSelecionado: false,
+      inicio: '',
+      ambienteFiltro: 'todos',
+      formatoFiltro: 'todos',
+      maxWeeklyPrice: 0,
+      mode: 'desktop'
+    };
+
+    const cartState = {
+      items: []
+    };
+
+    // Lista limpa e natural de sugestões de endereço (sem rótulos internos)
+    const addressDatabase = [
+      {
+        main: 'Av. Paulista, 1000',
+        sub: 'Bela Vista, São Paulo - SP',
+        full: 'Av. Paulista, 1000 - Bela Vista, São Paulo'
+      },
+      {
+        main: 'Rua Augusta, 1200',
+        sub: 'Consolação, São Paulo - SP',
+        full: 'Rua Augusta, 1200 - Consolação, São Paulo'
+      },
+      {
+        main: 'Av. Brigadeiro Faria Lima, 2232',
+        sub: 'Pinheiros, São Paulo - SP',
+        full: 'Av. Brigadeiro Faria Lima, 2232 - Pinheiros, São Paulo'
+      },
+      {
+        main: 'Av. Otaviano Alves de Lima, 572',
+        sub: 'Freguesia do Ó, São Paulo - SP',
+        full: 'Av. Otaviano Alves de Lima, 572 - São Paulo'
+      },
+      {
+        main: 'Av. das Américas, 4666',
+        sub: 'Barra da Tijuca, Rio de Janeiro - RJ',
+        full: 'Av. das Américas, 4666 - Barra da Tijuca, Rio de Janeiro'
+      },
+      {
+        main: 'Pinheiros',
+        sub: 'São Paulo - SP',
+        full: 'Pinheiros, São Paulo - SP'
+      },
+      {
+        main: 'Vila Mariana',
+        sub: 'São Paulo - SP',
+        full: 'Vila Mariana, São Paulo - SP'
+      },
+      {
+        main: 'Moema',
+        sub: 'São Paulo - SP',
+        full: 'Moema, São Paulo - SP'
+      },
+      {
+        main: 'Barra da Tijuca',
+        sub: 'Rio de Janeiro - RJ',
+        full: 'Barra da Tijuca, Rio de Janeiro - RJ'
+      },
+      {
+        main: 'Shopping Parque da Cidade',
+        sub: 'Av. das Nações Unidas, 14401 - São Paulo, SP',
+        full: 'Shopping Parque da Cidade - Av. das Nações Unidas, 14401'
+      }
+    ];
+
+    // Catálogo de pontos para as 5 capitais do Espelho de Produção
+    const citiesCatalog = [
       {
         city: 'São Paulo',
-        state: 'SP',
-        sub: 'Pontos de alto fluxo na Av. Paulista, Faria Lima, Pinheiros e principais shoppings',
-        points: [
-          { id: 101, title: 'Relógio Digital - Av. Paulista, 900 (Cásper Líbero)', sub: 'Bela Vista • São Paulo', cat: 'Ruas', subcat: 'Relógio de Rua', price: 249, impacts: '410 mil', faces: 2, img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80' },
-          { id: 102, title: 'Abrigo Digital - Av. Brig. Faria Lima, 3477 (Itaim)', sub: 'Itaim Bibi • São Paulo', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 218, impacts: '380 mil', faces: 2, img: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=600&q=80' },
-          { id: 103, title: 'Shopping Eldorado - Atrium Principal (MUB Digital)', sub: 'Pinheiros • São Paulo', cat: 'Shoppings', subcat: 'MUB Digital', price: 295, impacts: '520 mil', faces: 4, img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80' },
-          { id: 104, title: 'Edifício Comercial Berrini One - Elevadores Sociais', sub: 'Brooklin • São Paulo', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 145, impacts: '95 mil', faces: 6, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80' }
+        headerLabel: 'Pontos em São Paulo',
+        totalAvailable: 148,
+        items: [
+          {
+            id: 'sp-1',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'digital',
+            title: 'AV OTAVIANO ALVES DE LIMA, 572',
+            address: 'Avenida Otaviano Alves de Lima - 572, Freguesia do Ó',
+            exibs: '10,25 mil',
+            reach: '2,38 mil',
+            freq: '4',
+            screens: 1,
+            weeklyPrice: 2585.70,
+            img: 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-2',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'impresso',
+            title: 'AV OTAVIANO ALVES DE LIMA - CA...',
+            address: 'Av. Otaviano Alves de Lima - 572, Casa Verde',
+            exibs: '14,50 mil',
+            reach: '2,38 mil',
+            freq: '4',
+            screens: 1,
+            weeklyPrice: 986.70,
+            img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-3',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'PROGETTO ATÍLIO',
+            address: 'Rua Atílio Piffer - 120, Casa Verde - São Paulo',
+            exibs: '9,74 mil',
+            reach: '2,38 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 132.48,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-4',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'EDIFÍCIO PAULISTA CORPORATE',
+            address: 'Avenida Paulista - 1842, Bela Vista - São Paulo',
+            exibs: '18,50 mil',
+            reach: '5,10 mil',
+            freq: '4',
+            screens: 4,
+            weeklyPrice: 710.00,
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-5',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'SHOPPING CIDADE SÃO PAULO',
+            address: 'Av. Paulista - 1230, Bela Vista - São Paulo',
+            exibs: '35,00 mil',
+            reach: '12,40 mil',
+            freq: '3',
+            screens: 6,
+            weeklyPrice: 1945.00,
+            img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-6',
+            env: 'estação de trem',
+            envIcon: '🚆',
+            format: 'digital',
+            title: 'ESTAÇÃO PINHEIROS - LINHA 9 ESMERALDA',
+            address: 'Av. das Nações Unidas - Pinheiros, São Paulo',
+            exibs: '64,20 mil',
+            reach: '28,40 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 1490.00,
+            img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-7',
+            env: 'supermercados',
+            envIcon: '🛒',
+            format: 'digital',
+            title: 'PÃO DE AÇÚCAR JARDIM PAULISTA',
+            address: 'Av. Brigadeiro Luís Antônio - 3126, Jardins',
+            exibs: '15,80 mil',
+            reach: '5,90 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 520.00,
+            img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-8',
+            env: 'estabelecimentos comerciais',
+            envIcon: '🏪',
+            format: 'digital',
+            title: 'PADARIA BELLA PAULISTA',
+            address: 'Rua Haddock Lobo - 354, Cerqueira César',
+            exibs: '12,40 mil',
+            reach: '4,20 mil',
+            freq: '3',
+            screens: 2,
+            weeklyPrice: 390.00,
+            img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'sp-9',
+            env: 'aeroportos',
+            envIcon: '✈️',
+            format: 'digital',
+            title: 'AEROPORTO DE CONGONHAS - EMBARQUE',
+            address: 'Av. Washington Luís - Vila Congonhas, São Paulo',
+            exibs: '82,00 mil',
+            reach: '39,50 mil',
+            freq: '2',
+            screens: 8,
+            weeklyPrice: 3290.00,
+            img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
+          }
         ]
       },
       {
         city: 'Rio de Janeiro',
-        state: 'RJ',
-        sub: 'Orla Zona Sul, Barra da Tijuca, Centro Financeiro e corredores de transporte',
-        points: [
-          { id: 801, title: 'Relógio Digital - Av. Nossa Sra. de Copacabana, 540', sub: 'Copacabana • Rio de Janeiro', cat: 'Ruas', subcat: 'Relógio de Rua', price: 215, impacts: '360 mil', faces: 2, img: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=600&q=80' },
-          { id: 802, title: 'BarraShopping - Corredor Expansão Nível Lagoa', sub: 'Barra da Tijuca • Rio de Janeiro', cat: 'Shoppings', subcat: 'MUB Digital', price: 280, impacts: '490 mil', faces: 4, img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80' },
-          { id: 803, title: 'Abrigo Digital - Av. Rio Branco, 156 (Centro)', sub: 'Centro • Rio de Janeiro', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 189, impacts: '310 mil', faces: 2, img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80' },
-          { id: 804, title: 'Condomínio CEO Corporate - Barra da Tijuca', sub: 'Barra da Tijuca • Rio de Janeiro', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 138, impacts: '82 mil', faces: 5, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80' }
-        ]
-      },
-      {
-        city: 'Belo Horizonte',
-        state: 'MG',
-        sub: 'Savassi, Lourdes, Praça Sete e principais centros comerciais da capital mineira',
-        points: [
-          { id: 811, title: 'Abrigo Digital - Praça da Savassi (Av. Cristóvão Colombo)', sub: 'Savassi • Belo Horizonte', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 175, impacts: '275 mil', faces: 2, img: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=600&q=80' },
-          { id: 812, title: 'BH Shopping - Piso Mariana (Acesso Principal)', sub: 'Belvedere • Belo Horizonte', cat: 'Shoppings', subcat: 'MUB Digital', price: 245, impacts: '410 mil', faces: 3, img: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=600&q=80' },
-          { id: 813, title: 'Relógio Digital - Av. Afonso Pena, 1500 (Parque Municipal)', sub: 'Centro • Belo Horizonte', cat: 'Ruas', subcat: 'Relógio de Rua', price: 168, impacts: '290 mil', faces: 2, img: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80' },
-          { id: 814, title: 'Edifício Pátio Savassi Corporate - Elevadores', sub: 'Funcionários • Belo Horizonte', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 120, impacts: '68 mil', faces: 4, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80' }
+        headerLabel: 'Pontos no Rio de Janeiro',
+        totalAvailable: 96,
+        items: [
+          {
+            id: 'rj-1',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'digital',
+            title: 'AV NOSSA SENHORA DE COPACABANA, 680',
+            address: 'Av. Nossa Sra. de Copacabana - 680, Copacabana',
+            exibs: '22,40 mil',
+            reach: '8,10 mil',
+            freq: '3',
+            screens: 1,
+            weeklyPrice: 1890.00,
+            img: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-2',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'CEO BARRA CORPORATE',
+            address: 'Av. das Américas - 3434, Barra da Tijuca',
+            exibs: '16,80 mil',
+            reach: '4,90 mil',
+            freq: '3',
+            screens: 5,
+            weeklyPrice: 820.00,
+            img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-3',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'BARRASHOPPING TOTEM CENTRAL',
+            address: 'Av. das Américas - 4666, Barra da Tijuca',
+            exibs: '48,20 mil',
+            reach: '19,30 mil',
+            freq: '2',
+            screens: 8,
+            weeklyPrice: 2450.00,
+            img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-4',
+            env: 'academias',
+            envIcon: '🏋️',
+            format: 'digital',
+            title: 'BODYTECH LEBLON',
+            address: 'Rua Humberto de Campos - 900, Leblon',
+            exibs: '11,20 mil',
+            reach: '3,40 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 640.00,
+            img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-5',
+            env: 'supermercados',
+            envIcon: '🛒',
+            format: 'digital',
+            title: 'ZONA SUL IPANEMA',
+            address: 'Rua Visconde de Pirajá - 504, Ipanema',
+            exibs: '19,40 mil',
+            reach: '7,10 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 580.00,
+            img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'rj-6',
+            env: 'aeroportos',
+            envIcon: '✈️',
+            format: 'digital',
+            title: 'AEROPORTO SANTOS DUMONT - SAGUÃO',
+            address: 'Praça Senador Salgado Filho - Centro, Rio de Janeiro',
+            exibs: '71,00 mil',
+            reach: '31,20 mil',
+            freq: '2',
+            screens: 6,
+            weeklyPrice: 2890.00,
+            img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
+          }
         ]
       },
       {
         city: 'Curitiba',
-        state: 'PR',
-        sub: 'Batel, Centro Cívico, Estações-Tubo e shoppings de alta renda',
-        points: [
-          { id: 821, title: 'Painel Digital - Av. do Batel, 1868 (Pátio Batel)', sub: 'Batel • Curitiba', cat: 'Ruas', subcat: 'Relógio de Rua', price: 192, impacts: '260 mil', faces: 2, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
-          { id: 822, title: 'ParkShoppingBarigüi - Praça de Alimentação Central', sub: 'Mossunguê • Curitiba', cat: 'Shoppings', subcat: 'MUB Digital', price: 230, impacts: '375 mil', faces: 4, img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80' },
-          { id: 823, title: 'Mobiliário Urbano - Rua XV de Novembro (Calçadão)', sub: 'Centro • Curitiba', cat: 'Ruas', subcat: 'Abrigo de Ônibus', price: 158, impacts: '245 mil', faces: 2, img: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=600&q=80' },
-          { id: 824, title: 'Centro Empresarial Neo Superquadra - Elevadores', sub: 'Centro Cívico • Curitiba', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 115, impacts: '64 mil', faces: 4, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80' }
+        headerLabel: 'Pontos em Curitiba',
+        totalAvailable: 68,
+        items: [
+          {
+            id: 'ct-1',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'WORLD BUSINESS BATEL',
+            address: 'Av. do Batel - 1868, Batel - Curitiba',
+            exibs: '12,10 mil',
+            reach: '3,80 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 540.00,
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-2',
+            env: 'ponto de ônibus',
+            envIcon: '🚌',
+            format: 'digital',
+            title: 'ESTAÇÃO TUBO PRAÇA DO JAPÃO',
+            address: 'Av. Sete de Setembro - 4920, Batel',
+            exibs: '19,40 mil',
+            reach: '7,20 mil',
+            freq: '3',
+            screens: 2,
+            weeklyPrice: 1350.00,
+            img: 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-3',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'RESIDENCIAL ECOVILLE PARK',
+            address: 'Rua Prof. Pedro Viriato Parigot de Souza - 1400',
+            exibs: '8,40 mil',
+            reach: '2,10 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 165.00,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-4',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'PÁTIO BATEL MÍDIA DIGITAL',
+            address: 'Av. do Batel - 1868, Batel - Curitiba',
+            exibs: '29,00 mil',
+            reach: '10,50 mil',
+            freq: '3',
+            screens: 6,
+            weeklyPrice: 1780.00,
+            img: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'ct-5',
+            env: 'estabelecimentos comerciais',
+            envIcon: '🏪',
+            format: 'digital',
+            title: 'MERCADOTECA BATEL',
+            address: 'Rua Paulo Gorski - 1309, Mossunguê',
+            exibs: '11,30 mil',
+            reach: '4,10 mil',
+            freq: '3',
+            screens: 2,
+            weeklyPrice: 410.00,
+            img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80'
+          }
         ]
       },
       {
-        city: 'Campinas',
-        state: 'SP',
-        sub: 'Cambuí, Parque D. Pedro Shopping, Iguatemi Campinas e eixos Norte-Sul',
-        points: [
-          { id: 831, title: 'Shopping Iguatemi Campinas - Entrada Principal 1º Piso', sub: 'Vila Brandina • Campinas', cat: 'Shoppings', subcat: 'MUB Digital', price: 225, impacts: '350 mil', faces: 4, img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80' },
-          { id: 832, title: 'Relógio Digital - Av. José de Souza Campos (Norte-Sul)', sub: 'Cambuí • Campinas', cat: 'Ruas', subcat: 'Relógio de Rua', price: 165, impacts: '230 mil', faces: 2, img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80' },
-          { id: 833, title: 'Parque D. Pedro Shopping - Alameda das Flores', sub: 'Jardim Santa Genebra • Campinas', cat: 'Shoppings', subcat: 'MUB Digital', price: 210, impacts: '390 mil', faces: 3, img: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=600&q=80' },
-          { id: 834, title: 'Edifício Galleria Corporate - Elevadores Comerciais', sub: 'Jardim Nilópolis • Campinas', cat: 'Prédios Comerciais', subcat: 'Elevadores', price: 112, impacts: '58 mil', faces: 4, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80' }
+        city: 'Porto Alegre',
+        headerLabel: 'Pontos em Porto Alegre',
+        totalAvailable: 54,
+        items: [
+          {
+            id: 'poa-1',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'CARLOS GOMES CENTER',
+            address: 'Av. Sen. Tarso Dutra - 565, Petrópolis',
+            exibs: '14,20 mil',
+            reach: '4,10 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 590.00,
+            img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'poa-2',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'MOINHOS DE VENTO PRIVILEGE',
+            address: 'Rua Padre Chagas - 320, Moinhos de Vento',
+            exibs: '7,90 mil',
+            reach: '1,95 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 148.00,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'poa-3',
+            env: 'shopping',
+            envIcon: '🛍️',
+            format: 'digital',
+            title: 'IGUATEMI PORTO ALEGRE',
+            address: 'Av. João Wallig - 1800, Passo d\'Areia',
+            exibs: '38,50 mil',
+            reach: '14,20 mil',
+            freq: '3',
+            screens: 8,
+            weeklyPrice: 1920.00,
+            img: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'poa-4',
+            env: 'supermercados',
+            envIcon: '🛒',
+            format: 'digital',
+            title: 'ZAFFARI HIGIENÓPOLIS',
+            address: 'Av. Plínio Brasil Milano - 1000, Higienópolis',
+            exibs: '21,10 mil',
+            reach: '7,80 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 560.00,
+            img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80'
+          }
+        ]
+      },
+      {
+        city: 'Brasília',
+        headerLabel: 'Pontos em Brasília',
+        totalAvailable: 49,
+        items: [
+          {
+            id: 'bsb-1',
+            env: 'elevadores comerciais',
+            envIcon: '🏢',
+            format: 'digital',
+            title: 'BRASÍLIA SHOPPING TOWERS',
+            address: 'SCN Quadra 05 Bloco A - Asa Norte',
+            exibs: '17,60 mil',
+            reach: '5,40 mil',
+            freq: '3',
+            screens: 4,
+            weeklyPrice: 740.00,
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'bsb-2',
+            env: 'elevadores residenciais',
+            envIcon: '🏠',
+            format: 'digital',
+            title: 'RESIDENCIAL SUDOESTE PREMIUM',
+            address: 'SQSW 303 Bloco B - Setor Sudoeste',
+            exibs: '9,10 mil',
+            reach: '2,30 mil',
+            freq: '4',
+            screens: 2,
+            weeklyPrice: 158.00,
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'bsb-3',
+            env: 'academias',
+            envIcon: '🏋️',
+            format: 'digital',
+            title: 'BODYTECH LAGO SUL',
+            address: 'SHIS QI 05 Bloco F - Lago Sul, Brasília',
+            exibs: '11,80 mil',
+            reach: '3,60 mil',
+            freq: '3',
+            screens: 3,
+            weeklyPrice: 680.00,
+            img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80'
+          },
+          {
+            id: 'bsb-4',
+            env: 'aeroportos',
+            envIcon: '✈️',
+            format: 'digital',
+            title: 'AEROPORTO INTERNACIONAL DE BRASÍLIA',
+            address: 'Lago Sul - Terminal 1, Brasília',
+            exibs: '68,00 mil',
+            reach: '29,40 mil',
+            freq: '2',
+            screens: 6,
+            weeklyPrice: 2650.00,
+            img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80'
+          }
         ]
       }
     ];
 
-    let preActiveCategory = 'Todos';
-    let preSubcatFilter = 'Todas';
-    let preMaxPriceFilter = 9999;
+    /* ==========================================================================
+       RENDERIZAÇÃO DE SUGESTÕES DE ENDEREÇO (NATURAL E LIMPA)
+       ========================================================================== */
+    function renderAddressSuggestions(query = '') {
+      const q = query.trim().toLowerCase();
+      let filtered = addressDatabase;
 
-    function ensureExtraPointsInCatalog() {
-      const cat = window.oohCatalog || [];
-      PRE_CITIES_DATA.forEach(group => {
-        group.points.forEach(p => {
-          if (!cat.some(x => x.id === p.id)) {
-            cat.push({
-              id: p.id,
-              title: p.title,
-              sub: p.sub,
-              cat: p.cat,
-              subcat: p.subcat,
-              price: p.price,
-              impacts: p.impacts,
-              Faces: p.faces,
-              available: true,
-              img: p.img
-            });
-          }
-        });
-      });
+      if (q.length > 0) {
+        filtered = addressDatabase.filter(item =>
+          item.main.toLowerCase().includes(q) ||
+          item.sub.toLowerCase().includes(q)
+        );
+        const hasNumber = /\d/.test(q);
+        if (!hasNumber && q.length >= 3) {
+          const prettyQuery = query.trim().replace(/\b\w/g, l => l.toUpperCase());
+          filtered = [
+            {
+              main: `${prettyQuery}, 1000`,
+              sub: 'São Paulo - SP',
+              full: `${prettyQuery}, 1000 - São Paulo, SP`
+            },
+            {
+              main: `${prettyQuery}, 500`,
+              sub: 'São Paulo - SP',
+              full: `${prettyQuery}, 500 - São Paulo, SP`
+            },
+            ...filtered
+          ];
+        }
+      }
+
+      const htmlList = filtered.map(item => buildSuggestionRowHTML(item)).join('');
+
+      const deskContainer = document.getElementById('deskSuggestionsContainer');
+      if (deskContainer) deskContainer.innerHTML = htmlList;
+
+      const mobContainer = document.getElementById('mobSuggestionsContainer');
+      if (mobContainer) {
+        mobContainer.innerHTML = filtered.slice(0, 6).map(item => buildSuggestionRowHTML(item)).join('');
+      }
     }
 
-    function renderPreCityCarousels() {
-      ensureExtraPointsInCatalog();
-      const container = document.getElementById('pre-cities-container');
-      if (!container) return;
-
-      const html = PRE_CITIES_DATA.map(group => {
-        const filteredPoints = group.points.filter(p => {
-          if (preActiveCategory !== 'Todos' && p.cat !== preActiveCategory) return false;
-          if (preSubcatFilter !== 'Todas' && p.subcat !== preSubcatFilter) return false;
-          if (p.price > preMaxPriceFilter) return false;
-          return true;
-        });
-
-        if (filteredPoints.length === 0) return '';
-
-        const cardsHtml = filteredPoints.map(item => {
-          const inCart = (window.oohCartIds || []).includes(item.id);
-          return `
-            <article class="rounded-2xl border ${inCart ? 'border-[#FF4F00] ring-2 ring-[#FF4F00]/20 bg-orange-50/10' : 'border-[#E2E8F0] bg-white'} overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col">
-              <div onclick="openPdpModal(${item.id})" class="h-36 bg-slate-100 relative overflow-hidden cursor-pointer group">
-                <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                <span class="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">${item.cat}</span>
-                ${inCart ? '<span class="absolute top-2.5 right-2.5 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">✓ No carrinho</span>' : ''}
-              </div>
-              <div class="p-3.5 flex-1 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between gap-1 mb-1">
-                    <span class="text-[10px] font-bold text-[#FF4F00] uppercase tracking-wider">${item.subcat} • ${item.faces} faces</span>
-                  </div>
-                  <h4 onclick="openPdpModal(${item.id})" class="text-xs font-bold text-[#1E293B] line-clamp-2 hover:text-[#FF4F00] cursor-pointer leading-snug">${item.title}</h4>
-                  <p class="text-[11px] text-[#64748B] mt-1">${item.sub} • Impacto: <strong class="text-[#334155]">${item.impacts}</strong></p>
-                </div>
-                <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <div>
-                    <span class="text-[10px] text-[#94A3B8] block">A partir de</span>
-                    <span class="text-sm font-extrabold text-[#1E293B]">R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <button type="button" onclick="toggleOohItem(${item.id}); renderPreCityCarousels()" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${inCart ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-[#FF4F00] text-white hover:bg-[#E04500] shadow-xs'}">
-                      ${inCart ? 'Remover' : '+ Adicionar'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-          `;
-        }).join('');
-
-        return `
-          <div class="border-b border-[#F1F5F9] pb-8 last:border-b-0">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="text-lg font-extrabold text-[#1E293B] hover:text-[#FF4F00] cursor-pointer transition-colors" onclick="navigateToResultsFromCity('${group.city} - ${group.state}')">
-                    Pontos de mídia em ${group.city} (${group.state})
-                  </h3>
-                  <span class="text-xs font-bold text-[#FF4F00] bg-[#FFF5F0] px-2.5 py-0.5 rounded-full border border-[#FFD8C2]">${filteredPoints.length} destaques</span>
-                </div>
-                <p class="text-xs text-[#64748B] mt-0.5">${group.sub}</p>
-              </div>
-              <button type="button" onclick="navigateToResultsFromCity('${group.city} - ${group.state}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF4F00] hover:text-[#E04500] hover:underline cursor-pointer shrink-0">
-                <span>Explorar todos os pontos de ${group.city} no mapa</span>
-                <span>→</span>
-              </button>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              ${cardsHtml}
-            </div>
+    function buildSuggestionRowHTML(item) {
+      const safeFull = item.full.replace(/'/g, "\\'");
+      return `
+        <div class="suggestion-item" onclick="selectAddress('${safeFull}')">
+          <div class="suggestion-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-        `;
-      }).join('');
-
-      container.innerHTML = html || `
-        <div class="text-center py-12 bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0]">
-          <p class="text-sm font-bold text-[#1E293B] mb-1">Nenhum ponto encontrado com esses filtros rápidos</p>
-          <p class="text-xs text-[#64748B] mb-4">Tente limpar os filtros de ambiente ou faixa de investimento.</p>
-          <button type="button" onclick="filterPreCategory('Todos'); document.getElementById('pre-filter-subcat').value='Todas'; document.getElementById('pre-filter-price').value='9999'; applyPreMoreFilters();" class="px-4 py-2 rounded-lg bg-[#FF4F00] text-white text-xs font-bold cursor-pointer">Limpar filtros</button>
+          <div class="suggestion-info">
+            <span class="suggestion-main">${item.main}</span>
+            <span class="suggestion-sub">${item.sub}</span>
+          </div>
         </div>
       `;
     }
 
-    function openPreWhereDropdown() {
-      const dd = document.getElementById('pre-where-dropdown');
-      if (dd) dd.classList.remove('hidden');
+    /* ==========================================================================
+       CONTROLE DA JORNADA GUIADA (3 ETAPAS SEQUENCIAIS)
+       ========================================================================== */
+    function handleDesktopAddressInput(val) {
+      searchState.onde = val;
+      renderAddressSuggestions(val);
+      updateGuidedProgressUI();
     }
 
-    function filterPreWhereSuggestions(val) {
-      openPreWhereDropdown();
+    function handleDesktopAddressKey(e) {
+      if (e.key === 'Enter' && searchState.onde.trim() !== '') {
+        e.preventDefault();
+        openPopover('periodo');
+      }
     }
 
-    function selectPreDestination(cityLabel) {
-      const input = document.getElementById('pre-search-where');
-      const dd = document.getElementById('pre-where-dropdown');
-      if (input) input.value = cityLabel;
-      if (dd) dd.classList.add('hidden');
-      navigateToResultsFromCity(cityLabel);
+    function handleMobileAddressInput(val) {
+      searchState.onde = val;
+      const deskIn = document.getElementById('input-onde');
+      if (deskIn) deskIn.value = val;
+      renderAddressSuggestions(val);
+      updateGuidedProgressUI();
     }
 
-    function cyclePreDuration() {
-      const options = ['2 semanas', '4 semanas', '8 semanas'];
-      const el = document.getElementById('pre-duration-lbl');
-      if (!el) return;
-      const idx = (options.indexOf(el.textContent.trim()) + 1) % options.length;
-      el.textContent = options[idx];
-      if (typeof showToast === 'function') showToast('Duração da campanha alterada para ' + options[idx]);
+    function useCurrentLocation(fromMobile) {
+      const locString = 'Av. Brig. Faria Lima, 3477 - Itaim Bibi, São Paulo';
+      selectAddress(locString, fromMobile);
     }
 
-    function cyclePreStartDate() {
-      const options = ['18/05/2026', '25/05/2026', '01/06/2026'];
-      const el = document.getElementById('pre-start-lbl');
-      if (!el) return;
-      const idx = (options.indexOf(el.textContent.trim()) + 1) % options.length;
-      el.textContent = options[idx];
-      if (typeof showToast === 'function') showToast('Data de início da campanha alterada para ' + options[idx]);
-    }
+    function selectAddress(addressStr, forceOpenMobile = false) {
+      searchState.onde = addressStr;
 
-    function filterPreCategory(cat) {
-      preActiveCategory = cat;
-      document.querySelectorAll('.pre-amb-btn').forEach(btn => {
-        if (btn.dataset.amb === cat) {
-          btn.className = 'pre-amb-btn px-3.5 py-2 rounded-full text-xs font-bold bg-[#1E293B] text-white flex items-center gap-1.5 cursor-pointer transition';
-        } else {
-          btn.className = 'pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition';
+      const deskInput = document.getElementById('input-onde');
+      if (deskInput) deskInput.value = addressStr;
+
+      const mobInput = document.getElementById('mob-input-onde');
+      if (mobInput) mobInput.value = addressStr;
+
+      updateGuidedProgressUI();
+
+      if (searchState.mode === 'mobile' || forceOpenMobile) {
+        const backdrop = document.getElementById('mobileSheetBackdrop');
+        if (!backdrop.classList.contains('open')) {
+          openMobileSheet();
         }
+        document.getElementById('mobStepCard1').classList.remove('active-step');
+        document.getElementById('mobStepCard2').classList.add('active-step');
+      } else {
+        setTimeout(() => openPopover('periodo'), 120);
+      }
+    }
+
+    function selectPeriodo(label, weeks, el) {
+      searchState.periodoStr = label;
+      searchState.periodoSemanas = weeks;
+      searchState.periodoSelecionado = true;
+
+      const valPeriodo = document.getElementById('val-periodo');
+      if (valPeriodo) {
+        valPeriodo.textContent = label;
+        valPeriodo.classList.add('filled');
+      }
+
+      document.querySelectorAll('.period-option, .mob-period-btn').forEach(btn => {
+        if (Number(btn.dataset.weeks) === weeks) btn.classList.add('selected');
+        else btn.classList.remove('selected');
       });
-      renderPreCityCarousels();
-    }
 
-    function togglePreMoreFilters() {
-      const bar = document.getElementById('pre-more-filters-bar');
-      if (bar) bar.classList.toggle('hidden');
-    }
+      renderVitrine();
+      updateCartBarUI();
+      updateGuidedProgressUI();
 
-    function applyPreMoreFilters() {
-      const subEl = document.getElementById('pre-filter-subcat');
-      const priceEl = document.getElementById('pre-filter-price');
-      preSubcatFilter = subEl ? subEl.value : 'Todas';
-      preMaxPriceFilter = priceEl ? Number(priceEl.value) : 9999;
-      renderPreCityCarousels();
-    }
-
-    function navigateToResultsFromPreSearch() {
-      const input = document.getElementById('pre-search-where');
-      const city = (input && input.value.trim()) ? input.value.trim() : 'São Paulo - SP';
-      navigateToResultsFromCity(city);
-    }
-
-    function navigateToResultsFromCity(cityLabel) {
-      const dd = document.getElementById('pre-where-dropdown');
-      if (dd) dd.classList.add('hidden');
-      const plpInput = document.getElementById('plp-search-address');
-      if (plpInput) plpInput.value = cityLabel;
-      const pill = document.getElementById('plp-active-city-pill');
-      if (pill) pill.textContent = 'Praça ativa: ' + cityLabel;
-      showScreen('view-resultados');
-      if (typeof switchPlpChannel === 'function') switchPlpChannel('ooh');
-      if (typeof renderOohPlp === 'function') renderOohPlp();
-      if (typeof showToast === 'function') {
-        showToast(`Exibindo mapa interativo e inventário completo em ${cityLabel}`);
+      if (searchState.mode === 'mobile') {
+        document.getElementById('mobStepCard2').classList.remove('active-step');
+        document.getElementById('mobStepCard3').classList.add('active-step');
+        renderCalendars();
+      } else {
+        setTimeout(() => openPopover('inicio'), 140);
       }
     }
 
-    function openPreMobileSheet() {
-      const s = document.getElementById('pre-mobile-sheet');
-      if (s) s.classList.remove('hidden');
-    }
+    // Calendário Limpo (Desktop e Mobile)
+    let calCurrentDate = new Date(2026, 9, 1); // Outubro 2026
+    let calSelectedDate = null;
+    const monthNames = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
 
-    function closePreMobileSheet() {
-      const s = document.getElementById('pre-mobile-sheet');
-      if (s) s.classList.add('hidden');
-    }
+    function renderSingleCalendar(titleId, gridId) {
+      const year = calCurrentDate.getFullYear();
+      const month = calCurrentDate.getMonth();
+      const titleEl = document.getElementById(titleId);
+      if (titleEl) titleEl.textContent = `${monthNames[month]} ${year}`;
 
-    AquiAdsUI.mount('#aqui-ads-shell-root', {
-      title: 'Pré-Página de Resultados OOH (Descoberta Guiada Multi-Praças)',
-      initialView: 'resultados',
-      initialChannel: 'ooh',
-      cartPreset: 'empty',
-      viewport: 'desktop',
-      onReady: function() {
-        const topControls = document.querySelector('#aqui-ads-shell-root > header > div');
-        if (topControls) {
-          const bar = document.createElement('div');
-          bar.className = 'flex items-center gap-2 text-xs';
-          bar.innerHTML = `
-            <span class="px-2.5 py-1 rounded-md bg-orange-500/20 text-orange-300 border border-orange-500/30 font-semibold hidden xl:inline-block">
-              Pré-Página de Resultados OOH (Descoberta Guiada Multi-Praças): Busca Guiada 3 Passos • Carrosséis 5 Cidades • Mais Filtros • Transição Fluida para Mapa
-            </span>
-            <a href="https://app.notion.com/p/Pr-P-gina-de-Resultados-Aqui-Ads-3fb9587e413780c1ab86d57c16a29a1b?source=copy_link" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-semibold flex items-center gap-1.5 transition-colors">
-              <span>📄</span><span>Doc Notion</span>
-            </a>
-          `;
-          topControls.insertBefore(bar, topControls.firstChild);
-        }
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
+      grid.innerHTML = '';
 
-        const viewResultados = document.getElementById('view-resultados');
-        if (viewResultados && viewResultados.parentElement) {
-          const preSection = document.createElement('section');
-          preSection.id = 'view-pre-resultados';
-          preSection.className = 'view-section flex-1 bg-white pb-20';
-          preSection.innerHTML = `
-            <div class="bg-gradient-to-b from-[#FFF5F0] via-[#FFFDFB] to-white border-b border-[#F1F5F9] pt-6 pb-7 px-4 sm:px-6 lg:px-10">
-              <div class="max-w-[1440px] mx-auto">
-                <div class="text-center max-w-2xl mx-auto mb-5">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#FFF0E6] text-[#FF4F00] mb-2">
-                    <span>📍</span><span>Mais de 5.000 faces digitais nas principais capitais do Brasil</span>
-                  </span>
-                  <h1 class="text-xl sm:text-2xl font-extrabold text-[#1E293B] tracking-tight">Onde e quando sua marca quer aparecer nas ruas?</h1>
-                  <p class="text-xs sm:text-sm text-[#64748B] mt-1">Escolha a região da sua campanha ou explore os pontos de alto impacto mais procurados por cidade.</p>
-                </div>
+      ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].forEach(d => {
+        grid.innerHTML += `<div class="cal-day-name">${d}</div>`;
+      });
 
-                <div class="hidden md:flex items-center bg-white rounded-full shadow-lg border border-[#E2E8F0] p-1.5 max-w-4xl mx-auto relative">
-                  <div class="flex-1 px-5 py-2 rounded-full hover:bg-[#F8FAFC] transition cursor-pointer relative" onclick="openPreWhereDropdown()">
-                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-[#1E293B]">Onde anunciar?</label>
-                    <input id="pre-search-where" type="text" placeholder="Busque por cidade, bairro, avenida ou CEP..." oninput="filterPreWhereSuggestions(this.value)" onfocus="openPreWhereDropdown()" class="w-full text-xs font-medium text-[#334155] placeholder-[#94A3B8] bg-transparent focus:outline-none mt-0.5" />
-                  </div>
-                  <div class="h-8 w-px bg-[#E2E8F0]"></div>
-                  <div class="px-5 py-2 rounded-full hover:bg-[#F8FAFC] transition cursor-pointer" onclick="cyclePreDuration()">
-                    <span class="block text-[10px] font-extrabold uppercase tracking-wider text-[#1E293B]">Duração</span>
-                    <span id="pre-duration-lbl" class="block text-xs font-semibold text-[#FF4F00] mt-0.5">2 semanas</span>
-                  </div>
-                  <div class="h-8 w-px bg-[#E2E8F0]"></div>
-                  <div class="px-5 py-2 rounded-full hover:bg-[#F8FAFC] transition cursor-pointer" onclick="cyclePreStartDate()">
-                    <span class="block text-[10px] font-extrabold uppercase tracking-wider text-[#1E293B]">Início da campanha</span>
-                    <span id="pre-start-lbl" class="block text-xs font-semibold text-[#334155] mt-0.5">18/05/2026</span>
-                  </div>
-                  <button type="button" onclick="navigateToResultsFromPreSearch()" class="ml-2 bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold text-xs px-6 py-3.5 rounded-full shadow-md flex items-center gap-2 transition cursor-pointer shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                    <span>Explorar no mapa</span>
-                  </button>
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-                  <div id="pre-where-dropdown" class="hidden absolute top-full left-0 mt-2 w-96 bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] p-3 z-40">
-                    <div class="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] px-2.5 py-1">Buscas populares e regiões</div>
-                    <div id="pre-where-suggestions-list" class="divide-y divide-gray-50">
-                      <button type="button" onclick="selectPreDestination('São Paulo - SP')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
-                        <div>
-                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">São Paulo — Capital e Grande SP</div>
-                          <div class="text-[11px] text-[#64748B]">Av. Paulista, Faria Lima, Pinheiros, Jardins e Shoppings</div>
-                        </div>
-                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">1.840 pontos</span>
-                      </button>
-                      <button type="button" onclick="selectPreDestination('Rio de Janeiro - RJ')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
-                        <div>
-                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Rio de Janeiro — RJ</div>
-                          <div class="text-[11px] text-[#64748B]">Zona Sul, Barra da Tijuca, Centro e Tijuca</div>
-                        </div>
-                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">920 pontos</span>
-                      </button>
-                      <button type="button" onclick="selectPreDestination('Belo Horizonte - MG')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
-                        <div>
-                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Belo Horizonte — MG</div>
-                          <div class="text-[11px] text-[#64748B]">Savassi, Lourdes, Centro e Pampulha</div>
-                        </div>
-                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">540 pontos</span>
-                      </button>
-                      <button type="button" onclick="selectPreDestination('Curitiba - PR')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
-                        <div>
-                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Curitiba — PR</div>
-                          <div class="text-[11px] text-[#64748B]">Batel, Centro Cívico, Água Verde e Shoppings</div>
-                        </div>
-                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">410 pontos</span>
-                      </button>
-                      <button type="button" onclick="selectPreDestination('Campinas - SP')" class="w-full text-left px-3 py-2.5 rounded-xl hover:bg-[#FFF5F0] flex items-center justify-between group cursor-pointer">
-                        <div>
-                          <div class="text-xs font-bold text-[#1E293B] group-hover:text-[#FF4F00]">Campinas — Interior SP</div>
-                          <div class="text-[11px] text-[#64748B]">Cambuí, Taquaral, Iguatemi e D. Pedro</div>
-                        </div>
-                        <span class="text-[10px] font-bold text-[#FF4F00] bg-[#FFF0E6] px-2 py-0.5 rounded-full">320 pontos</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="md:hidden">
-                  <button type="button" onclick="openPreMobileSheet()" class="w-full bg-white rounded-2xl shadow-md border border-[#E2E8F0] px-4 py-3 flex items-center justify-between text-left">
-                    <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 rounded-full bg-[#FFF0E6] text-[#FF4F00] flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                      </div>
-                      <div>
-                        <div class="text-xs font-extrabold text-[#1E293B]">Onde você quer anunciar?</div>
-                        <div class="text-[11px] text-[#64748B]">Qualquer cidade • 2 semanas • Início 18/05</div>
-                      </div>
-                    </div>
-                    <span class="px-2.5 py-1 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] text-[10px] font-bold text-[#334155]">Filtrar</span>
-                  </button>
-                </div>
-
-                <div class="max-w-4xl mx-auto mt-5 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex items-center gap-2 overflow-x-auto pb-1">
-                    <button type="button" onclick="filterPreCategory('Todos')" data-amb="Todos" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-bold bg-[#1E293B] text-white flex items-center gap-1.5 cursor-pointer transition">
-                      <span>✨</span><span>Todos os ambientes</span>
-                    </button>
-                    <button type="button" onclick="filterPreCategory('Ruas')" data-amb="Ruas" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
-                      <span>🚌</span><span>Ruas e Avenidas</span>
-                    </button>
-                    <button type="button" onclick="filterPreCategory('Shoppings')" data-amb="Shoppings" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
-                      <span>🛍️</span><span>Shoppings</span>
-                    </button>
-                    <button type="button" onclick="filterPreCategory('Prédios Comerciais')" data-amb="Prédios Comerciais" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
-                      <span>🏢</span><span>Prédios Comerciais</span>
-                    </button>
-                    <button type="button" onclick="filterPreCategory('Condomínios Residenciais')" data-amb="Condomínios Residenciais" class="pre-amb-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0] flex items-center gap-1.5 cursor-pointer transition">
-                      <span>🏠</span><span>Residenciais</span>
-                    </button>
-                  </div>
-                  <button type="button" onclick="togglePreMoreFilters()" class="px-3.5 py-2 rounded-full text-xs font-bold text-[#1E293B] bg-white hover:bg-[#F8FAFC] border border-[#CBD5E1] flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                    <svg class="w-3.5 h-3.5 text-[#FF4F00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-                    <span>Mais filtros</span>
-                  </button>
-                </div>
-
-                <div id="pre-more-filters-bar" class="hidden max-w-4xl mx-auto mt-3 p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex flex-wrap items-center justify-between gap-4">
-                  <div class="flex flex-wrap items-center gap-4">
-                    <div>
-                      <label class="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Formato do equipamento</label>
-                      <select id="pre-filter-subcat" onchange="applyPreMoreFilters()" class="border border-[#CBD5E1] rounded-lg px-3 py-1.5 text-xs font-semibold text-[#1E293B]">
-                        <option value="Todas">Todos os formatos</option>
-                        <option value="Relógio de Rua">Relógio Digital de Rua</option>
-                        <option value="Abrigo de Ônibus">Abrigo de Ônibus Digital</option>
-                        <option value="MUB Digital">Totem / MUB Shopping</option>
-                        <option value="Elevadores">Telas em Elevadores</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Faixa de investimento por ponto</label>
-                      <select id="pre-filter-price" onchange="applyPreMoreFilters()" class="border border-[#CBD5E1] rounded-lg px-3 py-1.5 text-xs font-semibold text-[#1E293B]">
-                        <option value="9999">Qualquer valor</option>
-                        <option value="200">Até R$ 200 / período</option>
-                        <option value="300">Até R$ 300 / período</option>
-                      </select>
-                    </div>
-                  </div>
-                  <button type="button" onclick="navigateToResultsFromPreSearch()" class="text-xs font-bold text-[#FF4F00] hover:underline cursor-pointer">
-                    Ir para busca avançada no mapa →
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 pt-7 space-y-10" id="pre-cities-container"></div>
-
-            <div id="pre-mobile-sheet" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end justify-center p-0 sm:p-4">
-              <div class="bg-white w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl">
-                <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-                  <h3 class="text-sm font-extrabold text-[#1E293B]">Planeje sua campanha OOH</h3>
-                  <button type="button" onclick="closePreMobileSheet()" class="w-7 h-7 rounded-full bg-gray-100 text-gray-600 font-bold text-xs">✕</button>
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-[#334155] mb-1">1. Onde anunciar?</label>
-                  <select id="pre-mobile-city-select" class="w-full border border-[#CBD5E1] rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#1E293B]">
-                    <option value="São Paulo - SP">São Paulo - SP (1.840 pontos)</option>
-                    <option value="Rio de Janeiro - RJ">Rio de Janeiro - RJ (920 pontos)</option>
-                    <option value="Belo Horizonte - MG">Belo Horizonte - MG (540 pontos)</option>
-                    <option value="Curitiba - PR">Curitiba - PR (410 pontos)</option>
-                    <option value="Campinas - SP">Campinas - SP (320 pontos)</option>
-                  </select>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#334155] mb-1">2. Duração</label>
-                    <select class="w-full border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs font-semibold text-[#1E293B]">
-                      <option>2 semanas</option>
-                      <option>4 semanas</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#334155] mb-1">3. Data de início</label>
-                    <input type="text" value="18/05/2026" readonly class="w-full border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs font-semibold text-[#1E293B] bg-gray-50" />
-                  </div>
-                </div>
-                <button type="button" onclick="selectPreDestination(document.getElementById('pre-mobile-city-select').value); closePreMobileSheet();" class="w-full bg-[#FF4F00] hover:bg-[#E04500] text-white font-bold text-xs py-3.5 rounded-xl shadow-md">
-                  Ver pontos disponíveis no mapa
-                </button>
-              </div>
-            </div>
-          `;
-          viewResultados.parentElement.insertBefore(preSection, viewResultados);
-        }
-
-        const plpSearchHeader = document.querySelector('#oohSubTab > div:first-child');
-        if (plpSearchHeader && plpSearchHeader.parentElement) {
-          const backRow = document.createElement('div');
-          backRow.className = 'mb-3 flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-gray-100';
-          backRow.innerHTML = `
-            <button type="button" onclick="showScreen('view-pre-resultados')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF4F00] hover:underline cursor-pointer">
-              <span>←</span>
-              <span>Voltar para vitrine de cidades (Pré-Página de Resultados)</span>
-            </button>
-            <span id="plp-active-city-pill" class="text-[11px] font-semibold text-[#475569] bg-[#F8FAFC] border border-[#E2E8F0] px-2.5 py-0.5 rounded-full">Praça ativa: São Paulo - SP</span>
-          `;
-          plpSearchHeader.parentElement.insertBefore(backRow, plpSearchHeader);
-        }
-
-        renderPreCityCarousels();
-        showScreen('view-pre-resultados');
+      for (let i = 0; i < firstDay; i++) {
+        grid.innerHTML += `<div></div>`;
       }
-    });
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const isSel = calSelectedDate &&
+          calSelectedDate.getDate() === d &&
+          calSelectedDate.getMonth() === month &&
+          calSelectedDate.getFullYear() === year;
+        grid.innerHTML += `
+          <div class="cal-day ${isSel ? 'selected' : ''}" onclick="selectDate(${year}, ${month}, ${d})">
+            ${d}
+          </div>
+        `;
+      }
+    }
+
+    function renderCalendars() {
+      renderSingleCalendar('cal-month-year', 'cal-days');
+      renderSingleCalendar('mob-cal-month-year', 'mob-cal-days');
+    }
+
+    function changeCalendarMonth(delta) {
+      calCurrentDate.setMonth(calCurrentDate.getMonth() + delta);
+      renderCalendars();
+    }
+
+    function selectDate(y, m, d) {
+      calSelectedDate = new Date(y, m, d);
+      const formatted = `${String(d).padStart(2, '0')}/${String(m + 1).padStart(2, '0')}/${y}`;
+      searchState.inicio = formatted;
+
+      const valInicio = document.getElementById('val-inicio');
+      if (valInicio) {
+        valInicio.textContent = formatted;
+        valInicio.classList.add('filled');
+      }
+
+      renderCalendars();
+      if (searchState.mode !== 'mobile') {
+        closeAllPopovers();
+      }
+      updateGuidedProgressUI();
+    }
+
+    function updateGuidedProgressUI() {
+      const hasOnde = searchState.onde && searchState.onde.trim().length > 0;
+      const hasPeriodo = searchState.periodoSelecionado;
+      const hasInicio = searchState.inicio && searchState.inicio.trim().length > 0;
+
+      // Mobile Hero Trigger & Sheet Cards
+      const mobTitle = document.getElementById('mobTriggerTitle');
+      const mobSub = document.getElementById('mobTriggerSub');
+
+      if (mobTitle) {
+        mobTitle.textContent = hasOnde ? searchState.onde : 'Onde você quer anunciar?';
+      }
+      if (mobSub) {
+        const pTxt = hasPeriodo ? searchState.periodoStr : 'Escolher período';
+        const iTxt = hasInicio ? `Início ${searchState.inicio}` : 'Escolher data';
+        mobSub.textContent = `${pTxt} • ${iTxt}`;
+      }
+
+      const card1 = document.getElementById('mobStepCard1');
+      const card2 = document.getElementById('mobStepCard2');
+      const card3 = document.getElementById('mobStepCard3');
+
+      card1.classList.toggle('completed-step', hasOnde);
+      document.getElementById('mobStepStatus1').textContent = hasOnde ? '✓' : '';
+
+      if (hasOnde) {
+        card2.classList.remove('locked-step');
+      } else {
+        card2.classList.add('locked-step');
+      }
+      card2.classList.toggle('completed-step', hasPeriodo);
+      document.getElementById('mobStepStatus2').textContent = hasPeriodo ? `✓ ${searchState.periodoStr}` : '';
+
+      if (hasOnde && hasPeriodo) {
+        card3.classList.remove('locked-step');
+      } else {
+        card3.classList.add('locked-step');
+      }
+      card3.classList.toggle('completed-step', hasInicio);
+      document.getElementById('mobStepStatus3').textContent = hasInicio ? `✓ ${searchState.inicio}` : '';
+
+      const btnMob = document.getElementById('btnSearchMob');
+      const btnMobText = document.getElementById('btnSearchMobText');
+      if (hasOnde && hasPeriodo && hasInicio) {
+        btnMob.removeAttribute('disabled');
+        btnMobText.textContent = 'Buscar pontos';
+      } else {
+        btnMob.setAttribute('disabled', 'true');
+        btnMobText.textContent = 'Buscar pontos';
+      }
+    }
+
+    function resetGuidedSearch() {
+      searchState.onde = '';
+      searchState.periodoStr = '';
+      searchState.periodoSemanas = 2;
+      searchState.periodoSelecionado = false;
+      searchState.inicio = '';
+      calSelectedDate = null;
+
+      document.getElementById('input-onde').value = '';
+      document.getElementById('mob-input-onde').value = '';
+      const vp = document.getElementById('val-periodo');
+      vp.textContent = 'Selecione a duração';
+      vp.classList.remove('filled');
+
+      const vi = document.getElementById('val-inicio');
+      vi.textContent = 'Quando começar?';
+      vi.classList.remove('filled');
+
+      document.querySelectorAll('.period-option, .mob-period-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('mobStepCard1').classList.add('active-step');
+      document.getElementById('mobStepCard2').classList.remove('active-step');
+      document.getElementById('mobStepCard3').classList.remove('active-step');
+
+      renderAddressSuggestions('');
+      renderCalendars();
+      renderVitrine();
+      updateGuidedProgressUI();
+    }
+
+    /* ==========================================================================
+       POPOVERS DESKTOP & SHEET MOBILE
+       ========================================================================== */
+    function closeAllPopovers() {
+      document.querySelectorAll('.popover').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.search-block').forEach(b => b.classList.remove('active'));
+      document.getElementById('searchBar').classList.remove('active');
+      document.getElementById('desk-overlay').classList.remove('active');
+    }
+
+    function openPopover(step) {
+      if (searchState.mode === 'mobile') {
+        openMobileSheet();
+        return;
+      }
+      closeAllPopovers();
+      document.getElementById('searchBar').classList.add('active');
+      document.getElementById('desk-overlay').classList.add('active');
+      document.getElementById('block-' + step).classList.add('active');
+      document.getElementById('popover-' + step).classList.add('active');
+
+      if (step === 'onde') {
+        renderAddressSuggestions(searchState.onde);
+        document.getElementById('input-onde').focus();
+      } else if (step === 'inicio') {
+        renderCalendars();
+      }
+    }
+
+    function openMobileSheet() {
+      renderAddressSuggestions(searchState.onde);
+      renderCalendars();
+      document.getElementById('mobileSheetBackdrop').classList.add('open');
+    }
+
+    function closeMobileSheet() {
+      document.getElementById('mobileSheetBackdrop').classList.remove('open');
+    }
+
+    /* ==========================================================================
+       RENDERIZAÇÃO DA VITRINE POR CIDADES (SEM DISTÂNCIA NOS CARDS)
+       ========================================================================== */
+    function filterEnvironment(env, btnEl) {
+      searchState.ambienteFiltro = env;
+      document.querySelectorAll('.QuickCategoriesRow .cat-chip:not(#btnToggleMoreFilters)').forEach(c => c.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderVitrine();
+    }
+
+    function toggleMoreFiltersBar(btnEl) {
+      const bar = document.getElementById('moreFiltersBar');
+      if (!bar) return;
+      bar.classList.toggle('open');
+      if (btnEl) btnEl.classList.toggle('active', bar.classList.contains('open'));
+    }
+
+    function filterFormat(fmt, btnEl) {
+      searchState.formatoFiltro = fmt;
+      const parent = btnEl ? btnEl.parentElement : null;
+      if (parent) parent.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderVitrine();
+    }
+
+    function filterMaxPrice(maxVal, btnEl) {
+      searchState.maxWeeklyPrice = maxVal;
+      const parent = btnEl ? btnEl.parentElement : null;
+      if (parent) parent.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderVitrine();
+    }
+
+    function verTudoCarrossel(city, envFiltro) {
+      searchState.onde = city;
+      const params = new URLSearchParams({
+        onde: city,
+        ambiente: envFiltro || searchState.ambienteFiltro || 'todos',
+        periodo: searchState.periodoStr || '2 semanas',
+        semanas: String(searchState.periodoSemanas || 2),
+        inicio: searchState.inicio || '26/10/2026',
+        mode: searchState.mode,
+        cart: String(cartState.items.length)
+      });
+      try {
+        sessionStorage.setItem('aquiads_search_state', JSON.stringify({
+          onde: city,
+          ambiente: envFiltro || searchState.ambienteFiltro || 'todos',
+          periodo: searchState.periodoStr || '2 semanas',
+          semanas: searchState.periodoSemanas || 2,
+          inicio: searchState.inicio || '26/10/2026',
+          mode: searchState.mode,
+          cartCount: cartState.items.length
+        }));
+      } catch (e) {}
+      window.location.href = `resultados.html?${params.toString()}`;
+    }
+
+    function renderVitrine() {
+      const container = document.getElementById('mainVitrine');
+      if (!container) return;
+
+      const weeks = searchState.periodoSemanas || 2;
+      const periodLabel = weeks === 1 ? '/ 1 semana' : `/ ${weeks} semanas`;
+      let fullHTML = '';
+
+      citiesCatalog.forEach((cityGroup, idx) => {
+        const filteredItems = cityGroup.items.filter(item => {
+          const matchEnv = searchState.ambienteFiltro === 'todos' || item.env === searchState.ambienteFiltro;
+          const matchFmt = searchState.formatoFiltro === 'todos' || item.format === searchState.formatoFiltro;
+          const matchPrice = !searchState.maxWeeklyPrice || item.weeklyPrice <= searchState.maxWeeklyPrice;
+          return matchEnv && matchFmt && matchPrice;
+        });
+
+        if (filteredItems.length === 0) return;
+
+        const trackId = `carousel-track-${idx}`;
+        const activeEnvLabel = searchState.ambienteFiltro === 'todos'
+          ? 'todos os ambientes'
+          : searchState.ambienteFiltro;
+        const seeAllTitle = searchState.ambienteFiltro === 'todos'
+          ? `Ver todos os pontos em ${cityGroup.city}`
+          : `Ver ${searchState.ambienteFiltro} em ${cityGroup.city}`;
+        const stackImgs = filteredItems.slice(0, 3).map(it =>
+          `<img src="${it.img}" class="see-all-thumb" alt="${it.title}" loading="lazy">`
+        ).join('');
+
+        fullHTML += `
+          <section class="city-section">
+            <div class="city-header-row">
+              <button type="button" class="city-title-btn" onclick="verTudoCarrossel('${cityGroup.city}', '${searchState.ambienteFiltro}')">
+                <span class="city-title-text">${cityGroup.headerLabel}</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+              <div class="carousel-nav-group">
+                <button type="button" class="carousel-arrow-top" onclick="scrollCarousel('${trackId}', -320)">‹</button>
+                <button type="button" class="carousel-arrow-top" onclick="scrollCarousel('${trackId}', 320)">›</button>
+              </div>
+            </div>
+            <div class="carousel-track" id="${trackId}">
+        `;
+
+        filteredItems.forEach(item => {
+          const totalPrice = item.weeklyPrice * weeks;
+          const formattedPrice = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+          const isAdded = cartState.items.includes(item.id);
+          const formatBadgeClass = item.format === 'digital' ? 'badge-digital' : 'badge-impresso';
+          const envSvg = item.env === 'elevadores residenciais'
+            ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#241E17" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
+            : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#241E17" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg>`;
+          const formatSvg = item.format === 'digital'
+            ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
+            : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+          const btnIconSvg = isAdded
+            ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+            : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
+
+          fullHTML += `
+            <article class="product-card" onclick="selectAddress('${item.title} - ${cityGroup.city}')">
+              <div class="card-media">
+                <img src="${item.img}" class="card-img" alt="${item.title}" loading="lazy">
+                <div class="badges-top">
+                  <div class="badge-group-left">
+                    <span class="badge-pill badge-env">${envSvg} ${item.env}</span>
+                    <span class="badge-pill ${formatBadgeClass}">${formatSvg} ${item.format}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title" title="${item.title}">${item.title}</h3>
+                <p class="card-address" title="${item.address}">${item.address}</p>
+
+                <div class="metrics-grid">
+                  <div class="metric-col">
+                    <span class="metric-label">exibições <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4E5D6C" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                    <span class="metric-value">${item.exibs}</span>
+                  </div>
+                  <div class="metric-col">
+                    <span class="metric-label">alcance <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4E5D6C" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                    <span class="metric-value">${item.reach}</span>
+                  </div>
+                  <div class="metric-col">
+                    <span class="metric-label">frequência <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4E5D6C" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>
+                    <span class="metric-value">${item.freq}</span>
+                  </div>
+                </div>
+
+                <div class="screens-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>Telas: <strong style="color:#1E293B;font-weight:600;">${item.screens}</strong></span></div>
+
+                <div class="price-row">
+                  <span class="price-amount">${formattedPrice}</span>
+                  <span class="price-period">${periodLabel}</span>
+                </div>
+
+                <div class="card-actions-row" onclick="event.stopPropagation()">
+                  <button type="button" class="btn-add-point ${isAdded ? 'added' : ''}" onclick="toggleCartItem('${item.id}')">
+                    <span>${isAdded ? 'ponto adicionado' : 'adicionar ponto'}</span>
+                    ${btnIconSvg}
+                  </button>
+                  <button type="button" class="btn-fav" title="Favoritar ponto" onclick="this.classList.toggle('active')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        });
+
+        /* Card final do carrossel que aciona o filtro na página de resultados (sem quantidade de pontos) */
+        fullHTML += `
+            <article class="see-all-card" onclick="verTudoCarrossel('${cityGroup.city}', '${searchState.ambienteFiltro}')" title="Abrir Página de Resultados filtrada para ${cityGroup.city}">
+              <div class="see-all-stack">
+                ${stackImgs}
+              </div>
+              <div class="see-all-body">
+                <span class="see-all-kicker">Explorar no mapa • ${activeEnvLabel}</span>
+                <h3 class="see-all-title">${seeAllTitle}</h3>
+                <p class="see-all-sub">Abra o mapa interativo com todos os pontos filtrados nesta região.</p>
+              </div>
+              <div class="see-all-cta">
+                <span>Ver tudo</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </div>
+            </article>
+            </div>
+          </section>
+        `;
+      });
+
+      container.innerHTML = fullHTML;
+    }
+
+    function scrollCarousel(trackId, amount) {
+      const track = document.getElementById(trackId);
+      if (track) track.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    function toggleCartItem(itemId) {
+      const idx = cartState.items.indexOf(itemId);
+      if (idx >= 0) cartState.items.splice(idx, 1);
+      else cartState.items.push(itemId);
+
+      renderVitrine();
+      updateCartBarUI();
+    }
+
+    function updateCartBarUI() {
+      const weeks = searchState.periodoSemanas || 2;
+      let sum = 0;
+      citiesCatalog.forEach(group => {
+        group.items.forEach(item => {
+          if (cartState.items.includes(item.id)) {
+            sum += item.weeklyPrice * weeks;
+          }
+        });
+      });
+
+      const count = cartState.items.length;
+      document.getElementById('headerCartBadge').textContent = count;
+      document.getElementById('cartCountText').textContent =
+        count === 0 ? 'Nenhum produto selecionado' :
+        count === 1 ? '1 produto selecionado' : `${count} produtos selecionados`;
+      document.getElementById('cartTotalText').textContent =
+        `Total ${sum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+    }
+
+    /* ==========================================================================
+       NAVEGAÇÃO PARA PÁGINA DE RESULTADOS E ALTERNÂNCIA DE VIEWPORT
+       ========================================================================== */
+    function executarBuscaGuiada() {
+      if (!searchState.onde || searchState.onde.trim() === '') {
+        openPopover('onde');
+        return;
+      }
+      if (!searchState.periodoSelecionado) {
+        openPopover('periodo');
+        return;
+      }
+      if (!searchState.inicio || searchState.inicio.trim() === '') {
+        openPopover('inicio');
+        return;
+      }
+      irParaResultados();
+    }
+
+    function irParaResultados() {
+      const params = new URLSearchParams({
+        onde: searchState.onde || 'Av. Paulista, 1000 - Bela Vista, São Paulo',
+        periodo: searchState.periodoStr || '2 semanas',
+        semanas: String(searchState.periodoSemanas || 2),
+        inicio: searchState.inicio || '26/10/2026',
+        mode: searchState.mode,
+        cart: String(cartState.items.length)
+      });
+      try {
+        sessionStorage.setItem('aquiads_search_state', JSON.stringify({
+          onde: searchState.onde || 'Av. Paulista, 1000 - Bela Vista, São Paulo',
+          periodo: searchState.periodoStr || '2 semanas',
+          semanas: searchState.periodoSemanas || 2,
+          inicio: searchState.inicio || '26/10/2026',
+          mode: searchState.mode,
+          cartCount: cartState.items.length
+        }));
+      } catch (e) {}
+
+      window.location.href = `resultados.html?${params.toString()}`;
+    }
+
+    function setViewportMode(mode) {
+      searchState.mode = mode;
+      const stage = document.getElementById('workspaceStage');
+      const container = document.getElementById('viewportContainer');
+      const btnDesk = document.getElementById('btnModeDesktop');
+      const btnMob = document.getElementById('btnModeMobile');
+      const directLink = document.getElementById('directResultsLink');
+
+      if (mode === 'mobile') {
+        stage.classList.add('is-mobile-stage');
+        container.classList.add('mobile-mode');
+        btnMob.classList.add('active');
+        btnDesk.classList.remove('active');
+        closeAllPopovers();
+      } else {
+        stage.classList.remove('is-mobile-stage');
+        container.classList.remove('mobile-mode');
+        btnDesk.classList.add('active');
+        btnMob.classList.remove('active');
+        closeMobileSheet();
+      }
+
+      if (directLink) {
+        directLink.href = `resultados.html?mode=${mode}`;
+      }
+    }
+
+    // Inicialização
+    (function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialMode = urlParams.get('mode');
+      if (initialMode === 'mobile') {
+        setViewportMode('mobile');
+      }
+      renderAddressSuggestions('');
+      renderCalendars();
+      renderVitrine();
+      updateGuidedProgressUI();
+      updateCartBarUI();
+    })();
   </script>
 </body>
 </html>
