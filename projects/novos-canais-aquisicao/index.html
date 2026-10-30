@@ -481,11 +481,43 @@
       }
     ];
 
+    const CALC_RADIUS_CONFIG = {
+      '0.5': {
+        key: '0.5',
+        label: 'Quarteirão (500m)',
+        shortPill: 'Raio de 500m',
+        reachFactor: 0.72,
+        viewsFactor: 0.88,
+        distances: ['80 m', '110 m', '150 m', '190 m', '240 m', '290 m', '340 m', '390 m', '430 m', '460 m', '480 m', '500 m']
+      },
+      '1.5': {
+        key: '1.5',
+        label: 'Bairro (1,5 km)',
+        shortPill: 'Raio de 1,5 km',
+        reachFactor: 1.0,
+        viewsFactor: 1.0,
+        distances: ['140 m', '210 m', '320 m', '380 m', '450 m', '520 m', '690 m', '410 m', '190 m', '850 m', '920 m', '780 m']
+      },
+      '3.0': {
+        key: '3.0',
+        label: 'Região (3 km)',
+        shortPill: 'Raio de 3 km',
+        reachFactor: 1.28,
+        viewsFactor: 1.14,
+        distances: ['350 m', '620 m', '890 m', '1,1 km', '1,4 km', '1,6 km', '1,9 km', '2,1 km', '2,3 km', '2,5 km', '2,7 km', '2,9 km']
+      }
+    };
+
     const calcState = {
       dailyBudget: 50,
       selectedAddress: '',
       addressMeta: null,
+      radiusKm: '1.5',
       hasCalculated: false,
+      isDirty: false,
+      lastCalcDailyBudget: null,
+      lastCalcAddress: '',
+      lastCalcRadiusKm: null,
       currentStep: 1, // 1 = Página 1 (#calc-step-1), 2 = Página 2 (#calc-step-2)
       recommendedPoints: CALC_FALLBACK_OOH_CATALOG.slice(0, 4)
     };
@@ -498,11 +530,51 @@
       return (Number(n) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
+    function getDominanceTierInfo(daily, radiusKm) {
+      const radiusPenalty = radiusKm === '0.5' ? 1.35 : (radiusKm === '3.0' ? 0.78 : 1.0);
+      const densityScore = daily * radiusPenalty;
+
+      if (densityScore < 32) {
+        return {
+          level: 1,
+          badge: '🌱 Nível 1 • Presença Inicial',
+          barPct: 28,
+          badgeBg: 'bg-[#F8FAFC] border-[#CBD5E1] text-[#282E38]',
+          hint: 'Aumente para R$ 35/dia ou reduza o raio para Quarteirão (500m) para subir ao Nível 2.'
+        };
+      }
+      if (densityScore < 68) {
+        return {
+          level: 2,
+          badge: '🔥 Nível 2 • Negócio Conhecido no Bairro',
+          barPct: 56,
+          badgeBg: 'bg-[#FFF3ED] border-[#FFD8C2] text-[#FF4F00]',
+          hint: 'Boa presença local! Com R$ 70/dia você destrava o Nível 3 (Referência na Região).'
+        };
+      }
+      if (densityScore < 130) {
+        return {
+          level: 3,
+          badge: '🏆 Nível 3 • Referência na Região',
+          barPct: 82,
+          badgeBg: 'bg-[#FFF3ED] border-[#FF4F00] text-[#FF4F00]',
+          hint: 'Alta cobertura nos pontos de maior fluxo! A partir de R$ 130/dia você atinge Domínio Total.'
+        };
+      }
+      return {
+        level: 4,
+        badge: '🚀 Nível 4 • Domínio Total da Vizinhança',
+        barPct: 100,
+        badgeBg: 'bg-[#F4FCF7] border-[#24C765] text-[#007800]',
+        hint: 'Cobertura máxima! Sua marca estará presente nos principais pontos do raio escolhido.'
+      };
+    }
+
     function getCalculatorViewHTML() {
       return `
         <section id="view-calculadora-ooh" class="view-section active flex-1 bg-[#F8F9FA] py-5 sm:py-8 px-3.5 sm:px-6 lg:px-10">
           <!-- =============================================================== -->
-          <!-- PÁGINA 1: ENTRADA (VALOR/DIA + LOCALIZAÇÃO) E RESULTADO 30 DIAS -->
+          <!-- PÁGINA 1: ENTRADA (VALOR/DIA + LOCALIZAÇÃO) E RESULTADO 4 SEMANAS -->
           <!-- =============================================================== -->
           <div id="calc-step-1" class="max-w-5xl mx-auto">
             <div id="calc-step-1-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-7 items-start">
@@ -521,14 +593,17 @@
                   Descubra quantas pessoas seu anúncio alcança na sua região
                 </h1>
                 <p class="text-[#64748B] text-xs sm:text-sm mt-1.5 mb-6 leading-relaxed">
-                  Simule com o valor que você costuma investir por dia e veja o impacto em telas reais de OOH em 4 semanas.
+                  Transforme o valor que você já investe por dia no digital em presença real nas telas de OOH da sua vizinhança.
                 </p>
 
-                <!-- PASSO 1: QUANTO VOCÊ INVESTE POR DIA? -->
+                <!-- PASSO 1: QUANTO VOCÊ JÁ INVESTE POR DIA NO DIGITAL HOJE? -->
                 <div>
-                  <label for="calc-daily-input" class="block text-sm font-bold text-[#000929] mb-2">
-                    1. Quanto você investe por dia?
+                  <label for="calc-daily-input" class="block text-sm font-bold text-[#000929] mb-1">
+                    1. Quanto você já investe por dia no digital hoje?
                   </label>
+                  <p class="text-[11.5px] text-[#64748B] mb-2.5">
+                    Considere o valor diário que você costuma colocar no Google, Instagram ou Facebook.
+                  </p>
 
                   <!-- Campo de Input Editável Explícito -->
                   <div onclick="document.getElementById('calc-daily-input').focus()"
@@ -596,7 +671,7 @@
                   </div>
                 </div>
 
-                <!-- PASSO 2: ONDE VOCÊ QUER ANUNCIAR? -->
+                <!-- PASSO 2: ONDE VOCÊ QUER ANUNCIAR? (ENDEREÇO + RAIO DE ATUAÇÃO) -->
                 <div class="mt-6">
                   <label for="calc-address-input" class="block text-sm font-bold text-[#000929] mb-2">
                     2. Onde você quer anunciar?
@@ -648,11 +723,41 @@
                   <p id="calc-address-error" class="hidden text-xs font-semibold text-[#D92D20] mt-1.5">
                     Informe o endereço, bairro ou CEP onde você quer anunciar para calcular o alcance.
                   </p>
+
+                  <!-- Seletor de Raio Integrado ao Passo 2 -->
+                  <div class="mt-3.5 bg-[#F8FAFC] border border-[#DFE7EF] rounded-xl p-3">
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                      <span class="block text-xs font-bold text-[#282E38]">
+                        Raio de atuação ao redor do endereço
+                      </span>
+                      <span class="text-[10.5px] font-medium text-[#64748B]">
+                        Distância máxima das telas OOH
+                      </span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2" id="calc-radius-pills">
+                      <button type="button" data-radius="0.5" onclick="selectCalcRadius('0.5')"
+                        class="calc-radius-btn py-2 px-2 rounded-lg text-xs font-semibold border border-[#DFE7EF] bg-white text-[#282E38] hover:border-[#FF4F00] transition cursor-pointer text-center leading-tight">
+                        📍 500m
+                        <span class="block text-[10px] font-normal opacity-80 mt-0.5">Quarteirão</span>
+                      </button>
+                      <button type="button" data-radius="1.5" onclick="selectCalcRadius('1.5')"
+                        class="calc-radius-btn py-2 px-2 rounded-lg text-xs font-bold border border-[#FF4F00] bg-[#FFF3ED] text-[#FF4F00] shadow-2xs transition cursor-pointer text-center leading-tight">
+                        🏘️ 1,5 km
+                        <span class="block text-[10px] font-normal opacity-90 mt-0.5">Bairro</span>
+                      </button>
+                      <button type="button" data-radius="3.0" onclick="selectCalcRadius('3.0')"
+                        class="calc-radius-btn py-2 px-2 rounded-lg text-xs font-semibold border border-[#DFE7EF] bg-white text-[#282E38] hover:border-[#FF4F00] transition cursor-pointer text-center leading-tight">
+                        🏙️ 3 km
+                        <span class="block text-[10px] font-normal opacity-80 mt-0.5">Região</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                <!-- Botão Primário de Cálculo -->
+                <!-- Botão Primário de Cálculo (Sob Demanda) -->
                 <div class="mt-6">
                   <button
+                    id="calc-submit-btn"
                     type="button"
                     onclick="triggerCalcAction()"
                     class="w-full bg-[#FF4F00] hover:bg-[#E54700] text-white font-bold text-sm rounded-xl py-3.5 px-6 shadow-sm transition cursor-pointer">
@@ -661,42 +766,69 @@
                 </div>
               </div>
 
-              <!-- COLUNA DIREITA: CARD DE RESULTADO ESTIMADO EM 4 SEMANAS (OCULTO ATÉ O PREENCHIMENTO) -->
+              <!-- COLUNA DIREITA: CARD DE RESULTADO ESTIMADO EM 4 SEMANAS (OCULTO ATÉ O CLIQUE EM CALCULAR) -->
               <div id="calc-result-card" class="hidden lg:col-span-5 bg-white border border-[#DFE7EF] border-t-4 border-t-[#FF4F00] rounded-2xl p-5 sm:p-7 shadow-[0_4px_20px_rgba(0,9,41,0.04)] flex flex-col justify-between">
                 <div>
-                  <h2 class="text-[#000929] font-extrabold text-lg sm:text-[22px] leading-snug">
-                    Resultado estimado em 4 semanas na sua região
-                  </h2>
-                  <p class="text-xs text-[#64748B] mt-1.5 mb-5 leading-relaxed">
-                    Impacto estimado nas telas de OOH próximas a <strong id="calc-res-address-label" class="text-[#282E38] font-semibold">Rua Alvorada, 1217 - Vila Olímpia</strong>
-                  </p>
+                  <!-- Aviso de Parâmetros Alterados (Cálculo Sob Demanda) -->
+                  <div id="calc-dirty-banner" class="hidden mb-3.5 px-3.5 py-2.5 rounded-xl bg-[#FFF3ED] border border-[#FFD8C2] flex items-center justify-between gap-2">
+                    <span class="text-[11.5px] font-semibold text-[#282E38] leading-snug">
+                      Você alterou os parâmetros. Clique em <strong class="text-[#FF4F00]">Atualizar alcance</strong> para recalcular.
+                    </span>
+                  </div>
 
-                  <!-- Exclusivamente 2 Indicadores em Faixa (Exibições e Alcance) -->
-                  <div id="calc-result-metrics-grid" class="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-3.5">
-                    <!-- Indicador 1: Exibições estimadas (4 semanas) -->
-                    <div class="rounded-xl border border-[#DFE7EF] bg-white p-3.5 sm:p-4">
-                      <span class="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#282E38] mb-1">
-                        EXIBIÇÕES ESTIMADAS (4 SEMANAS)
-                      </span>
-                      <strong id="calc-res-views-range" class="block text-base sm:text-2xl font-extrabold text-[#000929] leading-tight">
-                        85.000 a 120.000 exibições
-                      </strong>
-                      <span class="calc-metric-support-text block text-[11px] text-[#64748B] mt-1">
-                        vídeos de 10s nas telas de OOH da região
-                      </span>
+                  <div id="calc-result-inner-content" class="transition-opacity duration-200">
+                    <h2 class="text-[#000929] font-extrabold text-lg sm:text-[22px] leading-snug">
+                      Resultado estimado em 4 semanas na sua região
+                    </h2>
+                    <p class="text-xs text-[#64748B] mt-1.5 mb-4 leading-relaxed">
+                      Impacto estimado nas telas de OOH próximas a <strong id="calc-res-address-label" class="text-[#282E38] font-semibold">Rua Alvorada, 1217 - Vila Olímpia</strong> (<span id="calc-res-radius-label" class="font-semibold text-[#FF4F00]">Raio de 1,5 km</span>)
+                    </p>
+
+                    <!-- Termômetro Gamificado de Domínio na Região -->
+                    <div class="rounded-xl bg-[#F8FAFC] border border-[#DFE7EF] p-3.5 mb-4">
+                      <div class="flex items-center justify-between gap-2 mb-2">
+                        <span class="text-[10.5px] font-extrabold uppercase tracking-wider text-[#282E38]">
+                          NÍVEL DE DOMÍNIO NA REGIÃO
+                        </span>
+                        <span id="calc-dominance-badge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold border bg-[#FFF3ED] border-[#FFD8C2] text-[#FF4F00]">
+                          🔥 Nível 2 • Negócio Conhecido no Bairro
+                        </span>
+                      </div>
+                      <div class="w-full h-2 bg-[#E2E8F0] rounded-full overflow-hidden">
+                        <div id="calc-dominance-bar" class="h-full bg-[#FF4F00] rounded-full transition-all duration-300" style="width: 56%;"></div>
+                      </div>
+                      <p id="calc-dominance-hint" class="text-[11px] text-[#64748B] mt-2 leading-snug">
+                        Boa presença local! Com R$ 70/dia você destrava o Nível 3 (Referência na Região).
+                      </p>
                     </div>
 
-                    <!-- Indicador 2: Alcance estimado (pessoas) -->
-                    <div class="rounded-xl border border-[#DFE7EF] bg-white p-3.5 sm:p-4">
-                      <span class="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#282E38] mb-1">
-                        ALCANCE ESTIMADO (PESSOAS)
-                      </span>
-                      <strong id="calc-res-reach-range" class="block text-base sm:text-2xl font-extrabold text-[#000929] leading-tight">
-                        28.000 a 42.000 pessoas
-                      </strong>
-                      <span class="calc-metric-support-text block text-[11px] text-[#64748B] mt-1">
-                        pessoas impactadas circulando nos pontos
-                      </span>
+                    <!-- Exclusivamente 2 Indicadores em Faixa (Exibições e Alcance) -->
+                    <div id="calc-result-metrics-grid" class="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-3.5">
+                      <!-- Indicador 1: Exibições estimadas (4 semanas) -->
+                      <div class="rounded-xl border border-[#DFE7EF] bg-white p-3.5 sm:p-4">
+                        <span class="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#282E38] mb-1">
+                          EXIBIÇÕES ESTIMADAS (4 SEMANAS)
+                        </span>
+                        <strong id="calc-res-views-range" class="block text-base sm:text-2xl font-extrabold text-[#000929] leading-tight">
+                          85.000 a 120.000 exibições
+                        </strong>
+                        <span id="calc-res-views-support" class="calc-metric-support-text block text-[11px] text-[#64748B] mt-1">
+                          vídeos de 10s exibidos nas telas da região selecionada
+                        </span>
+                      </div>
+
+                      <!-- Indicador 2: Alcance estimado (pessoas) -->
+                      <div class="rounded-xl border border-[#DFE7EF] bg-white p-3.5 sm:p-4">
+                        <span class="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#282E38] mb-1">
+                          ALCANCE ESTIMADO (PESSOAS)
+                        </span>
+                        <strong id="calc-res-reach-range" class="block text-base sm:text-2xl font-extrabold text-[#000929] leading-tight">
+                          28.000 a 42.000 pessoas
+                        </strong>
+                        <span id="calc-res-reach-support" class="calc-metric-support-text block text-[11px] text-[#64748B] mt-1">
+                          moradores, trabalhadores e frequentadores impactados
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -731,7 +863,7 @@
               <button type="button" onclick="goToCalculatorStep(1, 'address')"
                 class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-[#DFE7EF] text-[11px] font-medium text-[#282E38] truncate max-w-[220px] cursor-pointer">
                 <span>📍</span>
-                <span id="calc-p2-mob-location-pill" class="truncate">Vila Olímpia, São Paulo - SP (raio próximo)</span>
+                <span id="calc-p2-mob-location-pill" class="truncate">Vila Olímpia, São Paulo - SP (Raio de 1,5 km)</span>
               </button>
             </div>
 
@@ -746,7 +878,7 @@
                 <h1 class="text-2xl font-extrabold text-[#000929] tracking-tight">
                   Campanha sugerida para sua região
                 </h1>
-                <div class="flex items-center gap-2.5">
+                <div class="flex flex-wrap items-center gap-2.5">
                   <button type="button" onclick="goToCalculatorStep(1, 'address')"
                     class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#DFE7EF] hover:border-[#FF4F00] text-xs font-semibold text-[#282E38] shadow-2xs transition cursor-pointer">
                     <svg class="w-3.5 h-3.5 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1025,6 +1157,64 @@
       });
     }
 
+    function syncCalcDirtyUI() {
+      const submitBtn = document.getElementById('calc-submit-btn');
+      const dirtyBanner = document.getElementById('calc-dirty-banner');
+      const innerContent = document.getElementById('calc-result-inner-content');
+
+      if (!calcState.hasCalculated) {
+        calcState.isDirty = false;
+        if (submitBtn) submitBtn.textContent = 'Calcular alcance na minha região';
+        if (dirtyBanner) dirtyBanner.classList.add('hidden');
+        if (innerContent) innerContent.classList.remove('opacity-60');
+        return;
+      }
+
+      const currentAddr = String(calcState.selectedAddress || '').trim();
+      const changed =
+        Number(calcState.dailyBudget) !== Number(calcState.lastCalcDailyBudget) ||
+        currentAddr !== String(calcState.lastCalcAddress || '').trim() ||
+        String(calcState.radiusKm) !== String(calcState.lastCalcRadiusKm);
+
+      calcState.isDirty = changed;
+
+      if (submitBtn) {
+        submitBtn.textContent = changed
+          ? 'Atualizar alcance na minha região'
+          : 'Calcular alcance na minha região';
+      }
+      if (dirtyBanner) {
+        if (changed) dirtyBanner.classList.remove('hidden');
+        else dirtyBanner.classList.add('hidden');
+      }
+      if (innerContent) {
+        if (changed) innerContent.classList.add('opacity-60');
+        else innerContent.classList.remove('opacity-60');
+      }
+    }
+
+    function markCalculatorDirtyIfCalculated() {
+      if (calcState.hasCalculated) {
+        syncCalcDirtyUI();
+      }
+    }
+
+    function selectCalcRadius(radiusKey) {
+      const key = CALC_RADIUS_CONFIG[radiusKey] ? radiusKey : '1.5';
+      calcState.radiusKm = key;
+
+      document.querySelectorAll('#calc-radius-pills .calc-radius-btn').forEach(btn => {
+        const bRad = btn.getAttribute('data-radius');
+        if (bRad === key) {
+          btn.className = 'calc-radius-btn py-2 px-2 rounded-lg text-xs font-bold border border-[#FF4F00] bg-[#FFF3ED] text-[#FF4F00] shadow-2xs transition cursor-pointer text-center leading-tight';
+        } else {
+          btn.className = 'calc-radius-btn py-2 px-2 rounded-lg text-xs font-semibold border border-[#DFE7EF] bg-white text-[#282E38] hover:border-[#FF4F00] transition cursor-pointer text-center leading-tight';
+        }
+      });
+
+      markCalculatorDirtyIfCalculated();
+    }
+
     function onCalcDailyInput(rawVal) {
       if (rawVal === '' || rawVal === null) return;
       let num = Number(rawVal);
@@ -1046,6 +1236,7 @@
       if (slider) slider.value = effective;
       updateSliderTrackFill(effective);
       updateQuickPillsHighlight(effective);
+      markCalculatorDirtyIfCalculated();
     }
 
     function onCalcDailyBlur(rawVal) {
@@ -1062,6 +1253,7 @@
       if (slider) slider.value = num;
       updateSliderTrackFill(num);
       updateQuickPillsHighlight(num);
+      markCalculatorDirtyIfCalculated();
     }
 
     function onCalcSliderInput(val) {
@@ -1071,6 +1263,7 @@
       if (inp) inp.value = num;
       updateSliderTrackFill(num);
       updateQuickPillsHighlight(num);
+      markCalculatorDirtyIfCalculated();
     }
 
     function selectCalcQuickPill(val) {
@@ -1082,6 +1275,7 @@
       if (slider) slider.value = num;
       updateSliderTrackFill(num);
       updateQuickPillsHighlight(num);
+      markCalculatorDirtyIfCalculated();
     }
 
     function populateCalcAddressDropdown(query) {
@@ -1120,9 +1314,11 @@
       if (trimmed) {
         setAddressValidationError(false);
         calcState.addressMeta = resolveAddressMeta(trimmed);
+        markCalculatorDirtyIfCalculated();
       } else {
         calcState.addressMeta = null;
         calcState.hasCalculated = false;
+        syncCalcDirtyUI();
         syncResultCardVisibility();
       }
       populateCalcAddressDropdown(val);
@@ -1141,6 +1337,7 @@
       if (inp) inp.value = item.full;
       if (dd) dd.classList.add('hidden');
       if (clearBtn) clearBtn.classList.remove('hidden');
+      markCalculatorDirtyIfCalculated();
       if (typeof showToast === 'function') {
         showToast(`Região selecionada: ${item.short}`);
       }
@@ -1156,6 +1353,7 @@
         inp.value = '';
         inp.focus();
       }
+      syncCalcDirtyUI();
       syncResultCardVisibility();
       openCalcAddressDropdown();
     }
@@ -1171,6 +1369,7 @@
       if (inp) inp.value = defaultLoc.full;
       if (dd) dd.classList.add('hidden');
       if (clearBtn) clearBtn.classList.remove('hidden');
+      markCalculatorDirtyIfCalculated();
       if (typeof showToast === 'function') {
         showToast('📍 Localização atual preenchida: Rua Alvorada, 1217 - Vila Olímpia');
       }
@@ -1208,6 +1407,10 @@
       calcState.selectedAddress = currentAddr;
       calcState.addressMeta = resolveAddressMeta(currentAddr);
       calcState.hasCalculated = true;
+      calcState.lastCalcDailyBudget = calcState.dailyBudget;
+      calcState.lastCalcAddress = currentAddr;
+      calcState.lastCalcRadiusKm = calcState.radiusKm;
+      syncCalcDirtyUI();
       syncResultCardVisibility();
       recalculateOohImpact(true);
 
@@ -1222,7 +1425,8 @@
       }
       if (typeof showToast === 'function') {
         const shortLoc = (calcState.addressMeta && calcState.addressMeta.short) || currentAddr;
-        showToast(`Alcance calculado para R$ ${calcState.dailyBudget}/dia em ${shortLoc}!`);
+        const radCfg = CALC_RADIUS_CONFIG[calcState.radiusKm] || CALC_RADIUS_CONFIG['1.5'];
+        showToast(`Alcance calculado para R$ ${calcState.dailyBudget}/dia em ${shortLoc} (${radCfg.shortPill})!`);
       }
     }
 
@@ -1232,9 +1436,12 @@
       const daily = Math.max(10, Math.min(1000, Number(calcState.dailyBudget) || 50));
       const locFactor = (calcState.addressMeta && calcState.addressMeta.factor) || 1.0;
       const locOffset = (calcState.addressMeta && typeof calcState.addressMeta.offset === 'number') ? calcState.addressMeta.offset : 0;
-      const ratio = (daily / 50) * locFactor;
+      const radCfg = CALC_RADIUS_CONFIG[calcState.radiusKm] || CALC_RADIUS_CONFIG['1.5'];
 
-      // 1. Cálculo das Faixas na Página 1 (Ancorado em 85.000 a 120.000 exibições e 28.000 a 42.000 pessoas para R$ 50/dia)
+      const viewsRatio = (daily / 50) * locFactor * radCfg.viewsFactor;
+      const reachRatio = (daily / 50) * locFactor * radCfg.reachFactor;
+
+      // 1. Cálculo das Faixas na Página 1 (Ancorado em 85.000 a 120.000 exibições e 28.000 a 42.000 pessoas para R$ 50/dia e Raio 1,5km)
       let lowViews = 85000;
       let highViews = 120000;
       let lowReach = 28000;
@@ -1242,16 +1449,16 @@
       let exactViews30d = 98640;
       let exactReach30d = 31400;
 
-      if (Math.abs(ratio - 1.0) > 0.001) {
-        lowViews = Math.max(15000, Math.round((85000 * ratio) / 500) * 500);
-        highViews = Math.max(22000, Math.round((120000 * ratio) / 500) * 500);
-        lowReach = Math.max(5000, Math.round((28000 * ratio) / 200) * 200);
-        highReach = Math.max(8000, Math.round((42000 * ratio) / 200) * 200);
-        exactViews30d = Math.round(98640 * ratio);
-        exactReach30d = Math.round(31400 * ratio);
+      if (Math.abs(viewsRatio - 1.0) > 0.001 || Math.abs(reachRatio - 1.0) > 0.001) {
+        lowViews = Math.max(12000, Math.round((85000 * viewsRatio) / 500) * 500);
+        highViews = Math.max(18000, Math.round((120000 * viewsRatio) / 500) * 500);
+        lowReach = Math.max(3500, Math.round((28000 * reachRatio) / 200) * 200);
+        highReach = Math.max(5500, Math.round((42000 * reachRatio) / 200) * 200);
+        exactViews30d = Math.round(98640 * viewsRatio);
+        exactReach30d = Math.round(31400 * reachRatio);
       }
 
-      // 2. Seleção dinâmica das telas recomendadas de oohCatalog conforme o orçamento diário e a região
+      // 2. Seleção dinâmica das telas recomendadas de oohCatalog conforme orçamento, região e raio
       let numPoints = 4;
       if (daily <= 25) numPoints = 2;
       else if (daily <= 40) numPoints = 3;
@@ -1265,22 +1472,48 @@
       for (let i = 0; i < catalog.length; i++) {
         rotatedCatalog.push(catalog[(i + locOffset) % catalog.length]);
       }
-      calcState.recommendedPoints = rotatedCatalog.slice(0, numPoints);
 
-      // 3. Atualizar DOM da Página 1
+      calcState.recommendedPoints = rotatedCatalog.slice(0, numPoints).map((pt, idx) => ({
+        ...pt,
+        distance: radCfg.distances[idx % radCfg.distances.length] || pt.distance || '250 m'
+      }));
+
+      // 3. Atualizar DOM da Página 1 (incluindo Termômetro de Domínio na Região)
       const addrLabelEl = document.getElementById('calc-res-address-label');
+      const radiusLabelEl = document.getElementById('calc-res-radius-label');
       const viewsRangeEl = document.getElementById('calc-res-views-range');
       const reachRangeEl = document.getElementById('calc-res-reach-range');
+      const domBadgeEl = document.getElementById('calc-dominance-badge');
+      const domBarEl = document.getElementById('calc-dominance-bar');
+      const domHintEl = document.getElementById('calc-dominance-hint');
       const resCard = document.getElementById('calc-result-card');
+
+      const domTier = getDominanceTierInfo(daily, calcState.radiusKm);
 
       if (addrLabelEl) {
         addrLabelEl.textContent = (calcState.addressMeta && calcState.addressMeta.short) || 'Rua Alvorada, 1217 - Vila Olímpia';
+      }
+      if (radiusLabelEl) {
+        radiusLabelEl.textContent = radCfg.shortPill;
       }
       if (viewsRangeEl) {
         viewsRangeEl.textContent = `${formatIntPT(lowViews)} a ${formatIntPT(highViews)} exibições`;
       }
       if (reachRangeEl) {
         reachRangeEl.textContent = `${formatIntPT(lowReach)} a ${formatIntPT(highReach)} pessoas`;
+      }
+      if (domBadgeEl) {
+        domBadgeEl.className = `inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold border ${domTier.badgeBg}`;
+        domBadgeEl.textContent = domTier.badge;
+      }
+      if (domBarEl) {
+        domBarEl.style.width = `${domTier.barPct}%`;
+        domBarEl.className = domTier.level === 4
+          ? 'h-full bg-[#24C765] rounded-full transition-all duration-300'
+          : 'h-full bg-[#FF4F00] rounded-full transition-all duration-300';
+      }
+      if (domHintEl) {
+        domHintEl.textContent = domTier.hint;
       }
       if (animate && resCard) {
         resCard.classList.remove('calc-updating');
@@ -1299,9 +1532,12 @@
 
       const total4w = daily * 28;
       const installmentVal = total4w / 3;
+      const shortLocName = (calcState.addressMeta && calcState.addressMeta.short)
+        ? calcState.addressMeta.short.split(' - ')[0]
+        : 'Rua Alvorada, Vila Olímpia';
 
-      if (p2MobLoc && calcState.addressMeta) p2MobLoc.textContent = calcState.addressMeta.pillMob;
-      if (p2DeskLoc && calcState.addressMeta) p2DeskLoc.textContent = calcState.addressMeta.pillDesk;
+      if (p2MobLoc) p2MobLoc.textContent = `${shortLocName} (${radCfg.shortPill})`;
+      if (p2DeskLoc) p2DeskLoc.textContent = `${shortLocName} • ${radCfg.shortPill}`;
       if (p2DeskBudget) p2DeskBudget.textContent = `R$ ${daily}/dia`;
       if (p2Views) p2Views.textContent = formatIntPT(exactViews30d);
       if (p2Reach) p2Reach.textContent = formatIntPT(exactReach30d);
@@ -1418,6 +1654,10 @@
         step2.classList.remove('hidden');
         step2.style.display = 'block';
         try {
+          calcState.lastCalcDailyBudget = calcState.dailyBudget;
+          calcState.lastCalcAddress = String(calcState.selectedAddress || '').trim();
+          calcState.lastCalcRadiusKm = calcState.radiusKm;
+          syncCalcDirtyUI();
           recalculateOohImpact(false);
           renderCalculatorRecommendedPoints();
         } catch (err) {
