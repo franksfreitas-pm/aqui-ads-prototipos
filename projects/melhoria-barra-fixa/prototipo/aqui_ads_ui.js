@@ -102,9 +102,3511 @@
 })();
 
 // 2. Templates Canônicos de Shell e Jornada (Extraídos do Espelho de Produção)
-const AQUI_ADS_SHELL_HEADER_HTML = "\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003c!-- BARRA SUPERIOR DE CONTROLE DO PROTÓTIPO (ALTERNADOR DESK / MOBILE)        --\u003e\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003cheader class=\"bg-gray-950 text-white px-4 py-1.5 sticky top-0 z-50 border-b border-gray-800 shadow-md\"\u003e\r\n    \u003cdiv class=\"w-full px-6 mx-auto flex flex-wrap items-center justify-between gap-2\"\u003e\r\n      \u003c!-- Alternador de Viewport Desktop vs Mobile (Sem precisar de DevTools) --\u003e\r\n      \u003cdiv class=\"flex items-center bg-gray-900 p-0.5 rounded-lg border border-gray-800\"\u003e\r\n        \u003cbutton onclick=\"setViewportMode(\u0027desktop\u0027)\" id=\"vp-desktop-btn\" class=\"px-2.5 py-1 rounded-md text-[11px] font-bold bg-gray-800 text-white flex items-center gap-1 transition cursor-pointer\"\u003e\r\n          \u003cspan\u003e🖥️\u003c/span\u003e Desktop\r\n        \u003c/button\u003e\r\n        \u003cbutton onclick=\"setViewportMode(\u0027mobile\u0027)\" id=\"vp-mobile-btn\" class=\"px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white flex items-center gap-1 transition cursor-pointer\"\u003e\r\n          \u003cspan\u003e📱\u003c/span\u003e Mobile (390px)\r\n        \u003c/button\u003e\r\n      \u003c/div\u003e\r\n    \u003c/div\u003e\r\n  \u003c/header\u003e\r\n\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003c!-- STAGE PRINCIPAL (ALTERNA ENTRE FULL DESKTOP E MOLDURA MOBILE 390x844)     --\u003e\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003cdiv id=\"app-Stage\" class=\"flex-1 flex flex-col\"\u003e\r\n    \u003cdiv id=\"viewport-container\" class=\"w-full flex-1 flex flex-col bg-white\"\u003e\r\n\r\n      \u003c!-- HEADER GLOBAL AQUI ADS (FIEL AO ESPELHO DE PRODUÇÃO resultados_ooh.html E AO MENU LATERAL OFICIAL) --\u003e\r\n      \u003cheader id=\"main-header\" class=\"bg-white border-b border-gray-100 w-full px-4 sm:px-6 md:px-8 xl:pl-[90px] xl:pr-10 2xl:px-[90px] py-3.5 flex items-center justify-between sticky top-0 z-30\"\u003e\r\n        \u003cdiv class=\"flex items-center gap-6\"\u003e\r\n          \u003ca href=\"javascript:void(0)\" onclick=\"showScreen(\u0027view-resultados\u0027)\" class=\"flex items-center select-none\" style=\"text-decoration: none;\" title=\"Ir para a Página de Resultados\"\u003e\r\n            \u003cimg src=\"https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg\" alt=\"Aqui Ads\" class=\"h-7 md:h-8 object-contain\" onerror=\"this.style.display=\u0027none\u0027; this.nextElementSibling.style.display=\u0027flex\u0027;\"\u003e\r\n            \u003cspan style=\"display:none;\" class=\"items-start\"\u003e\r\n              \u003cspan class=\"text-2xl font-black tracking-tight text-[#FF5A00]\"\u003eAqui\u003c/span\u003e\r\n              \u003cspan class=\"text-2xl font-medium tracking-tight text-[#FF5A00] ml-0.5\"\u003eads\u003c/span\u003e\r\n              \u003cspan class=\"text-[9px] text-[#FF5A00] font-bold ml-0.5 mt-0.5\"\u003e®\u003c/span\u003e\r\n            \u003c/span\u003e\r\n          \u003c/a\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- Seletor de Canais Central Oficial (Visível na Página de Resultados - Fiel a resultados_ooh.html e Print 01) --\u003e\r\n        \u003cdiv id=\"header-home-channels\" class=\"flex items-center gap-6 md:gap-9 text-xs font-bold text-gray-600\"\u003e\r\n          \u003cbutton id=\"hdr-channel-ooh\" type=\"button\" onclick=\"switchPlpChannel(\u0027ooh\u0027)\" class=\"flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-[#241e17] text-[#241e17] font-bold text-sm cursor-pointer transition\"\u003e\r\n            \u003cimg src=\"https://aqui.globo/images/header/ooh.svg\" alt=\"OOH\" class=\"w-7 h-7 object-contain\"\u003e\r\n            \u003cspan\u003eOOH\u003c/span\u003e\r\n          \u003c/button\u003e\r\n          \u003cbutton id=\"hdr-channel-digital\" type=\"button\" onclick=\"switchPlpChannel(\u0027digital\u0027)\" class=\"flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition\"\u003e\r\n            \u003cimg src=\"https://aqui.globo/images/header/digital.svg\" alt=\"Digital\" class=\"w-7 h-7 object-contain\"\u003e\r\n            \u003cspan\u003eDigital\u003c/span\u003e\r\n          \u003c/button\u003e\r\n          \u003cbutton id=\"hdr-channel-tv\" type=\"button\" onclick=\"switchPlpChannel(\u0027tv\u0027)\" class=\"flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition\"\u003e\r\n            \u003cimg src=\"https://aqui.globo/images/header/tv.svg\" alt=\"TV\" class=\"w-7 h-7 object-contain\"\u003e\r\n            \u003cspan\u003eTV\u003c/span\u003e\r\n          \u003c/button\u003e\r\n          \u003cbutton id=\"hdr-channel-radio\" type=\"button\" onclick=\"switchPlpChannel(\u0027radio\u0027)\" class=\"flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition\"\u003e\r\n            \u003cimg src=\"https://aqui.globo/images/header/radio.svg\" alt=\"Rádio\" class=\"w-7 h-7 object-contain\"\u003e\r\n            \u003cspan\u003eRádio\u003c/span\u003e\r\n          \u003c/button\u003e\r\n          \u003cbutton id=\"hdr-channel-combos\" type=\"button\" onclick=\"switchPlpChannel(\u0027combos\u0027)\" class=\"flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition\"\u003e\r\n            \u003cimg src=\"https://aqui.globo/images/header/combos.svg\" alt=\"Combos\" class=\"w-7 h-7 object-contain\"\u003e\r\n            \u003cspan\u003eCombos\u003c/span\u003e\r\n          \u003c/button\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003cdiv class=\"flex items-center gap-4 md:gap-5\"\u003e\r\n          \u003cbutton onclick=\"showToast(\u0027Assistente de anúncios IA aberto\u0027)\" class=\"text-xs font-semibold text-gray-700 flex items-center gap-1.5 hover:text-[#FF5A00] transition cursor-pointer\"\u003e\r\n            \u003cspan class=\"hide-on-mobile-frame\"\u003eAssistente de anúncios\u003c/span\u003e\r\n            \u003cspan class=\"text-indigo-600 text-sm\"\u003e✨\u003c/span\u003e\r\n          \u003c/button\u003e\r\n\r\n          \u003cbutton onclick=\"showScreen(\u0027view-resumo\u0027)\" class=\"relative text-gray-700 hover:text-[#FF5A00] transition cursor-pointer\" title=\"Ver Plano de Mídia (Carrinho)\"\u003e\r\n            \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z\"/\u003e\u003c/svg\u003e\r\n            \u003cspan id=\"hdr-cart-badge\" class=\"hidden absolute -top-1.5 -right-2 bg-[#FF4F00] text-white text-[9px] font-bold px-1 rounded-full leading-tight\"\u003e0\u003c/span\u003e\r\n          \u003c/button\u003e\r\n\r\n          \u003cdiv class=\"flex items-center gap-2 pl-2 border-l border-gray-200 relative\"\u003e\r\n            \u003cdiv onclick=\"openSideMenu(event)\" class=\"flex items-center gap-2 cursor-pointer\" title=\"Abrir menu lateral\"\u003e\r\n              \u003cdiv class=\"w-7 h-7 rounded-full bg-gray-100 border border-gray-200 text-gray-600 font-bold text-xs flex items-center justify-center\"\u003eF\u003c/div\u003e\r\n              \u003cspan class=\"text-[11px] font-bold text-gray-800 hide-on-mobile-frame\"\u003eOlá, FRANKS!\u003c/span\u003e\r\n            \u003c/div\u003e\r\n            \u003cbutton onclick=\"showToast(\u0027Configurações da conta\u0027)\" class=\"text-gray-600 hover:text-gray-900 p-1 cursor-pointer\" title=\"Configurações\"\u003e\r\n              \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\"/\u003e\u003c/svg\u003e\r\n            \u003c/button\u003e\r\n            \u003cbutton onclick=\"openSideMenu(event)\" class=\"text-gray-700 hover:text-[#FF5A00] p-1 cursor-pointer transition\" title=\"Menu Lateral\"\u003e\r\n              \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 6h16M4 12h16M4 18h16\"/\u003e\u003c/svg\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/header\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- MENU LATERAL OFICIAL AQUI ADS (FIEL AO PRINT ENVIADO PELO FRANKS)     --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cdiv id=\"side-menu-drawer\" class=\"hidden fixed inset-0 z-50 flex justify-end\"\u003e\r\n        \u003c!-- Overlay escuro para fechar ao clicar fora --\u003e\r\n        \u003cdiv onclick=\"closeSideMenu()\" class=\"fixed inset-0 bg-black/35 backdrop-blur-[1px] transition-opacity\"\u003e\u003c/div\u003e\r\n\r\n        \u003c!-- Gaveta Branca à Direita --\u003e\r\n        \u003caside class=\"relative z-10 w-full max-w-[430px] bg-white h-full shadow-2xl flex flex-col justify-between p-7 overflow-y-auto\"\u003e\r\n          \u003cdiv\u003e\r\n            \u003c!-- Topo Direito: Sino de Notificação com Bolinha Laranja --\u003e\r\n            \u003cdiv class=\"flex items-center justify-end mb-5\"\u003e\r\n              \u003cbutton onclick=\"showToast(\u0027Você tem 1 campanha em veiculação (#750598) e 1 pendente de arte (#750708)\u0027)\" class=\"relative p-1.5 text-gray-800 hover:text-[#FF5A00] transition cursor-pointer\" title=\"Notificações\"\u003e\r\n                \u003csvg class=\"w-5 h-5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan class=\"absolute top-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-[#FF5A00] border-2 border-white\"\u003e\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Grid 2x2 de Cards Principais --\u003e\r\n            \u003cdiv class=\"grid grid-cols-2 gap-3.5 mb-5\"\u003e\r\n              \u003c!-- Card 1: escolha onde anunciar (Laranja sólido) --\u003e\r\n              \u003cbutton onclick=\"showScreen(\u0027view-resultados\u0027); closeSideMenu();\" class=\"bg-[#FF5A00] hover:bg-[#E04E00] text-white rounded-2xl p-4 h-28 flex flex-col justify-between text-left shadow-xs transition cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-5 h-5 text-white\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan class=\"text-xs font-bold leading-tight\"\u003eescolha\u003cbr\u003eonde anunciar\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003c!-- Card 2: assistente de anúncios (Borda laranja) --\u003e\r\n              \u003cbutton onclick=\"showToast(\u0027Assistente de anúncios aberto\u0027); closeSideMenu();\" class=\"bg-white border border-[#FF5A00] hover:bg-orange-50/40 text-gray-900 rounded-2xl p-4 h-28 flex flex-col justify-between text-left transition cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-5 h-5 text-[#FF5A00]\" fill=\"currentColor\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath d=\"M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan class=\"text-xs font-bold text-gray-900 leading-tight\"\u003eassistente de anúncios\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003c!-- Card 3: meus anúncios (Branco com ícone de lista) --\u003e\r\n              \u003cbutton onclick=\"showScreen(\u0027screen-list\u0027); switchTopTab(\u0027planos\u0027); closeSideMenu();\" class=\"bg-white border border-gray-100 shadow-xs hover:border-[#FF5A00] hover:shadow-md text-gray-900 rounded-2xl p-4 h-28 flex flex-col justify-between text-left transition cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-5 h-5 text-gray-900\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 6h16M4 10h16M4 14h16M4 18h16\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan class=\"text-xs font-bold text-gray-900 leading-tight\"\u003emeus anúncios\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003c!-- Card 4: meus favoritos (Branco com ícone de coração) --\u003e\r\n              \u003cbutton onclick=\"showToast(\u0027Meus favoritos\u0027); closeSideMenu();\" class=\"bg-white border border-gray-100 shadow-xs hover:border-gray-300 text-gray-900 rounded-2xl p-4 h-28 flex flex-col justify-between text-left transition cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-5 h-5 text-gray-900\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan class=\"text-xs font-bold text-gray-900 leading-tight\"\u003emeus favoritos\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Lista de Barras Inferiores --\u003e\r\n            \u003cdiv class=\"space-y-2.5\"\u003e\r\n              \u003cbutton onclick=\"showToast(\u0027Gerenciamento de conta\u0027)\" class=\"w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-900 transition cursor-pointer\"\u003e\r\n                \u003cspan\u003egerenciamento de conta\u003c/span\u003e\r\n                \u003cspan class=\"text-gray-600\"\u003e⌄\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003cbutton onclick=\"showToast(\u0027Mockups de telas OOH\u0027)\" class=\"w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-900 transition cursor-pointer\"\u003e\r\n                \u003cspan\u003emockups\u003c/span\u003e\r\n                \u003cspan class=\"text-gray-600\"\u003e⌄\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003cbutton onclick=\"showToast(\u0027Materiais e central de ajuda\u0027)\" class=\"w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-900 transition cursor-pointer\"\u003e\r\n                \u003cspan\u003emateriais e ajuda\u003c/span\u003e\r\n                \u003cspan class=\"text-gray-600\"\u003e⌄\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003cbutton onclick=\"switchPlpChannel(\u0027combos\u0027); closeSideMenu();\" class=\"w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center gap-2.5 text-xs font-bold text-gray-900 transition cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-4 h-4 text-gray-800\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan\u003ecombos\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003cbutton onclick=\"showToast(\u0027Atendimento via WhatsApp (Helen) iniciado\u0027)\" class=\"w-full bg-white hover:bg-emerald-50/50 border border-[#22C55E] rounded-lg px-4 py-2.5 flex items-center gap-2.5 text-xs font-bold text-[#16A34A] transition cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#16A34A]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cspan\u003eajuda\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Rodapé do Menu Lateral: sair --\u003e\r\n          \u003cdiv class=\"pt-6 border-t border-gray-100\"\u003e\r\n            \u003cbutton onclick=\"closeSideMenu(); showToast(\u0027Sessão encerrada\u0027)\" class=\"text-xs font-bold text-gray-900 hover:text-[#FF5A00] flex items-center gap-1.5 cursor-pointer\"\u003e\r\n              \u003cspan\u003esair\u003c/span\u003e\r\n              \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\r\n                \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1\"/\u003e\r\n              \u003c/svg\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/aside\u003e\r\n      \u003c/div\u003e\r\n      \u003cdiv id=\"hook-after-header\"\u003e\u003c/div\u003e";
-const AQUI_ADS_JOURNEY_VIEWS_HTML = "      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA 1: PÁGINA DE RESULTADOS FIEL AO ESPELHO DE PRODUÇÃO (OOH + DIGITAL) --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003csection id=\"view-resultados\" class=\"view-section active flex-1 bg-white\"\u003e\r\n        \u003cdiv id=\"hook-before-results-content\"\u003e\u003c/div\u003e\r\n        \u003cdiv id=\"plp-mode-ooh\"\u003e\r\n        \u003c!-- TOPO DA PÁGINA DE RESULTADOS: BARRA DE BUSCA INTEGRADA (688px) + CHIPS DE AMBIENTE RETANGULARES --\u003e\r\n        \u003cdiv class=\"bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-10 pt-4 pb-3\"\u003e\r\n          \r\n          \u003c!-- Barra de Busca Integrada Oficial (Onde | Período | Início | Lupa Laranja #FF4F00) --\u003e\r\n          \u003cdiv class=\"hide-on-mobile-frame max-w-[688px] mx-auto bg-white border border-[#DFE7EF] rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-1.5 flex flex-wrap md:flex-nowrap items-center\"\u003e\r\n            \u003c!-- Campo 1: Onde --\u003e\r\n            \u003cdiv class=\"flex-1 min-w-[220px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8] relative\"\u003e\r\n              \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003eOnde\u003c/label\u003e\r\n              \u003cdiv class=\"flex items-center justify-between gap-2\"\u003e\r\n                \u003cinput id=\"plp-search-address\" type=\"text\" value=\"Vila Olímpia, São Paulo - SP, Brasil\" class=\"w-full text-xs font-medium text-[#282E38] bg-transparent outline-none truncate\" placeholder=\"Ex.: Av. Paulista, Bela Vista, São Paulo/SP\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"document.getElementById(\u0027plp-search-address\u0027).value=\u0027\u0027; document.getElementById(\u0027plp-search-address\u0027).focus();\" class=\"w-4 h-4 rounded-full border border-gray-400 text-gray-500 hover:text-gray-800 text-[9px] flex items-center justify-center cursor-pointer shrink-0\" title=\"Limpar busca de endereço\"\u003e✕\u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Campo 2: Período --\u003e\r\n            \u003cdiv class=\"w-1/2 md:w-[150px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer\" onclick=\"toggleOohSearchDuration()\"\u003e\r\n              \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003ePeríodo\u003c/label\u003e\r\n              \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                \u003cspan id=\"plp-ooh-duration-label\"\u003e2 semanas\u003c/span\u003e\r\n                \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Campo 3: Início --\u003e\r\n            \u003cdiv class=\"w-1/2 md:w-[165px] px-4 py-1.5 cursor-pointer\" onclick=\"showToast(\u0027Selecionar data de início da campanha\u0027)\"\u003e\r\n              \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003eInício\u003c/label\u003e\r\n              \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                \u003cspan\u003e26/10/2026\u003c/span\u003e\r\n                \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Botão Lupa #FF4F00 --\u003e\r\n            \u003cbutton type=\"button\" onclick=\"showToast(\u0027Atualizando pontos OOH na região de Vila Olímpia...\u0027)\" class=\"ml-auto w-[42px] h-[42px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shadow-xs cursor-pointer transition shrink-0\" title=\"Buscar pontos\"\u003e\r\n              \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Pílulas de Filtro de Ambientes (Formato retangular rounded-md com borda sutil fiel ao print oficial) --\u003e\r\n                    \u003c!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) --\u003e\r\n          \u003cdiv class=\"only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden\"\u003e\r\n            \u003cdiv class=\"min-h-[52px] px-3.5 py-2 flex items-center gap-2.5\"\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#282E38] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\"/\u003e\u003c/svg\u003e\r\n              \u003cinput id=\"plp-search-address-mobile\" type=\"text\" value=\"Vila Ol\u00edmpia, S\u00e3o Paulo - SP, Brasil\" oninput=\"const d=document.getElementById(\u0027plp-search-address\u0027); if(d) d.value=this.value;\" class=\"w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate\" placeholder=\"Ex.: Av. Paulista, Bela Vista, S\u00e3o Paulo/SP\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"const m=document.getElementById(\u0027plp-search-address-mobile\u0027); if(m){m.value=\u0027\u0027; m.focus();} const d=document.getElementById(\u0027plp-search-address\u0027); if(d) d.value=\u0027\u0027;\" class=\"w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0\" title=\"Limpar busca\"\u003e\u2715\u003c/button\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#6B6B6B] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"min-h-[46px] px-3.5 pb-3 flex items-center gap-2\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"toggleOohSearchDuration()\" class=\"w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition\"\u003e\r\n                \u003cspan class=\"plp-mobile-duration-label\"\u003e2 semanas\u003c/span\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#6B6B6B]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n              \u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Abrindo filtros de pontos OOH...\u0027)\" class=\"w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition\"\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4\"/\u003e\u003c/svg\u003e\r\n                \u003cspan\u003efiltrar\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"max-w-[1280px] mx-auto mt-6 flex flex-wrap items-center justify-center gap-2\" id=\"plp-ambience-chips\"\u003e\r\n            \u003cbutton type=\"button\" data-amb=\"todos\" onclick=\"filterPlpAmbience(\u0027todos\u0027, this)\" class=\"plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-semibold bg-[#4E5D6C] border border-[#4E5D6C] text-white cursor-pointer transition\"\u003etodos\u003c/button\u003e\r\n            \u003cbutton type=\"button\" data-amb=\"comercial\" onclick=\"filterPlpAmbience(\u0027comercial\u0027, this)\" class=\"plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eelevadores comerciais\u003c/button\u003e\r\n            \u003cbutton type=\"button\" data-amb=\"residencial\" onclick=\"filterPlpAmbience(\u0027residencial\u0027, this)\" class=\"plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eelevadores residenciais\u003c/button\u003e\r\n            \u003cbutton type=\"button\" data-amb=\"onibus\" onclick=\"filterPlpAmbience(\u0027onibus\u0027, this)\" class=\"plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003epontos de ônibus\u003c/button\u003e\r\n            \u003cbutton type=\"button\" data-amb=\"shopping\" onclick=\"showToast(\u0027Filtrando ambiente: shoppings\u0027)\" class=\"plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eshoppings\u003c/button\u003e\r\n            \u003cbutton type=\"button\" data-amb=\"academia\" onclick=\"showToast(\u0027Filtrando ambiente: academias\u0027)\" class=\"plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eacademias\u003c/button\u003e\r\n            \u003cbutton type=\"button\" onclick=\"showToast(\u0027Abrindo modal de mais filtros...\u0027)\" class=\"px-3 py-1.5 rounded-md text-xs font-semibold bg-[#E2E8F0] hover:bg-[#CBD5E1] text-[#282E38] cursor-pointer transition\"\u003emais filtros\u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- CORPO PRINCIPAL DA PÁGINA DE RESULTADOS: GRID DE 3 COLUNAS + MAPA STICKY LATERAL ALINHADO AO HEADER --\u003e\r\n        \u003cdiv id=\"oohSubTab\" class=\"apply-zoom w-full max-w-[1660px] mx-auto px-4 sm:px-6 lg:px-0 pt-4 pb-20\"\u003e\r\n          \u003cdiv class=\"grid grid-cols-1 lg:grid-cols-[58.6%_minmax(0,1fr)] gap-6 lg:gap-[28px] items-start w-full\"\u003e\r\n            \r\n            \u003c!-- COLUNA ESQUERDA: LISTA DE CARDS OOH REAIS + BANNER ROXO INTERCALADO + CARD CRIE SUA CONTA --\u003e\r\n            \u003cdiv class=\"w-full min-w-0\"\u003e\r\n              \u003cul id=\"plp-cards-grid\" class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px] list-none p-0 m-0 w-full\"\u003e\r\n                \u003c!-- Preenchido dinamicamente por renderOohPlp() a partir de window.AQUI_ADS_MOCK_DATA.oohCatalog --\u003e\r\n              \u003c/ul\u003e\r\n\r\n              \u003c!-- Botão \"ver mais\" sólido laranja oficial (#FF4F00) --\u003e\r\n              \u003cdiv class=\"mt-7 flex justify-center\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"showToast(\u0027Carregando mais pontos da região...\u0027)\" class=\"w-full max-w-[280px] py-2.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold shadow-xs cursor-pointer transition\"\u003e\r\n                  ver mais\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- COLUNA DIREITA: MAPA STICKY FIEL AOS PRINTS OFICIAIS DE PRODUÇÃO (height: 580px) --\u003e\r\n            \u003cdiv class=\"w-full lg:sticky lg:top-[90px] h-[560px] lg:h-[580px] rounded-[20px] overflow-hidden shadow-sm border border-[#E2E8F0] relative bg-[#EDF2F7]\"\u003e\r\n              \u003c!-- Mapa Estilizado de Rua (Vila Olímpia / Barra Funda - Mapbox Street Style fiel aos prints) --\u003e\r\n              \u003csvg class=\"absolute inset-0 w-full h-full object-cover\" viewBox=\"0 0 560 606\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMid slice\"\u003e\r\n                \u003crect width=\"560\" height=\"606\" fill=\"#EDEFF2\"/\u003e\r\n                \u003c!-- Quadras e áreas verdes --\u003e\r\n                \u003cpath d=\"M0 440 L210 606 L0 606 Z\" fill=\"#FDE68A\" opacity=\"0.55\"/\u003e\r\n                \u003crect x=\"25\" y=\"25\" width=\"130\" height=\"95\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"175\" y=\"25\" width=\"145\" height=\"95\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"340\" y=\"25\" width=\"190\" height=\"95\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"25\" y=\"140\" width=\"130\" height=\"120\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"175\" y=\"140\" width=\"145\" height=\"120\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"340\" y=\"140\" width=\"190\" height=\"120\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"25\" y=\"280\" width=\"130\" height=\"125\" rx=\"4\" fill=\"#DCFCE7\" opacity=\"0.65\"/\u003e\r\n                \u003crect x=\"175\" y=\"280\" width=\"145\" height=\"125\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"340\" y=\"280\" width=\"190\" height=\"125\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"175\" y=\"425\" width=\"145\" height=\"150\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003crect x=\"340\" y=\"425\" width=\"190\" height=\"150\" rx=\"4\" fill=\"#E2E5EA\"/\u003e\r\n                \u003c!-- Malha viária diagonal e ortogonal --\u003e\r\n                \u003cline x1=\"-20\" y1=\"130\" x2=\"580\" y2=\"210\" stroke=\"#FFFFFF\" stroke-width=\"11\"/\u003e\r\n                \u003cline x1=\"-20\" y1=\"270\" x2=\"580\" y2=\"350\" stroke=\"#FFFFFF\" stroke-width=\"12\"/\u003e\r\n                \u003cline x1=\"-20\" y1=\"415\" x2=\"580\" y2=\"495\" stroke=\"#FFFFFF\" stroke-width=\"10\"/\u003e\r\n                \u003cline x1=\"165\" y1=\"-20\" x2=\"90\" y2=\"620\" stroke=\"#FFFFFF\" stroke-width=\"11\"/\u003e\r\n                \u003cline x1=\"330\" y1=\"-20\" x2=\"275\" y2=\"620\" stroke=\"#FCA5A5\" stroke-width=\"6\"/\u003e\r\n                \u003cline x1=\"465\" y1=\"-20\" x2=\"395\" y2=\"620\" stroke=\"#FFFFFF\" stroke-width=\"11\"/\u003e\r\n                \u003cline x1=\"0\" y1=\"445\" x2=\"230\" y2=\"615\" stroke=\"#FBBF24\" stroke-width=\"14\"/\u003e\r\n                \u003c!-- Nomes de ruas do mapa --\u003e\r\n                \u003ctext x=\"200\" y=\"160\" fill=\"#64748B\" font-size=\"10\" font-weight=\"600\" font-family=\"sans-serif\" transform=\"rotate(8 200 160)\"\u003eR. Gomes de Carvalho\u003c/text\u003e\r\n                \u003ctext x=\"210\" y=\"302\" fill=\"#64748B\" font-size=\"10\" font-weight=\"600\" font-family=\"sans-serif\" transform=\"rotate(8 210 302)\"\u003eRua Alvorada\u003c/text\u003e\r\n                \u003ctext x=\"350\" y=\"452\" fill=\"#64748B\" font-size=\"10\" font-weight=\"600\" font-family=\"sans-serif\" transform=\"rotate(8 350 452)\"\u003eR. Dr. Cardoso de Melo\u003c/text\u003e\r\n                \u003ctext x=\"35\" y=\"515\" fill=\"#78716C\" font-size=\"10\" font-weight=\"700\" font-family=\"sans-serif\" transform=\"rotate(36 35 515)\"\u003eAv. Santo Amaro\u003c/text\u003e\r\n              \u003c/svg\u003e\r\n\r\n              \u003c!-- Canto Superior Direito: Botão Circular Expandir (⤢) + Controle Vertical de Zoom (+ / -) --\u003e\r\n              \u003cdiv class=\"absolute top-3.5 right-3.5 z-20 flex flex-col items-center gap-2\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"showToast(\u0027Expandindo visualização do mapa...\u0027)\" class=\"w-8 h-8 rounded-full bg-white hover:bg-gray-50 text-[#282E38] shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-gray-200 flex items-center justify-center cursor-pointer transition\" title=\"Expandir mapa\"\u003e\r\n                  \u003csvg class=\"w-3.5 h-3.5\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\"\u003e\u003cpolyline points=\"15 3 21 3 21 9\"\u003e\u003c/polyline\u003e\u003cpolyline points=\"9 21 3 21 3 15\"\u003e\u003c/polyline\u003e\u003cline x1=\"21\" y1=\"3\" x2=\"14\" y2=\"10\"\u003e\u003c/line\u003e\u003cline x1=\"3\" y1=\"21\" x2=\"10\" y2=\"14\"\u003e\u003c/line\u003e\u003c/svg\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv class=\"w-8 rounded-lg bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-gray-200 overflow-hidden flex flex-col divide-y divide-gray-200\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"showToast(\u0027Zoom + no mapa\u0027)\" class=\"h-8 flex items-center justify-center text-sm font-bold text-[#282E38] hover:bg-gray-50 cursor-pointer\" title=\"Aproximar\"\u003e+\u003c/button\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"showToast(\u0027Zoom - no mapa\u0027)\" class=\"h-8 flex items-center justify-center text-sm font-bold text-[#282E38] hover:bg-gray-50 cursor-pointer\" title=\"Afastar\"\u003e−\u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Clusters Circulares Laranjas (#FF4F00) + Pino Central Renderizados Dinamicamente --\u003e\r\n              \u003cdiv id=\"plp-ooh-map-pins\" class=\"absolute inset-0 pointer-events-none\"\u003e\u003c/div\u003e\r\n\r\n              \u003c!-- Rodapé Mapbox Attribution --\u003e\r\n              \u003cdiv class=\"absolute bottom-2 left-2.5 flex items-center gap-1.5 text-[11px] font-bold text-gray-600 bg-white/85 backdrop-blur-xs px-2 py-0.5 rounded shadow-2xs\"\u003e\r\n                \u003cspan class=\"inline-block w-3.5 h-3.5 rounded-full bg-gray-600 text-white text-[9px] flex items-center justify-center font-black\"\u003em\u003c/span\u003e\r\n                \u003cspan\u003emapbox\u003c/span\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- ================================================================= --\u003e\r\n          \u003c!-- SEÇÃO INFERIOR 1: \"Explore outros ambientes\" (4 Cards + Setas)     --\u003e\r\n          \u003c!-- ================================================================= --\u003e\r\n          \u003cdiv class=\"mt-14 pt-6\"\u003e\r\n            \u003ch3 class=\"text-base font-bold text-[#282E38] mb-4\"\u003eExplore outros ambientes\u003c/h3\u003e\r\n            \u003cdiv class=\"relative flex items-center gap-2\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Navegando ambientes anteriores\u0027)\" class=\"hidden sm:flex w-8 h-8 rounded-full border border-gray-200 bg-white hover:bg-gray-50 items-center justify-center text-gray-500 shadow-2xs shrink-0 cursor-pointer\"\u003e‹\u003c/button\u003e\r\n              \u003cdiv class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 flex-1\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"filterPlpAmbience(\u0027comercial\u0027)\" class=\"rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition\"\u003e\r\n                  \u003cp class=\"text-xs font-bold text-[#282E38] leading-snug\"\u003eAnuncie em\u003cbr\u003eelevadores comerciais\u003c/p\u003e\r\n                  \u003cp class=\"mt-1.5 text-[11px] text-[#64748B]\"\u003e643.174 pontos para anunciar\u003c/p\u003e\r\n                  \u003cdiv class=\"mt-3 text-[10px] text-[#64748B]\"\u003e\r\n                    \u003cp\u003evalor médio\u003c/p\u003e\r\n                    \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eR$ 915,00 \u003cspan class=\"font-normal text-[#64748B]\"\u003e/2 semanas\u003c/span\u003e\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"filterPlpAmbience(\u0027residencial\u0027)\" class=\"rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition\"\u003e\r\n                  \u003cp class=\"text-xs font-bold text-[#282E38] leading-snug\"\u003eAnuncie em\u003cbr\u003eelevadores residenciais\u003c/p\u003e\r\n                  \u003cp class=\"mt-1.5 text-[11px] text-[#64748B]\"\u003e359.320 pontos para anunciar\u003c/p\u003e\r\n                  \u003cdiv class=\"mt-3 text-[10px] text-[#64748B]\"\u003e\r\n                    \u003cp\u003evalor médio\u003c/p\u003e\r\n                    \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eR$ 265,00 \u003cspan class=\"font-normal text-[#64748B]\"\u003e/2 semanas\u003c/span\u003e\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"filterPlpAmbience(\u0027onibus\u0027)\" class=\"rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition\"\u003e\r\n                  \u003cp class=\"text-xs font-bold text-[#282E38] leading-snug\"\u003eAnuncie em\u003cbr\u003eponto de ônibus\u003c/p\u003e\r\n                  \u003cp class=\"mt-1.5 text-[11px] text-[#64748B]\"\u003e4.973.751 pontos para anunciar\u003c/p\u003e\r\n                  \u003cdiv class=\"mt-3 text-[10px] text-[#64748B]\"\u003e\r\n                    \u003cp\u003evalor médio\u003c/p\u003e\r\n                    \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eR$ 5.081,00 \u003cspan class=\"font-normal text-[#64748B]\"\u003e/2 semanas\u003c/span\u003e\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"showToast(\u0027Filtrando ambiente: academias\u0027)\" class=\"rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition\"\u003e\r\n                  \u003cp class=\"text-xs font-bold text-[#282E38] leading-snug\"\u003eAnuncie em\u003cbr\u003eacademias\u003c/p\u003e\r\n                  \u003cp class=\"mt-1.5 text-[11px] text-[#64748B]\"\u003e188.450 pontos para anunciar\u003c/p\u003e\r\n                  \u003cdiv class=\"mt-3 text-[10px] text-[#64748B]\"\u003e\r\n                    \u003cp\u003evalor médio\u003c/p\u003e\r\n                    \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eR$ 1.158,00 \u003cspan class=\"font-normal text-[#64748B]\"\u003e/2 semanas\u003c/span\u003e\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Navegando próximos ambientes\u0027)\" class=\"hidden sm:flex w-8 h-8 rounded-full border border-gray-200 bg-white hover:bg-gray-50 items-center justify-center text-gray-500 shadow-2xs shrink-0 cursor-pointer\"\u003e›\u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- ================================================================= --\u003e\r\n          \u003c!-- SEÇÃO INFERIOR 2: FAQ \"Ficou com alguma dúvida?\" (2 Colunas)      --\u003e\r\n          \u003c!-- ================================================================= --\u003e\r\n          \u003cdiv class=\"mt-16 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start\"\u003e\r\n            \u003cdiv class=\"lg:col-span-5 lg:pt-12\"\u003e\r\n              \u003ch3 class=\"text-base font-bold text-[#282E38]\"\u003eFicou com alguma dúvida?\u003c/h3\u003e\r\n              \u003cp class=\"text-xs text-[#64748B] mt-1.5\"\u003eConfira as perguntas frequentes.\u003c/p\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Abrindo atendimento com especialista Aqui Ads (Helen)...\u0027)\" class=\"mt-4 px-4 py-2 rounded-md bg-[#282E38] hover:bg-[#1E2229] text-white text-xs font-bold cursor-pointer transition\"\u003e\r\n                fale com um especialista\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"lg:col-span-7 space-y-0\" id=\"ooh-faq-accordion\"\u003e\r\n              \u003c!-- Item 1 (Aberto por padrão com barra laranja esquerda) --\u003e\r\n              \u003cdiv class=\"faq-item border-l-[3px] border-[#FF4F00] pl-5 py-3 transition-all\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"toggleOohFaq(0)\" class=\"w-full text-left cursor-pointer\"\u003e\r\n                  \u003cp class=\"text-xs font-bold text-[#282E38] faq-title\"\u003eO que é o Aqui Ads?\u003c/p\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv class=\"faq-body mt-2 text-xs text-[#64748B] leading-relaxed\"\u003e\r\n                  O Aqui Ads é a plataforma que simplifica a compra de mídia para quem quer fazer campanhas de publicidade OOH (Out of Home).\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 2 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-[3px] border-[#E2E8F0] pl-5 py-3 transition-all\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"toggleOohFaq(1)\" class=\"w-full text-left cursor-pointer\"\u003e\r\n                  \u003cp class=\"text-sm font-semibold text-[#64748B] hover:text-[#282E38] faq-title\"\u003eO que significam as métricas de exibições, alcance e frequência?\u003c/p\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv class=\"faq-body hidden mt-2 text-xs text-[#64748B] leading-relaxed\"\u003e\r\n                  Exibições representam o total estimado de vezes que seu anúncio será exibido nas telas; Alcance estima quantas pessoas únicas passam pelo local; e Frequência é a média de vezes que cada pessoa vê o anúncio no período.\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 3 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-[3px] border-[#E2E8F0] pl-5 py-3 transition-all\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"toggleOohFaq(2)\" class=\"w-full text-left cursor-pointer\"\u003e\r\n                  \u003cp class=\"text-sm font-semibold text-[#64748B] hover:text-[#282E38] faq-title\"\u003eQuais são as opções de criação da arte do meu anúncio?\u003c/p\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv class=\"faq-body hidden mt-2 text-xs text-[#64748B] leading-relaxed\"\u003e\r\n                  Você pode enviar sua própria arte seguindo o gabarito técnico das telas, usar modelos prontos ou escolher a opção \"contrate uma arte\" por R$ 99,00 para nossa equipe produzir para você.\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 4 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-[3px] border-[#E2E8F0] pl-5 py-3 transition-all\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"toggleOohFaq(3)\" class=\"w-full text-left cursor-pointer\"\u003e\r\n                  \u003cp class=\"text-sm font-semibold text-[#64748B] hover:text-[#282E38] faq-title\"\u003eMoradores de prédios com telas da Eletromidia têm algum benefício para anunciar?\u003c/p\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv class=\"faq-body hidden mt-2 text-xs text-[#64748B] leading-relaxed\"\u003e\r\n                  Sim! Moradores e empresas instaladas em condomínios parceiros Eletromidia contam com condições especiais para anunciar no próprio edifício e no entorno.\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- ================================================================= --\u003e\r\n          \u003c!-- SEÇÃO INFERIOR 3: \"Anuncie em pontos estratégicos de São Paulo\"   --\u003e\r\n          \u003c!-- ================================================================= --\u003e\r\n          \u003cdiv class=\"mt-16 pt-6 pb-4\"\u003e\r\n            \u003ch3 class=\"text-base font-bold text-[#282E38] mb-5\"\u003eAnuncie em pontos estratégicos de São Paulo\u003c/h3\u003e\r\n            \u003cul class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-2.5 list-none p-0 m-0\"\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Avenida Paulista, São Paulo - SP\u0027; showToast(\u0027Região alterada: Avenida Paulista\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Avenida Paulista\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Faria Lima, São Paulo - SP\u0027; showToast(\u0027Região alterada: Faria Lima\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Faria Lima\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Barra Funda, São Paulo - SP\u0027; showToast(\u0027Região alterada: Barra Funda\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Barra Funda\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Tatuapé, São Paulo - SP\u0027; showToast(\u0027Região alterada: Tatuapé\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Tatuapé\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Jabaquara, São Paulo - SP\u0027; showToast(\u0027Região alterada: Jabaquara\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Jabaquara\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Vila Olímpia, São Paulo - SP\u0027; showToast(\u0027Região alterada: Vila Olímpia\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Vila Olímpia\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Santo Amaro, São Paulo - SP\u0027; showToast(\u0027Região alterada: Santo Amaro\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Santo Amaro\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Mooca, São Paulo - SP\u0027; showToast(\u0027Região alterada: Mooca\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Mooca\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Jardins, São Paulo - SP\u0027; showToast(\u0027Região alterada: Jardins\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Jardins\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Lapa, São Paulo - SP\u0027; showToast(\u0027Região alterada: Lapa\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Lapa\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Vila Prudente, São Paulo - SP\u0027; showToast(\u0027Região alterada: Vila Prudente\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Vila Prudente\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Alphaville, Barueri - SP\u0027; showToast(\u0027Região alterada: Alphaville\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Alphaville\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Santana, São Paulo - SP\u0027; showToast(\u0027Região alterada: Santana\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Santana\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Vila Mariana, São Paulo - SP\u0027; showToast(\u0027Região alterada: Vila Mariana\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Vila Mariana\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Pinheiros, São Paulo - SP\u0027; showToast(\u0027Região alterada: Pinheiros\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Pinheiros\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Osasco - SP\u0027; showToast(\u0027Região alterada: Osasco\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Osasco\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Santa Cruz, São Paulo - SP\u0027; showToast(\u0027Região alterada: Santa Cruz\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Santa Cruz\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Moema, São Paulo - SP\u0027; showToast(\u0027Região alterada: Moema\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Moema\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Butantã, São Paulo - SP\u0027; showToast(\u0027Região alterada: Butantã\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Butantã\u003c/a\u003e\u003c/li\u003e\r\n              \u003cli\u003e\u003ca href=\"#resultados\" onclick=\"event.preventDefault(); document.getElementById(\u0027plp-search-address\u0027).value=\u0027Diadema - SP\u0027; showToast(\u0027Região alterada: Diadema\u0027)\" class=\"text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]\"\u003eAnuncie em Diadema\u003c/a\u003e\u003c/li\u003e\r\n            \u003c/ul\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n        \u003c/div\u003e\u003c!-- /#plp-mode-ooh --\u003e\r\n\r\n        \u003c!-- =================================================================== --\u003e\r\n        \u003c!-- MODO 2 DA PÁGINA DE RESULTADOS: DIGITAL | GLOBO (FIEL AO PRINT 01)  --\u003e\r\n        \u003c!-- =================================================================== --\u003e\r\n        \u003cdiv id=\"plp-mode-digital\" class=\"hidden flex-1 bg-white pb-16\"\u003e\r\n          \u003c!-- Topo Branco com Cápsula de Busca (Onde | Período | Início | público | Lupa #FF4F00) e 7 Chips Retangulares --\u003e\r\n          \u003cdiv class=\"bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-12 pt-4 pb-3\"\u003e\r\n            \u003cdiv class=\"hide-on-mobile-frame max-w-[760px] mx-auto\"\u003e\r\n              \u003cdiv class=\"bg-white border border-[#E2E8F0] rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.05)] p-1.5 flex flex-wrap md:flex-nowrap items-center\"\u003e\r\n                \u003c!-- Campo 1: Onde --\u003e\r\n                \u003cdiv class=\"flex-1 min-w-[200px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8]\"\u003e\r\n                  \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003eOnde\u003c/label\u003e\r\n                  \u003cinput id=\"digital-search-location\" type=\"text\" value=\"\" oninput=\"updateDigitalTargetLocation(this.value)\" class=\"w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate\" placeholder=\"Busque por cidades ou estados\"\u003e\r\n                \u003c/div\u003e\r\n                \u003c!-- Campo 2: Período --\u003e\r\n                \u003cdiv class=\"w-1/2 md:w-[135px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer\" onclick=\"toggleOohSearchDuration()\"\u003e\r\n                  \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003ePeríodo\u003c/label\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                    \u003cspan id=\"digital-search-duration-label\"\u003e4 semanas\u003c/span\u003e\r\n                    \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n                \u003c!-- Campo 3: Início --\u003e\r\n                \u003cdiv class=\"w-1/2 md:w-[140px] px-4 py-1.5 border-r border-[#EDF2F8]\"\u003e\r\n                  \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003eInício\u003c/label\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                    \u003cspan id=\"digital-search-start-label\"\u003e28/10/2026\u003c/span\u003e\r\n                    \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n                \u003c!-- Botão \"público\" DENTRO da Cápsula à esquerda da lupa laranja (Fiel ao Print Oficial) --\u003e\r\n                \u003cbutton type=\"button\" onclick=\"showToast(\u0027Segmentação de público Digital | Globo\u0027)\" class=\"px-3.5 py-2 mx-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-semibold text-[#282E38] flex items-center gap-1.5 cursor-pointer shrink-0\"\u003e\r\n                  \u003csvg class=\"w-3.5 h-3.5 text-gray-700\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4\"/\u003e\u003c/svg\u003e\r\n                  \u003cspan\u003epúblico\u003c/span\u003e\r\n                \u003c/button\u003e\r\n                \u003c!-- Botão Lupa Laranja #FF4F00 --\u003e\r\n                \u003cbutton type=\"button\" onclick=\"showToast(\u0027Resultados Digital | Globo atualizados\u0027)\" class=\"w-[40px] h-[40px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shrink-0 cursor-pointer transition shadow-xs\"\u003e\r\n                  \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.3\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z\"/\u003e\u003c/svg\u003e\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- 7 Pílulas Retangulares com Borda Sutil e \"Todos\" ativo em #4E5D6C (Fiel ao Print Oficial) --\u003e\r\n                      \u003c!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) --\u003e\r\n          \u003cdiv class=\"only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden\"\u003e\r\n            \u003cdiv class=\"min-h-[52px] px-3.5 py-2 flex items-center gap-2.5\"\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#282E38] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\"/\u003e\u003c/svg\u003e\r\n              \u003cinput id=\"digital-search-location-mobile\" type=\"text\" value=\"\" oninput=\"updateDigitalTargetLocation(this.value); const d=document.getElementById(\u0027digital-search-location\u0027); if(d) d.value=this.value;\" class=\"w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate\" placeholder=\"Busque por cidades ou estados\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"const m=document.getElementById(\u0027digital-search-location-mobile\u0027); if(m){m.value=\u0027\u0027; m.focus();} const d=document.getElementById(\u0027digital-search-location\u0027); if(d) d.value=\u0027\u0027;\" class=\"w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0\" title=\"Limpar busca\"\u003e\u2715\u003c/button\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#6B6B6B] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"min-h-[46px] px-3.5 pb-3 flex items-center gap-2\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"toggleOohSearchDuration()\" class=\"w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition\"\u003e\r\n                \u003cspan class=\"plp-mobile-duration-label\"\u003e4 semanas\u003c/span\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#6B6B6B]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n              \u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Segmenta\u00e7\u00e3o de p\u00fablico Digital | Globo\u0027)\" class=\"w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition\"\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4\"/\u003e\u003c/svg\u003e\r\n                \u003cspan\u003ep\u00fablico\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n            \u003cdiv id=\"digital-category-chips\" class=\"max-w-[1310px] mx-auto px-4 lg:px-[40px] mt-4 flex items-center justify-center gap-2 flex-wrap\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Todos\u0027)\" data-cat=\"Todos\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-semibold bg-[#4E5D6C] border border-[#4E5D6C] text-white cursor-pointer transition\"\u003eTodos\u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Notícias \u0026 Grandes Portais\u0027)\" data-cat=\"Notícias \u0026 Grandes Portais\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eNotícias \u0026amp; Grandes Portais\u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Negócios e finanças\u0027)\" data-cat=\"Negócios e finanças\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eNegócios e finanças\u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Automotivo \u0026 Tecnologia\u0027)\" data-cat=\"Automotivo \u0026 Tecnologia\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eAutomotivo \u0026amp; Tecnologia\u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Estilo de Vida\u0027)\" data-cat=\"Estilo de Vida\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eEstilo de Vida\u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Casa \u0026 Família\u0027)\" data-cat=\"Casa \u0026 Família\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eCasa \u0026amp; Família\u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"filterDigitalCategory(\u0027Vídeo \u0026 Entretenimento\u0027)\" data-cat=\"Vídeo \u0026 Entretenimento\" class=\"dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition\"\u003eVídeo \u0026amp; Entretenimento\u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Seções Agrupadas de Produtos Digitais Globo (6 Seções x Grid 4 Colunas - Fiel ao Print Oficial) --\u003e\r\n          \u003cdiv class=\"apply-zoom mx-auto flex min-h-[60vh] w-full max-w-[1580px] px-4 lg:px-6 flex-col gap-10 py-8\" id=\"digital-sections-container\"\u003e\r\n            \u003c!-- Preenchido dinamicamente por renderDigitalPlp() --\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\u003c!-- /#plp-mode-digital --\u003e\r\n        \u003cdiv id=\"plp-mode-tv\" class=\"hidden\"\u003e\r\n          \u003cdiv class=\"bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-10 pt-4 pb-4\"\u003e\r\n            \u003cdiv class=\"hide-on-mobile-frame max-w-[688px] mx-auto bg-white border border-[#DFE7EF] rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-1.5 flex flex-wrap md:flex-nowrap items-center\"\u003e\r\n              \u003cdiv class=\"flex-1 min-w-[220px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8] relative\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003ePraça de exibição\u003c/label\u003e\r\n                \u003cdiv class=\"flex items-center justify-between gap-2\"\u003e\r\n                  \u003cinput type=\"text\" value=\"São Paulo e Região Metropolitana - SP\" class=\"w-full text-xs font-medium text-[#282E38] bg-transparent outline-none truncate\"\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"w-1/2 md:w-[150px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer\" onclick=\"toggleOohSearchDuration()\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003ePeríodo\u003c/label\u003e\r\n                \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                  \u003cspan\u003e2 semanas\u003c/span\u003e\r\n                  \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"w-1/2 md:w-[165px] px-4 py-1.5 cursor-pointer\" onclick=\"showToast(\u0027Selecionar data de início da campanha\u0027)\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003eInício\u003c/label\u003e\r\n                \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                  \u003cspan\u003e26/10/2026\u003c/span\u003e\r\n                  \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Atualizando programação e faixas comerciais de TV...\u0027)\" class=\"ml-auto w-[42px] h-[42px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shadow-xs cursor-pointer transition shrink-0\" title=\"Buscar faixas de TV\"\u003e\r\n                \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) --\u003e\r\n          \u003cdiv class=\"only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden\"\u003e\r\n            \u003cdiv class=\"min-h-[52px] px-3.5 py-2 flex items-center gap-2.5\"\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#282E38] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\"/\u003e\u003c/svg\u003e\r\n              \u003cinput id=\"tv-search-location-mobile\" type=\"text\" value=\"S\u00e3o Paulo e Regi\u00e3o Metropolitana - SP\" oninput=\"const d=document.getElementById(\u0027plp-search-address\u0027); if(d) d.value=this.value;\" class=\"w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate\" placeholder=\"Ex.: S\u00e3o Paulo e Regi\u00e3o Metropolitana - SP\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"const m=document.getElementById(\u0027tv-search-location-mobile\u0027); if(m){m.value=\u0027\u0027; m.focus();} const d=document.getElementById(\u0027plp-search-address\u0027); if(d) d.value=\u0027\u0027;\" class=\"w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0\" title=\"Limpar busca\"\u003e\u2715\u003c/button\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#6B6B6B] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"min-h-[46px] px-3.5 pb-3 flex items-center gap-2\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"toggleOohSearchDuration()\" class=\"w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition\"\u003e\r\n                \u003cspan class=\"plp-mobile-duration-label\"\u003e2 semanas\u003c/span\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#6B6B6B]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n              \u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Filtrando faixas comerciais de TV...\u0027)\" class=\"w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition\"\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4\"/\u003e\u003c/svg\u003e\r\n                \u003cspan\u003efiltrar\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n          \u003c/div\u003e\r\n          \u003cdiv class=\"apply-zoom max-w-[1580px] mx-auto px-4 lg:px-6 pt-6 pb-20\"\u003e\r\n            \u003cdiv class=\"mb-5\"\u003e\r\n              \u003ch2 class=\"text-lg font-extrabold text-[#282E38]\"\u003eTV Aberta \u0026amp; Pay TV | Globo\u003c/h2\u003e\r\n              \u003cp class=\"text-xs text-[#64748B] mt-0.5\"\u003eAnuncie nos intervalos comerciais de maior audiência da TV Globo e canais Globo na sua região.\u003c/p\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4\"\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"TV Globo Manhã\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e📺 TV Aberta Regional\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003eCPM R$ 42,00\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eComercial 30s - Manhã \u0026amp; Almoço\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eExibição regional nos intervalos do Bom Dia Praça, Encontro, Mais Você e SP1/Praça TV 1ª Edição.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold\"\u003eTV Globo\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eBom Dia SP\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eSP1\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 1.500,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 35,7 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Comercial 30s - Manhã e Almoço adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"TV Globo Tarde\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e📺 TV Aberta Regional\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003eCPM R$ 38,00\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eComercial 15s - Faixa Vespertina\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003ePresença com alta frequência durante Globo Esporte, Jornal Hoje, Edição Especial e Vale a Pena Ver de Novo.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold\"\u003eTV Globo\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eGlobo Esporte\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eTarde\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 1.200,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 31,5 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Comercial 15s - Faixa Vespertina adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"TV Globo Nobre\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e📺 Horário Nobre\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003eCPM R$ 65,00\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eComercial 30s - Noturno Regional\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eMáximo impacto regional nos intervalos do SP2/Praça TV 2ª Edição e novelas da faixa noturna.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold\"\u003eTV Globo\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eSP2\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eNovelas\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 3.000,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 46,1 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Comercial 30s - Noturno Regional adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"Canais Globo\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e📡 Pay TV Segmentada\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003eCPM R$ 48,00\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eSpot 30s - SporTV \u0026amp; GloboNews\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eAlcance qualificado em programação ao vivo de esportes e jornalismo 24h nos canais por assinatura Globo.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#06AA48] text-white text-[11px] font-bold\"\u003esportv\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#C4170C] text-white text-[11px] font-bold\"\u003eGloboNews\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 1.500,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 31,2 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Spot 30s - SporTV e GloboNews adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\u003c!-- /#plp-mode-tv --\u003e\r\n        \u003cdiv id=\"plp-mode-radio\" class=\"hidden\"\u003e\r\n          \u003cdiv class=\"bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-10 pt-4 pb-4\"\u003e\r\n            \u003cdiv class=\"hide-on-mobile-frame max-w-[688px] mx-auto bg-white border border-[#DFE7EF] rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-1.5 flex flex-wrap md:flex-nowrap items-center\"\u003e\r\n              \u003cdiv class=\"flex-1 min-w-[220px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8] relative\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003ePraça de transmissão\u003c/label\u003e\r\n                \u003cdiv class=\"flex items-center justify-between gap-2\"\u003e\r\n                  \u003cinput type=\"text\" value=\"São Paulo - SP (Dial FM + Streaming)\" class=\"w-full text-xs font-medium text-[#282E38] bg-transparent outline-none truncate\"\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"w-1/2 md:w-[150px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer\" onclick=\"toggleOohSearchDuration()\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003ePeríodo\u003c/label\u003e\r\n                \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                  \u003cspan\u003e2 semanas\u003c/span\u003e\r\n                  \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"w-1/2 md:w-[165px] px-4 py-1.5 cursor-pointer\" onclick=\"showToast(\u0027Selecionar data de início da campanha\u0027)\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-[#282E38] mb-0.5\"\u003eInício\u003c/label\u003e\r\n                \u003cdiv class=\"flex items-center justify-between text-xs font-medium text-[#282E38]\"\u003e\r\n                  \u003cspan\u003e26/10/2026\u003c/span\u003e\r\n                  \u003cspan class=\"text-gray-400 text-[10px]\"\u003e⌄\u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Atualizando emissoras de Rádio disponíveis...\u0027)\" class=\"ml-auto w-[42px] h-[42px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shadow-xs cursor-pointer transition shrink-0\" title=\"Buscar emissoras\"\u003e\r\n                \u003csvg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) --\u003e\r\n          \u003cdiv class=\"only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden\"\u003e\r\n            \u003cdiv class=\"min-h-[52px] px-3.5 py-2 flex items-center gap-2.5\"\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#282E38] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\"/\u003e\u003c/svg\u003e\r\n              \u003cinput id=\"radio-search-location-mobile\" type=\"text\" value=\"S\u00e3o Paulo - SP (Dial FM + Streaming)\" oninput=\"const d=document.getElementById(\u0027plp-search-address\u0027); if(d) d.value=this.value;\" class=\"w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate\" placeholder=\"Ex.: S\u00e3o Paulo - SP\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"const m=document.getElementById(\u0027radio-search-location-mobile\u0027); if(m){m.value=\u0027\u0027; m.focus();} const d=document.getElementById(\u0027plp-search-address\u0027); if(d) d.value=\u0027\u0027;\" class=\"w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0\" title=\"Limpar busca\"\u003e\u2715\u003c/button\u003e\r\n              \u003csvg class=\"w-4 h-4 text-[#6B6B6B] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"11\" cy=\"11\" r=\"8\"/\u003e\u003cpath stroke-linecap=\"round\" d=\"m21 21-4.3-4.3\"/\u003e\u003c/svg\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"min-h-[46px] px-3.5 pb-3 flex items-center gap-2\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"toggleOohSearchDuration()\" class=\"w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition\"\u003e\r\n                \u003cspan class=\"plp-mobile-duration-label\"\u003e2 semanas\u003c/span\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#6B6B6B]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n              \u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Filtrando emissoras de R\u00e1dio...\u0027)\" class=\"w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition\"\u003e\r\n                \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4\"/\u003e\u003c/svg\u003e\r\n                \u003cspan\u003efiltrar\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n          \u003c/div\u003e\r\n          \u003cdiv class=\"apply-zoom max-w-[1580px] mx-auto px-4 lg:px-6 pt-6 pb-20\"\u003e\r\n            \u003cdiv class=\"mb-5\"\u003e\r\n              \u003ch2 class=\"text-lg font-extrabold text-[#282E38]\"\u003eRádio \u0026amp; Áudio | Sistema Globo de Rádio\u003c/h2\u003e\r\n              \u003cp class=\"text-xs text-[#64748B] mt-0.5\"\u003eImpacte ouvintes no trânsito e ao longo do dia nas emissoras CBN, Rádio Globo e BH FM.\u003c/p\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4\"\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"CBN\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e📻 Dial FM + App\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003e30 inserções\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eSpot 30s - CBN (Jornalismo)\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eSpots comerciais de 30 segundos distribuídos nos horários de pico matutino e vespertino da rádio que toca notícia.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#C4170C] text-white text-[11px] font-bold\"\u003eCBN\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003e06h às 19h\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 1.200,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 48,0 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Spot 30s - CBN adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"Rádio Globo\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e📻 Dial FM + App\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003e25 inserções\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eSpot 30s - Rádio Globo\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eComerciais dinâmicos na programação musical, entretenimento e transmissões esportivas da Rádio Globo.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#FF6700] text-white text-[11px] font-bold\"\u003eRádio Globo\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eRotativo\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 950,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 42,5 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Spot 30s - Rádio Globo adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"BH FM\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e🎙️ Testemunhal\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003e10 menções\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eTestemunhal 60s - Comunicadores\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eMenção de alta credibilidade lida pelos apresentadores durante os programas líderes de audiência.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#C4170C] text-white text-[11px] font-bold\"\u003eCBN\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold\"\u003eBH FM\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 2.400,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 65,0 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Testemunhal 60s adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between\"\u003e\r\n                \u003cdiv class=\"relative h-[180px] bg-slate-900 overflow-hidden\"\u003e\r\n                  \u003cimg src=\"https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format\u0026fit=crop\u0026w=700\u0026q=80\" alt=\"Áudio Digital\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                  \u003cspan class=\"absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm\"\u003e🎧 Áudio Digital\u003c/span\u003e\r\n                  \u003cspan class=\"absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm\"\u003eCPM R$ 32,00\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"p-5 flex-1 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003ch3 class=\"text-base font-bold text-[#0c0a09] leading-snug\"\u003eÁudio 30s - Podcasts \u0026amp; Streaming\u003c/h3\u003e\r\n                    \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]\"\u003eAnúncios em áudio nos principais podcasts da Globo e no player ao vivo das rádios via web e app.\u003c/p\u003e\r\n                    \u003cdiv class=\"flex flex-wrap items-center gap-1.5 mt-3.5\"\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-[#9B51E0] text-white text-[11px] font-bold\"\u003ePodcasts Globo\u003c/span\u003e\r\n                      \u003cspan class=\"px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold\"\u003eStreaming\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003einvestimento\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]\"\u003eR$ 900,00\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cspan class=\"text-[12px] text-[#5f6b7a] block mb-1.5\"\u003eimpressões\u003c/span\u003e\r\n                        \u003cdiv class=\"h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]\"\u003e👁 28,1 mil\u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"mt-5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"showToast(\u0027Áudio 30s - Podcasts e Streaming adicionado à simulação!\u0027)\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eadicionar produto\u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\u003c!-- /#plp-mode-radio --\u003e\r\n        \u003cdiv id=\"plp-mode-combos\" class=\"hidden\"\u003e\r\n          \u003cdiv class=\"apply-zoom max-w-[1580px] mx-auto px-4 lg:px-6 pt-6 pb-20\"\u003e\r\n            \u003cdiv class=\"mb-6\"\u003e\r\n              \u003cspan class=\"inline-block bg-orange-100 text-[#FF4F00] text-[11px] font-extrabold px-2.5 py-0.5 rounded uppercase mb-1.5\"\u003ePacotes Multicanal\u003c/span\u003e\r\n              \u003ch2 class=\"text-lg font-extrabold text-[#282E38]\"\u003eCombos Aqui Ads (OOH + Digital | Globo)\u003c/h2\u003e\r\n              \u003cp class=\"text-xs text-[#64748B] mt-0.5\"\u003eCombinações prontas de telas OOH e formatos digitais nos portais Globo para acelerar sua campanha com alcance integrado.\u003c/p\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"grid grid-cols-1 md:grid-cols-3 gap-5\"\u003e\r\n              \u003carticle class=\"rounded-2xl border border-[#d9d9d9] bg-white p-6 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all flex flex-col justify-between\"\u003e\r\n                \u003cdiv\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between gap-2 mb-3\"\u003e\r\n                    \u003cspan class=\"px-2.5 py-1 rounded-md bg-orange-50 text-[#FF4F00] text-xs font-extrabold\"\u003eOOH + Digital\u003c/span\u003e\r\n                    \u003cspan class=\"text-xs font-semibold text-[#64748B]\"\u003e2 semanas\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003ch3 class=\"text-lg font-extrabold text-[#0c0a09]\"\u003eCombo Presença de Bairro\u003c/h3\u003e\r\n                  \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed\"\u003eIdeal para negócios locais: impacte moradores e trabalhadores nos elevadores da sua região e reforce sua marca no g1 e ge.\u003c/p\u003e\r\n                  \u003cul class=\"mt-4 space-y-2 text-xs text-[#282E38] border-t border-slate-100 pt-4\"\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e 3 pontos OOH em edifícios residenciais e comerciais\u003c/li\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e Display Portais Globo (g1, ge, gshow)\u003c/li\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e ~220 mil impressões estimadas\u003c/li\u003e\r\n                  \u003c/ul\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"mt-6 pt-4 border-t border-slate-100\"\u003e\r\n                  \u003cdiv class=\"flex items-baseline justify-between mb-4\"\u003e\r\n                    \u003cspan class=\"text-xs text-[#64748B]\"\u003eInvestimento total\u003c/span\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cstrong class=\"text-xl font-extrabold text-[#0c0a09]\"\u003eR$ 1.828,27\u003c/strong\u003e\r\n                      \u003cspan class=\"block text-[10px] text-[#64748B] text-right\"\u003eEm até 3x sem juros\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"window.AquiAdsUI.setCartPreset(\u0027hybrid\u0027, true); showScreen(\u0027view-resumo\u0027); showToast(\u0027Combo Presença de Bairro carregado no seu plano!\u0027);\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eselecionar combo\u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-2xl border-2 border-[#FF4F00] bg-white p-6 shadow-md transition-all flex flex-col justify-between relative\"\u003e\r\n                \u003cspan class=\"absolute -top-3 right-5 bg-[#FF4F00] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase shadow-2xs\"\u003eMais escolhido\u003c/span\u003e\r\n                \u003cdiv\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between gap-2 mb-3\"\u003e\r\n                    \u003cspan class=\"px-2.5 py-1 rounded-md bg-orange-50 text-[#FF4F00] text-xs font-extrabold\"\u003eOOH + Vídeo + Portais\u003c/span\u003e\r\n                    \u003cspan class=\"text-xs font-semibold text-[#64748B]\"\u003e2 semanas\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003ch3 class=\"text-lg font-extrabold text-[#0c0a09]\"\u003eCombo Alcance Regional\u003c/h3\u003e\r\n                  \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed\"\u003eCombina alta frequência em telas digitais OOH com formatos de alto impacto visual e vídeo nos portais da Globo.\u003c/p\u003e\r\n                  \u003cul class=\"mt-4 space-y-2 text-xs text-[#282E38] border-t border-slate-100 pt-4\"\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e 5 pontos OOH comerciais e residenciais de alto fluxo\u003c/li\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e Vídeo 15s + Display nos Portais Globo\u003c/li\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e ~380 mil impressões estimadas\u003c/li\u003e\r\n                  \u003c/ul\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"mt-6 pt-4 border-t border-slate-100\"\u003e\r\n                  \u003cdiv class=\"flex items-baseline justify-between mb-4\"\u003e\r\n                    \u003cspan class=\"text-xs text-[#64748B]\"\u003eInvestimento total\u003c/span\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cstrong class=\"text-xl font-extrabold text-[#0c0a09]\"\u003eR$ 3.490,00\u003c/strong\u003e\r\n                      \u003cspan class=\"block text-[10px] text-[#64748B] text-right\"\u003eEm até 3x sem juros\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"window.AquiAdsUI.setCartPreset(\u0027hybrid\u0027, true); showScreen(\u0027view-resumo\u0027); showToast(\u0027Combo Alcance Regional carregado no seu plano!\u0027);\" class=\"w-full h-10 bg-[#FF4F00] hover:bg-[#E04600] text-white font-bold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eselecionar combo\u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n              \u003carticle class=\"rounded-2xl border border-[#d9d9d9] bg-white p-6 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all flex flex-col justify-between\"\u003e\r\n                \u003cdiv\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between gap-2 mb-3\"\u003e\r\n                    \u003cspan class=\"px-2.5 py-1 rounded-md bg-orange-50 text-[#FF4F00] text-xs font-extrabold\"\u003eOOH + CTV + Portais\u003c/span\u003e\r\n                    \u003cspan class=\"text-xs font-semibold text-[#64748B]\"\u003e4 semanas\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003ch3 class=\"text-lg font-extrabold text-[#0c0a09]\"\u003eCombo Domínio 360º\u003c/h3\u003e\r\n                  \u003cp class=\"text-xs text-[#5f6b7a] mt-1.5 leading-relaxed\"\u003eCobertura completa durante 4 semanas nas principais vias, edifícios comerciais e telas conectadas Globoplay + Portais.\u003c/p\u003e\r\n                  \u003cul class=\"mt-4 space-y-2 text-xs text-[#282E38] border-t border-slate-100 pt-4\"\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e 8 pontos OOH (Comercial + Residencial + Rua)\u003c/li\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e Globoplay CTV + Display Portais Globo\u003c/li\u003e\r\n                    \u003cli class=\"flex items-center gap-2\"\u003e\u003cspan class=\"text-[#16A34A] font-bold\"\u003e✓\u003c/span\u003e ~610 mil impressões estimadas\u003c/li\u003e\r\n                  \u003c/ul\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"mt-6 pt-4 border-t border-slate-100\"\u003e\r\n                  \u003cdiv class=\"flex items-baseline justify-between mb-4\"\u003e\r\n                    \u003cspan class=\"text-xs text-[#64748B]\"\u003eInvestimento total\u003c/span\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cstrong class=\"text-xl font-extrabold text-[#0c0a09]\"\u003eR$ 5.890,00\u003c/strong\u003e\r\n                      \u003cspan class=\"block text-[10px] text-[#64748B] text-right\"\u003eEm até 3x sem juros\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"window.AquiAdsUI.setCartPreset(\u0027hybrid\u0027, true); showScreen(\u0027view-resumo\u0027); showToast(\u0027Combo Domínio 360º carregado no seu plano!\u0027);\" class=\"w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer\"\u003eselecionar combo\u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/article\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\u003c!-- /#plp-mode-combos --\u003e\r\n\r\n        \u003c!-- BARRA INFERIOR FIXA DA PÁGINA DE RESULTADOS (Fiel aos Prints 1 e 2 e resultados_ooh.html) --\u003e\r\n        \u003cdiv id=\"actions-bar-results\" class=\"sticky bottom-0 z-20 w-full border-t border-gray-200 bg-white py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.04)]\"\u003e\r\n          \u003cdiv class=\"apply-zoom w-full max-w-[1660px] mx-auto px-4 sm:px-6 lg:px-0 flex items-center justify-between gap-4\"\u003e\r\n            \u003cdiv id=\"plp-bar-summary-left\" class=\"flex items-center gap-6\"\u003e\r\n              \u003cdiv class=\"leading-tight\"\u003e\r\n                \u003cspan id=\"plp-bar-count-label\" class=\"block text-xs font-normal text-[#64748B]\"\u003e\u003cspan id=\"plp-bar-count\"\u003e0\u003c/span\u003e produtos selecionados\u003c/span\u003e\r\n                \u003cstrong class=\"block text-sm font-extrabold text-[#282E38] mt-0.5\"\u003eTotal \u003cspan id=\"plp-bar-total\"\u003eR$ 0,00\u003c/span\u003e\u003c/strong\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n            \u003cbutton id=\"resultpage_next-button\" type=\"button\" onclick=\"showScreen(\u0027view-resumo\u0027)\" class=\"bg-[#E2E8F0] text-[#94A3B8] cursor-not-allowed pointer-events-none ml-auto px-6 py-2.5 rounded-lg font-bold text-xs flex items-center gap-2\"\u003e\r\n              \u003cspan\u003econtinuar\u003c/span\u003e\r\n              \u003cspan\u003e→\u003c/span\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/section\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA 1.B: PÁGINA DE RESUMO (\"PLANO DE MÍDIA\" - FIEL AOS PRINTS OFICIAIS) --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cmain id=\"view-resumo\" class=\"view-section flex-1 bg-[#F8F9FA] pb-16\"\u003e\r\n        \u003cdiv class=\"max-w-[1220px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6\"\u003e\r\n          \u003c!-- Botão Voltar (Texto limpo sem caixa/borda, fiel ao print) --\u003e\r\n          \u003cdiv class=\"mb-4\"\u003e\r\n            \u003cbutton type=\"button\" onclick=\"showScreen(\u0027view-resultados\u0027)\" class=\"inline-flex items-center gap-1.5 text-xs font-bold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition\"\u003e\r\n              \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 19l-7-7 7-7\"/\u003e\u003c/svg\u003e\r\n              \u003cspan\u003evoltar\u003c/span\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Barra de Título \"Plano de mídia\" + 2 Botões à Direita --\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-4 mb-6\"\u003e\r\n            \u003ch1 class=\"text-xl font-bold text-[#282E38] tracking-tight\"\u003ePlano de mídia\u003c/h1\u003e\r\n            \u003cdiv class=\"flex items-center gap-2.5\"\u003e\r\n              \u003cbutton type=\"button\" onclick=\"openSaveDraftModal()\" class=\"border border-[#E2E8F0] rounded-lg px-3.5 py-2 text-xs font-semibold text-[#282E38] bg-white hover:bg-gray-50 inline-flex items-center gap-2 cursor-pointer transition\"\u003e\r\n                \u003csvg class=\"w-3.5 h-3.5 text-[#64748B]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4\"/\u003e\u003c/svg\u003e\r\n                \u003cspan\u003esalvar como rascunho\u003c/span\u003e\r\n              \u003c/button\u003e\r\n              \u003cbutton type=\"button\" onclick=\"showToast(\u0027Link da proposta copiado para a área de transferência!\u0027)\" class=\"border border-[#E2E8F0] rounded-lg px-3.5 py-2 text-xs font-semibold text-[#282E38] bg-white hover:bg-gray-50 inline-flex items-center gap-2 cursor-pointer transition\"\u003e\r\n                \u003csvg class=\"w-3.5 h-3.5 text-[#64748B]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z\"/\u003e\u003c/svg\u003e\r\n                \u003cspan\u003ecompartilhar proposta\u003c/span\u003e\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Grid Principal 2 Colunas (7 Colunas Esquerda: Acordeões | 5 Colunas Direita: Card Único) --\u003e\r\n          \u003cdiv class=\"grid grid-cols-1 lg:grid-cols-12 gap-6 items-start\"\u003e\r\n\r\n            \u003c!-- COLUNA ESQUERDA: ACORDEÕES DE MÍDIA (DIGITAL + OOH) --\u003e\r\n            \u003cdiv class=\"lg:col-span-7 space-y-5\"\u003e\r\n\r\n              \u003c!-- ACORDEÃO 1: DIGITAL --\u003e\r\n              \u003cdiv id=\"resumo-accordion-digital\" class=\"bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"toggleResumoAccordion(\u0027digital\u0027)\" class=\"w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer\"\u003e\r\n                    \u003cspan class=\"inline-flex items-center gap-2\"\u003e\r\n                      \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"12\" cy=\"12\" r=\"9\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.6 9h16.8M3.6 15h16.8M12 3a14.5 14.5 0 000 18M12 3a14.5 14.5 0 010 18\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan\u003eDigital\u003c/span\u003e\r\n                    \u003c/span\u003e\r\n                    \u003cspan id=\"resumo-acc-icon-digital\" class=\"w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 15l7-7 7 7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003cdiv id=\"resumo-acc-body-digital\" class=\"pt-4 space-y-4\"\u003e\r\n                  \u003c!-- Box Público Alvo (Grid 2x2 fiel aos prints) --\u003e\r\n                  \u003cdiv class=\"bg-[#F1F5F9] rounded-xl p-4\"\u003e\r\n                    \u003cdiv class=\"flex items-center justify-between mb-3\"\u003e\r\n                      \u003cp class=\"text-xs font-semibold text-[#475569]\"\u003ePúblico alvo\u003c/p\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"promptEditDigitalLocation()\" class=\"text-xs font-semibold text-[#2563EB] hover:underline cursor-pointer\"\u003e\r\n                        Editar\r\n                      \u003c/button\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"grid grid-cols-2 gap-y-3 gap-x-8 text-xs\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B]\"\u003elocal\u003c/p\u003e\r\n                        \u003cp id=\"resumo-target-local\" class=\"font-medium text-[#282E38] mt-0.5\"\u003eTodos\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B]\"\u003einteresse\u003c/p\u003e\r\n                        \u003cp id=\"resumo-target-interesse\" class=\"font-medium text-[#282E38] mt-0.5\"\u003eTodos\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B]\"\u003eidade\u003c/p\u003e\r\n                        \u003cp id=\"resumo-target-idade\" class=\"font-medium text-[#282E38] mt-0.5\"\u003eTodos\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B]\"\u003egênero\u003c/p\u003e\r\n                        \u003cp id=\"resumo-target-genero\" class=\"font-medium text-[#282E38] mt-0.5\"\u003eTodos\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Barra de Seleção em Lote Digital (Visível apenas quando há itens marcados) --\u003e\r\n                  \u003cdiv id=\"batch-bar-digital\" class=\"hidden items-center justify-between pt-1 pb-1 text-xs\"\u003e\r\n                    \u003clabel class=\"inline-flex items-center gap-2 font-medium text-gray-700 cursor-pointer select-none\"\u003e\r\n                      \u003cinput id=\"batch-check-all-digital\" type=\"checkbox\" onchange=\"toggleSelectAllChannel(\u0027digital\u0027, this.checked)\" class=\"w-4 h-4 rounded accent-[#FF4F00] cursor-pointer\"\u003e\r\n                      \u003cspan\u003eselecionar tudo\u003c/span\u003e\r\n                    \u003c/label\u003e\r\n                    \u003cbutton id=\"batch-btn-remove-digital\" type=\"button\" onclick=\"removeBatchSelected(\u0027digital\u0027)\" class=\"hidden px-3 py-1.5 rounded-lg bg-[#E75D4B] hover:bg-[#D64C3A] text-white text-xs font-bold items-center gap-1.5 cursor-pointer transition shadow-2xs\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan id=\"batch-remove-label-digital\"\u003eremover 1 do plano\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Lista de Itens Digitais no Plano --\u003e\r\n                  \u003cdiv id=\"resumo-digital-list\" class=\"divide-y divide-gray-100\"\u003e\r\n                    \u003c!-- Preenchido via JS populateResumoScreen() --\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- ACORDEÃO 2: OOH | OUT OF HOME · DIGITAL --\u003e\r\n              \u003cdiv id=\"resumo-accordion-ooh\" class=\"bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"toggleResumoAccordion(\u0027ooh\u0027)\" class=\"w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer\"\u003e\r\n                    \u003cdiv class=\"flex items-center gap-1.5\"\u003e\r\n                      \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan\u003eOOH | Out of Home\u003c/span\u003e\r\n                      \u003cspan class=\"text-sm font-normal text-[#64748B]\"\u003e· Digital\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cspan id=\"resumo-acc-icon-ooh\" class=\"w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 15l7-7 7 7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003cdiv id=\"resumo-acc-body-ooh\" class=\"pt-4 space-y-3\"\u003e\r\n                  \u003c!-- Barra de Seleção em Lote OOH (Visível apenas quando há itens marcados) --\u003e\r\n                  \u003cdiv id=\"batch-bar-ooh\" class=\"hidden items-center justify-between pt-1 pb-1 text-xs\"\u003e\r\n                    \u003clabel class=\"inline-flex items-center gap-2 font-medium text-gray-700 cursor-pointer select-none\"\u003e\r\n                      \u003cinput id=\"batch-check-all-ooh\" type=\"checkbox\" onchange=\"toggleSelectAllChannel(\u0027ooh\u0027, this.checked)\" class=\"w-4 h-4 rounded accent-[#FF4F00] cursor-pointer\"\u003e\r\n                      \u003cspan\u003eselecionar tudo\u003c/span\u003e\r\n                    \u003c/label\u003e\r\n                    \u003cbutton id=\"batch-btn-remove-ooh\" type=\"button\" onclick=\"removeBatchSelected(\u0027ooh\u0027)\" class=\"hidden px-3 py-1.5 rounded-lg bg-[#E75D4B] hover:bg-[#D64C3A] text-white text-xs font-bold items-center gap-1.5 cursor-pointer transition shadow-2xs\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan id=\"batch-remove-label-ooh\"\u003eremover 1 do plano\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Lista de Itens OOH no Plano --\u003e\r\n                  \u003cdiv id=\"resumo-ooh-list\" class=\"divide-y divide-gray-100\"\u003e\r\n                    \u003c!-- Preenchido via JS populateResumoScreen() --\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- ACORDEÃO 3: RÁDIO (Fiel ao Summary.vue c/ badge Confirmação por especialista) --\u003e\r\n              \u003cdiv id=\"resumo-accordion-radio\" class=\"bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"toggleResumoAccordion(\u0027radio\u0027)\" class=\"w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer\"\u003e\r\n                    \u003cdiv class=\"flex items-center gap-2 flex-wrap\"\u003e\r\n                      \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan\u003eRádio\u003c/span\u003e\r\n                      \u003cspan class=\"inline-flex items-center rounded-md bg-orange-50 px-2.5 py-0.5 text-[11px] font-medium text-[#FF4F00]\"\u003eConfirmação por especialista\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cspan id=\"resumo-acc-icon-radio\" class=\"w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform rotate-180\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 15l7-7 7 7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv id=\"resumo-acc-body-radio\" class=\"hidden pt-4 space-y-3\"\u003e\r\n                  \u003cdiv class=\"py-3 px-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3\"\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eNenhuma emissora de Rádio adicionada ao plano\u003c/p\u003e\r\n                      \u003cp class=\"text-[11px] text-[#64748B] mt-0.5\"\u003eCombine sua campanha com spots nas rádios líderes de audiência (CBN, Rádio Globo e BH FM).\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"showToast(\u0027Alternando para página de resultados Rádio...\u0027)\" class=\"px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer transition\"\u003eExplorar Rádio\u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- ACORDEÃO 4: TV --\u003e\r\n              \u003cdiv id=\"resumo-accordion-tv\" class=\"bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"toggleResumoAccordion(\u0027tv\u0027)\" class=\"w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer\"\u003e\r\n                    \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n                      \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003crect x=\"2\" y=\"7\" width=\"20\" height=\"15\" rx=\"2\" ry=\"2\"/\u003e\u003cpolyline points=\"17 2 12 7 7 2\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan\u003eTV\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cspan id=\"resumo-acc-icon-tv\" class=\"w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform rotate-180\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 15l7-7 7 7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv id=\"resumo-acc-body-tv\" class=\"hidden pt-4 space-y-3\"\u003e\r\n                  \u003cdiv class=\"py-3 px-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3\"\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eNenhum formato de TV adicionado ao plano\u003c/p\u003e\r\n                      \u003cp class=\"text-[11px] text-[#64748B] mt-0.5\"\u003eAmplie o alcance regional da sua marca anunciando na programação da TV Globo e canais por assinatura.\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"showToast(\u0027Alternando para página de resultados TV...\u0027)\" class=\"px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer transition\"\u003eExplorar TV\u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- ACORDEÃO 5: COMBOS --\u003e\r\n              \u003cdiv id=\"resumo-accordion-combos\" class=\"bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"toggleResumoAccordion(\u0027combos\u0027)\" class=\"w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer\"\u003e\r\n                    \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n                      \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan\u003eCombos\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cspan id=\"resumo-acc-icon-combos\" class=\"w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform rotate-180\"\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 15l7-7 7 7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv id=\"resumo-acc-body-combos\" class=\"hidden pt-4 space-y-3\"\u003e\r\n                  \u003cdiv class=\"py-3 px-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3\"\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cp class=\"text-xs font-bold text-[#282E38]\"\u003eNenhum Combo multicanal selecionado\u003c/p\u003e\r\n                      \u003cp class=\"text-[11px] text-[#64748B] mt-0.5\"\u003eConfira pacotes prontos combinando OOH + Digital com condições especiais.\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"showToast(\u0027Alternando para Combos...\u0027)\" class=\"px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer transition\"\u003eVer Combos\u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Botão Contratar Mais Produtos Largura Total --\u003e\r\n              \u003cdiv\u003e\r\n                \u003cbutton type=\"button\" onclick=\"showScreen(\u0027view-resultados\u0027)\" class=\"w-full py-2.5 rounded-lg border border-[#E2E8F0] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] cursor-pointer transition text-center\"\u003e\r\n                  contratar mais produtos\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- COLUNA DIREITA: CARD BRANCO ÚNICO CONSOLIDADO --\u003e\r\n            \u003cdiv class=\"lg:col-span-5\"\u003e\r\n              \u003cdiv class=\"bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs space-y-5\"\u003e\r\n\r\n                \u003c!-- SEÇÃO 1: CONFIGURE SEU ANÚNCIO --\u003e\r\n                \u003cdiv\u003e\r\n                  \u003ch2 class=\"text-sm font-bold text-[#282E38] mb-4\"\u003eConfigure seu anúncio\u003c/h2\u003e\r\n\r\n                  \u003c!-- Nome da campanha + contador alinhado à direita --\u003e\r\n                  \u003cdiv class=\"mb-3.5\"\u003e\r\n                    \u003clabel class=\"block text-[11px] text-[#64748B] mb-1.5\"\u003eNome da campanha\u003c/label\u003e\r\n                    \u003cinput id=\"resumo-camp-name\" type=\"text\" maxlength=\"30\" value=\"\" placeholder=\"Nome da campanha\" oninput=\"updateResumoCampaignName(this.value)\" class=\"w-full border border-[#E2E8F0] rounded-lg px-3.5 py-2 text-xs text-[#282E38] placeholder-[#94A3B8] focus:outline-none focus:border-[#FF4F00]\"\u003e\r\n                    \u003cdiv class=\"flex justify-end mt-1\"\u003e\r\n                      \u003cp id=\"resumo-char-count\" class=\"text-[10.5px] text-[#64748B]\"\u003e0/30 caracteres\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Grid Duração | Início | Fim (Com ícone de calendário à esquerda dentro de cada campo) --\u003e\r\n                  \u003cdiv class=\"grid grid-cols-3 gap-2.5 mb-3.5\"\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003clabel class=\"block text-[11px] text-[#64748B] mb-1\"\u003eduração\u003c/label\u003e\r\n                      \u003cdiv class=\"relative flex items-center border border-[#E2E8F0] rounded-lg px-2.5 py-2 bg-white focus-within:border-[#FF4F00]\"\u003e\r\n                        \u003csvg class=\"w-3.5 h-3.5 text-[#94A3B8] shrink-0 mr-1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003crect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16 2v4M8 2v4M3 10h18\"/\u003e\u003c/svg\u003e\r\n                        \u003cselect id=\"resumo-duration-select\" onchange=\"updateResumoDuration(this.value)\" class=\"w-full text-xs text-[#282E38] bg-transparent focus:outline-none cursor-pointer\"\u003e\r\n                          \u003coption id=\"resumo-dur-opt-agnostic\" value=\"agnostic\"\u003e— semanas\u003c/option\u003e\r\n                          \u003coption value=\"14\"\u003e2 semanas\u003c/option\u003e\r\n                          \u003coption value=\"28\"\u003e4 semanas\u003c/option\u003e\r\n                        \u003c/select\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003clabel class=\"block text-[11px] text-[#64748B] mb-1\"\u003einício\u003c/label\u003e\r\n                      \u003cdiv class=\"relative flex items-center border border-[#E2E8F0] rounded-lg px-2.5 py-2 bg-white focus-within:border-[#FF4F00]\"\u003e\r\n                        \u003csvg class=\"w-3.5 h-3.5 text-[#94A3B8] shrink-0 mr-1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003crect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16 2v4M8 2v4M3 10h18\"/\u003e\u003c/svg\u003e\r\n                        \u003cinput id=\"resumo-start-date\" type=\"text\" value=\"dd/mm/aaaa\" placeholder=\"dd/mm/aaaa\" onchange=\"updateResumoStartDate(this.value)\" class=\"w-full text-xs text-[#282E38] bg-transparent focus:outline-none\"\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003clabel class=\"block text-[11px] text-[#64748B] mb-1\"\u003efim\u003c/label\u003e\r\n                      \u003cdiv class=\"w-full border border-[#E2E8F0] rounded-lg px-2.5 py-2 text-xs text-[#64748B] bg-[#F8FAFC] select-none flex items-center gap-1.5\"\u003e\r\n                        \u003csvg class=\"w-3.5 h-3.5 text-[#94A3B8] shrink-0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003crect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16 2v4M8 2v4M3 10h18\"/\u003e\u003c/svg\u003e\r\n                        \u003cspan id=\"resumo-end-date\"\u003edd/mm/aaaa\u003c/span\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Tags de Resumo Dinâmicas --\u003e\r\n                  \u003cdiv id=\"resumo-summary-tags\" class=\"flex flex-wrap items-center gap-1.5\"\u003e\r\n                    \u003c!-- Preenchido via JS updateResumoRightCardUI() --\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003chr class=\"border-gray-100\"\u003e\r\n\r\n                \u003c!-- SEÇÃO 2: PERFORMANCE PROJETADA --\u003e\r\n                \u003cdiv\u003e\r\n                  \u003ch3 class=\"text-sm font-bold text-[#282E38] mb-3\"\u003ePerformance projetada\u003c/h3\u003e\r\n\r\n                  \u003c!-- Bloco Digital (Contextual) --\u003e\r\n                  \u003cdiv id=\"resumo-perf-digital-block\"\u003e\r\n                    \u003cp class=\"text-xs font-bold text-[#282E38] mb-2\"\u003eDigital\u003c/p\u003e\r\n                    \u003cdiv class=\"flex items-start gap-8\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B] flex items-center gap-1\"\u003e\r\n                          \u003cspan\u003eimpressões\u003c/span\u003e\r\n                          \u003cspan class=\"text-[10px] text-[#94A3B8]\"\u003e▷\u003c/span\u003e\r\n                        \u003c/p\u003e\r\n                        \u003cp id=\"resumo-perf-dig-imp\" class=\"text-xs font-extrabold text-[#282E38] mt-0.5\"\u003e—\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B]\"\u003eportais\u003c/p\u003e\r\n                        \u003cdiv id=\"resumo-perf-dig-portals\" class=\"flex items-center gap-1 flex-wrap mt-0.5 text-xs font-extrabold text-[#282E38]\"\u003e\r\n                          —\r\n                        \u003c/div\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Divisória entre Digital e OOH dentro de Performance projetada --\u003e\r\n                  \u003chr id=\"resumo-perf-divider\" class=\"border-gray-100 my-4\"\u003e\r\n\r\n                  \u003c!-- Bloco OOH | Out of Home (Contextual - 5 colunas na mesma linha) --\u003e\r\n                  \u003cdiv id=\"resumo-perf-ooh-block\"\u003e\r\n                    \u003cp class=\"text-xs font-bold text-[#282E38] mb-2\"\u003eOOH | Out of Home\u003c/p\u003e\r\n                    \u003cdiv class=\"grid grid-cols-5 gap-2 text-left\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B] flex items-center gap-0.5\"\u003e\u003cspan\u003eexibições\u003c/span\u003e\u003cspan class=\"text-[9px] text-[#94A3B8]\"\u003e▷\u003c/span\u003e\u003c/p\u003e\r\n                        \u003cp id=\"resumo-perf-ooh-views\" class=\"text-xs font-extrabold text-[#282E38] mt-0.5\"\u003e—\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B] flex items-center gap-0.5\"\u003e\u003cspan\u003ealcance\u003c/span\u003e\u003cspan class=\"text-[9px] text-[#94A3B8]\"\u003e👤\u003c/span\u003e\u003c/p\u003e\r\n                        \u003cp id=\"resumo-perf-ooh-reach\" class=\"text-xs font-extrabold text-[#282E38] mt-0.5\"\u003e—\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B] flex items-center gap-0.5\"\u003e\u003cspan\u003eimpacto\u003c/span\u003e\u003cspan class=\"text-[9px] text-[#94A3B8]\"\u003e🎯\u003c/span\u003e\u003c/p\u003e\r\n                        \u003cp id=\"resumo-perf-ooh-impact\" class=\"text-xs font-extrabold text-[#282E38] mt-0.5\"\u003e—\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B] flex items-center gap-0.5\"\u003e\u003cspan\u003efrequência\u003c/span\u003e\u003cspan class=\"text-[9px] text-[#94A3B8]\"\u003e↻\u003c/span\u003e\u003c/p\u003e\r\n                        \u003cp id=\"resumo-perf-ooh-freq\" class=\"text-xs font-extrabold text-[#282E38] mt-0.5\"\u003e—\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[11px] text-[#64748B] flex items-center gap-0.5\"\u003e\u003cspan\u003etelas\u003c/span\u003e\u003cspan class=\"text-[9px] text-[#94A3B8]\"\u003e🖥\u003c/span\u003e\u003c/p\u003e\r\n                        \u003cp id=\"resumo-perf-ooh-screens\" class=\"text-xs font-extrabold text-[#282E38] mt-0.5\"\u003e—\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003chr class=\"border-gray-100\"\u003e\r\n\r\n                \u003c!-- SEÇÃO 3: VALOR --\u003e\r\n                \u003cdiv\u003e\r\n                  \u003ch3 class=\"text-sm font-bold text-[#282E38] mb-3\"\u003eValor\u003c/h3\u003e\r\n                  \u003cdiv class=\"flex items-center gap-1.5 pb-3 mb-3 border-b border-gray-100\"\u003e\r\n                    \u003cspan class=\"text-xs text-[#64748B]\"\u003ePossui cupom?\u003c/span\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"showToast(\u0027Campo de cupom de desconto habilitado!\u0027)\" class=\"text-xs font-semibold text-[#10B981] hover:underline cursor-pointer\"\u003e\r\n                      Adicionar\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003cdiv class=\"space-y-2 text-xs mb-4\"\u003e\r\n                    \u003cdiv id=\"resumo-row-val-digital\" class=\"flex items-center justify-between text-[#475569]\"\u003e\r\n                      \u003cspan\u003eCampanha Digital\u003c/span\u003e\r\n                      \u003cspan id=\"resumo-val-digital\" class=\"font-medium text-[#282E38]\"\u003eR$ —\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv id=\"resumo-row-val-ooh\" class=\"flex items-center justify-between text-[#475569]\"\u003e\r\n                      \u003cspan\u003eCampanha Out of Home\u003c/span\u003e\r\n                      \u003cspan id=\"resumo-val-ooh\" class=\"font-medium text-[#282E38]\"\u003eR$ —\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"flex items-center justify-between font-bold text-[#282E38] pt-1\"\u003e\r\n                      \u003cspan\u003eSubtotal\u003c/span\u003e\r\n                      \u003cspan id=\"resumo-val-subtotal\"\u003eR$ —\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"flex items-center justify-between text-sm font-extrabold text-[#282E38] pt-2 border-t border-gray-100\"\u003e\r\n                      \u003cspan\u003eTotal\u003c/span\u003e\r\n                      \u003cspan id=\"resumo-val-total\"\u003eR$ —\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Aviso Informativo Fiel aos Prints --\u003e\r\n                  \u003cp class=\"text-[10.5px] text-[#64748B] flex items-center gap-1.5 mb-5\"\u003e\r\n                    \u003cspan class=\"text-gray-400\"\u003eⓘ\u003c/span\u003e\r\n                    \u003cspan\u003eOs planos de mídia podem sofrer alteração de valores e/ou disponibilidade de pontos sem aviso prévio.\u003c/span\u003e\r\n                  \u003c/p\u003e\r\n\r\n                  \u003c!-- Botões Enviar Criativo e Realizar Pagamento --\u003e\r\n                  \u003cdiv class=\"grid grid-cols-2 gap-3\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"openEnvioArteFromResumo()\" class=\"py-2.5 px-3 rounded-lg border border-[#E2E8F0] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] cursor-pointer transition text-center\"\u003e\r\n                      enviar criativo\r\n                    \u003c/button\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"goToPagamento()\" class=\"py-2.5 px-3 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer transition text-center shadow-xs\"\u003e\r\n                      realizar pagamento\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003cdiv id=\"hook-after-resumo-content\" class=\"mt-6\"\u003e\u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/main\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA 1.C: ENVIAR CRIATIVO (3 CAMINHOS + URL CONDICIONAL + TEMPLATES)  --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cmain id=\"view-envio-arte\" class=\"view-section flex-1 flex flex-col justify-between bg-white\"\u003e\r\n        \u003c!-- SUB-VIEW 1: CONFIGURE OS DETALHES DO SEU ANÚNCIO (FIEL AO PRINT OFICIAL 07) --\u003e\r\n        \u003cdiv id=\"art-subview-selecao\" class=\"max-w-[960px] w-full mx-auto px-4 sm:px-6 pt-10 pb-28\"\u003e\r\n          \u003cdiv class=\"mb-5\"\u003e\r\n            \u003ch1 class=\"text-xl font-bold text-[#282E38] tracking-tight\"\u003eConfigure os detalhes do seu anúncio\u003c/h1\u003e\r\n            \u003cp class=\"mt-1 text-xs text-[#64748B]\"\u003eCampanha: \u003cspan id=\"envio-arte-camp-name\" class=\"text-[#282E38]\"\u003e—\u003c/span\u003e\u003c/p\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Grid 3 Cards de Opção (Fiel ao Print Oficial) --\u003e\r\n          \u003cdiv class=\"grid grid-cols-1 md:grid-cols-3 gap-5 mb-8\"\u003e\r\n            \u003c!-- Opção 1: Enviar minha arte --\u003e\r\n            \u003cdiv id=\"art-method-card-upload\" onclick=\"selectArtCreationMethod(\u0027upload\u0027)\" class=\"rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-6 cursor-pointer transition flex flex-col\"\u003e\r\n              \u003c!-- Ilustração 148x136 em #F3F2EE (Notebook roxo + paisagem laranja + seta upload) --\u003e\r\n              \u003cdiv class=\"w-[148px] h-[136px] mx-auto mb-5 rounded-lg bg-[#F3F2EE] flex items-center justify-center\"\u003e\r\n                \u003csvg class=\"w-24 h-24\" viewBox=\"0 0 100 100\" fill=\"none\"\u003e\r\n                  \u003c!-- Base e tela do notebook roxo --\u003e\r\n                  \u003crect x=\"20\" y=\"34\" width=\"60\" height=\"40\" rx=\"3\" fill=\"#4C1D95\"/\u003e\r\n                  \u003crect x=\"24\" y=\"38\" width=\"52\" height=\"32\" rx=\"1.5\" fill=\"#DDD6FE\"/\u003e\r\n                  \u003cpath d=\"M13 74H87L83 80H17L13 74Z\" fill=\"#4C1D95\"/\u003e\r\n                  \u003c!-- Card de imagem laranja emergindo da tela --\u003e\r\n                  \u003crect x=\"33\" y=\"24\" width=\"34\" height=\"27\" rx=\"2.5\" fill=\"#FB923C\" stroke=\"#4C1D95\" stroke-width=\"2\"/\u003e\r\n                  \u003ccircle cx=\"42\" cy=\"32\" r=\"3\" fill=\"#FEF08A\"/\u003e\r\n                  \u003cpath d=\"M35 48L44 37L52 45L58 39L65 48H35Z\" fill=\"#EA580C\"/\u003e\r\n                  \u003c!-- Seta laranja de upload --\u003e\r\n                  \u003cpath d=\"M50 11L58 19H53V27H47V19H42L50 11Z\" fill=\"#F97316\"/\u003e\r\n                \u003c/svg\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"flex items-center gap-2 mb-2\"\u003e\r\n                \u003cinput id=\"radio-art-upload\" type=\"radio\" name=\"art_method\" class=\"w-3.5 h-3.5 accent-[#FF4F00] cursor-pointer\"\u003e\r\n                \u003ch3 class=\"text-xs font-bold text-[#282E38]\"\u003eEnviar minha arte\u003c/h3\u003e\r\n              \u003c/div\u003e\r\n              \u003cp class=\"text-[11px] text-[#64748B] leading-relaxed\"\u003eJá tem sua arte pronta? Faça o upload do arquivo para veicular seu anúncio.\u003c/p\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Opção 2: Utilizar modelos prontos --\u003e\r\n            \u003cdiv id=\"art-method-card-modelos\" onclick=\"selectArtCreationMethod(\u0027modelos\u0027)\" class=\"rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-6 cursor-pointer transition flex flex-col\"\u003e\r\n              \u003c!-- Ilustração 148x136 em #F3F2EE (Quadros 1 roxo e 2 verde + mão rosa) --\u003e\r\n              \u003cdiv class=\"w-[148px] h-[136px] mx-auto mb-5 rounded-lg bg-[#F3F2EE] flex items-center justify-center\"\u003e\r\n                \u003csvg class=\"w-24 h-24\" viewBox=\"0 0 100 100\" fill=\"none\"\u003e\r\n                  \u003c!-- Quadro 1 (roxo) --\u003e\r\n                  \u003crect x=\"20\" y=\"20\" width=\"32\" height=\"32\" rx=\"4\" fill=\"#6D28D9\"/\u003e\r\n                  \u003ctext x=\"36\" y=\"42\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-size=\"16\" font-weight=\"800\" font-family=\"Inter, sans-serif\"\u003e1\u003c/text\u003e\r\n                  \u003c!-- Quadro 2 (verde) --\u003e\r\n                  \u003crect x=\"46\" y=\"34\" width=\"32\" height=\"32\" rx=\"4\" fill=\"#34D399\" stroke=\"#4C1D95\" stroke-width=\"2\"/\u003e\r\n                  \u003ctext x=\"62\" y=\"56\" text-anchor=\"middle\" fill=\"#064E3B\" font-size=\"16\" font-weight=\"800\" font-family=\"Inter, sans-serif\"\u003e2\u003c/text\u003e\r\n                  \u003c!-- Mão rosa apontando --\u003e\r\n                  \u003cpath d=\"M40 78C40 70 45 64 51 64C55 64 58 67 60 72L62 78H40Z\" fill=\"#F472B6\"/\u003e\r\n                  \u003crect x=\"49\" y=\"55\" width=\"6\" height=\"14\" rx=\"3\" fill=\"#F472B6\"/\u003e\r\n                \u003c/svg\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"flex items-center gap-2 mb-2\"\u003e\r\n                \u003cinput id=\"radio-art-modelos\" type=\"radio\" name=\"art_method\" class=\"w-3.5 h-3.5 accent-[#FF4F00] cursor-pointer\"\u003e\r\n                \u003ch3 class=\"text-xs font-bold text-[#282E38]\"\u003eUtilizar modelos prontos\u003c/h3\u003e\r\n              \u003c/div\u003e\r\n              \u003cp class=\"text-[11px] text-[#64748B] leading-relaxed\"\u003ePersonalize modelos prontos e gere textos e imagens com IA para deixar o anúncio com a cara da sua marca.\u003c/p\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Opção 3: Contratar uma arte --\u003e\r\n            \u003cdiv id=\"art-method-card-contratar\" onclick=\"selectArtCreationMethod(\u0027contratar\u0027)\" class=\"rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-6 cursor-pointer transition flex flex-col justify-between\"\u003e\r\n              \u003cdiv\u003e\r\n                \u003c!-- Ilustração 148x136 em #F3F2EE (Tablet roxo isométrico + mão amarela desenhando) --\u003e\r\n                \u003cdiv class=\"w-[148px] h-[136px] mx-auto mb-5 rounded-lg bg-[#F3F2EE] flex items-center justify-center\"\u003e\r\n                  \u003csvg class=\"w-24 h-24\" viewBox=\"0 0 100 100\" fill=\"none\"\u003e\r\n                    \u003c!-- Tablet isométrico roxo --\u003e\r\n                    \u003crect x=\"20\" y=\"36\" width=\"48\" height=\"34\" rx=\"5\" transform=\"rotate(-12 20 36)\" fill=\"#5B21B6\"/\u003e\r\n                    \u003crect x=\"24\" y=\"40\" width=\"40\" height=\"26\" rx=\"2.5\" transform=\"rotate(-12 24 40)\" fill=\"#EDE9FE\"/\u003e\r\n                    \u003ccircle cx=\"43\" cy=\"49\" r=\"7\" fill=\"#F97316\"/\u003e\r\n                    \u003c!-- Caneta stylus e mão amarela --\u003e\r\n                    \u003cpath d=\"M52 46L74 24L79 29L57 51L50 53L52 46Z\" fill=\"#4C1D95\"/\u003e\r\n                    \u003cpath d=\"M62 36C67 34 74 37 77 43L82 53L67 58L59 45C58 41 59 37 62 36Z\" fill=\"#FACC15\"/\u003e\r\n                  \u003c/svg\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"flex items-center gap-2 mb-2\"\u003e\r\n                  \u003cinput id=\"radio-art-contratar\" type=\"radio\" name=\"art_method\" class=\"w-3.5 h-3.5 accent-[#FF4F00] cursor-pointer\"\u003e\r\n                  \u003ch3 class=\"text-xs font-bold text-[#282E38]\"\u003eContratar uma arte\u003c/h3\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[11px] text-[#64748B] leading-relaxed\"\u003eConte com o nosso time de criação para fazer sua arte.\u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003cdiv class=\"mt-3 pt-1\"\u003e\r\n                \u003cdiv class=\"text-[10px] text-gray-400 line-through\"\u003eR$ 199,99\u003c/div\u003e\r\n                \u003cdiv class=\"flex items-center justify-between gap-2 mt-0.5\"\u003e\r\n                  \u003cdiv class=\"flex items-center gap-1.5\"\u003e\r\n                    \u003cspan class=\"text-sm font-extrabold text-[#282E38]\"\u003eR$ 99,00\u003c/span\u003e\r\n                    \u003cspan class=\"bg-[#10B981] text-white text-[10px] font-bold px-2 py-0.5 rounded-full\"\u003e50% OFF\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"event.stopPropagation(); showToast(\u0027A equipe criativa produz todos os formatos da sua campanha em até 2 dias úteis.\u0027)\" class=\"text-[11px] font-semibold text-[#282E38] underline cursor-pointer\"\u003eSaiba mais\u003c/button\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"mt-2.5 w-full text-center bg-[#FFF0E6] text-[#FF4F00] text-[10px] font-medium px-2 py-1 rounded\"\u003e\r\n                  * Desconto válido até 31/10/2026.\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Bloco URL de destino (Direto no fundo branco, sem card cinza — Fiel ao Print Oficial) --\u003e\r\n          \u003cdiv id=\"block-url-destino\" class=\"pt-1 mb-6\"\u003e\r\n            \u003ch2 class=\"text-lg font-bold text-[#282E38] mb-1.5\"\u003eURL de destino\u003c/h2\u003e\r\n            \u003cp class=\"text-xs text-[#64748B] leading-relaxed\"\u003e\r\n              Escolha para onde o seu público será levado ao clicar em seu anúncio. A URL de destino passará por uma análise pelo nosso time técnico após a confirmação do pagamento.\r\n            \u003c/p\u003e\r\n            \u003cp class=\"text-xs text-[#64748B] mb-4 leading-relaxed\"\u003e\r\n              Confira nossas \u003cbutton type=\"button\" onclick=\"showToast(\u0027Políticas de conteúdo Aqui Ads\u0027)\" class=\"text-[#282E38] underline font-semibold cursor-pointer\"\u003ePolíticas de conteúdo\u003c/button\u003e.\r\n            \u003c/p\u003e\r\n            \u003cdiv\u003e\r\n              \u003cinput id=\"creative-dest-url\" type=\"url\" value=\"\" oninput=\"if(window.cartState) window.cartState.destinationUrl = this.value\" class=\"w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]\" placeholder=\"https://www.seusite.com.br\"\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Box Briefing quando \"Contratar uma arte\" estiver selecionado e avançar --\u003e\r\n          \u003cdiv id=\"block-briefing-contratar\" class=\"hidden bg-[#F8FAFC] rounded-xl border border-gray-200 p-5 mb-6\"\u003e\r\n            \u003ch2 class=\"text-sm font-bold text-[#282E38] mb-1\"\u003eBriefing para produção das peças\u003c/h2\u003e\r\n            \u003cp class=\"text-xs text-[#64748B] mb-3\"\u003eDescreva a mensagem principal, cores da marca e informações de contato que devem constar nos anúncios.\u003c/p\u003e\r\n            \u003ctextarea id=\"creative-briefing-text\" rows=\"3\" class=\"w-full border border-gray-300 rounded-lg p-3 text-xs text-[#282E38] bg-white mb-3 focus:outline-none focus:border-[#FF4F00]\" placeholder=\"Ex.: Destacar campanha institucional com chamada para canais digitais e endereço comercial.\"\u003e\u003c/textarea\u003e\r\n            \u003cbutton type=\"button\" onclick=\"showToast(\u0027Logotipo e manual da marca anexados ao briefing!\u0027)\" class=\"px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-gray-800 cursor-pointer\"\u003e\r\n              + Anexar logotipo e referências\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- SUB-VIEW 2: UPLOAD DE ARQUIVOS E PREVIEW INTERATIVO POR FORMATO (OOH 62PX + DIGITAL) --\u003e\r\n        \u003cdiv id=\"art-subview-upload\" class=\"hidden max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6\"\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-3 mb-5\"\u003e\r\n            \u003cbutton type=\"button\" onclick=\"backToArtSelection()\" class=\"px-3.5 py-1.5 border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 cursor-pointer\"\u003e\r\n              \u003cspan\u003e‹\u003c/span\u003e alterar forma de envio\r\n            \u003c/button\u003e\r\n            \u003cdiv class=\"text-xs text-gray-500\"\u003e\r\n              Campanha: \u003cstrong id=\"upload-subview-camp-name\" class=\"text-gray-900\"\u003e—\u003c/strong\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"flex flex-col lg:flex-row gap-6 items-start\"\u003e\r\n            \u003c!-- Sidebar Esquerda (lg:w-[410px]): Acordeões de Formatos Contratados --\u003e\r\n            \u003cdiv class=\"w-full lg:w-[410px] shrink-0 bg-white rounded-2xl border border-gray-200 p-5 shadow-2xs space-y-4\"\u003e\r\n              \u003cdiv class=\"flex items-center justify-between border-b border-gray-100 pb-3\"\u003e\r\n                \u003cdiv\u003e\r\n                  \u003ch2 class=\"text-base font-bold text-gray-900\"\u003eArquivos\u003c/h2\u003e\r\n                  \u003cp id=\"art-upload-progress-text\" class=\"text-xs text-gray-500 mt-0.5\"\u003e0 de 0 produtos prontos para publicação\u003c/p\u003e\r\n                \u003c/div\u003e\r\n                \u003cspan id=\"art-upload-status-badge\" class=\"bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-bold px-2.5 py-1 rounded-full\"\u003ePendente\u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Acordeão Upload Digital (Contextual) --\u003e\r\n              \u003cdiv id=\"upload-acc-digital\" class=\"border border-gray-200 rounded-xl p-3.5 space-y-3\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cspan class=\"text-xs font-bold text-gray-900\"\u003eDigital • Portais Globo\u003c/span\u003e\r\n                  \u003cspan id=\"upload-pill-digital\" class=\"text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded\"\u003e3 dimensões\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[11px] text-gray-500\"\u003eFormatos: 300x250px, 728x90px e 970x250px (JPG ou PNG até 150KB)\u003c/p\u003e\r\n                \u003cdiv class=\"grid grid-cols-3 gap-1.5\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"switchUploadFormatPreview(\u0027dig-300x250\u0027)\" class=\"px-2 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer\"\u003e300x250px\u003c/button\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"switchUploadFormatPreview(\u0027dig-728x90\u0027)\" class=\"px-2 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer\"\u003e728x90px\u003c/button\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"switchUploadFormatPreview(\u0027dig-970x250\u0027)\" class=\"px-2 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer\"\u003e970x250px\u003c/button\u003e\r\n                \u003c/div\u003e\r\n                \u003cbutton type=\"button\" onclick=\"simulateFormatFileUpload(\u0027digital\u0027)\" class=\"w-full py-2.5 px-3 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#FF4F00] text-xs font-bold text-[#FF4F00] bg-orange-50/20 cursor-pointer transition\"\u003e\r\n                  + Enviar criativos Digitais\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Acordeão Upload OOH (Contextual) --\u003e\r\n              \u003cdiv id=\"upload-acc-ooh\" class=\"border border-gray-200 rounded-xl p-3.5 space-y-3\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                  \u003cspan class=\"text-xs font-bold text-gray-900\"\u003eOOH • Telas Digitais\u003c/span\u003e\r\n                  \u003cspan id=\"upload-pill-ooh\" class=\"text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded\"\u003e2 dimensões\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[11px] text-gray-500\"\u003eFormatos: 800x600px (Elevador c/ régua 62px) e 1080x1920px Vertical\u003c/p\u003e\r\n                \u003cdiv class=\"grid grid-cols-2 gap-2\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"switchUploadFormatPreview(\u0027ooh-800x600\u0027)\" class=\"px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer\"\u003e800x600px (Elevador)\u003c/button\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"switchUploadFormatPreview(\u0027ooh-1080x1920\u0027)\" class=\"px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer\"\u003e1080x1920px (Vertical)\u003c/button\u003e\r\n                \u003c/div\u003e\r\n                \u003cbutton type=\"button\" onclick=\"simulateFormatFileUpload(\u0027ooh\u0027)\" class=\"w-full py-2.5 px-3 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#FF4F00] text-xs font-bold text-[#FF4F00] bg-orange-50/20 cursor-pointer transition\"\u003e\r\n                  + Enviar criativos OOH\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Área Direita de Preview Interativo --\u003e\r\n            \u003cdiv class=\"flex-1 w-full bg-[#F8FAFC] rounded-2xl border border-gray-200 p-6 min-h-[420px] flex flex-col justify-between\"\u003e\r\n              \u003cdiv class=\"flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-gray-200\"\u003e\r\n                \u003cdiv\u003e\r\n                  \u003cspan id=\"upload-preview-title\" class=\"text-xs font-bold text-gray-900\"\u003ePreview da peça • OOH 800x600px (Elevador Residencial)\u003c/span\u003e\r\n                  \u003cp id=\"upload-preview-subtitle\" class=\"text-[11px] text-gray-500\"\u003eVerifique as margens de segurança antes de prosseguir para o pagamento.\u003c/p\u003e\r\n                \u003c/div\u003e\r\n                \u003cspan class=\"text-[11px] font-semibold text-gray-600 bg-white border border-gray-200 px-2.5 py-1 rounded-lg\"\u003eVisualização em escala\u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Moldura Central do Preview --\u003e\r\n              \u003cdiv class=\"my-6 flex items-center justify-center\"\u003e\r\n                \u003cdiv id=\"upload-preview-canvas\" class=\"relative w-full max-w-[420px] h-[280px] rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 text-white p-6 flex flex-col justify-between overflow-hidden shadow-md\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cspan class=\"inline-block bg-[#FF4F00] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2\"\u003eVISUALIZAÇÃO DO FORMATO\u003c/span\u003e\r\n                    \u003ch4 id=\"upload-canvas-headline\" class=\"text-lg font-extrabold leading-snug\"\u003eSua marca presente nos principais pontos e portais\u003c/h4\u003e\r\n                    \u003cp class=\"text-xs text-gray-300 mt-1\"\u003ePeça demonstrativa validada nas especificações técnicas\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                  \u003c!-- Régua de Segurança 62px Eletromidia (Visível para OOH 800x600) --\u003e\r\n                  \u003cdiv id=\"upload-ooh-safety-ruler\" class=\"inset-x-0 bottom-0 h-11 bg-amber-500/90 text-gray-950 px-3 flex items-center justify-between text-[11px] font-bold rounded-lg\"\u003e\r\n                    \u003cspan\u003e⚠ Área da régua inferior Eletromidia (62px)\u003c/span\u003e\r\n                    \u003cspan\u003eNão posicionar textos aqui\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Barra Inferior do Upload --\u003e\r\n              \u003cdiv class=\"flex items-center justify-between pt-4 border-t border-gray-200\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"backToArtSelection()\" class=\"px-4 py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-gray-700 cursor-pointer\"\u003e\r\n                  voltar\r\n                \u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"goToPagamento()\" class=\"px-5 py-2.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer shadow-xs\"\u003e\r\n                  salvar e ir para pagamento →\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- SUB-VIEW 3: EDITOR DE MODELOS PRONTOS COM IA --\u003e\r\n        \u003cdiv id=\"art-subview-modelos\" class=\"hidden max-w-[1140px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6\"\u003e\r\n          \u003cdiv class=\"mb-4\"\u003e\r\n            \u003cbutton type=\"button\" onclick=\"backToArtSelection()\" class=\"px-3.5 py-1.5 border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 cursor-pointer\"\u003e\r\n              \u003cspan\u003e‹\u003c/span\u003e voltar para seleção\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"grid grid-cols-1 lg:grid-cols-12 gap-6 items-start bg-white rounded-2xl border border-gray-200 p-6 shadow-2xs\"\u003e\r\n            \u003cdiv class=\"lg:col-span-6 space-y-4\"\u003e\r\n              \u003cdiv class=\"flex items-center justify-between\"\u003e\r\n                \u003ch2 class=\"text-base font-bold text-gray-900\"\u003ePersonalizar modelo pronto\u003c/h2\u003e\r\n                \u003cbutton type=\"button\" onclick=\"generateAiCreativeCopy()\" class=\"px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF4F00] border border-orange-200 text-xs font-bold cursor-pointer hover:bg-orange-100\"\u003e\r\n                  ✦ Sugerir texto com IA\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv\u003e\r\n                \u003clabel class=\"block text-xs font-semibold text-gray-700 mb-1\"\u003eTítulo principal do anúncio\u003c/label\u003e\r\n                \u003cinput id=\"tpl-headline-input\" type=\"text\" value=\"\" placeholder=\"Digite o título principal do seu anúncio\" oninput=\"document.getElementById(\u0027tpl-preview-title\u0027).textContent=this.value || \u0027Título principal do seu anúncio\u0027\" class=\"w-full border border-gray-300 rounded-lg px-3.5 py-2 text-xs text-gray-900\"\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv\u003e\r\n                \u003clabel class=\"block text-xs font-semibold text-gray-700 mb-1\"\u003eChamada complementar / Site ou Contato\u003c/label\u003e\r\n                \u003cinput id=\"tpl-cta-input\" type=\"text\" value=\"\" placeholder=\"Digite a chamada complementar ou contato\" oninput=\"document.getElementById(\u0027tpl-preview-cta\u0027).textContent=this.value || \u0027Chamada complementar\u0027\" class=\"w-full border border-gray-300 rounded-lg px-3.5 py-2 text-xs text-gray-900\"\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"pt-3 flex items-center justify-end gap-3\"\u003e\r\n                \u003cbutton type=\"button\" onclick=\"backToArtSelection()\" class=\"px-4 py-2 rounded-lg border border-gray-300 text-xs font-bold text-gray-700 cursor-pointer\"\u003e\r\n                  cancelar\r\n                \u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"applyReadyTemplateAndContinue()\" class=\"px-5 py-2.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer shadow-xs\"\u003e\r\n                  aplicar modelo e avançar →\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003cdiv class=\"lg:col-span-6 flex items-center justify-center bg-[#F8FAFC] rounded-xl p-6 border border-gray-100\"\u003e\r\n              \u003cdiv class=\"bg-gradient-to-br from-[#FF4F00] to-[#B83200] rounded-2xl p-6 text-white text-center shadow-md w-full max-w-[320px]\"\u003e\r\n                \u003cspan class=\"inline-block bg-white/20 text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-3\"\u003eMODELO ADAPTÁVEL MULTICANAL\u003c/span\u003e\r\n                \u003ch4 id=\"tpl-preview-title\" class=\"text-base font-extrabold leading-snug mb-2\"\u003eTítulo principal do seu anúncio\u003c/h4\u003e\r\n                \u003cp id=\"tpl-preview-cta\" class=\"text-xs opacity-90\"\u003eChamada complementar\u003c/p\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- BARRA INFERIOR FIXA DA TELA DE ENVIO DE CRIATIVO (Fiel ao Print Oficial 07) --\u003e\r\n        \u003cdiv id=\"envio-arte-bottom-bar\" class=\"sticky bottom-0 z-20 w-full border-t border-gray-200 bg-white py-3.5\"\u003e\r\n          \u003cdiv class=\"w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-[60px] flex items-center justify-between gap-4\"\u003e\r\n            \u003cbutton type=\"button\" onclick=\"showScreen(\u0027view-resumo\u0027)\" class=\"px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-[#282E38] cursor-pointer transition\"\u003e\r\n              voltar\r\n            \u003c/button\u003e\r\n            \u003cbutton id=\"art-selection-next-btn\" type=\"button\" onclick=\"proceedFromArtSelection()\" class=\"px-5 py-2.5 rounded-lg bg-[#FF9B71] text-white text-xs font-semibold inline-flex items-center gap-2 cursor-not-allowed transition\"\u003e\r\n              \u003cspan\u003eavançar\u003c/span\u003e\r\n              \u003cspan\u003e→\u003c/span\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/main\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA 1.D: CHECKOUT / PAGAMENTO (FIEL AOS PRINTS OFICIAIS 08, 09 E 10) --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cmain id=\"view-pagamento\" class=\"view-section flex-1 bg-white pb-20\"\u003e\r\n        \u003cdiv class=\"max-w-[1140px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-8\"\u003e\r\n          \u003cdiv class=\"mb-6\"\u003e\r\n            \u003cbutton type=\"button\" onclick=\"showScreen(\u0027view-envio-arte\u0027)\" class=\"text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] inline-flex items-center gap-1.5 cursor-pointer transition\"\u003e\r\n              \u003cspan\u003e‹\u003c/span\u003e voltar\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Grid 2 Colunas (7 Colunas Esquerda: Dados Faturamento + PIX/Cartão | 5 Colunas Direita: Resumo de Valores + Dúvidas) --\u003e\r\n          \u003cdiv class=\"grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start\"\u003e\r\n\r\n            \u003c!-- COLUNA ESQUERDA (lg:col-span-7) --\u003e\r\n            \u003cdiv class=\"lg:col-span-7 space-y-7\"\u003e\r\n              \u003cdiv\u003e\r\n                \u003ch1 class=\"text-2xl font-bold text-[#282E38] tracking-tight\"\u003ePagamento\u003c/h1\u003e\r\n                \u003cp class=\"text-xs text-[#64748B] mt-2 leading-relaxed\"\u003eVocê está a um passo de concluir sua compra. Confirme os valores e selecione a forma de pagamento.\u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Seção 1: Dados de faturamento (Título fora do card + Card branco com divisória vertical + Concluir Cadastro abaixo) --\u003e\r\n              \u003cdiv\u003e\r\n                \u003ch2 class=\"text-base font-bold text-[#282E38] mb-3\"\u003eDados de faturamento\u003c/h2\u003e\r\n\r\n                \u003cdiv class=\"bg-white rounded-xl border border-gray-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4\"\u003e\r\n                  \u003cdiv class=\"flex-1 sm:pr-5 sm:border-r border-gray-200\"\u003e\r\n                    \u003cspan id=\"billing-profile-badge\" class=\"inline-block bg-[#282E38] text-white text-[10px] font-semibold px-2.5 py-0.5 rounded mb-2.5\"\u003epessoa física\u003c/span\u003e\r\n                    \u003cdiv class=\"text-xs space-y-1\"\u003e\r\n                      \u003cp id=\"billing-profile-name\" class=\"font-bold text-[#282E38] uppercase\"\u003e—\u003c/p\u003e\r\n                      \u003cp id=\"billing-profile-doc\" class=\"text-[#64748B]\"\u003e—\u003c/p\u003e\r\n                      \u003cp id=\"billing-profile-address\" class=\"text-[#64748B] leading-relaxed\"\u003e—\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003cdiv class=\"sm:pl-4 flex sm:flex-col items-center justify-center gap-3 shrink-0\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"showToast(\u0027Edição de dados de faturamento habilitada\u0027)\" class=\"px-4 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-medium text-[#282E38] inline-flex items-center gap-1.5 cursor-pointer transition\"\u003e\r\n                      \u003cspan\u003eeditar\u003c/span\u003e\r\n                      \u003csvg class=\"w-3.5 h-3.5 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z\"/\u003e\u003c/svg\u003e\r\n                    \u003c/button\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"toggleBillingProfile()\" class=\"text-xs font-medium text-[#282E38] hover:text-[#FF4F00] inline-flex items-center gap-1.5 cursor-pointer transition\"\u003e\r\n                      \u003cspan\u003etrocar perfil\u003c/span\u003e\r\n                      \u003cspan\u003e⇄\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003cp class=\"mt-2.5 text-[11px] text-[#282E38]\"\u003e\r\n                  Você ainda não concluiu seu cadastro de Pessoa Jurídica.\r\n                  \u003cbutton type=\"button\" onclick=\"toggleBillingProfile()\" class=\"text-[#FF4F00] underline font-medium cursor-pointer ml-0.5\"\u003eConcluir Cadastro\u003c/button\u003e\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Seção 2: Escolha o método de pagamento (PIX e Cartão de crédito desmarcados por padrão) --\u003e\r\n              \u003cdiv class=\"space-y-5\"\u003e\r\n                \u003cdiv\u003e\r\n                  \u003ch2 class=\"text-base font-bold text-[#282E38] mb-3\"\u003eEscolha o método de pagamento\u003c/h2\u003e\r\n\r\n                  \u003cdiv class=\"grid grid-cols-2 gap-4\"\u003e\r\n                    \u003c!-- Card PIX --\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"selectPaymentMethod(\u0027pix\u0027)\" id=\"pay-method-pix\" class=\"h-[88px] rounded-xl border border-gray-200 bg-white hover:border-gray-300 p-4 flex flex-col items-start justify-between text-left cursor-pointer transition\"\u003e\r\n                      \u003csvg class=\"w-5 h-5 text-[#282E38]\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 3l8.5 8.5a1 1 0 010 1.4L12 21.4a1 1 0 01-1.4 0L2.1 12.9a1 1 0 010-1.4L10.6 3a1 1 0 011.4 0z\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.5 8.5l7 7m0-7l-7 7\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan class=\"text-xs font-medium text-[#282E38]\"\u003ePIX\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n\r\n                    \u003c!-- Card Cartão de crédito --\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"selectPaymentMethod(\u0027card\u0027)\" id=\"pay-method-card\" class=\"h-[88px] rounded-xl border border-gray-200 bg-white hover:border-gray-300 p-4 flex flex-col items-start justify-between text-left cursor-pointer transition\"\u003e\r\n                      \u003csvg class=\"w-5 h-5 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\u003crect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2 10h20M6 15h4\"/\u003e\u003c/svg\u003e\r\n                      \u003cspan class=\"text-xs font-medium text-[#282E38]\"\u003eCartão de crédito\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Formulário Cartão de Crédito (Oculto por padrão até o usuário clicar em Cartão de crédito; sem caixa cinza) --\u003e\r\n                \u003cdiv id=\"pay-form-card\" class=\"hidden pt-2 space-y-4\"\u003e\r\n                  \u003ch3 class=\"text-base font-bold text-[#282E38]\"\u003eMétodo de pagamento - Cartão de crédito\u003c/h3\u003e\r\n\r\n                  \u003cdiv\u003e\r\n                    \u003clabel class=\"block text-xs font-bold text-[#282E38] mb-1.5\"\u003eNúmero do cartão\u003c/label\u003e\r\n                    \u003cinput type=\"text\" value=\"\" placeholder=\"0000 0000 0000 0000\" class=\"w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]\"\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003cdiv\u003e\r\n                    \u003clabel class=\"block text-xs font-bold text-[#282E38] mb-1.5\"\u003eNome do titular\u003c/label\u003e\r\n                    \u003cinput type=\"text\" value=\"\" placeholder=\"Preencha exatamente como está no cartão\" class=\"w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]\"\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003cdiv id=\"pay-card-row-fields\" class=\"grid grid-cols-12 gap-3\"\u003e\r\n                    \u003cdiv id=\"pay-card-col-val\" class=\"col-span-3\"\u003e\r\n                      \u003clabel class=\"block text-xs font-bold text-[#282E38] mb-1.5\"\u003eValidade\u003c/label\u003e\r\n                      \u003cinput type=\"text\" value=\"\" placeholder=\"00/00\" class=\"w-full border border-gray-300 rounded-lg px-3 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]\"\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv id=\"pay-card-col-cvv\" class=\"col-span-3\"\u003e\r\n                      \u003clabel class=\"block text-xs font-bold text-[#282E38] mb-1.5\"\u003eCVV\u003c/label\u003e\r\n                      \u003cinput type=\"text\" value=\"\" placeholder=\"000\" class=\"w-full border border-gray-300 rounded-lg px-3 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]\"\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv id=\"pay-card-col-inst\" class=\"col-span-6\"\u003e\r\n                      \u003clabel class=\"block text-xs font-bold text-[#282E38] mb-1.5\"\u003eSelecione as parcelas\u003c/label\u003e\r\n                      \u003cselect id=\"checkout-installments-select\" class=\"w-full border border-gray-300 rounded-lg px-3 py-2.5 text-xs text-[#282E38] bg-white focus:outline-none focus:border-[#FF4F00] cursor-pointer\"\u003e\r\n                        \u003c!-- Preenchido dinamicamente por populateCheckoutScreen() em até 3x sem juros --\u003e\r\n                      \u003c/select\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003clabel class=\"flex items-center gap-2 pt-1 cursor-pointer select-none\"\u003e\r\n                    \u003cinput type=\"checkbox\" class=\"w-4 h-4 rounded border-gray-300 accent-[#FF4F00]\"\u003e\r\n                    \u003cspan class=\"text-xs font-medium text-[#282E38]\"\u003eDeseja salvar este cartão?\u003c/span\u003e\r\n                  \u003c/label\u003e\r\n\r\n                  \u003cdiv class=\"pt-2 space-y-2.5\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"completeCheckoutPurchase()\" class=\"w-full py-3 px-4 rounded-lg bg-[#FF9B71] hover:bg-[#FF4F00] text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition\"\u003e\r\n                      \u003cspan\u003epagar\u003c/span\u003e\r\n                      \u003cspan\u003e✓\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"selectPaymentMethod(null)\" class=\"w-full py-2 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] flex items-center justify-center gap-1.5 cursor-pointer transition\"\u003e\r\n                      \u003cspan\u003e←\u003c/span\u003e\r\n                      \u003cspan\u003evoltar\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Painel PIX (Oculto por padrão até o usuário clicar em PIX) --\u003e\r\n                \u003cdiv id=\"pay-form-pix\" class=\"hidden pt-2 space-y-4\"\u003e\r\n                  \u003ch3 class=\"text-base font-bold text-[#282E38]\"\u003eMétodo de pagamento - PIX\u003c/h3\u003e\r\n                  \u003cdiv class=\"bg-white rounded-xl border border-gray-200 p-5 flex flex-col sm:flex-row items-center gap-5\"\u003e\r\n                    \u003cdiv class=\"w-28 h-28 rounded-xl bg-white border border-gray-200 p-2.5 flex items-center justify-center shrink-0\"\u003e\r\n                      \u003cdiv class=\"w-full h-full bg-[radial-gradient(#111827_2px,transparent_2px)] [background-size:8px_8px] rounded flex items-center justify-center\"\u003e\r\n                        \u003cspan class=\"bg-white px-2 py-0.5 text-[10px] font-extrabold text-gray-900 border border-gray-300 rounded\"\u003ePIX QR\u003c/span\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"space-y-2 text-xs text-[#64748B] flex-1\"\u003e\r\n                      \u003cp class=\"font-bold text-[#282E38]\"\u003eEscaneie o QR Code ou utilize o código Pix Copia e Cola\u003c/p\u003e\r\n                      \u003cp class=\"text-[11px]\"\u003eA confirmação do pagamento ocorre em poucos segundos e libera sua campanha automaticamente.\u003c/p\u003e\r\n                      \u003cdiv class=\"flex items-center gap-2 pt-1\"\u003e\r\n                        \u003cinput type=\"text\" readonly value=\"00020126580014br.gov.bcb.pix0136aqui-ads-pagamento-instantaneo\" class=\"w-full border border-gray-300 rounded-lg px-3 py-2 text-[11px] text-[#282E38] bg-white\"\u003e\r\n                        \u003cbutton type=\"button\" onclick=\"showToast(\u0027Código PIX Copia e Cola copiado!\u0027)\" class=\"px-3 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer\"\u003e\r\n                          Copiar\r\n                        \u003c/button\u003e\r\n                      \u003c/div\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"space-y-2.5\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"completeCheckoutPurchase()\" class=\"w-full py-3 px-4 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer transition\"\u003e\r\n                      Confirmar pagamento PIX\r\n                    \u003c/button\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"selectPaymentMethod(null)\" class=\"w-full py-2 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] flex items-center justify-center gap-1.5 cursor-pointer transition\"\u003e\r\n                      \u003cspan\u003e←\u003c/span\u003e\r\n                      \u003cspan\u003evoltar\u003c/span\u003e\r\n                    \u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Selo Pagamento Seguro (stone para Digital/Híbrido ou rede itaú para OOH exclusivo) --\u003e\r\n                \u003cdiv class=\"pt-4 flex flex-col items-center justify-center text-center gap-1\"\u003e\r\n                  \u003cspan class=\"text-[11px] text-[#64748B]\"\u003ePagamento seguro com\u003c/span\u003e\r\n                  \u003cdiv id=\"checkout-gateway-logo\" class=\"text-xl font-black tracking-tight text-[#16A34A]\"\u003estone\u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- COLUNA DIREITA (lg:col-span-5): RESUMO DE VALORES + TIRE SUAS DÚVIDAS --\u003e\r\n            \u003cdiv class=\"lg:col-span-5 space-y-5\"\u003e\r\n              \u003c!-- Card 1: Resumo de valores --\u003e\r\n              \u003cdiv class=\"bg-white rounded-xl border border-gray-200 p-6\"\u003e\r\n                \u003ch2 class=\"text-base font-bold text-[#282E38] mb-4\"\u003eResumo de valores\u003c/h2\u003e\r\n\r\n                \u003c!-- Linha Possui cupom? --\u003e\r\n                \u003cdiv class=\"flex items-center justify-between pb-3.5 border-b border-gray-100 text-xs\"\u003e\r\n                  \u003cspan class=\"text-[#282E38]\"\u003ePossui cupom?\u003c/span\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"promptCoupon()\" class=\"text-[#16A34A] underline font-medium cursor-pointer\"\u003eAdicionar\u003c/button\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Linhas de valores das campanhas + arte + subtotal --\u003e\r\n                \u003cdiv class=\"py-3.5 border-b border-gray-100 space-y-3 text-xs\"\u003e\r\n                  \u003cdiv id=\"checkout-row-digital\" class=\"flex items-center justify-between text-[#282E38]\"\u003e\r\n                    \u003cspan\u003eCampanha Digital\u003c/span\u003e\r\n                    \u003cspan id=\"checkout-val-digital\" class=\"font-bold text-[#282E38]\"\u003eR$ —\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv id=\"checkout-row-ooh\" class=\"flex items-center justify-between text-[#282E38]\"\u003e\r\n                    \u003cspan\u003eCampanha Out of Home\u003c/span\u003e\r\n                    \u003cspan id=\"checkout-val-ooh\" class=\"font-bold text-[#282E38]\"\u003eR$ —\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv id=\"checkout-row-creative-fee\" class=\"hidden flex items-center justify-between text-[#282E38]\"\u003e\r\n                    \u003cspan\u003eServiço de criação de arte\u003c/span\u003e\r\n                    \u003cdiv class=\"flex items-center gap-1.5\"\u003e\r\n                      \u003cbutton type=\"button\" onclick=\"removeCreativeServiceFromCheckout()\" class=\"text-gray-500 hover:text-red-600 cursor-pointer\" title=\"Remover criação de arte\"\u003e\r\n                        \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16\"/\u003e\u003c/svg\u003e\r\n                      \u003c/button\u003e\r\n                      \u003cspan class=\"text-[11px] text-gray-400 line-through\"\u003eR$ 299,99\u003c/span\u003e\r\n                      \u003cspan id=\"checkout-val-creative\" class=\"font-bold text-[#282E38]\"\u003eR$ 199,99\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between font-bold text-[#282E38] pt-1\"\u003e\r\n                    \u003cspan\u003eSubtotal\u003c/span\u003e\r\n                    \u003cspan id=\"checkout-val-subtotal\" class=\"font-bold text-[#282E38]\"\u003eR$ —\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cp id=\"checkout-globo-cnpj\" class=\"text-[9px] text-[#64748B] uppercase tracking-tight pt-0.5\"\u003e\r\n                    * GLOBO COMUNICACAO E PARTICIPACOES S/A – CNPJ 27.865.757/0006-65\r\n                  \u003c/p\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Linha Total --\u003e\r\n                \u003cdiv class=\"pt-3.5\"\u003e\r\n                  \u003cdiv class=\"flex items-center justify-between text-base font-extrabold text-[#282E38]\"\u003e\r\n                    \u003cspan\u003eTotal\u003c/span\u003e\r\n                    \u003cspan id=\"checkout-val-total\"\u003eR$ —\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cp id=\"checkout-terms-note\" class=\"text-[11px] text-[#64748B] mt-3 leading-relaxed\"\u003e\r\n                    Ao fazer o pedido, você concorda com os \u003ca href=\"javascript:void(0)\" onclick=\"showToast(\u0027Abrindo Termos e Condições de uso...\u0027)\" class=\"text-[#FF4F00] underline\"\u003eTermos e Condições de uso\u003c/a\u003e.\r\n                  \u003c/p\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Card 2: Tire suas dúvidas (Acordeão Oficial + mais perguntas + Fale com o nosso time) --\u003e\r\n              \u003cdiv class=\"bg-white rounded-xl border border-gray-200 p-6\"\u003e\r\n                \u003ch3 class=\"text-base font-bold text-[#282E38] mb-3\"\u003eTire suas dúvidas\u003c/h3\u003e\r\n\r\n                \u003cdiv class=\"divide-y divide-gray-200 border-b border-gray-200\"\u003e\r\n                  \u003c!-- Item Condicional: Sobre a contratação de uma arte (visível quando há arte contratada) --\u003e\r\n                  \u003cdiv id=\"checkout-faq-art\" class=\"hidden py-3\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"toggleCheckoutFaq(\u0027art\u0027)\" class=\"w-full flex items-center justify-between text-left text-xs font-medium text-[#282E38] hover:text-[#FF4F00] cursor-pointer\"\u003e\r\n                      \u003cspan\u003eSobre a contratação de uma arte\u003c/span\u003e\r\n                      \u003csvg id=\"checkout-faq-icon-art\" class=\"w-4 h-4 text-gray-500 transition-transform\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/button\u003e\r\n                    \u003cp id=\"checkout-faq-body-art\" class=\"hidden mt-2 text-[11px] text-[#64748B] leading-relaxed\"\u003e\r\n                      Ao contratar uma arte, nossa equipe criará as peças nos formatos exatos da sua campanha após a confirmação do pagamento.\r\n                    \u003c/p\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Item 1: Métodos de pagamentos disponíveis --\u003e\r\n                  \u003cdiv class=\"py-3\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"toggleCheckoutFaq(\u0027methods\u0027)\" class=\"w-full flex items-center justify-between text-left text-xs font-medium text-[#282E38] hover:text-[#FF4F00] cursor-pointer\"\u003e\r\n                      \u003cspan\u003eMétodos de pagamentos disponíveis\u003c/span\u003e\r\n                      \u003csvg id=\"checkout-faq-icon-methods\" class=\"w-4 h-4 text-gray-500 transition-transform\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/button\u003e\r\n                    \u003cp id=\"checkout-faq-body-methods\" class=\"hidden mt-2 text-[11px] text-[#64748B] leading-relaxed\"\u003e\r\n                      Aceitamos pagamentos via PIX (com liberação instantânea) e Cartão de crédito em até 3x sem juros.\r\n                    \u003c/p\u003e\r\n                  \u003c/div\u003e\r\n\r\n                  \u003c!-- Item 2: Regras de parcelamento e boleto --\u003e\r\n                  \u003cdiv class=\"py-3\"\u003e\r\n                    \u003cbutton type=\"button\" onclick=\"toggleCheckoutFaq(\u0027installments\u0027)\" class=\"w-full flex items-center justify-between text-left text-xs font-medium text-[#282E38] hover:text-[#FF4F00] cursor-pointer\"\u003e\r\n                      \u003cspan\u003eRegras de parcelamento e boleto\u003c/span\u003e\r\n                      \u003csvg id=\"checkout-faq-icon-installments\" class=\"w-4 h-4 text-gray-500 transition-transform\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/\u003e\u003c/svg\u003e\r\n                    \u003c/button\u003e\r\n                    \u003cp id=\"checkout-faq-body-installments\" class=\"hidden mt-2 text-[11px] text-[#64748B] leading-relaxed\"\u003e\r\n                      O parcelamento no cartão de crédito pode ser feito em até 3x sem juros.\r\n                    \u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003cdiv class=\"mt-4 space-y-3\"\u003e\r\n                  \u003cbutton type=\"button\" onclick=\"showToast(\u0027Abrindo central de ajuda completa...\u0027)\" class=\"text-xs font-medium text-[#282E38] hover:text-[#FF4F00] flex items-center gap-2 cursor-pointer transition\"\u003e\r\n                    \u003csvg class=\"w-4 h-4 text-[#282E38]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003ccircle cx=\"12\" cy=\"12\" r=\"9\"/\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v8m-4-4h8\"/\u003e\u003c/svg\u003e\r\n                    \u003cspan class=\"underline\"\u003emais perguntas\u003c/span\u003e\r\n                  \u003c/button\u003e\r\n\r\n                  \u003cbutton type=\"button\" onclick=\"showToast(\u0027Atendimento com a Helen iniciado!\u0027)\" class=\"text-xs font-medium text-[#282E38] hover:text-[#FF4F00] flex items-center gap-2 cursor-pointer transition\"\u003e\r\n                    \u003csvg class=\"w-4 h-4 text-[#FF4F00]\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z\"/\u003e\u003c/svg\u003e\r\n                    \u003cspan class=\"underline\"\u003eFale com o nosso time\u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/main\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA 2: LISTAGEM \"MEUS ANÚNCIOS\" (PLANOS DE MÍDIA + RASCUNHOS LIMPOS) --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cmain id=\"screen-list\" class=\"view-section flex-1 max-w-[1140px] w-full mx-auto px-6 md:px-10 py-8 responsive-main-padding\"\u003e\r\n\r\n        \u003ch2 class=\"text-[22px] font-bold text-gray-900 tracking-tight mb-6\"\u003eMeus Anúncios\u003c/h2\u003e\r\n\r\n        \u003c!-- Abas Superiores: Planos de mídia (19) | Rascunhos (4) --\u003e\r\n        \u003cdiv class=\"flex items-center gap-6 border-b border-gray-200 mb-5\"\u003e\r\n          \u003cbutton onclick=\"switchTopTab(\u0027planos\u0027)\" id=\"top-tab-planos\" class=\"pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] transition cursor-pointer\"\u003e\r\n            Planos de mídia (19)\r\n          \u003c/button\u003e\r\n          \u003cbutton onclick=\"switchTopTab(\u0027rascunhos\u0027)\" id=\"top-tab-rascunhos\" class=\"pb-2.5 text-xs font-medium text-gray-500 hover:text-gray-800 border-b-2 border-transparent transition cursor-pointer\"\u003e\r\n            Rascunhos (\u003cspan id=\"drafts-tab-count\"\u003e4\u003c/span\u003e)\r\n          \u003c/button\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- CONTEÚDO DA ABA PLANOS DE MÍDIA --\u003e\r\n        \u003cdiv id=\"tab-content-planos\"\u003e\r\n          \u003c!-- Barra Cinza de Filtros (#F3F4F6) fiel ao print 01 + Quick Win 3 --\u003e\r\n          \u003cdiv class=\"bg-[#F3F4F6] rounded-xl p-4 md:p-5 mb-4\"\u003e\r\n            \u003cdiv class=\"grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end responsive-filter-row\"\u003e\r\n              \u003c!-- Nome, ID ou Endereço --\u003e\r\n              \u003cdiv class=\"md:col-span-3\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eNome, ID ou Endereço\u003c/label\u003e\r\n                \u003cdiv class=\"relative\"\u003e\r\n                  \u003cspan class=\"absolute inset-y-0 left-0 pl-2.5 flex items-center text-gray-400\"\u003e\r\n                    \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\"/\u003e\u003c/svg\u003e\r\n                  \u003c/span\u003e\r\n                  \u003cinput type=\"text\" id=\"filter-search\" oninput=\"applyCampaignFilters()\" placeholder=\"Nome, #ID, cidade ou endereço...\" class=\"w-full bg-white border border-gray-200 rounded-md pl-8 pr-3 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Data de início --\u003e\r\n              \u003cdiv class=\"md:col-span-2\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eData de início\u003c/label\u003e\r\n                \u003cdiv class=\"relative\"\u003e\r\n                  \u003cinput type=\"text\" id=\"filter-date-start\" oninput=\"applyCampaignFilters()\" placeholder=\"dd/mm/aaaa\" class=\"w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n                  \u003cspan class=\"absolute inset-y-0 right-0 pr-2.5 flex items-center text-gray-400 pointer-events-none\"\u003e\r\n                    \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\"/\u003e\u003c/svg\u003e\r\n                  \u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Data de fim --\u003e\r\n              \u003cdiv class=\"md:col-span-2\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eData de fim\u003c/label\u003e\r\n                \u003cdiv class=\"relative\"\u003e\r\n                  \u003cinput type=\"text\" id=\"filter-date-end\" oninput=\"applyCampaignFilters()\" placeholder=\"dd/mm/aaaa\" class=\"w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n                  \u003cspan class=\"absolute inset-y-0 right-0 pr-2.5 flex items-center text-gray-400 pointer-events-none\"\u003e\r\n                    \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\"/\u003e\u003c/svg\u003e\r\n                  \u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Pílulas de Status --\u003e\r\n              \u003cdiv class=\"md:col-span-5\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eStatus\u003c/label\u003e\r\n                \u003cdiv class=\"flex flex-wrap items-center gap-1.5\"\u003e\r\n                  \u003cbutton onclick=\"setStatusFilter(\u0027todos\u0027)\" data-status=\"todos\" class=\"status-pill px-3 py-1 rounded-full text-[11px] font-semibold bg-[#1E2229] text-white border border-[#1E2229] transition cursor-pointer\"\u003etodos\u003c/button\u003e\r\n                  \u003cbutton onclick=\"setStatusFilter(\u0027pendentes\u0027)\" data-status=\"pendentes\" class=\"status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer\"\u003ependentes\u003c/button\u003e\r\n                  \u003cbutton onclick=\"setStatusFilter(\u0027veiculando\u0027)\" data-status=\"veiculando\" class=\"status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer\"\u003eveiculando\u003c/button\u003e\r\n                  \u003cbutton onclick=\"setStatusFilter(\u0027a_iniciar\u0027)\" data-status=\"a_iniciar\" class=\"status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer\"\u003ea iniciar\u003c/button\u003e\r\n                  \u003cbutton onclick=\"setStatusFilter(\u0027concluidos\u0027)\" data-status=\"concluidos\" class=\"status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer\"\u003econcluídos\u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Linha 2 de Filtro Rápido (Quick Win 3): Formato / Canal + Limpar Filtros --\u003e\r\n            \u003cdiv class=\"mt-3.5 pt-3 border-t border-gray-200/80 flex flex-wrap items-center justify-between gap-2\"\u003e\r\n              \u003cdiv class=\"flex flex-wrap items-center gap-2\"\u003e\r\n                \u003cspan class=\"text-[11px] font-bold text-gray-700 mr-1\"\u003eFormato / Canal:\u003c/span\u003e\r\n                \u003cbutton onclick=\"setChannelFilter(\u0027todos\u0027)\" data-channel=\"todos\" class=\"channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#1E2229] text-white border border-[#1E2229] transition cursor-pointer\"\u003eTodos\u003c/button\u003e\r\n                \u003cbutton onclick=\"setChannelFilter(\u0027OOH\u0027)\" data-channel=\"OOH\" class=\"channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer\"\u003eOOH\u003c/button\u003e\r\n                \u003cbutton onclick=\"setChannelFilter(\u0027Digital\u0027)\" data-channel=\"Digital\" class=\"channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer\"\u003eDigital | Globo\u003c/button\u003e\r\n                \u003cbutton onclick=\"setChannelFilter(\u0027Hibrida\u0027)\" data-channel=\"Hibrida\" class=\"channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer\"\u003eHíbrida (OOH + Digital)\u003c/button\u003e\r\n              \u003c/div\u003e\r\n              \u003cbutton onclick=\"resetAllFilters()\" class=\"text-[11px] font-bold text-[#FF5A00] hover:underline cursor-pointer\"\u003e\r\n                Limpar filtros\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Subtítulo e Botões \"ver em lista\" / \"ordenar\" --\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-2 mb-4\"\u003e\r\n            \u003cp class=\"text-xs text-gray-500\" id=\"results-counter-text\"\u003e\r\n              Aqui estão suas campanhas já contratadas, com status ativo, pendente, concluído ou cancelado.\r\n            \u003c/p\u003e\r\n            \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n              \u003cbutton onclick=\"toggleListViewMode()\" id=\"toggle-view-btn\" class=\"px-2.5 py-1 border border-gray-200 rounded-md text-[11px] font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer\"\u003e\r\n                \u003csvg class=\"w-3.5 h-3.5 text-gray-500\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 6h16M4 12h16M4 18h16\"/\u003e\u003c/svg\u003e\r\n                \u003cspan id=\"toggle-view-label\"\u003ever em lista\u003c/span\u003e\r\n              \u003c/button\u003e\r\n\r\n              \u003cdiv class=\"relative\"\u003e\r\n                \u003cselect id=\"sort-select\" onchange=\"applyCampaignFilters()\" class=\"appearance-none px-2.5 py-1 pr-6 border border-gray-200 rounded-md text-[11px] font-semibold text-gray-700 bg-white hover:bg-gray-50 cursor-pointer focus:outline-none\"\u003e\r\n                  \u003coption value=\"default\"\u003e⇅ ordenar (Pendentes → Veiculando → Concluídas)\u003c/option\u003e\r\n                  \u003coption value=\"pending_first\"\u003ePrioridade (Pendentes de arte)\u003c/option\u003e\r\n                  \u003coption value=\"recent\"\u003eData de início (Mais recentes)\u003c/option\u003e\r\n                  \u003coption value=\"value_desc\"\u003eMaior valor investido\u003c/option\u003e\r\n                  \u003coption value=\"name_asc\"\u003eNome da campanha (A-Z)\u003c/option\u003e\r\n                \u003c/select\u003e\r\n                \u003cspan class=\"pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1.5 text-gray-500 text-[10px]\"\u003e▾\u003c/span\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- GRID DE CARDS (4 COLUNAS FIEL AO PRINT 01) --\u003e\r\n          \u003cdiv id=\"campaigns-grid-container\" class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 responsive-cards-grid\"\u003e\r\n            \u003c!-- Renderizado via JS para suportar filtros, busca, ordenação e renomeação via menu --\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- VISÃO EM LISTA (ALTERNÁVEL PELO BOTÃO \"VER EM LISTA\") --\u003e\r\n          \u003cdiv id=\"campaigns-table-container\" class=\"hidden border border-gray-200 rounded-xl overflow-x-auto bg-white\"\u003e\r\n            \u003ctable class=\"w-full text-left border-collapse\"\u003e\r\n              \u003cthead\u003e\r\n                \u003ctr class=\"bg-[#F3F4F6] text-[11px] font-bold text-gray-700 border-b border-gray-200\"\u003e\r\n                  \u003cth class=\"py-3 px-4\"\u003eCampanha\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-3\"\u003eID\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-3\"\u003eCanal\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-3\"\u003eStatus\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-3\"\u003ePeríodo\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-3\"\u003eValor\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-4 text-right\"\u003eAção Principal\u003c/th\u003e\r\n                \u003c/tr\u003e\r\n              \u003c/thead\u003e\r\n              \u003ctbody id=\"campaigns-table-body\" class=\"divide-y divide-gray-100 text-xs\"\u003e\r\n                \u003c!-- Preenchido via JS --\u003e\r\n              \u003c/tbody\u003e\r\n            \u003c/table\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- ESTADO ZERO INTELIGENTE (QUICK WIN 3 - NUNCA DEIXA O USUÁRIO SEM SAÍDA) --\u003e\r\n          \u003cdiv id=\"empty-state-box\" class=\"hidden bg-[#F8FAFC] border border-dashed border-gray-300 rounded-2xl p-8 text-center my-6\"\u003e\r\n            \u003cdiv class=\"w-12 h-12 rounded-full bg-orange-50 text-[#FF5A00] flex items-center justify-center mx-auto mb-3\"\u003e\r\n              \u003csvg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\"/\u003e\u003c/svg\u003e\r\n            \u003c/div\u003e\r\n            \u003ch3 class=\"text-sm font-bold text-gray-900 mb-1\"\u003eNenhuma campanha encontrada para este filtro\u003c/h3\u003e\r\n            \u003cp class=\"text-xs text-gray-500 max-w-md mx-auto mb-4\" id=\"empty-state-desc\"\u003e\r\n              Não encontramos campanhas correspondentes aos critérios selecionados. Você pode limpar os filtros ou acessar diretamente seus anúncios recentes abaixo:\r\n            \u003c/p\u003e\r\n            \u003cdiv class=\"flex flex-wrap items-center justify-center gap-2 mb-5\"\u003e\r\n              \u003cbutton onclick=\"resetAllFilters()\" class=\"px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] text-white hover:bg-[#E04E00] transition cursor-pointer\"\u003e\r\n                Limpar todos os filtros\r\n              \u003c/button\u003e\r\n              \u003cbutton onclick=\"setStatusFilter(\u0027pendentes\u0027)\" class=\"px-3 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition cursor-pointer\"\u003e\r\n                ⚠️ Ver pendentes de arte (2)\r\n              \u003c/button\u003e\r\n              \u003cbutton onclick=\"setStatusFilter(\u0027veiculando\u0027)\" class=\"px-3 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition cursor-pointer\"\u003e\r\n                ▶️ Ver em veiculação (5)\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- GAVETA / ACORDEÃO DE HISTÓRICO ANTERIOR (\u003e 90 DIAS - SEÇÃO 2.2 DO DOC) --\u003e\r\n          \u003cdiv class=\"mt-8 border border-gray-200 rounded-xl bg-[#F8FAFC] overflow-hidden\"\u003e\r\n            \u003cbutton onclick=\"toggleHistoricalDrawer()\" class=\"w-full px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-700 hover:bg-gray-100 transition cursor-pointer\"\u003e\r\n              \u003cspan class=\"flex items-center gap-2\"\u003e\r\n                \u003cspan\u003e🗂️\u003c/span\u003e\r\n                \u003cspan\u003eHistórico de campanhas anteriores (+90 dias)\u003c/span\u003e\r\n                \u003cspan class=\"bg-gray-200 text-gray-700 text-[10px] px-2 py-0.5 rounded-full\"\u003e12 concluídas\u003c/span\u003e\r\n              \u003c/span\u003e\r\n              \u003cspan id=\"hist-drawer-label\" class=\"text-[#FF5A00] font-semibold\"\u003eVer histórico anterior ▾\u003c/span\u003e\r\n            \u003c/button\u003e\r\n            \u003cdiv id=\"historical-campaigns-drawer\" class=\"hidden border-t border-gray-200 p-4 bg-white\"\u003e\r\n              \u003cdiv class=\"grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs\"\u003e\r\n                \u003cdiv class=\"border border-gray-200 rounded-lg p-3 flex flex-col justify-between bg-gray-50/60\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                      \u003cspan class=\"text-[10px] font-bold bg-gray-200 text-gray-700 px-2 py-0.5 rounded\"\u003e✓ Concluída\u003c/span\u003e\r\n                      \u003cspan class=\"text-[10px] text-gray-400\"\u003e#14210\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cp class=\"font-bold text-gray-900 mt-1\"\u003eCampanha Sazonal - Maio\u003c/p\u003e\r\n                    \u003cp class=\"text-[11px] text-gray-500\"\u003e01/05/2025 a 15/05/2025 • R$ 1.420,00\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"mt-3 flex items-center gap-2\"\u003e\r\n                    \u003cbutton onclick=\"openRenewModal(\u0027750598\u0027)\" class=\"flex-1 py-1.5 px-2.5 rounded border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 font-bold text-[11px] cursor-pointer\"\u003e↻ renovar\u003c/button\u003e\r\n                    \u003cbutton onclick=\"openCampaignDetail(\u002715966\u0027, \u0027metricas\u0027)\" class=\"py-1.5 px-2.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-[11px] cursor-pointer\"\u003ever relatório\u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"border border-gray-200 rounded-lg p-3 flex flex-col justify-between bg-gray-50/60\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                      \u003cspan class=\"text-[10px] font-bold bg-gray-200 text-gray-700 px-2 py-0.5 rounded\"\u003e✓ Concluída\u003c/span\u003e\r\n                      \u003cspan class=\"text-[10px] text-gray-400\"\u003e#13890\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cp class=\"font-bold text-gray-900 mt-1\"\u003eCampanha Institucional - Março\u003c/p\u003e\r\n                    \u003cp class=\"text-[11px] text-gray-500\"\u003e10/03/2025 a 24/03/2025 • R$ 2.150,00\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"mt-3 flex items-center gap-2\"\u003e\r\n                    \u003cbutton onclick=\"openRenewModal(\u0027750598\u0027)\" class=\"flex-1 py-1.5 px-2.5 rounded border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 font-bold text-[11px] cursor-pointer\"\u003e↻ renovar\u003c/button\u003e\r\n                    \u003cbutton onclick=\"openCampaignDetail(\u002715966\u0027, \u0027metricas\u0027)\" class=\"py-1.5 px-2.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-[11px] cursor-pointer\"\u003ever relatório\u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"border border-gray-200 rounded-lg p-3 flex flex-col justify-between bg-gray-50/60\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                      \u003cspan class=\"text-[10px] font-bold bg-gray-200 text-gray-700 px-2 py-0.5 rounded\"\u003e✓ Concluída\u003c/span\u003e\r\n                      \u003cspan class=\"text-[10px] text-gray-400\"\u003e#12904\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cp class=\"font-bold text-gray-900 mt-1\"\u003eCampanha Verão Digital + OOH\u003c/p\u003e\r\n                    \u003cp class=\"text-[11px] text-gray-500\"\u003e15/01/2025 a 12/02/2025 • R$ 3.490,00\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"mt-3 flex items-center gap-2\"\u003e\r\n                    \u003cbutton onclick=\"openRenewModal(\u0027750598\u0027)\" class=\"flex-1 py-1.5 px-2.5 rounded border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 font-bold text-[11px] cursor-pointer\"\u003e↻ renovar\u003c/button\u003e\r\n                    \u003cbutton onclick=\"openCampaignDetail(\u002715966\u0027, \u0027metricas\u0027)\" class=\"py-1.5 px-2.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-[11px] cursor-pointer\"\u003ever relatório\u003c/button\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Paginação Oficial Fiel ao Print 01 --\u003e\r\n          \u003cdiv id=\"pagination-bar\" class=\"flex items-center justify-center gap-4 mt-8 mb-4 text-xs text-gray-500 select-none\"\u003e\r\n            \u003cspan class=\"cursor-pointer hover:text-gray-900\"\u003e«\u003c/span\u003e\r\n            \u003cspan class=\"cursor-pointer hover:text-gray-900\"\u003e‹\u003c/span\u003e\r\n            \u003cspan class=\"font-bold text-gray-900 cursor-pointer\"\u003e1\u003c/span\u003e\r\n            \u003cspan onclick=\"showToast(\u0027Página 2 carregada\u0027)\" class=\"cursor-pointer hover:text-gray-900\"\u003e2\u003c/span\u003e\r\n            \u003cspan onclick=\"showToast(\u0027Página 3 carregada\u0027)\" class=\"cursor-pointer hover:text-gray-900\"\u003e3\u003c/span\u003e\r\n            \u003cspan class=\"cursor-pointer hover:text-gray-900\"\u003e›\u003c/span\u003e\r\n            \u003cspan class=\"cursor-pointer hover:text-gray-900\"\u003e»\u003c/span\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- CONTEÚDO DA ABA RASCUNHOS (HIGIENIZADO E VALIDADO PELO FRANKS) --\u003e\r\n        \u003cdiv id=\"tab-content-rascunhos\" class=\"hidden\"\u003e\r\n          \u003c!-- Barra Cinza de Filtros (#F3F4F6) idêntica à de Planos de Mídia (sem ícones nos rótulos) --\u003e\r\n          \u003cdiv class=\"bg-[#F3F4F6] rounded-xl p-4 md:p-5 mb-4\"\u003e\r\n            \u003cdiv class=\"grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end responsive-filter-row\"\u003e\r\n              \u003c!-- Busca por Nome, ID ou Local --\u003e\r\n              \u003cdiv class=\"md:col-span-5\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eNome, ID ou Local\u003c/label\u003e\r\n                \u003cdiv class=\"relative\"\u003e\r\n                  \u003cspan class=\"absolute inset-y-0 left-0 pl-2.5 flex items-center text-gray-400\"\u003e\r\n                    \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\"/\u003e\u003c/svg\u003e\r\n                  \u003c/span\u003e\r\n                  \u003cinput type=\"text\" id=\"draft-filter-search\" oninput=\"applyDraftFilters()\" placeholder=\"Buscar rascunho por nome, #ID ou cidade...\" class=\"w-full bg-white border border-gray-200 rounded-md pl-8 pr-3 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Data Inicial --\u003e\r\n              \u003cdiv class=\"md:col-span-3\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eData inicial\u003c/label\u003e\r\n                \u003cinput type=\"date\" id=\"draft-filter-start\" onchange=\"applyDraftFilters()\" class=\"w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-600 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Data Final --\u003e\r\n              \u003cdiv class=\"md:col-span-4\"\u003e\r\n                \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003eData final\u003c/label\u003e\r\n                \u003cinput type=\"date\" id=\"draft-filter-end\" onchange=\"applyDraftFilters()\" class=\"w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-600 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Linha 2: Filtro de Canal Limpo (Sem ícones/emojis nas pílulas) --\u003e\r\n            \u003cdiv class=\"mt-3.5 pt-3 border-t border-gray-200/80 flex flex-wrap items-center justify-between gap-2\"\u003e\r\n              \u003cdiv class=\"flex flex-wrap items-center gap-2\"\u003e\r\n                \u003cspan class=\"text-[11px] font-bold text-gray-700 mr-1\"\u003eFormato / Canal:\u003c/span\u003e\r\n                \u003cbutton type=\"button\" onclick=\"setDraftChannelFilter(\u0027todos\u0027)\" data-dchannel=\"todos\" class=\"draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#1E2229] text-white border border-[#1E2229] transition cursor-pointer\"\u003eTodos\u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"setDraftChannelFilter(\u0027OOH\u0027)\" data-dchannel=\"OOH\" class=\"draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer\"\u003eOOH\u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"setDraftChannelFilter(\u0027Digital\u0027)\" data-dchannel=\"Digital\" class=\"draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer\"\u003eDigital | Globo\u003c/button\u003e\r\n                \u003cbutton type=\"button\" onclick=\"setDraftChannelFilter(\u0027Hibrida\u0027)\" data-dchannel=\"Hibrida\" class=\"draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer\"\u003eHíbrida (OOH + Digital)\u003c/button\u003e\r\n              \u003c/div\u003e\r\n              \u003cbutton type=\"button\" onclick=\"resetDraftFilters()\" class=\"text-[11px] font-bold text-[#FF5A00] hover:underline cursor-pointer\"\u003e\r\n                Limpar filtros\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-2 mb-4\"\u003e\r\n            \u003cp class=\"text-xs text-gray-500\" id=\"drafts-counter-text\"\u003e\r\n              Aqui estão seus planos de mídia salvos como rascunho antes do pagamento.\r\n            \u003c/p\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Grid de Cards de Rascunhos (4 Colunas - Renderizado via JS applyDraftFilters) --\u003e\r\n          \u003cdiv id=\"drafts-grid-container\" class=\"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 responsive-cards-grid\"\u003e\r\n            \u003c!-- Preenchido via JS --\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Empty State de Rascunhos --\u003e\r\n          \u003cdiv id=\"drafts-empty-state\" class=\"hidden bg-[#F8FAFC] border border-dashed border-gray-300 rounded-2xl p-8 text-center my-6\"\u003e\r\n            \u003ch3 class=\"text-sm font-bold text-gray-900 mb-1\"\u003eNenhum rascunho encontrado\u003c/h3\u003e\r\n            \u003cp class=\"text-xs text-gray-500 max-w-md mx-auto mb-4\"\u003eNão encontramos rascunhos para o filtro selecionado.\u003c/p\u003e\r\n            \u003cbutton type=\"button\" onclick=\"resetDraftFilters()\" class=\"px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] text-white hover:bg-[#E04E00] transition cursor-pointer\"\u003e\r\n              Limpar filtros\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n      \u003c/main\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA 2: DETALHES DO PEDIDO \u0026 MÉTRICAS (BLOCO 2 - QUICK WINS 4, 5, 6, 7)--\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cmain id=\"screen-detail\" class=\"view-section flex-1 max-w-[1060px] w-full mx-auto px-6 md:px-10 py-6 responsive-main-padding\"\u003e\r\n\r\n        \u003c!-- Botão Voltar fiel aos prints 04, 06, 09, 10 --\u003e\r\n        \u003cdiv class=\"mb-5\"\u003e\r\n          \u003cbutton onclick=\"showScreen(\u0027screen-list\u0027)\" class=\"px-3.5 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer\"\u003e\r\n            \u003cspan\u003e←\u003c/span\u003e voltar\r\n          \u003c/button\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- CABEÇALHO DO PEDIDO (FIEL AOS PRINTS 04, 05, 06 + QUICK WIN 2 E 4) --\u003e\r\n        \u003cdiv class=\"flex items-start justify-between gap-6 mb-8 responsive-header-detail\"\u003e\r\n          \u003c!-- Esquerda: Miniatura + Botão Ver/Trocar Arte + Dados da Campanha --\u003e\r\n          \u003cdiv class=\"flex items-start gap-5\"\u003e\r\n            \u003cdiv class=\"flex flex-col items-center gap-1.5 shrink-0\"\u003e\r\n              \u003cimg id=\"detail-thumb\" onclick=\"switchDetailTab(\u0027arte\u0027)\" src=\"\" alt=\"Preview da Campanha\" class=\"w-24 h-24 md:w-28 md:h-28 rounded-md object-cover border border-gray-200 bg-gray-100 cursor-pointer hover:opacity-90 transition\" title=\"Ver ou trocar arte\"\u003e\r\n              \u003cbutton onclick=\"switchDetailTab(\u0027arte\u0027)\" class=\"text-[10px] font-bold text-gray-600 hover:text-[#FF5A00] border border-gray-200 rounded px-2 py-0.5 bg-white hover:bg-orange-50 transition cursor-pointer flex items-center gap-1\"\u003e\r\n                \u003cspan\u003e🖼\u003c/span\u003e ver / trocar arte\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"pt-1\"\u003e\r\n              \u003c!-- Título da Campanha (Renomeação via menu editar ⋮ -\u003e renomear campanha) --\u003e\r\n              \u003cdiv class=\"mb-2.5\"\u003e\r\n                \u003ch2 id=\"detail-title\" class=\"text-base md:text-lg font-extrabold text-gray-900 tracking-tight\"\u003e\r\n                  Campanha Multicanal - Outubro\r\n                \u003c/h2\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Linha Início / Fim / Prazo --\u003e\r\n              \u003cdiv class=\"flex flex-wrap items-center gap-4 text-xs text-gray-600 mb-3\"\u003e\r\n                \u003cspan\u003e\u003cstrong class=\"text-gray-900\"\u003eInício:\u003c/strong\u003e \u003cspan id=\"detail-start\"\u003e15/10/2026\u003c/span\u003e\u003c/span\u003e\r\n                \u003cspan\u003e\u003cstrong class=\"text-gray-900\"\u003eFim:\u003c/strong\u003e \u003cspan id=\"detail-end\"\u003e28/10/2026\u003c/span\u003e\u003c/span\u003e\r\n                \u003cspan\u003e\u003cstrong class=\"text-gray-900\"\u003ePrazo:\u003c/strong\u003e \u003cspan id=\"detail-duration\"\u003e14 DIAS\u003c/span\u003e\u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Pílulas Cinzas de Formato --\u003e\r\n              \u003cdiv id=\"detail-format-pills\" class=\"flex flex-wrap items-center gap-1.5\"\u003e\r\n                \u003cspan class=\"bg-[#D1D5DB] text-gray-900 text-[10px] font-bold px-2.5 py-0.5 rounded\"\u003eElevadores Residenciais\u003c/span\u003e\r\n                \u003cspan class=\"bg-[#D1D5DB] text-gray-900 text-[10px] font-bold px-2.5 py-0.5 rounded\"\u003eElevadores Comerciais\u003c/span\u003e\r\n                \u003cspan class=\"bg-[#D1D5DB] text-gray-900 text-[10px] font-bold px-2.5 py-0.5 rounded\"\u003eDigital\u003c/span\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Direita: #ID + Badge de 2 Camadas + Botões Renovar e Editar (Quick Win 4) --\u003e\r\n          \u003cdiv class=\"flex flex-col items-end gap-3 shrink-0 responsive-header-detail-right\"\u003e\r\n            \u003cdiv class=\"flex items-center gap-4\"\u003e\r\n              \u003cspan id=\"detail-id\" class=\"text-xl md:text-2xl font-bold text-gray-400 tracking-tight\"\u003e#750598\u003c/span\u003e\r\n\r\n              \u003c!-- Badge de Status Duplo Fiel ao Print 04 --\u003e\r\n              \u003cdiv id=\"detail-status-badge\" class=\"w-48 rounded-xl overflow-hidden text-center shadow-2xs\"\u003e\r\n                \u003cdiv class=\"bg-[#107C10] text-white text-[11px] font-bold py-1 px-3 flex items-center justify-center gap-1.5\"\u003e\r\n                  \u003cspan\u003e▶\u003c/span\u003e anúncio veiculando\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"bg-[#8AC483] text-gray-900 text-[10px] font-medium py-1 px-3\"\u003e\r\n                  seu anúncio está no ar\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Ações no Topo: Renovar Campanha (Quick Win 4) + Menu Editar --\u003e\r\n            \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n              \u003cbutton onclick=\"openRenewModal()\" class=\"px-3 py-1.5 border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 rounded-md text-xs font-bold flex items-center gap-1.5 transition cursor-pointer\"\u003e\r\n                \u003cspan\u003e↻\u003c/span\u003e renovar campanha\r\n              \u003c/button\u003e\r\n              \u003cdiv class=\"relative\"\u003e\r\n                \u003cbutton onclick=\"toggleDetailEditMenu()\" class=\"px-3 py-1.5 border border-gray-200 rounded-md text-xs font-bold text-gray-800 bg-white hover:bg-gray-50 flex items-center gap-2 cursor-pointer\"\u003e\r\n                  \u003cspan\u003eeditar\u003c/span\u003e\r\n                  \u003cspan class=\"text-gray-400\"\u003e⋮\u003c/span\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv id=\"detail-edit-dropdown\" class=\"hidden absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 z-40 text-xs\"\u003e\r\n                  \u003cbutton onclick=\"promptRenameDetail(); toggleDetailEditMenu();\" class=\"w-full text-left px-3.5 py-2 hover:bg-gray-50 text-gray-700 font-medium cursor-pointer\"\u003erenomear campanha\u003c/button\u003e\r\n                  \u003cbutton onclick=\"goToUploadArteScreen(currentSelectedCampaign.id); toggleDetailEditMenu();\" class=\"w-full text-left px-3.5 py-2 hover:bg-orange-50 text-[#FF5A00] font-semibold cursor-pointer\"\u003eenviar arte\u003c/button\u003e\r\n                  \u003cbutton onclick=\"switchDetailTab(\u0027arte\u0027); toggleDetailEditMenu();\" class=\"w-full text-left px-3.5 py-2 hover:bg-gray-50 text-gray-700 font-medium cursor-pointer\"\u003egerenciar arte\u003c/button\u003e\r\n                  \u003cbutton onclick=\"showToast(\u0027Alteração de data disponível para campanhas pendentes\u0027); toggleDetailEditMenu();\" class=\"w-full text-left px-3.5 py-2 hover:bg-gray-50 text-gray-700 font-medium cursor-pointer\"\u003ealterar data de início\u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- STEPPER HORIZONTAL \"ETAPAS ATÉ A PUBLICAÇÃO\" ACIONÁVEL E COLAPSÁVEL (QUICK WIN 5) --\u003e\r\n        \u003cdiv class=\"mb-8\"\u003e\r\n          \u003c!-- Versão Compacta de 1 Linha (Exibida quando a campanha já está Veiculando/Concluída) --\u003e\r\n          \u003cdiv id=\"stepper-compact-bar\" class=\"hidden max-w-[680px] mx-auto bg-[#F8FAFC] border border-gray-200 rounded-lg px-4 py-2.5 flex items-center justify-between text-xs mb-2\"\u003e\r\n            \u003cdiv class=\"flex flex-wrap items-center gap-2 text-gray-700 font-medium\"\u003e\r\n              \u003cspan class=\"text-emerald-700 font-bold\"\u003e✓ Etapas concluídas:\u003c/span\u003e\r\n              \u003cspan\u003eCriado\u003c/span\u003e • \u003cspan\u003ePago\u003c/span\u003e • \u003cspan\u003eArte enviada\u003c/span\u003e • \u003cspan\u003eAprovado\u003c/span\u003e\r\n            \u003c/div\u003e\r\n            \u003cbutton onclick=\"toggleStepperExpand()\" id=\"stepper-toggle-btn\" class=\"text-[#FF5A00] font-bold hover:underline text-[11px] cursor-pointer whitespace-nowrap ml-2\"\u003e\r\n              Ver detalhes ▾\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv id=\"stepper-full-container\"\u003e\r\n            \u003ch3 class=\"text-center text-xs font-bold text-gray-800 mb-3\"\u003eEtapas até a publicação\u003c/h3\u003e\r\n            \u003cdiv class=\"grid grid-cols-4 gap-3 max-w-[680px] mx-auto responsive-stepper-grid\"\u003e\r\n              \u003c!-- Caixa 1: Anúncio criado --\u003e\r\n              \u003cdiv onclick=\"switchDetailTab(\u0027locais\u0027)\" class=\"border border-gray-200 rounded-lg p-3 bg-white hover:border-gray-400 transition cursor-pointer\" title=\"Ver locais contratados\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                  \u003cspan class=\"text-[11px] font-bold text-gray-900\"\u003eAnúncio criado\u003c/span\u003e\r\n                  \u003cspan class=\"text-emerald-600 text-xs font-bold\"\u003e✓\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[10px] text-gray-500\" id=\"step-date-created\"\u003e09/10/2026 - 11h26\u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Caixa 2: Pagamento (Clicável -\u003e Aba Faturamento) --\u003e\r\n              \u003cdiv onclick=\"switchDetailTab(\u0027faturamento\u0027)\" class=\"border border-gray-200 rounded-lg p-3 bg-white hover:border-[#FF5A00] transition cursor-pointer group\" title=\"Ir para a aba Faturamento\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                  \u003cspan class=\"text-[11px] font-bold text-gray-900 group-hover:text-[#FF5A00]\"\u003ePagamento\u003c/span\u003e\r\n                  \u003cspan id=\"step-icon-payment\" class=\"text-emerald-600 text-xs font-bold\"\u003e✓\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[10px] text-gray-500 flex items-center justify-between\"\u003e\r\n                  \u003cspan id=\"step-text-payment\"\u003eaprovado\u003c/span\u003e\r\n                  \u003cspan class=\"text-[#FF5A00] font-semibold opacity-80 group-hover:opacity-100\"\u003eFatura →\u003c/span\u003e\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Caixa 3: Envio de arte (Clicável -\u003e Tela Subir Imagem ou Aba Arte - Quick Win 5) --\u003e\r\n              \u003cdiv onclick=\"handleStepperArteClick()\" id=\"stepper-box-arte\" class=\"border border-gray-200 rounded-lg p-3 bg-white hover:border-[#FF5A00] transition cursor-pointer group\" title=\"Gerenciar ou enviar arte\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                  \u003cspan class=\"text-[11px] font-bold text-gray-900 group-hover:text-[#FF5A00]\"\u003eEnvio de arte\u003c/span\u003e\r\n                  \u003cspan id=\"step-icon-arte\" class=\"text-emerald-600 text-xs font-bold\"\u003e✓\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[10px] text-gray-500 flex items-center justify-between\"\u003e\r\n                  \u003cspan id=\"step-text-arte\"\u003e14/10/2026\u003c/span\u003e\r\n                  \u003cspan id=\"step-link-arte\" class=\"text-[#FF5A00] font-bold group-hover:underline\"\u003eVer arte →\u003c/span\u003e\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Caixa 4: Aprovação --\u003e\r\n              \u003cdiv onclick=\"switchDetailTab(\u0027arte\u0027)\" class=\"border border-gray-200 rounded-lg p-3 bg-white hover:border-gray-400 transition cursor-pointer\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between mb-1\"\u003e\r\n                  \u003cspan class=\"text-[11px] font-bold text-gray-900\"\u003eAprovação\u003c/span\u003e\r\n                  \u003cspan id=\"step-icon-approval\" class=\"text-emerald-600 text-xs font-bold\"\u003e✓\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cp class=\"text-[10px] text-gray-500\" id=\"step-text-approval\"\u003eaprovado\u003c/p\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- NAVEGAÇÃO DAS 4 ABAS REAIS: MÉTRICAS | ARTE | FATURAMENTO | LOCAIS --\u003e\r\n        \u003cdiv class=\"flex items-center gap-6 border-b border-gray-200 mb-6 overflow-x-auto\"\u003e\r\n          \u003cbutton onclick=\"switchDetailTab(\u0027metricas\u0027)\" id=\"dtab-btn-metricas\" class=\"detail-tab-btn pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] flex items-center gap-1.5 whitespace-nowrap cursor-pointer\"\u003e\r\n            \u003cspan\u003e📊\u003c/span\u003e Métricas\r\n          \u003c/button\u003e\r\n          \u003cbutton onclick=\"switchDetailTab(\u0027arte\u0027)\" id=\"dtab-btn-arte\" class=\"detail-tab-btn pb-2.5 text-xs font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap cursor-pointer\"\u003e\r\n            \u003cspan\u003e🖼️\u003c/span\u003e Arte\r\n            \u003cspan id=\"arte-tab-alert-dot\" class=\"hidden w-2 h-2 rounded-full bg-[#FF5A00]\"\u003e\u003c/span\u003e\r\n          \u003c/button\u003e\r\n          \u003cbutton onclick=\"switchDetailTab(\u0027faturamento\u0027)\" id=\"dtab-btn-faturamento\" class=\"detail-tab-btn pb-2.5 text-xs font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap cursor-pointer\"\u003e\r\n            \u003cspan\u003e🧾\u003c/span\u003e Faturamento\r\n          \u003c/button\u003e\r\n          \u003cbutton onclick=\"switchDetailTab(\u0027locais\u0027)\" id=\"dtab-btn-locais\" class=\"detail-tab-btn pb-2.5 text-xs font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap cursor-pointer\"\u003e\r\n            \u003cspan\u003e📍\u003c/span\u003e Locais\r\n          \u003c/button\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003c!-- ABA 1: MÉTRICAS DO ANÚNCIO (OOH + DIGITAL | GLOBO + FAQ)          --\u003e\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003csection id=\"dtab-panel-metricas\" class=\"detail-tab-panel\"\u003e\r\n          \u003c!-- Banner Contextual de Renovação no Topo de Métricas (Quando Entrega \u003e= 90% ou Concluído - Seção 3.4 do Doc) --\u003e\r\n          \u003cdiv id=\"metrics-top-renewal-banner\" class=\"bg-orange-50/90 border border-orange-200 rounded-xl p-4 mb-5 flex flex-wrap items-center justify-between gap-4\"\u003e\r\n            \u003cdiv class=\"flex items-center gap-3\"\u003e\r\n              \u003cdiv class=\"w-9 h-9 rounded-lg bg-[#FF5A00] text-white flex items-center justify-center font-bold text-sm shrink-0\"\u003e🚀\u003c/div\u003e\r\n              \u003cdiv\u003e\r\n                \u003ch4 id=\"metrics-renewal-banner-title\" class=\"text-xs font-extrabold text-gray-900\"\u003eSua campanha já superou 100% da meta contratada!\u003c/h4\u003e\r\n                \u003cp id=\"metrics-renewal-banner-desc\" class=\"text-[11px] text-gray-600\"\u003eMantenha sua marca visível nos mesmos edifícios e portais sem precisar subir a arte novamente.\u003c/p\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n            \u003cbutton onclick=\"openRenewModal()\" class=\"px-4 py-2 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shrink-0\"\u003e\r\n              \u003cspan\u003e↻\u003c/span\u003e renovar campanha em 1 clique\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Barra de Título + Pílulas de Salto Rápido (Quick Win 6 e 7) + Exportar PDF/CSV e Renovar (Quick Win 4) --\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-3 mb-5\"\u003e\r\n            \u003cdiv class=\"flex flex-wrap items-center gap-3\"\u003e\r\n              \u003ch3 class=\"text-lg font-bold text-gray-900\"\u003eMétricas do anúncio\u003c/h3\u003e\r\n\r\n              \u003c!-- Pílulas de Salto / Filtro de Canal nas Métricas (Quick Win 6 e 7) --\u003e\r\n              \u003cdiv id=\"metrics-channel-switcher\" class=\"flex items-center gap-1.5 bg-gray-100 p-1 rounded-full\"\u003e\r\n                \u003cbutton onclick=\"filterMetricsSection(\u0027all\u0027)\" id=\"mjump-all\" class=\"px-3 py-1 rounded-full text-[11px] font-bold bg-white text-gray-900 shadow-2xs transition cursor-pointer\"\u003e\r\n                  Todos os canais\r\n                \u003c/button\u003e\r\n                \u003cbutton onclick=\"filterMetricsSection(\u0027ooh\u0027)\" id=\"mjump-ooh\" class=\"px-3 py-1 rounded-full text-[11px] font-semibold text-gray-600 hover:text-gray-900 transition cursor-pointer\"\u003e\r\n                  📍 OOH | Out of Home\r\n                \u003c/button\u003e\r\n                \u003cbutton onclick=\"filterMetricsSection(\u0027digital\u0027)\" id=\"mjump-digital\" class=\"px-3 py-1 rounded-full text-[11px] font-semibold text-gray-600 hover:text-gray-900 transition cursor-pointer\"\u003e\r\n                  🌐 Digital | Globo\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Botões Exportar (PDF / CSV) + Renovar Campanha (Quick Win 4) --\u003e\r\n            \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n              \u003cdiv class=\"relative\"\u003e\r\n                \u003cbutton onclick=\"toggleExportMenu()\" class=\"px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer\"\u003e\r\n                  \u003csvg class=\"w-3.5 h-3.5 text-gray-500\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4\"/\u003e\u003c/svg\u003e\r\n                  \u003cspan\u003eexportar\u003c/span\u003e\r\n                  \u003cspan class=\"text-[10px] text-gray-400\"\u003e▾\u003c/span\u003e\r\n                \u003c/button\u003e\r\n                \u003cdiv id=\"export-dropdown-menu\" class=\"hidden absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 z-40 text-xs\"\u003e\r\n                  \u003cbutton onclick=\"exportReport(\u0027PDF Executivo\u0027)\" class=\"w-full text-left px-3.5 py-2 hover:bg-orange-50 hover:text-[#FF5A00] text-gray-800 font-semibold flex items-center justify-between cursor-pointer\"\u003e\r\n                    \u003cspan\u003e📄 PDF Executivo\u003c/span\u003e\r\n                    \u003cspan class=\"text-[10px] text-gray-400\"\u003ePronto\u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                  \u003cbutton onclick=\"exportReport(\u0027CSV (Planilha)\u0027)\" class=\"w-full text-left px-3.5 py-2 hover:bg-orange-50 hover:text-[#FF5A00] text-gray-800 font-semibold flex items-center justify-between cursor-pointer\"\u003e\r\n                    \u003cspan\u003e📊 CSV (Dados brutos)\u003c/span\u003e\r\n                    \u003cspan class=\"text-[10px] text-gray-400\"\u003eExcel\u003c/span\u003e\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- =============================================================== --\u003e\r\n          \u003c!-- CONTAINER 1: OOH | OUT OF HOME (FIEL AO PRINT 04 E 05)          --\u003e\r\n          \u003c!-- =============================================================== --\u003e\r\n          \u003cdiv id=\"metrics-ooh-container\" class=\"bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-8\"\u003e\r\n            \u003cdiv class=\"flex items-center justify-between mb-4\"\u003e\r\n              \u003ch4 class=\"text-base font-bold text-gray-900\"\u003eOOH | Out of Home\u003c/h4\u003e\r\n              \u003cspan class=\"bg-[#22A047] text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5\"\u003e\r\n                \u003cspan class=\"w-1.5 h-1.5 rounded-full bg-white\"\u003e\u003c/span\u003e\r\n                Atualizado em 22/10\r\n              \u003c/span\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- 6 KPIs em Cards Brancos (2x3) com Micro-copy de Letramento (Seção 3.2 do Doc) --\u003e\r\n            \u003cdiv class=\"grid grid-cols-3 gap-3 mb-6 responsive-kpis-ooh\"\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp id=\"ooh-kpi-days\" class=\"text-xl font-extrabold text-gray-900\"\u003e8/14\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Quantidade de dias já veiculados em relação ao prazo total contratado\"\u003e\r\n                  dias ativos \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eRestam 6 dias de exibição\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp id=\"ooh-kpi-screens\" class=\"text-xl font-extrabold text-gray-900\"\u003e7\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Total de telas digitais exibindo sua campanha\"\u003e\r\n                  telas contratadas \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eMonitores digitais ativos\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp id=\"ooh-kpi-spaces\" class=\"text-xl font-extrabold text-gray-900\"\u003e7\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Total de edifícios ou estabelecimentos com telas ativas\"\u003e\r\n                  espaços \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eEm 5 edifícios / locais\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp id=\"ooh-kpi-impact\" class=\"text-xl font-extrabold text-gray-900\"\u003e88,7%\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Percentual do fluxo estimado do local impactado pelo anúncio\"\u003e\r\n                  impacto \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eDa circulação dos prédios\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp id=\"ooh-kpi-reach\" class=\"text-xl font-extrabold text-gray-900\"\u003e991\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Audiência única estimada que visualizou a campanha\"\u003e\r\n                  pessoas alcançadas \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003ePessoas únicas impactadas\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp id=\"ooh-kpi-freq\" class=\"text-xl font-extrabold text-gray-900\"\u003e19.6x\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Média de vezes que cada pessoa alcançada viu o anúncio\"\u003e\r\n                  frequência média \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eCada pessoa viu ~20 vezes\u003c/p\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Bloco Exibições (Barra Laranja #FF5A00 + Taxa de Entrega) --\u003e\r\n            \u003cdiv class=\"mb-7\"\u003e\r\n              \u003ch5 class=\"text-xs font-bold text-gray-900\"\u003eExibições\u003c/h5\u003e\r\n              \u003cp class=\"text-[11px] text-gray-500 mb-2.5\"\u003eNúmero de vezes que seus anúncios foram exibidos até agora\u003c/p\u003e\r\n\r\n              \u003cdiv class=\"grid grid-cols-12 gap-3 responsive-exibicoes-row\"\u003e\r\n                \u003c!-- Card Barra de Progresso --\u003e\r\n                \u003cdiv class=\"col-span-12 md:col-span-8 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv class=\"flex items-baseline justify-between mb-3\"\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cp id=\"ooh-deliv-val\" class=\"text-xl font-extrabold text-gray-900\"\u003e23.205\u003c/p\u003e\r\n                      \u003cp class=\"text-[10px] text-gray-500\"\u003eexibições entregues\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"text-right\"\u003e\r\n                      \u003cp id=\"ooh-contr-val\" class=\"text-xl font-extrabold text-gray-900\"\u003e21.888\u003c/p\u003e\r\n                      \u003cp class=\"text-[10px] text-gray-500\"\u003eexibições contratadas\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003c!-- Barra Laranja Fiel ao Print 04 --\u003e\r\n                  \u003cdiv class=\"w-full h-3 bg-gray-200 rounded-full overflow-hidden flex\"\u003e\r\n                    \u003cdiv class=\"h-full bg-[#FF5A00]\" style=\"width: 94%;\"\u003e\u003c/div\u003e\r\n                    \u003cdiv class=\"h-full bg-[#A83800]\" style=\"width: 6%;\" title=\"Exibições bônus acima de 100%\"\u003e\u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Card Taxa de Entrega --\u003e\r\n                \u003cdiv class=\"col-span-12 md:col-span-4 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv class=\"flex items-start justify-between\"\u003e\r\n                    \u003cspan class=\"text-xs font-bold text-gray-900\"\u003eTaxa de entrega\u003c/span\u003e\r\n                    \u003cspan id=\"ooh-rate-val\" class=\"text-2xl font-black text-gray-900\"\u003e106%\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cp class=\"text-[10px] text-gray-500 mt-2 leading-relaxed\"\u003e\r\n                    Percentual de impressões entregues em relação ao valor contratado\r\n                  \u003c/p\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Gráfico \"Exibições por dia\" (Barras Verticais Laranjas Fiéis ao Print 04) --\u003e\r\n            \u003cdiv class=\"mb-8\"\u003e\r\n              \u003ch5 class=\"text-xs font-bold text-gray-900 mb-4\"\u003eExibições por dia\u003c/h5\u003e\r\n              \u003cdiv class=\"bg-transparent pt-2 pb-1\"\u003e\r\n                \u003cdiv class=\"flex items-end gap-3 h-52\"\u003e\r\n                  \u003c!-- Eixo Y --\u003e\r\n                  \u003cdiv class=\"flex flex-col justify-between h-44 text-[9px] text-gray-400 pr-2 select-none text-right w-10\"\u003e\r\n                    \u003cspan\u003e6.000\u003c/span\u003e\r\n                    \u003cspan\u003e5.000\u003c/span\u003e\r\n                    \u003cspan\u003e4.000\u003c/span\u003e\r\n                    \u003cspan\u003e3.000\u003c/span\u003e\r\n                    \u003cspan\u003e2.000\u003c/span\u003e\r\n                    \u003cspan\u003e1.000\u003c/span\u003e\r\n                    \u003cspan\u003e0\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003c!-- Área de Barras --\u003e\r\n                  \u003cdiv class=\"flex-1 h-44 border-b border-gray-300 relative flex items-end justify-around px-2\"\u003e\r\n                    \u003c!-- Linhas horizontais de referência --\u003e\r\n                    \u003cdiv class=\"absolute inset-0 flex flex-col justify-between pointer-events-none\"\u003e\r\n                      \u003cdiv class=\"border-b border-dashed border-gray-200 w-full h-0\"\u003e\u003c/div\u003e\r\n                      \u003cdiv class=\"border-b border-dashed border-gray-200 w-full h-0\"\u003e\u003c/div\u003e\r\n                      \u003cdiv class=\"border-b border-dashed border-gray-200 w-full h-0\"\u003e\u003c/div\u003e\r\n                      \u003cdiv class=\"border-b border-dashed border-gray-200 w-full h-0\"\u003e\u003c/div\u003e\r\n                      \u003cdiv class=\"border-b border-dashed border-gray-200 w-full h-0\"\u003e\u003c/div\u003e\r\n                      \u003cdiv class=\"border-b border-dashed border-gray-200 w-full h-0\"\u003e\u003c/div\u003e\r\n                      \u003cdiv class=\"w-full h-0\"\u003e\u003c/div\u003e\r\n                    \u003c/div\u003e\r\n\r\n                    \u003c!-- 8 Barras Laranjas (15/10 a 22/10) --\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 28px;\" title=\"15/10: 1.012 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e15/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 146px;\" title=\"16/10: 5.140 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e16/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 105px;\" title=\"17/10: 3.690 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e17/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 85px;\" title=\"18/10: 2.980 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e18/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 85px;\" title=\"19/10: 2.985 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e19/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 85px;\" title=\"20/10: 2.990 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e20/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-8\"\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 84px;\" title=\"21/10: 2.960 exibições\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] text-gray-500 mt-1.5\"\u003e21/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"relative z-10 flex flex-col items-center group w-12\"\u003e\r\n                      \u003cspan class=\"text-[8px] font-bold bg-orange-100 text-[#FF5A00] px-1 py-0.5 rounded mb-1 whitespace-nowrap\"\u003eEm andamento\u003c/span\u003e\r\n                      \u003cdiv class=\"w-6 md:w-7 bg-[#FF5A00]/75 border border-dashed border-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85\" style=\"height: 38px;\" title=\"22/10 (Hoje - Dados em consolidação): 1.448 exibições parciais\"\u003e\u003c/div\u003e\r\n                      \u003cspan class=\"text-[9px] font-bold text-[#FF5A00] mt-1.5\"\u003e22/10\u003c/span\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Tabela \"Métricas por local\" Unificada com Aba Locais (Quick Win 6 - Seção 3.2 do Doc) --\u003e\r\n            \u003cdiv\u003e\r\n              \u003cdiv class=\"flex flex-wrap items-center justify-between gap-2 mb-3\"\u003e\r\n                \u003ch5 class=\"text-xs font-bold text-gray-900\"\u003eMétricas por local\u003c/h5\u003e\r\n                \u003cspan class=\"text-[10px] text-gray-500\"\u003eVisão consolidada por edifício/estabelecimento, ambiente, telas e entrega\u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Busca por local + Filtro Ambientes de exibição --\u003e\r\n              \u003cdiv class=\"flex flex-wrap items-center gap-2.5 mb-3\"\u003e\r\n                \u003cdiv class=\"relative w-56\"\u003e\r\n                  \u003cinput type=\"text\" id=\"local-search-input\" oninput=\"filterLocationsTable()\" placeholder=\"Buscar por local ou endereço\" class=\"w-full bg-white border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n                  \u003cspan class=\"absolute inset-y-0 right-0 pr-2.5 flex items-center text-gray-500\"\u003e\r\n                    \u003csvg class=\"w-3.5 h-3.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z\"/\u003e\u003c/svg\u003e\r\n                  \u003c/span\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003cselect id=\"local-env-select\" onchange=\"filterLocationsTable()\" class=\"bg-white border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-600 focus:outline-none focus:border-[#FF5A00]\"\u003e\r\n                  \u003coption value=\"todos\"\u003eAmbientes de exibição\u003c/option\u003e\r\n                  \u003coption value=\"Elevadores Residenciais\"\u003eElevadores Residenciais\u003c/option\u003e\r\n                  \u003coption value=\"Elevadores Comerciais\"\u003eElevadores Comerciais\u003c/option\u003e\r\n                \u003c/select\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Tabela Branca Unificada (Local + Ambiente + Telas + Previstas + Entregues + % Entrega + Alcance + Status) --\u003e\r\n              \u003cdiv class=\"bg-white rounded-xl border border-gray-100 overflow-x-auto\"\u003e\r\n                \u003ctable class=\"w-full text-left border-collapse min-w-[740px]\"\u003e\r\n                  \u003cthead\u003e\r\n                    \u003ctr class=\"border-b border-gray-100 text-[10px] font-bold text-gray-700\"\u003e\r\n                      \u003cth class=\"py-3 px-4\"\u003eLocal \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003eAmbiente \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-2 text-center\"\u003eTelas\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003ePrevistas \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003eEntregues \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003e% Entrega \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003eAlcance \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3 text-right\"\u003eStatus\u003c/th\u003e\r\n                    \u003c/tr\u003e\r\n                  \u003c/thead\u003e\r\n                  \u003ctbody id=\"ooh-locations-tbody\" class=\"divide-y divide-gray-100 text-[11px] text-gray-700\"\u003e\r\n                    \u003ctr class=\"local-row\" data-name=\"edifício melbourne rua professor moraes\" data-env=\"Elevadores Residenciais\"\u003e\r\n                      \u003ctd class=\"py-3 px-4\"\u003e\r\n                        \u003cp class=\"font-bold text-gray-900\"\u003eEdifício Melbourne\u003c/p\u003e\r\n                        \u003cp class=\"text-[10px] text-gray-400\"\u003eRua Professor Moraes, 72 , Funcionários - Belo Horizonte\u003c/p\u003e\r\n                      \u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e\u003cspan class=\"bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded\"\u003eElevadores Residenciais\u003c/span\u003e\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-2 text-center font-semibold\"\u003e1\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e4.875\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e3.711\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e76,1%\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e189\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-right\"\u003e\u003cspan class=\"bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full\"\u003e● Veiculando\u003c/span\u003e\u003c/td\u003e\r\n                    \u003c/tr\u003e\r\n                    \u003ctr class=\"local-row\" data-name=\"residencial monet rua santa rita durão\" data-env=\"Elevadores Residenciais\"\u003e\r\n                      \u003ctd class=\"py-3 px-4\"\u003e\r\n                        \u003cp class=\"font-bold text-gray-900\"\u003eResidencial Monet\u003c/p\u003e\r\n                        \u003cp class=\"text-[10px] text-gray-400\"\u003eRua Santa Rita Durão, 466 , Funcionários - Belo Horizonte\u003c/p\u003e\r\n                      \u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e\u003cspan class=\"bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded\"\u003eElevadores Residenciais\u003c/span\u003e\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-2 text-center font-semibold\"\u003e1\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e4.875\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e3.743\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e76,8%\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e165\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-right\"\u003e\u003cspan class=\"bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full\"\u003e● Veiculando\u003c/span\u003e\u003c/td\u003e\r\n                    \u003c/tr\u003e\r\n                    \u003ctr class=\"local-row\" data-name=\"condomínio champagnat funcionários\" data-env=\"Elevadores Residenciais\"\u003e\r\n                      \u003ctd class=\"py-3 px-4\"\u003e\r\n                        \u003cp class=\"font-bold text-gray-900\"\u003eCondomínio Champagnat\u003c/p\u003e\r\n                        \u003cp class=\"text-[10px] text-gray-400\"\u003eRua Santa Rita Durão, 1000 , Funcionários - Belo Horizonte\u003c/p\u003e\r\n                      \u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e\u003cspan class=\"bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded\"\u003eElevadores Residenciais\u003c/span\u003e\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-2 text-center font-semibold\"\u003e2\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e4.873\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 font-semibold text-gray-900\"\u003e8.218\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 font-semibold text-emerald-700\"\u003e168,6%\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e375\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-right\"\u003e\u003cspan class=\"bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full\"\u003e● Veiculando\u003c/span\u003e\u003c/td\u003e\r\n                    \u003c/tr\u003e\r\n                    \u003ctr class=\"local-row\" data-name=\"derminas avenida do contorno\" data-env=\"Elevadores Comerciais\"\u003e\r\n                      \u003ctd class=\"py-3 px-4\"\u003e\r\n                        \u003cp class=\"font-bold text-gray-900\"\u003eDerminas\u003c/p\u003e\r\n                        \u003cp class=\"text-[10px] text-gray-400\"\u003eAvenida do Contorno, 6084 , Funcionários - Belo Horizonte\u003c/p\u003e\r\n                      \u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e\u003cspan class=\"bg-blue-50 text-blue-800 text-[10px] font-semibold px-2 py-0.5 rounded\"\u003eElevadores Comerciais\u003c/span\u003e\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-2 text-center font-semibold\"\u003e2\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e5.535\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-gray-400\"\u003eEm apuração\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-gray-400\"\u003e—\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-gray-400\"\u003e—\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-right\"\u003e\u003cspan class=\"bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full\" title=\"Os dados deste condomínio são sincronizados em lotes de até 48h\"\u003e⏳ Sincronizando\u003c/span\u003e\u003c/td\u003e\r\n                    \u003c/tr\u003e\r\n                    \u003ctr class=\"local-row\" data-name=\"parque das acácias rua grão mogol carmo\" data-env=\"Elevadores Residenciais\"\u003e\r\n                      \u003ctd class=\"py-3 px-4\"\u003e\r\n                        \u003cp class=\"font-bold text-gray-900\"\u003eParque das Acácias\u003c/p\u003e\r\n                        \u003cp class=\"text-[10px] text-gray-400\"\u003eRua Grão Mogol, 172 , Carmo - Belo Horizonte\u003c/p\u003e\r\n                      \u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e\u003cspan class=\"bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded\"\u003eElevadores Residenciais\u003c/span\u003e\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-2 text-center font-semibold\"\u003e1\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e4.873\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 font-semibold text-gray-900\"\u003e7.533\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 font-semibold text-emerald-700\"\u003e154,6%\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3\"\u003e261\u003c/td\u003e\r\n                      \u003ctd class=\"py-3 px-3 text-right\"\u003e\u003cspan class=\"bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full\"\u003e● Veiculando\u003c/span\u003e\u003c/td\u003e\r\n                    \u003c/tr\u003e\r\n                  \u003c/tbody\u003e\r\n                \u003c/table\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003cdiv class=\"text-center mt-3\"\u003e\r\n                \u003cbutton onclick=\"showToast(\u0027Todos os 5 locais estão visíveis\u0027)\" class=\"text-[11px] font-bold text-gray-700 hover:text-gray-900 inline-flex items-center gap-1 cursor-pointer\"\u003e\r\n                  ver menos \u003cspan\u003e^\u003c/span\u003e\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- =============================================================== --\u003e\r\n          \u003c!-- CONTAINER 2: DIGITAL | GLOBO (FIEL AO PRINT 06)                 --\u003e\r\n          \u003c!-- =============================================================== --\u003e\r\n          \u003cdiv id=\"metrics-digital-container\" class=\"bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-10\"\u003e\r\n            \u003cdiv class=\"flex items-center justify-between mb-4\"\u003e\r\n              \u003ch4 class=\"text-base font-bold text-gray-900\"\u003eDigital | Globo\u003c/h4\u003e\r\n              \u003cspan class=\"bg-[#22A047] text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5\"\u003e\r\n                \u003cspan class=\"w-1.5 h-1.5 rounded-full bg-white\"\u003e\u003c/span\u003e\r\n                Atualizado em 22/10\r\n              \u003c/span\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- 4 KPIs em Cards Brancos (incluindo CTR - Seção 3.3 do Doc) --\u003e\r\n            \u003cdiv class=\"grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 responsive-kpis-digital\"\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp class=\"text-xl font-extrabold text-gray-900\"\u003e25/28\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Dias de veiculação ativa nas propriedades digitais da Globo\"\u003e\r\n                  dias ativos \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eVeiculação contínua\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp class=\"text-xl font-extrabold text-gray-900\"\u003e1\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Quantidade de formatos publicitários contratados\"\u003e\r\n                  formatos \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eDisplay IAB nos portais\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp class=\"text-xl font-extrabold text-gray-900\"\u003e12\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Total de cliques direcionados ao seu link de destino\"\u003e\r\n                  cliques \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eVisitas enviadas ao site\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cdiv class=\"bg-white rounded-lg p-4 border border-gray-100\"\u003e\r\n                \u003cp class=\"text-xl font-extrabold text-[#005CEF]\"\u003e0,04%\u003c/p\u003e\r\n                \u003cp class=\"text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1\" title=\"Taxa de Cliques (Cliques divididos por Impressões entregues)\"\u003e\r\n                  taxa de cliques (CTR) \u003cspan class=\"text-gray-400 cursor-help\"\u003eⓘ\u003c/span\u003e\r\n                \u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-emerald-700 font-semibold mt-0.5\"\u003eDentro da média Display\u003c/p\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Bloco Impressões (Barra Azul #005CEF + Taxa de Entrega 94.6%) --\u003e\r\n            \u003cdiv class=\"mb-7\"\u003e\r\n              \u003ch5 class=\"text-xs font-bold text-gray-900\"\u003eImpressões\u003c/h5\u003e\r\n              \u003cp class=\"text-[11px] text-gray-500 mb-2.5\"\u003eNúmero de vezes que seus anúncios foram exibidos até agora\u003c/p\u003e\r\n\r\n              \u003cdiv class=\"grid grid-cols-12 gap-3 responsive-exibicoes-row\"\u003e\r\n                \u003c!-- Card Barra Azul --\u003e\r\n                \u003cdiv class=\"col-span-12 md:col-span-8 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv class=\"flex items-baseline justify-between mb-3\"\u003e\r\n                    \u003cdiv\u003e\r\n                      \u003cp class=\"text-xl font-extrabold text-gray-900\"\u003e30.273\u003c/p\u003e\r\n                      \u003cp class=\"text-[10px] text-gray-500\"\u003eImpressões entregues\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                    \u003cdiv class=\"text-right\"\u003e\r\n                      \u003cp class=\"text-xl font-extrabold text-gray-900\"\u003e32.000\u003c/p\u003e\r\n                      \u003cp class=\"text-[10px] text-gray-500\"\u003eImpressões contratadas\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"w-full h-3 bg-gray-200 rounded-full overflow-hidden\"\u003e\r\n                    \u003cdiv class=\"h-full bg-[#005CEF] rounded-full\" style=\"width: 94.6%;\"\u003e\u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Card Taxa de Entrega 94.6% --\u003e\r\n                \u003cdiv class=\"col-span-12 md:col-span-4 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between\"\u003e\r\n                  \u003cdiv class=\"flex items-start justify-between\"\u003e\r\n                    \u003cspan class=\"text-xs font-bold text-gray-900\"\u003eTaxa de entrega\u003c/span\u003e\r\n                    \u003cspan class=\"text-2xl font-black text-gray-900\"\u003e94.6%\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cp class=\"text-[10px] text-gray-500 mt-2 leading-relaxed\"\u003e\r\n                    Percentual de impressões entregues em relação ao valor contratado\r\n                  \u003c/p\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Gráfico \"Impressões por dia\" (Barras Azuis #005CEF Fiéis ao Print 06) --\u003e\r\n            \u003cdiv class=\"mb-8\"\u003e\r\n              \u003ch5 class=\"text-xs font-bold text-gray-900\"\u003eImpressões por dia\u003c/h5\u003e\r\n              \u003cp class=\"text-[11px] text-gray-500 mb-4\"\u003eNúmero de vezes que seu anúncio foi exibido por dia nas plataformas da Globo\u003c/p\u003e\r\n\r\n              \u003cdiv class=\"overflow-x-auto pb-2\"\u003e\r\n                \u003cdiv class=\"flex items-end gap-2 h-48 min-w-[560px]\"\u003e\r\n                  \u003c!-- Eixo Y --\u003e\r\n                  \u003cdiv class=\"flex flex-col justify-between h-40 text-[9px] text-gray-400 pr-2 select-none text-right w-10\"\u003e\r\n                    \u003cspan\u003e3.000\u003c/span\u003e\r\n                    \u003cspan\u003e2.500\u003c/span\u003e\r\n                    \u003cspan\u003e2.000\u003c/span\u003e\r\n                    \u003cspan\u003e1.500\u003c/span\u003e\r\n                    \u003cspan\u003e1.000\u003c/span\u003e\r\n                    \u003cspan\u003e500\u003c/span\u003e\r\n                    \u003cspan\u003e0\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003c!-- Barras Diárias Azuis --\u003e\r\n                  \u003cdiv id=\"digital-bars-chart\" class=\"flex-1 h-40 border-b border-gray-300 relative flex items-end justify-between px-1 gap-1\"\u003e\r\n                    \u003c!-- Preenchido via JS com os 24 dias exatos (29/09 a 22/10) do Print 06 --\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Tabela \"Métricas por produto\" com Selos Oficiais g1, ge, gshow, receitas, globo.com --\u003e\r\n            \u003cdiv\u003e\r\n              \u003ch5 class=\"text-xs font-bold text-gray-900\"\u003eMétricas por produto\u003c/h5\u003e\r\n              \u003cp class=\"text-[11px] text-gray-500 mb-3\"\u003eNúmero de vezes que os produtos do seu anúncio foram exibidos nas plataformas da Globo\u003c/p\u003e\r\n\r\n              \u003cdiv class=\"bg-white rounded-xl border border-gray-100 overflow-x-auto\"\u003e\r\n                \u003ctable class=\"w-full text-left border-collapse min-w-[560px]\"\u003e\r\n                  \u003cthead\u003e\r\n                    \u003ctr class=\"border-b border-gray-100 text-[10px] font-bold text-gray-700\"\u003e\r\n                      \u003cth class=\"py-3 px-4\"\u003eProduto \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003ePlataformas \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003eImpressões Contratadas \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-3\"\u003eImpressões Entregues \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                      \u003cth class=\"py-3 px-4\"\u003eTaxa de Entrega \u003cspan class=\"text-gray-400 ml-1\"\u003e⇅\u003c/span\u003e\u003c/th\u003e\r\n                    \u003c/tr\u003e\r\n                  \u003c/thead\u003e\r\n                  \u003ctbody class=\"text-[11px] text-gray-700\"\u003e\r\n                    \u003ctr\u003e\r\n                      \u003ctd class=\"py-3.5 px-4 font-semibold text-gray-900\"\u003eDisplay - Crescer\u003c/td\u003e\r\n                      \u003ctd class=\"py-3.5 px-3\"\u003e\r\n                        \u003cdiv class=\"flex items-center gap-1\"\u003e\r\n                          \u003cspan class=\"bg-[#C4170C] text-white font-black px-1.5 py-0.5 rounded text-[10px]\"\u003eg1\u003c/span\u003e\r\n                          \u003cspan class=\"bg-[#06AA48] text-white font-black px-1.5 py-0.5 rounded text-[10px]\"\u003ege\u003c/span\u003e\r\n                          \u003cspan class=\"bg-[#FF6700] text-white font-black px-1.5 py-0.5 rounded text-[10px]\"\u003egshow\u003c/span\u003e\r\n                          \u003cspan class=\"bg-[#9B116E] text-white font-black px-1.5 py-0.5 rounded text-[10px]\"\u003ereceitas\u003c/span\u003e\r\n                          \u003cspan class=\"bg-[#005CEF] text-white font-black px-1.5 py-0.5 rounded text-[10px]\"\u003eglobo.com\u003c/span\u003e\r\n                        \u003c/div\u003e\r\n                      \u003c/td\u003e\r\n                      \u003ctd class=\"py-3.5 px-3\"\u003e32.000\u003c/td\u003e\r\n                      \u003ctd class=\"py-3.5 px-3\"\u003e30.273\u003c/td\u003e\r\n                      \u003ctd class=\"py-3.5 px-4 font-semibold text-gray-900\"\u003e94,6%\u003c/td\u003e\r\n                    \u003c/tr\u003e\r\n                  \u003c/tbody\u003e\r\n                \u003c/table\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003cdiv class=\"text-center mt-3\"\u003e\r\n                \u003cbutton class=\"text-[11px] font-bold text-gray-700 hover:text-gray-900 inline-flex items-center gap-1 cursor-pointer\"\u003e\r\n                  ver menos \u003cspan\u003e^\u003c/span\u003e\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- BARRA/CARD DE FECHAMENTO: RENOVAR CAMPANHA AO FINAL DAS MÉTRICAS (AJUSTE 2) --\u003e\r\n          \u003cdiv class=\"bg-[#FFF7F2] border border-[#FFCCAA] rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4 mb-6\"\u003e\r\n            \u003cdiv class=\"flex items-center gap-3.5\"\u003e\r\n              \u003cdiv class=\"w-10 h-10 rounded-xl bg-[#FF5A00]/10 text-[#FF5A00] flex items-center justify-center font-black text-base shrink-0\"\u003e\r\n                ↻\r\n              \u003c/div\u003e\r\n              \u003cp class=\"text-xs md:text-sm font-bold text-gray-900\"\u003e\r\n                Gostou dos resultados desta campanha? Garanta os mesmos pontos e formatos para o próximo período com 1 clique.\r\n              \u003c/p\u003e\r\n            \u003c/div\u003e\r\n            \u003cbutton onclick=\"openRenewModal()\" class=\"px-4 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer whitespace-nowrap\"\u003e\r\n              \u003cspan\u003e↻\u003c/span\u003e renovar campanha\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- =============================================================== --\u003e\r\n          \u003c!-- FAQ NO RODAPÉ DA ABA MÉTRICAS (FIEL AOS PRINTS 04 E 06)         --\u003e\r\n          \u003c!-- =============================================================== --\u003e\r\n          \u003cdiv class=\"grid grid-cols-12 gap-8 py-6 items-start responsive-faq-grid\"\u003e\r\n            \u003cdiv class=\"col-span-12 md:col-span-5 flex flex-col items-start justify-center pt-6\"\u003e\r\n              \u003ch4 class=\"text-sm font-bold text-gray-900 mb-3\"\u003eFicou com alguma dúvida?\u003c/h4\u003e\r\n              \u003cbutton onclick=\"showToast(\u0027Abrindo atendimento com especialista Aqui ads...\u0027)\" class=\"bg-[#1E2229] hover:bg-black text-white text-xs font-bold px-4 py-2.5 rounded-md transition cursor-pointer\"\u003e\r\n                fale com especialista\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003cdiv class=\"col-span-12 md:col-span-7 border-l-2 border-gray-200 pl-0 space-y-1\" id=\"faq-accordion\"\u003e\r\n              \u003c!-- Item 1 (Aberto por padrão com borda laranja à esquerda) --\u003e\r\n              \u003cdiv class=\"faq-item border-l-2 border-[#FF5A00] -ml-[2px] pl-5 py-2 cursor-pointer\" onclick=\"toggleFaq(0)\"\u003e\r\n                \u003ch5 class=\"text-xs font-bold text-gray-900\"\u003eO que significa exibição total?\u003c/h5\u003e\r\n                \u003cp class=\"faq-answer text-[11px] text-gray-600 mt-1.5 leading-relaxed\"\u003e\r\n                  A exibição total mostra a porcentagem de exibições que já foram entregues em relação ao que foi contratado. Exemplo: se a campanha está com 18%, significa que 18% do volume total previsto já foi exibido até o momento.\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 2 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer\" onclick=\"toggleFaq(1)\"\u003e\r\n                \u003ch5 class=\"text-xs font-medium text-gray-600 hover:text-gray-900\"\u003eQual a diferença entre exibições contratadas e exibições entregues?\u003c/h5\u003e\r\n                \u003cp class=\"faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed\"\u003e\r\n                  Exibições contratadas representam a meta estimada no plano de mídia, enquanto exibições entregues contabilizam as inserções efetivamente reproduzidas nas telas OOH e propriedades digitais.\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 3 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer\" onclick=\"toggleFaq(2)\"\u003e\r\n                \u003ch5 class=\"text-xs font-medium text-gray-600 hover:text-gray-900\"\u003eO que são dias ativos e como isso impacta os resultados?\u003c/h5\u003e\r\n                \u003cp class=\"faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed\"\u003e\r\n                  Dias ativos indicam quantos dias a campanha já esteve em exibição frente ao período total contratado. A entrega acumula progressivamente a cada dia ativo.\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 4 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer\" onclick=\"toggleFaq(3)\"\u003e\r\n                \u003ch5 class=\"text-xs font-medium text-gray-600 hover:text-gray-900\"\u003eComo interpretar pessoas alcançadas?\u003c/h5\u003e\r\n                \u003cp class=\"faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed\"\u003e\r\n                  Representa a estimativa de indivíduos únicos que passaram pelos ambientes de exibição durante os dias ativos da sua campanha.\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003c!-- Item 5 --\u003e\r\n              \u003cdiv class=\"faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer\" onclick=\"toggleFaq(4)\"\u003e\r\n                \u003ch5 class=\"text-xs font-medium text-gray-600 hover:text-gray-900\"\u003ePor que as métricas variam por local, ambiente ou tipo de mídia?\u003c/h5\u003e\r\n                \u003cp class=\"faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed\"\u003e\r\n                  Cada edifício comercial, condomínio residencial ou portal digital possui fluxo de audiência, número de elevadores e horários de funcionamento próprios.\r\n                \u003c/p\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/section\u003e\r\n\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003c!-- ABA 2: ARTE (FIEL AOS PRINTS 07 E 08 - APROVADA E PENDENTE)       --\u003e\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003csection id=\"dtab-panel-arte\" class=\"detail-tab-panel hidden\"\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-2 mb-5\"\u003e\r\n            \u003ch3 class=\"text-lg font-bold text-gray-900\"\u003eArte\u003c/h3\u003e\r\n            \u003c!-- Seletor de Estado da Aba Arte para Validação Rápida --\u003e\r\n            \u003cdiv class=\"flex items-center gap-1.5 bg-gray-100 p-1 rounded-lg text-[11px]\"\u003e\r\n              \u003cspan class=\"text-gray-500 px-2 font-medium\"\u003eSimular estado:\u003c/span\u003e\r\n              \u003cbutton onclick=\"setArteState(\u0027aprovada\u0027)\" id=\"arte-state-aprovada\" class=\"px-2.5 py-1 rounded-md font-bold bg-white text-gray-900 shadow-2xs cursor-pointer\"\u003e\r\n                ✓ Arte Aprovada (Print 07)\r\n              \u003c/button\u003e\r\n              \u003cbutton onclick=\"setArteState(\u0027pendente\u0027)\" id=\"arte-state-pendente\" class=\"px-2.5 py-1 rounded-md font-semibold text-gray-600 hover:text-gray-900 cursor-pointer\"\u003e\r\n                ⚠️ Arte Pendente (Print 08)\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- ESTADO A: ARTE APROVADA COM MOLDURA ELETROMIDIA (PRINT 07) --\u003e\r\n          \u003cdiv id=\"arte-view-aprovada\" class=\"bg-[#F1F5F9] rounded-2xl p-6 mb-8\"\u003e\r\n            \u003cdiv class=\"flex items-start gap-6 responsive-arte-grid\"\u003e\r\n              \u003c!-- Seletor Vertical de Ambientes --\u003e\r\n              \u003cdiv class=\"w-48 shrink-0 space-y-2\"\u003e\r\n                \u003cbutton onclick=\"showToast(\u0027Visualizando formato: Elevadores Residenciais\u0027)\" class=\"w-full text-left px-3.5 py-2.5 rounded-xl bg-white border-2 border-[#FF5A00] text-xs font-bold text-gray-900 flex items-center justify-between cursor-pointer\"\u003e\r\n                  \u003cspan\u003e🏢 residenciais\u003c/span\u003e\r\n                  \u003cspan class=\"text-[10px] text-emerald-600 font-bold\"\u003e✓\u003c/span\u003e\r\n                \u003c/button\u003e\r\n                \u003cbutton onclick=\"showToast(\u0027Visualizando formato: Elevadores Comerciais\u0027)\" class=\"w-full text-left px-3.5 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center justify-between cursor-pointer\"\u003e\r\n                  \u003cspan\u003e🏢 comerciais\u003c/span\u003e\r\n                  \u003cspan class=\"text-[10px] text-emerald-600 font-bold\"\u003e✓\u003c/span\u003e\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Preview Central na Moldura Eletromidia --\u003e\r\n              \u003cdiv class=\"flex-1 bg-white rounded-xl p-6 border border-gray-200 flex flex-col items-center\"\u003e\r\n                \u003cdiv class=\"w-full flex items-center justify-between mb-4\"\u003e\r\n                  \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n                    \u003cspan class=\"bg-gray-100 text-gray-700 text-[11px] font-bold px-2.5 py-1 rounded\"\u003e900x600 px\u003c/span\u003e\r\n                    \u003cspan class=\"bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded\"\u003e✓ Arte aprovada\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cbutton onclick=\"openUploadArteModal()\" class=\"px-3 py-1.5 border border-gray-300 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50 cursor-pointer\"\u003e\r\n                    trocar arte\r\n                  \u003c/button\u003e\r\n                \u003c/div\u003e\r\n\r\n                \u003c!-- Moldura Preta Oficial de Elevador Eletromidia --\u003e\r\n                \u003cdiv class=\"bg-gray-950 p-4 rounded-xl shadow-lg max-w-[420px] w-full border-4 border-gray-800\"\u003e\r\n                  \u003cdiv class=\"overflow-hidden rounded-md bg-amber-900 relative aspect-3/2 flex items-center justify-center\"\u003e\r\n                    \u003cimg id=\"arte-approved-img\" src=\"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format\u0026fit=crop\u0026w=800\u0026q=80\" alt=\"Criativo Aprovado\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                    \u003cdiv class=\"absolute inset-0 bg-gradient-to-r from-amber-950/85 via-amber-900/50 to-transparent p-5 flex flex-col justify-between text-white\"\u003e\r\n                      \u003cdiv\u003e\r\n                        \u003cp class=\"text-[10px] uppercase tracking-widest text-amber-200 font-bold\"\u003eOutubro Rosa\u003c/p\u003e\r\n                        \u003cp class=\"text-sm font-extrabold leading-tight\"\u003eUM NOVO VISUAL,\u003cbr\u003eUM NOVO VOCÊ\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cdiv class=\"bg-black/40 backdrop-blur-xs border border-white/30 rounded p-2 w-fit\"\u003e\r\n                        \u003cp class=\"text-[9px] font-semibold\"\u003eATÉ R$ \u003cspan class=\"text-lg font-black\"\u003e400\u003c/span\u003e\u003c/p\u003e\r\n                        \u003cp class=\"text-[10px] font-extrabold\"\u003eDE DESCONTO\u003c/p\u003e\r\n                      \u003c/div\u003e\r\n                      \u003cp class=\"text-[9px] font-bold tracking-wider uppercase text-amber-100\"\u003eCAMPANHA INSTITUCIONAL\u003c/p\u003e\r\n                    \u003c/div\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"mt-2.5 flex items-center justify-between text-[10px] text-gray-400 px-1\"\u003e\r\n                    \u003cspan\u003eespaço reservado ao condomínio\u003c/span\u003e\r\n                    \u003cspan class=\"font-bold text-orange-500\"\u003eeletromidia\u003c/span\u003e\r\n                  \u003c/div\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- ESTADO B: ARTE PENDENTE DE ENVIO (PRINT 08 - LUNETA ROXA/ROSA) --\u003e\r\n          \u003cdiv id=\"arte-view-pendente\" class=\"hidden bg-[#F1F5F9] rounded-2xl p-6 md:p-8 mb-8\"\u003e\r\n            \u003cdiv class=\"flex flex-col md:flex-row items-center justify-between gap-8\"\u003e\r\n              \u003cdiv class=\"flex-1 max-w-xl\"\u003e\r\n                \u003ch4 class=\"text-sm font-bold text-gray-900 mb-2\"\u003eTudo certo! Formulário de criação enviado\u003c/h4\u003e\r\n                \u003cp class=\"text-xs text-gray-600 leading-relaxed mb-4\"\u003e\r\n                  Recebemos suas informações.\u003cbr\u003e\r\n                  Em até 12h úteis, entraremos em contato por e-mail ou WhatsApp para confirmar os detalhes e iniciar a criação.\r\n                \u003c/p\u003e\r\n                \u003cbutton onclick=\"showToast(\u0027Abrindo resumo do briefing enviado...\u0027)\" class=\"px-3.5 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-800 hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer\"\u003e\r\n                  \u003cspan\u003e✍️\u003c/span\u003e ver formulário\r\n                \u003c/button\u003e\r\n\r\n                \u003chr class=\"my-6 border-gray-200\"\u003e\r\n\r\n                \u003ch4 class=\"text-xs font-bold text-gray-900 mb-1\"\u003eJá recebeu sua arte?\u003c/h4\u003e\r\n                \u003cp class=\"text-xs text-gray-600 mb-4\"\u003eEnvie aqui para darmos continuidade ao processo.\u003c/p\u003e\r\n                \u003cbutton onclick=\"openUploadArteModal()\" class=\"px-4 py-2.5 bg-[#FF5A00] hover:bg-[#E04E00] text-white rounded-lg text-xs font-bold inline-flex items-center gap-1.5 shadow-xs transition cursor-pointer\"\u003e\r\n                  \u003cspan\u003e↑\u003c/span\u003e enviar arte\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Ilustração Fiel ao Print 08 (Luneta Roxa/Rosa/Verde) --\u003e\r\n              \u003cdiv class=\"w-44 h-44 flex items-center justify-center shrink-0\"\u003e\r\n                \u003csvg viewBox=\"0 0 200 200\" class=\"w-full h-full\"\u003e\r\n                  \u003cpath d=\"M95 190 L110 120 L132 125 L125 190 Z\" fill=\"#F472B6\"/\u003e\r\n                  \u003cpolygon points=\"65,75 175,112 170,128 55,115\" fill=\"#4F46E5\"/\u003e\r\n                  \u003cellipse cx=\"60\" cy=\"95\" rx=\"22\" ry=\"28\" fill=\"#15803D\"/\u003e\r\n                  \u003cellipse cx=\"60\" cy=\"95\" rx=\"16\" ry=\"21\" fill=\"#EA580C\"/\u003e\r\n                  \u003cellipse cx=\"62\" cy=\"95\" rx=\"10\" ry=\"14\" fill=\"#FFFFFF\"/\u003e\r\n                  \u003cellipse cx=\"60\" cy=\"95\" rx=\"5\" ry=\"9\" fill=\"#111827\"/\u003e\r\n                  \u003crect x=\"115\" y=\"83\" width=\"7\" height=\"16\" rx=\"3.5\" transform=\"rotate(18 115 83)\" fill=\"#F472B6\"/\u003e\r\n                  \u003crect x=\"125\" y=\"87\" width=\"7\" height=\"16\" rx=\"3.5\" transform=\"rotate(18 125 87)\" fill=\"#F472B6\"/\u003e\r\n                  \u003crect x=\"135\" y=\"91\" width=\"7\" height=\"16\" rx=\"3.5\" transform=\"rotate(18 135 91)\" fill=\"#F472B6\"/\u003e\r\n                \u003c/svg\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/section\u003e\r\n\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003c!-- ABA 3: FATURAMENTO (FIEL AO PRINT 09)                             --\u003e\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003csection id=\"dtab-panel-faturamento\" class=\"detail-tab-panel hidden pb-12\"\u003e\r\n          \u003cdiv class=\"grid grid-cols-1 md:grid-cols-12 gap-10 items-start responsive-faturamento-grid\"\u003e\r\n            \u003c!-- Coluna Valores --\u003e\r\n            \u003cdiv class=\"md:col-span-6\"\u003e\r\n              \u003ch3 class=\"text-base font-bold text-gray-900 mb-5\"\u003eValores\u003c/h3\u003e\r\n              \u003cdiv class=\"space-y-3 text-xs\"\u003e\r\n                \u003cdiv class=\"flex items-center justify-between text-gray-600\"\u003e\r\n                  \u003cspan\u003eSubtotal\u003c/span\u003e\r\n                  \u003cspan id=\"fat-subtotal\" class=\"font-medium text-gray-800\"\u003eR$ 1.092,08\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"flex items-center justify-between text-gray-600\"\u003e\r\n                  \u003cspan\u003eCupom aplicado (MICHELM15)\u003c/span\u003e\r\n                  \u003cspan class=\"font-semibold text-[#22A047]\"\u003e-R$ 163,81\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"pt-2 border-t border-gray-100 flex items-center justify-between text-sm font-extrabold text-gray-900\"\u003e\r\n                  \u003cspan\u003eTotal\u003c/span\u003e\r\n                  \u003cspan id=\"fat-total\"\u003eR$ 928,27\u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Coluna Pagamento --\u003e\r\n            \u003cdiv class=\"md:col-span-6\"\u003e\r\n              \u003cdiv class=\"flex items-center justify-between mb-4\"\u003e\r\n                \u003ch3 class=\"text-base font-bold text-gray-900\"\u003ePagamento\u003c/h3\u003e\r\n                \u003cbutton onclick=\"showToast(\u0027Baixando Nota Fiscal Eletrônica (PDF)...\u0027)\" class=\"px-3 py-1 border border-gray-200 rounded-md text-[11px] font-bold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer\"\u003e\r\n                  \u003cspan\u003enota fiscal\u003c/span\u003e\r\n                  \u003cspan\u003e🧾\u003c/span\u003e\r\n                \u003c/button\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003cdiv class=\"border border-gray-200 rounded-xl p-4 bg-white flex items-center justify-between mb-4\"\u003e\r\n                \u003cspan class=\"text-xs text-gray-700 font-medium\"\u003ePagamento aprovado em\u003c/span\u003e\r\n                \u003cspan class=\"text-xs font-bold text-gray-900 flex items-center gap-1.5\"\u003e\r\n                  Boleto\r\n                  \u003csvg class=\"w-4 h-4 text-gray-700\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"\u003e\u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z\"/\u003e\u003c/svg\u003e\r\n                \u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003cp class=\"text-center text-[10px] text-gray-400\"\u003e\r\n                Pagamento processado por \u003cstrong class=\"text-[#00A868] text-sm font-black tracking-tight ml-0.5\"\u003estone\u003c/strong\u003e\r\n              \u003c/p\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/section\u003e\r\n\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003c!-- ABA 4: LOCAIS (FIEL AO PRINT 10)                                  --\u003e\r\n        \u003c!-- ================================================================= --\u003e\r\n        \u003csection id=\"dtab-panel-locais\" class=\"detail-tab-panel hidden pb-12\"\u003e\r\n          \u003cdiv class=\"flex items-center justify-between mb-5\"\u003e\r\n            \u003ch3 class=\"text-lg font-bold text-gray-900\"\u003eLocais\u003c/h3\u003e\r\n            \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n              \u003cbutton onclick=\"openRenewModal()\" class=\"px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer\"\u003e\r\n                \u003cspan\u003e↻\u003c/span\u003e renovar campanha\r\n              \u003c/button\u003e\r\n              \u003cbutton onclick=\"exportReport(\u0027Lista de Locais CSV\u0027)\" class=\"px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer\"\u003e\r\n                \u003cspan\u003e📥\u003c/span\u003e exportar\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003ch4 class=\"text-xs font-bold text-gray-800 mb-3\"\u003eOOH\u003c/h4\u003e\r\n\r\n          \u003cdiv class=\"border border-gray-200 rounded-xl overflow-x-auto bg-white\"\u003e\r\n            \u003ctable class=\"w-full text-left border-collapse min-w-[600px]\"\u003e\r\n              \u003cthead\u003e\r\n                \u003ctr class=\"bg-[#F3F4F6] text-[10px] font-bold text-gray-800 border-b border-gray-200\"\u003e\r\n                  \u003cth class=\"py-3 px-4\"\u003eLocal\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-4\"\u003eEndereço\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-4\"\u003eVertical\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-4\"\u003eTelas\u003c/th\u003e\r\n                  \u003cth class=\"py-3 px-4\"\u003eStatus\u003c/th\u003e\r\n                \u003c/tr\u003e\r\n              \u003c/thead\u003e\r\n              \u003ctbody class=\"divide-y divide-gray-100 text-[11px] text-gray-600\"\u003e\r\n                \u003ctr\u003e\r\n                  \u003ctd class=\"py-3.5 px-4 text-gray-800\"\u003eEdifício Melbourne\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eRua Professor Moraes, 72\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eElevadores\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e1\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e\u003cspan class=\"bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full\"\u003eAtivo\u003c/span\u003e\u003c/td\u003e\r\n                \u003c/tr\u003e\r\n                \u003ctr\u003e\r\n                  \u003ctd class=\"py-3.5 px-4 text-gray-800\"\u003eResidencial Monet\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eRua Santa Rita Durão, 466\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eElevadores\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e1\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e\u003cspan class=\"bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full\"\u003eAtivo\u003c/span\u003e\u003c/td\u003e\r\n                \u003c/tr\u003e\r\n                \u003ctr\u003e\r\n                  \u003ctd class=\"py-3.5 px-4 text-gray-800\"\u003eCondomínio Champagnat\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eRua Santa Rita Durão, 1000\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eElevadores\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e2\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e\u003cspan class=\"bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full\"\u003eAtivo\u003c/span\u003e\u003c/td\u003e\r\n                \u003c/tr\u003e\r\n                \u003ctr\u003e\r\n                  \u003ctd class=\"py-3.5 px-4 text-gray-800\"\u003eDerminas\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eAvenida do Contorno, 6084\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eElevadores\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e1\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e\u003cspan class=\"bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full\"\u003eAtivo\u003c/span\u003e\u003c/td\u003e\r\n                \u003c/tr\u003e\r\n                \u003ctr\u003e\r\n                  \u003ctd class=\"py-3.5 px-4 text-gray-800\"\u003eParque das Acácias\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eRua Grão Mogol, 172\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003eElevadores\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e2\u003c/td\u003e\r\n                  \u003ctd class=\"py-3.5 px-4\"\u003e\u003cspan class=\"bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full\"\u003eAtivo\u003c/span\u003e\u003c/td\u003e\r\n                \u003c/tr\u003e\r\n              \u003c/tbody\u003e\r\n            \u003c/table\u003e\r\n          \u003c/div\u003e\r\n        \u003c/section\u003e\r\n\r\n      \u003c/main\u003e\r\n\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- TELA DEDICADA: SUBIR IMAGEM / ENVIAR ARTE (VIEW-UPLOAD-ARTE)          --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cmain id=\"view-upload-arte\" class=\"view-section flex-1 max-w-[1060px] w-full mx-auto px-6 md:px-10 py-6 responsive-main-padding\"\u003e\r\n        \u003c!-- Botão Voltar --\u003e\r\n        \u003cdiv class=\"mb-5\"\u003e\r\n          \u003cbutton onclick=\"backFromUploadArte()\" class=\"px-3.5 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer\"\u003e\r\n            \u003cspan\u003e‹\u003c/span\u003e voltar\r\n          \u003c/button\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- Cabeçalho da Tela de Subir Imagem --\u003e\r\n        \u003cdiv class=\"flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-gray-200\"\u003e\r\n          \u003cdiv\u003e\r\n            \u003cdiv class=\"flex items-center gap-2 mb-1\"\u003e\r\n              \u003cspan class=\"bg-amber-100 text-amber-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full\"\u003e⚠️ Aguardando envio de criativo\u003c/span\u003e\r\n              \u003cspan id=\"upload-screen-campaign-id\" class=\"text-xs font-bold text-gray-400\"\u003e#750708\u003c/span\u003e\r\n            \u003c/div\u003e\r\n            \u003ch2 class=\"text-xl font-extrabold text-gray-900 tracking-tight\"\u003eEnviar arte da campanha\u003c/h2\u003e\r\n            \u003cp class=\"text-xs text-gray-600 mt-0.5\"\u003e\r\n              Campanha: \u003cstrong id=\"upload-screen-campaign-title\" class=\"text-gray-900\"\u003eEd. Comercial liv635\u003c/strong\u003e • Prazo contratado: \u003cspan id=\"upload-screen-campaign-period\" class=\"font-medium text-gray-800\"\u003e26/10/2026 a 22/11/2026 (28 dias)\u003c/span\u003e\r\n            \u003c/p\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"flex items-center gap-2\"\u003e\r\n            \u003cbutton onclick=\"openCampaignDetail(uploadingCampaignId, \u0027locais\u0027)\" class=\"px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 cursor-pointer\"\u003e\r\n              📍 ver locais contratados\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- Seletor do Formato Contratado --\u003e\r\n        \u003cdiv class=\"mb-6\"\u003e\r\n          \u003clabel class=\"block text-xs font-bold text-gray-800 mb-2\"\u003e1. Selecione o formato contratado para enviar o arquivo\u003c/label\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center gap-2.5\"\u003e\r\n            \u003cbutton onclick=\"selectUploadFormat(\u0027comercial\u0027)\" id=\"up-fmt-comercial\" class=\"px-4 py-2.5 rounded-xl border-2 border-[#FF5A00] bg-orange-50/40 text-left flex items-center gap-3 cursor-pointer transition\"\u003e\r\n              \u003cspan class=\"text-lg\"\u003e🏢\u003c/span\u003e\r\n              \u003cdiv\u003e\r\n                \u003cp class=\"text-xs font-bold text-gray-900\"\u003eElevadores Comerciais / Residenciais\u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-500\"\u003eDimensão obrigatória: \u003cstrong class=\"text-gray-800\"\u003e900x600 px\u003c/strong\u003e (Horizontal • JPG, PNG ou MP4)\u003c/p\u003e\r\n              \u003c/div\u003e\r\n              \u003cspan id=\"up-fmt-badge\" class=\"ml-2 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded\"\u003ePendente\u003c/span\u003e\r\n            \u003c/button\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n\r\n        \u003c!-- Grid Principal: Área Tracejada de Upload + Pré-visualização na Moldura Eletromidia --\u003e\r\n        \u003cdiv class=\"grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-8\"\u003e\r\n          \u003c!-- Coluna Esquerda: Dropzone para Subir Imagem (7 cols) --\u003e\r\n          \u003cdiv class=\"lg:col-span-7 flex flex-col justify-between bg-white rounded-xl p-6 border border-gray-200\"\u003e\r\n            \u003cdiv\u003e\r\n              \u003cdiv class=\"flex items-center justify-between mb-3\"\u003e\r\n                \u003ch3 class=\"text-sm font-bold text-gray-900\"\u003e2. Subir imagem ou vídeo do anúncio\u003c/h3\u003e\r\n                \u003cspan class=\"text-[11px] font-semibold text-gray-500\"\u003e900x600 px • Máx. 15MB\u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Área Tracejada Interativa --\u003e\r\n              \u003cdiv onclick=\"previewSelectedCreative()\" id=\"upload-dropzone-box\" class=\"border-2 border-dashed border-gray-300 hover:border-[#FF5A00] bg-[#F8FAFC] hover:bg-orange-50/30 rounded-2xl p-8 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[230px]\"\u003e\r\n                \u003cdiv id=\"upload-dropzone-icon\" class=\"w-12 h-12 rounded-full bg-orange-100 text-[#FF5A00] flex items-center justify-center mb-3 font-black text-lg\"\u003e\r\n                  ↑\r\n                \u003c/div\u003e\r\n                \u003cp id=\"upload-dropzone-title\" class=\"text-xs md:text-sm font-bold text-gray-900 mb-1\"\u003e\r\n                  Arraste sua imagem aqui ou clique para selecionar do computador\r\n                \u003c/p\u003e\r\n                \u003cp id=\"upload-dropzone-sub\" class=\"text-[11px] text-gray-500 max-w-sm\"\u003e\r\n                  Formatos aceitos: \u003cstrong class=\"text-gray-700\"\u003eJPG, PNG ou MP4\u003c/strong\u003e • Dimensão exata: \u003cstrong class=\"text-gray-700\"\u003e900x600 px\u003c/strong\u003e\r\n                \u003c/p\u003e\r\n                \u003cspan id=\"upload-file-pill\" class=\"mt-4 px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 text-xs font-bold text-gray-800 shadow-2xs\"\u003e\r\n                  Selecionar arquivo do computador...\r\n                \u003c/span\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Checklist de Validação Técnica --\u003e\r\n              \u003cdiv class=\"mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]\"\u003e\r\n                \u003cdiv class=\"bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700\"\u003e\r\n                  \u003cspan id=\"chk-dim\" class=\"text-gray-400 font-bold\"\u003e✓\u003c/span\u003e\r\n                  \u003cspan\u003eResolução \u003cstrong\u003e900x600 px\u003c/strong\u003e\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700\"\u003e\r\n                  \u003cspan id=\"chk-fmt\" class=\"text-gray-400 font-bold\"\u003e✓\u003c/span\u003e\r\n                  \u003cspan\u003eFormato \u003cstrong\u003eJPG / PNG / MP4\u003c/strong\u003e\u003c/span\u003e\r\n                \u003c/div\u003e\r\n                \u003cdiv class=\"bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700\"\u003e\r\n                  \u003cspan id=\"chk-mod\" class=\"text-gray-400 font-bold\"\u003e✓\u003c/span\u003e\r\n                  \u003cspan\u003eAprovação em \u003cstrong\u003eaté 24h\u003c/strong\u003e\u003c/span\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Rodapé de Ação da Coluna de Upload --\u003e\r\n            \u003cdiv class=\"mt-6 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3\"\u003e\r\n              \u003cbutton onclick=\"backFromUploadArte()\" class=\"px-4 py-2.5 rounded-lg border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50 cursor-pointer\"\u003e\r\n                cancelar\r\n              \u003c/button\u003e\r\n              \u003cbutton onclick=\"confirmUploadArteFromScreen()\" id=\"btn-confirm-upload-screen\" class=\"px-5 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition cursor-pointer\"\u003e\r\n                \u003cspan\u003e✓\u003c/span\u003e confirmar envio da arte\r\n              \u003c/button\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003c!-- Coluna Direita: Pré-visualização na Moldura Eletromidia (5 cols) --\u003e\r\n          \u003cdiv class=\"lg:col-span-5 bg-white rounded-xl p-6 border border-gray-200 flex flex-col items-center justify-between\"\u003e\r\n            \u003cdiv class=\"w-full flex items-center justify-between mb-3\"\u003e\r\n              \u003cspan class=\"text-xs font-bold text-gray-900\"\u003ePré-visualização na tela OOH\u003c/span\u003e\r\n              \u003cspan id=\"upload-preview-status\" class=\"bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-0.5 rounded\"\u003eAguardando arquivo\u003c/span\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003c!-- Moldura Preta Oficial Eletromidia --\u003e\r\n            \u003cdiv class=\"bg-gray-950 p-4 rounded-xl shadow-lg w-full border-4 border-gray-800 my-auto\"\u003e\r\n              \u003c!-- Estado Vazio (Antes de selecionar imagem) --\u003e\r\n              \u003cdiv id=\"upload-frame-empty\" onclick=\"previewSelectedCreative()\" class=\"overflow-hidden rounded-md bg-gray-800 relative aspect-3/2 flex flex-col items-center justify-center text-center p-4 cursor-pointer hover:bg-gray-800/80 transition\"\u003e\r\n                \u003csvg class=\"w-8 h-8 text-gray-500 mb-2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" viewBox=\"0 0 24 24\"\u003e\r\n                  \u003cpath stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\"/\u003e\r\n                \u003c/svg\u003e\r\n                \u003cp class=\"text-[11px] font-bold text-gray-300\"\u003eEspaço da sua arte (900x600 px)\u003c/p\u003e\r\n                \u003cp class=\"text-[10px] text-gray-400 mt-0.5\"\u003eClique ao lado para carregar e simular na tela\u003c/p\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003c!-- Estado Preenchido (Após selecionar imagem) --\u003e\r\n              \u003cdiv id=\"upload-frame-filled\" class=\"hidden overflow-hidden rounded-md bg-amber-900 relative aspect-3/2 flex items-center justify-center\"\u003e\r\n                \u003cimg src=\"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format\u0026fit=crop\u0026w=800\u0026q=80\" alt=\"Preview da Arte Carregada\" class=\"w-full h-full object-cover opacity-90\"\u003e\r\n                \u003cdiv class=\"absolute inset-0 bg-gradient-to-r from-amber-950/85 via-amber-900/50 to-transparent p-4 flex flex-col justify-between text-white\"\u003e\r\n                  \u003cdiv\u003e\r\n                    \u003cp class=\"text-[9px] uppercase tracking-widest text-amber-200 font-bold\"\u003eCampanha OOH\u003c/p\u003e\r\n                    \u003cp class=\"text-xs font-extrabold leading-tight\"\u003eSEU ANÚNCIO EM DESTAQUE\u003cbr\u003eNOS ELEVADORES\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cdiv class=\"bg-black/40 border border-white/30 rounded px-2 py-1 w-fit\"\u003e\r\n                    \u003cp class=\"text-[9px] font-bold\"\u003e900x600 px • VALIDADO ✓\u003c/p\u003e\r\n                  \u003c/div\u003e\r\n                  \u003cp id=\"upload-frame-mall-label\" class=\"text-[8px] font-bold tracking-wider uppercase text-amber-100\"\u003eED. COMERCIAL LIV635\u003c/p\u003e\r\n                \u003c/div\u003e\r\n              \u003c/div\u003e\r\n\r\n              \u003cdiv class=\"mt-2.5 flex items-center justify-between text-[10px] text-gray-400 px-1\"\u003e\r\n                \u003cspan\u003eespaço reservado ao condomínio\u003c/span\u003e\r\n                \u003cspan class=\"font-bold text-orange-500\"\u003eeletromidia\u003c/span\u003e\r\n              \u003c/div\u003e\r\n            \u003c/div\u003e\r\n\r\n            \u003cp class=\"text-[11px] text-gray-500 text-center mt-3\"\u003e\r\n              Após confirmar o envio, nossa equipe revisa o material em até 24h úteis antes da publicação nas telas.\r\n            \u003c/p\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/main\u003e";
-const AQUI_ADS_SHELL_FOOTER_HTML = "      \u003c!-- ===================================================================== --\u003e\r\n      \u003c!-- FOOTER OFICIAL GLOBO (FIEL AOS PRINTS 01..10)                         --\u003e\r\n      \u003c!-- ===================================================================== --\u003e\r\n      \u003cfooter class=\"bg-[#F3F4F6] border-t border-gray-200 px-6 md:px-10 py-8 mt-auto\"\u003e\r\n        \u003cdiv class=\"max-w-[1140px] mx-auto\"\u003e\r\n          \u003cdiv class=\"flex flex-wrap items-center justify-between gap-4 mb-6\"\u003e\r\n            \u003cdiv class=\"flex items-center gap-1.5 font-black text-lg text-gray-900 tracking-tight\"\u003e\r\n              \u003cspan class=\"inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-900 text-white text-[10px]\"\u003e◉\u003c/span\u003e\r\n              globo\r\n            \u003c/div\u003e\r\n            \u003cdiv class=\"flex items-center gap-3 text-xs text-gray-600\"\u003e\r\n              \u003cspan\u003eAcompanhe o Aqui ads\u003c/span\u003e\r\n              \u003cspan class=\"font-bold text-gray-900 cursor-pointer\"\u003ein\u003c/span\u003e\r\n              \u003cspan class=\"font-bold text-gray-900 cursor-pointer\"\u003e📷\u003c/span\u003e\r\n              \u003cspan class=\"font-bold text-gray-900 cursor-pointer\"\u003e▶\u003c/span\u003e\r\n              \u003cspan class=\"font-bold text-gray-900 cursor-pointer\"\u003e♪\u003c/span\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"mb-6 text-[11px] text-gray-500 space-y-1\"\u003e\r\n            \u003cp class=\"font-bold text-gray-700\"\u003eQuer uma ajuda?\u003c/p\u003e\r\n            \u003cp\u003e📱 (11) 5039-5212\u003c/p\u003e\r\n            \u003cp\u003e✉️ contato@aqui.globo\u003c/p\u003e\r\n          \u003c/div\u003e\r\n\r\n          \u003cdiv class=\"pt-4 border-t border-gray-200 flex flex-wrap items-center justify-between gap-2 text-[10px] text-gray-400\"\u003e\r\n            \u003cp\u003e© Copyright 2026 GLOBO COMUNICACAO E PARTICIPACOES S/A | CNPJ: 27.865.757/0036-65 | R. Evandro Carlos de Andrade, 160 - 3º Andar, Vila Cordeiro - São Paulo, SP, 04583-115\u003c/p\u003e\r\n            \u003cdiv class=\"flex items-center gap-4\"\u003e\r\n              \u003ca href=\"javascript:void(0)\" class=\"hover:underline\"\u003ePrivacidade\u003c/a\u003e\r\n              \u003ca href=\"javascript:void(0)\" class=\"hover:underline\"\u003eGerencie seus dados\u003c/a\u003e\r\n              \u003ca href=\"javascript:void(0)\" class=\"hover:underline\"\u003eGerencie seus cookies\u003c/a\u003e\r\n            \u003c/div\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/footer\u003e\r\n\r\n    \u003c/div\u003e\r\n  \u003c/div\u003e\r\n\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003c!-- MODAL INTERATIVO 1: RENOMEAR CAMPANHA (VIA MENU ⋮ -\u003e RENOMEAR CAMPANHA)   --\u003e\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003cdiv id=\"modal-rename-campaign\" class=\"hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4\"\u003e\r\n    \u003cdiv class=\"bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200\"\u003e\r\n      \u003cdiv class=\"flex items-center justify-between mb-3\"\u003e\r\n        \u003ch3 class=\"text-base font-bold text-gray-900\"\u003eRenomear campanha\u003c/h3\u003e\r\n        \u003cbutton onclick=\"closeRenameModal()\" class=\"text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer\"\u003e✕\u003c/button\u003e\r\n      \u003c/div\u003e\r\n      \u003cp class=\"text-xs text-gray-500 mb-4\"\u003e\r\n        Escolha um nome claro para identificar rapidamente este plano de mídia na sua listagem.\r\n      \u003c/p\u003e\r\n      \u003cdiv class=\"mb-5\"\u003e\r\n        \u003clabel class=\"block text-[11px] font-bold text-gray-700 mb-1.5\"\u003eNome da campanha\u003c/label\u003e\r\n        \u003cinput type=\"text\" id=\"rename-modal-input\" class=\"w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#FF5A00]\" placeholder=\"Digite o novo nome da campanha\"\u003e\r\n      \u003c/div\u003e\r\n      \u003cdiv class=\"flex items-center justify-end gap-2\"\u003e\r\n        \u003cbutton onclick=\"closeRenameModal()\" class=\"px-3.5 py-2 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 cursor-pointer\"\u003ecancelar\u003c/button\u003e\r\n        \u003cbutton onclick=\"saveRenamedCampaign()\" class=\"px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] hover:bg-[#E04E00] text-white cursor-pointer\"\u003e\r\n          salvar\r\n        \u003c/button\u003e\r\n      \u003c/div\u003e\r\n    \u003c/div\u003e\r\n  \u003c/div\u003e\r\n\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003c!-- MODAL INTERATIVO 2: RENOVAR CAMPANHA EM 1 CLIQUE (QUICK WIN 4 - SEÇÃO 3.4) --\u003e\r\n  \u003c!-- ========================================================================= --\u003e\r\n  \u003cdiv id=\"modal-renew\" class=\"hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4\"\u003e\r\n    \u003cdiv class=\"bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200\"\u003e\r\n      \u003cdiv class=\"flex items-center justify-between mb-3\"\u003e\r\n        \u003cspan class=\"bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded\"\u003eRecompra Express em 1 Clique\u003c/span\u003e\r\n        \u003cbutton onclick=\"closeRenewModal()\" class=\"text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer\"\u003e✕\u003c/button\u003e\r\n      \u003c/div\u003e\r\n      \u003ch3 class=\"text-base font-bold text-gray-900 mb-1\"\u003eRenovar campanha\u003c/h3\u003e\r\n      \u003cp class=\"text-xs text-gray-500 mb-4\" id=\"renew-modal-subtitle\"\u003e\r\n        Seus locais e formatos já estão pré-carregados. Escolha a duração do novo período para continuar anunciando sem interrupção.\r\n      \u003c/p\u003e\r\n\r\n      \u003c!-- Seletor de Prazo (7, 14 ou 28 dias) --\u003e\r\n      \u003cdiv class=\"mb-4\"\u003e\r\n        \u003clabel class=\"block text-[11px] font-bold text-gray-800 mb-1.5\"\u003e1. Escolha a duração da renovação\u003c/label\u003e\r\n        \u003cdiv class=\"grid grid-cols-3 gap-2\"\u003e\r\n          \u003cbutton onclick=\"selectRenewDuration(7)\" id=\"renew-dur-7\" class=\"py-2 px-3 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer\"\u003e\r\n            7 dias\r\n          \u003c/button\u003e\r\n          \u003cbutton onclick=\"selectRenewDuration(14)\" id=\"renew-dur-14\" class=\"py-2 px-3 rounded-lg border-2 border-[#FF5A00] bg-orange-50/60 text-xs font-extrabold text-[#FF5A00] cursor-pointer\"\u003e\r\n            14 dias (Atual)\r\n          \u003c/button\u003e\r\n          \u003cbutton onclick=\"selectRenewDuration(28)\" id=\"renew-dur-28\" class=\"py-2 px-3 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer\"\u003e\r\n            28 dias\r\n          \u003c/button\u003e\r\n        \u003c/div\u003e\r\n      \u003c/div\u003e\r\n\r\n      \u003c!-- Opção de Reaproveitar Arte Aprovada --\u003e\r\n      \u003cdiv class=\"mb-4 bg-emerald-50/70 border border-emerald-200 rounded-xl p-3\"\u003e\r\n        \u003clabel class=\"flex items-start gap-2.5 cursor-pointer\"\u003e\r\n          \u003cinput type=\"checkbox\" checked class=\"mt-0.5 accent-[#FF5A00] rounded cursor-pointer\"\u003e\r\n          \u003cspan class=\"text-xs text-gray-800 leading-snug\"\u003e\r\n            \u003cstrong class=\"text-emerald-950 block\"\u003eManter a mesma arte aprovada\u003c/strong\u003e\r\n            \u003cspan class=\"text-[11px] text-gray-600\"\u003eSem fila de moderação — sua campanha entra no ar automaticamente na data escolhida.\u003c/span\u003e\r\n          \u003c/span\u003e\r\n        \u003c/label\u003e\r\n      \u003c/div\u003e\r\n\r\n      \u003c!-- Resumo Financeiro + Regra Canônica de Parcelamento em até 3x --\u003e\r\n      \u003cdiv class=\"bg-[#F8FAFC] border border-gray-200 rounded-xl p-3.5 mb-5 space-y-2 text-xs\"\u003e\r\n        \u003cdiv class=\"flex justify-between\"\u003e\r\n          \u003cspan class=\"text-gray-500\"\u003eCampanha base:\u003c/span\u003e\r\n          \u003cstrong class=\"text-gray-900\" id=\"renew-campaign-title\"\u003eCampanha Multicanal - Outubro\u003c/strong\u003e\r\n        \u003c/div\u003e\r\n        \u003cdiv class=\"flex justify-between\"\u003e\r\n          \u003cspan class=\"text-gray-500\"\u003eNovo período sugerido:\u003c/span\u003e\r\n          \u003cstrong class=\"text-gray-900\" id=\"renew-period-label\"\u003e29/10/2026 a 11/11/2026 (14 dias)\u003c/strong\u003e\r\n        \u003c/div\u003e\r\n        \u003cdiv class=\"flex justify-between items-baseline pt-1 border-t border-gray-200\"\u003e\r\n          \u003cspan class=\"text-gray-700 font-semibold\"\u003eInvestimento total:\u003c/span\u003e\r\n          \u003cdiv class=\"text-right\"\u003e\r\n            \u003cstrong class=\"text-sm font-black text-[#FF5A00]\" id=\"renew-campaign-price\"\u003eR$ 928,27\u003c/strong\u003e\r\n            \u003cspan class=\"block text-[10px] text-gray-500\"\u003eEm até 3x sem juros no cartão ou PIX\u003c/span\u003e\r\n          \u003c/div\u003e\r\n        \u003c/div\u003e\r\n      \u003c/div\u003e\r\n\r\n      \u003cdiv class=\"flex items-center justify-end gap-2\"\u003e\r\n        \u003cbutton onclick=\"closeRenewModal()\" class=\"px-3.5 py-2 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 cursor-pointer\"\u003eVoltar\u003c/button\u003e\r\n        \u003cbutton onclick=\"confirmRenewal()\" class=\"px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] hover:bg-[#E04E00] text-white cursor-pointer\"\u003e\r\n          Ir para o Pagamento →\r\n        \u003c/button\u003e\r\n      \u003c/div\u003e\r\n    \u003c/div\u003e\r\n  \u003c/div\u003e\r\n\r\n  \u003c!-- MODAL DETALHES DO PONTO OOH / PRODUTO DIGITAL (Acionado por \"ver detalhes\" na PLP) --\u003e\r\n  \u003cdiv id=\"modal-plp-detail\" class=\"hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4\"\u003e\r\n    \u003cdiv class=\"bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-200\"\u003e\r\n      \u003cdiv class=\"flex items-start justify-between gap-3 mb-4\"\u003e\r\n        \u003cdiv\u003e\r\n          \u003cspan id=\"plp-detail-modal-badge\" class=\"bg-orange-100 text-[#FF4F00] text-[10px] font-extrabold px-2 py-0.5 rounded uppercase\"\u003eDetalhes do Ponto\u003c/span\u003e\r\n          \u003ch3 id=\"plp-detail-modal-title\" class=\"text-base font-bold text-[#282E38] mt-1\"\u003eVN Alvorada 1217\u003c/h3\u003e\r\n          \u003cp id=\"plp-detail-modal-sub\" class=\"text-xs text-[#6B7588] mt-0.5\"\u003eRua Alvorada - 1217, Vila Olímpia - São Paulo\u003c/p\u003e\r\n        \u003c/div\u003e\r\n        \u003cbutton type=\"button\" onclick=\"closePlpDetailModal()\" class=\"text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer\"\u003e✕\u003c/button\u003e\r\n      \u003c/div\u003e\r\n      \u003cdiv id=\"plp-detail-modal-body\" class=\"space-y-3 text-xs text-[#282E38] mb-5\"\u003e\r\n        \u003c!-- Preenchido via JS --\u003e\r\n      \u003c/div\u003e\r\n      \u003cdiv class=\"flex items-center justify-end gap-2 pt-3 border-t border-gray-100\"\u003e\r\n        \u003cbutton type=\"button\" onclick=\"closePlpDetailModal()\" class=\"px-4 py-2 rounded-lg border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer\"\u003eFechar\u003c/button\u003e\r\n        \u003cbutton type=\"button\" id=\"plp-detail-modal-action-btn\" class=\"px-5 py-2 rounded-lg bg-[#3A9F3A] hover:bg-[#338C33] text-white text-xs font-bold shadow-xs cursor-pointer\"\u003eAdicionar ao plano\u003c/button\u003e\r\n      \u003c/div\u003e\r\n    \u003c/div\u003e\r\n  \u003c/div\u003e\r\n\r\n  \u003c!-- TOAST DE FEEDBACK --\u003e\r\n  \u003cdiv id=\"proto-toast\" class=\"fixed bottom-5 right-5 z-50 hidden bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-gray-700\"\u003e\r\n    \u003cspan class=\"w-2 h-2 rounded-full bg-[#FF5A00]\"\u003e\u003c/span\u003e\r\n    \u003cspan id=\"proto-toast-text\"\u003eAção concluída\u003c/span\u003e\r\n  \u003c/div\u003e\r\n\r\n  \u003c!-- MODAL SALVAR COMO RASCUNHO (Acionado pela Página de Resumo) --\u003e\r\n  \u003cdiv id=\"modal-save-draft\" class=\"hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4\"\u003e\r\n    \u003cdiv class=\"bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200\"\u003e\r\n      \u003cdiv class=\"flex items-start justify-between gap-3 mb-3\"\u003e\r\n        \u003cdiv\u003e\r\n          \u003cspan class=\"bg-orange-100 text-[#FF4F00] text-[10px] font-extrabold px-2 py-0.5 rounded uppercase\"\u003eSalvar Plano\u003c/span\u003e\r\n          \u003ch3 class=\"text-base font-bold text-gray-900 mt-1\"\u003eSalvar como rascunho\u003c/h3\u003e\r\n        \u003c/div\u003e\r\n        \u003cbutton type=\"button\" onclick=\"closeSaveDraftModal()\" class=\"text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer\"\u003e✕\u003c/button\u003e\r\n      \u003c/div\u003e\r\n      \u003cp class=\"text-xs text-gray-600 mb-4 leading-relaxed\"\u003e\r\n        Seu plano ficará salvo na aba \u003cstrong\u003eRascunhos\u003c/strong\u003e dentro de \u003cstrong\u003eMeus Anúncios\u003c/strong\u003e para você retomar ou compartilhar quando quiser.\r\n      \u003c/p\u003e\r\n      \u003cdiv class=\"mb-5\"\u003e\r\n        \u003clabel class=\"block text-xs font-bold text-gray-800 mb-1.5\"\u003eNome do rascunho\u003c/label\u003e\r\n        \u003cinput id=\"save-draft-name-input\" type=\"text\" maxlength=\"40\" value=\"Campanha - 21/10 - 15h34\" class=\"w-full rounded-lg border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF4F00] outline-none\"\u003e\r\n      \u003c/div\u003e\r\n      \u003cdiv class=\"flex items-center justify-end gap-2\"\u003e\r\n        \u003cbutton type=\"button\" onclick=\"closeSaveDraftModal()\" class=\"px-4 py-2 rounded-lg border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer\"\u003eCancelar\u003c/button\u003e\r\n        \u003cbutton type=\"button\" onclick=\"confirmSaveDraft()\" class=\"px-5 py-2 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold shadow-xs cursor-pointer\"\u003eSalvar rascunho\u003c/button\u003e\r\n      \u003c/div\u003e\r\n    \u003c/div\u003e\r\n  \u003c/div\u003e";
+const AQUI_ADS_SHELL_HEADER_HTML = `
+  <!-- ========================================================================= -->
+  <!-- BARRA SUPERIOR DE CONTROLE DO PROTÓTIPO (ALTERNADOR DESK / MOBILE)        -->
+  <!-- ========================================================================= -->
+  <header class="bg-gray-950 text-white px-4 py-1.5 sticky top-0 z-50 border-b border-gray-800 shadow-md">
+    <div class="w-full px-6 mx-auto flex flex-wrap items-center justify-between gap-2">
+      <!-- Alternador de Viewport Desktop vs Mobile (Sem precisar de DevTools) -->
+      <div class="flex items-center bg-gray-900 p-0.5 rounded-lg border border-gray-800">
+        <button onclick="setViewportMode('desktop')" id="vp-desktop-btn" class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-gray-800 text-white flex items-center gap-1 transition cursor-pointer">
+          <span>🖥️</span> Desktop
+        </button>
+        <button onclick="setViewportMode('mobile')" id="vp-mobile-btn" class="px-2.5 py-1 rounded-md text-[11px] font-bold text-gray-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>📱</span> Mobile (390px)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- STAGE PRINCIPAL (ALTERNA ENTRE FULL DESKTOP E MOLDURA MOBILE 390x844)     -->
+  <!-- ========================================================================= -->
+  <div id="app-Stage" class="flex-1 flex flex-col">
+    <div id="viewport-container" class="w-full flex-1 flex flex-col bg-white">
+
+      <!-- HEADER GLOBAL AQUI ADS (FIEL AO ESPELHO DE PRODUÇÃO resultados_ooh.html E AO MENU LATERAL OFICIAL) -->
+      <header id="main-header" class="bg-white border-b border-gray-100 w-full px-4 sm:px-6 md:px-8 xl:pl-[90px] xl:pr-10 2xl:px-[90px] py-3.5 flex items-center justify-between sticky top-0 z-30">
+        <div class="flex items-center gap-6">
+          <a href="javascript:void(0)" onclick="showScreen('view-resultados')" class="flex items-center select-none" style="text-decoration: none;" title="Ir para a Página de Resultados">
+            <img src="https://aqui.globo/_astro/logo-aqui-ads.f9282b14.svg" alt="Aqui Ads" class="h-7 md:h-8 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span style="display:none;" class="items-start">
+              <span class="text-2xl font-black tracking-tight text-[#FF5A00]">Aqui</span>
+              <span class="text-2xl font-medium tracking-tight text-[#FF5A00] ml-0.5">ads</span>
+              <span class="text-[9px] text-[#FF5A00] font-bold ml-0.5 mt-0.5">®</span>
+            </span>
+          </a>
+        </div>
+
+        <!-- Seletor de Canais Central Oficial (Visível na Página de Resultados - Fiel a resultados_ooh.html e Print 01) -->
+        <div id="header-home-channels" class="flex items-center gap-6 md:gap-9 text-xs font-bold text-gray-600">
+          <button id="hdr-channel-ooh" type="button" onclick="switchPlpChannel('ooh')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-[#241e17] text-[#241e17] font-bold text-sm cursor-pointer transition">
+            <img src="https://aqui.globo/images/header/ooh.svg" alt="OOH" class="w-7 h-7 object-contain">
+            <span>OOH</span>
+          </button>
+          <button id="hdr-channel-digital" type="button" onclick="switchPlpChannel('digital')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+            <img src="https://aqui.globo/images/header/digital.svg" alt="Digital" class="w-7 h-7 object-contain">
+            <span>Digital</span>
+          </button>
+          <button id="hdr-channel-tv" type="button" onclick="switchPlpChannel('tv')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+            <img src="https://aqui.globo/images/header/tv.svg" alt="TV" class="w-7 h-7 object-contain">
+            <span>TV</span>
+          </button>
+          <button id="hdr-channel-radio" type="button" onclick="switchPlpChannel('radio')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+            <img src="https://aqui.globo/images/header/radio.svg" alt="Rádio" class="w-7 h-7 object-contain">
+            <span>Rádio</span>
+          </button>
+          <button id="hdr-channel-combos" type="button" onclick="switchPlpChannel('combos')" class="flex items-center gap-2 pb-1.5 pt-1 border-b-2 border-transparent text-[#8e8477] hover:text-[#241e17] font-normal text-sm cursor-pointer transition">
+            <img src="https://aqui.globo/images/header/combos.svg" alt="Combos" class="w-7 h-7 object-contain">
+            <span>Combos</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-4 md:gap-5">
+          <button onclick="showToast('Assistente de anúncios IA aberto')" class="text-xs font-semibold text-gray-700 flex items-center gap-1.5 hover:text-[#FF5A00] transition cursor-pointer">
+            <span class="hide-on-mobile-frame">Assistente de anúncios</span>
+            <span class="text-indigo-600 text-sm">✨</span>
+          </button>
+
+          <button onclick="showScreen('view-resumo')" class="relative text-gray-700 hover:text-[#FF5A00] transition cursor-pointer" title="Ver Plano de Mídia (Carrinho)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            <span id="hdr-cart-badge" class="hidden absolute -top-1.5 -right-2 bg-[#FF4F00] text-white text-[9px] font-bold px-1 rounded-full leading-tight">0</span>
+          </button>
+
+          <div class="flex items-center gap-2 pl-2 border-l border-gray-200 relative">
+            <div onclick="openSideMenu(event)" class="flex items-center gap-2 cursor-pointer" title="Abrir menu lateral">
+              <div class="w-7 h-7 rounded-full bg-gray-100 border border-gray-200 text-gray-600 font-bold text-xs flex items-center justify-center">F</div>
+              <span class="text-[11px] font-bold text-gray-800 hide-on-mobile-frame">Olá, FRANKS!</span>
+            </div>
+            <button onclick="showToast('Configurações da conta')" class="text-gray-600 hover:text-gray-900 p-1 cursor-pointer" title="Configurações">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </button>
+            <button onclick="openSideMenu(event)" class="text-gray-700 hover:text-[#FF5A00] p-1 cursor-pointer transition" title="Menu Lateral">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===================================================================== -->
+      <!-- MENU LATERAL OFICIAL AQUI ADS (FIEL AO PRINT ENVIADO PELO FRANKS)     -->
+      <!-- ===================================================================== -->
+      <div id="side-menu-drawer" class="hidden fixed inset-0 z-50 flex justify-end">
+        <!-- Overlay escuro para fechar ao clicar fora -->
+        <div onclick="closeSideMenu()" class="fixed inset-0 bg-black/35 backdrop-blur-[1px] transition-opacity"></div>
+
+        <!-- Gaveta Branca à Direita -->
+        <aside class="relative z-10 w-full max-w-[430px] bg-white h-full shadow-2xl flex flex-col justify-between p-7 overflow-y-auto">
+          <div>
+            <!-- Topo Direito: Sino de Notificação com Bolinha Laranja -->
+            <div class="flex items-center justify-end mb-5">
+              <button onclick="showToast('Você tem 1 campanha em veiculação (#750598) e 1 pendente de arte (#750708)')" class="relative p-1.5 text-gray-800 hover:text-[#FF5A00] transition cursor-pointer" title="Notificações">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+                <span class="absolute top-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-[#FF5A00] border-2 border-white"></span>
+              </button>
+            </div>
+
+            <!-- Grid 2x2 de Cards Principais -->
+            <div class="grid grid-cols-2 gap-3.5 mb-5">
+              <!-- Card 1: escolha onde anunciar (Laranja sólido) -->
+              <button onclick="showScreen('view-resultados'); closeSideMenu();" class="bg-[#FF5A00] hover:bg-[#E04E00] text-white rounded-2xl p-4 h-28 flex flex-col justify-between text-left shadow-xs transition cursor-pointer">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                </svg>
+                <span class="text-xs font-bold leading-tight">escolha<br>onde anunciar</span>
+              </button>
+
+              <!-- Card 2: assistente de anúncios (Borda laranja) -->
+              <button onclick="showToast('Assistente de anúncios aberto'); closeSideMenu();" class="bg-white border border-[#FF5A00] hover:bg-orange-50/40 text-gray-900 rounded-2xl p-4 h-28 flex flex-col justify-between text-left transition cursor-pointer">
+                <svg class="w-5 h-5 text-[#FF5A00]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+                </svg>
+                <span class="text-xs font-bold text-gray-900 leading-tight">assistente de anúncios</span>
+              </button>
+
+              <!-- Card 3: meus anúncios (Branco com ícone de lista) -->
+              <button onclick="showScreen('screen-list'); switchTopTab('planos'); closeSideMenu();" class="bg-white border border-gray-100 shadow-xs hover:border-[#FF5A00] hover:shadow-md text-gray-900 rounded-2xl p-4 h-28 flex flex-col justify-between text-left transition cursor-pointer">
+                <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                <span class="text-xs font-bold text-gray-900 leading-tight">meus anúncios</span>
+              </button>
+
+              <!-- Card 4: meus favoritos (Branco com ícone de coração) -->
+              <button onclick="showToast('Meus favoritos'); closeSideMenu();" class="bg-white border border-gray-100 shadow-xs hover:border-gray-300 text-gray-900 rounded-2xl p-4 h-28 flex flex-col justify-between text-left transition cursor-pointer">
+                <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+                <span class="text-xs font-bold text-gray-900 leading-tight">meus favoritos</span>
+              </button>
+            </div>
+
+            <!-- Lista de Barras Inferiores -->
+            <div class="space-y-2.5">
+              <button onclick="showToast('Gerenciamento de conta')" class="w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-900 transition cursor-pointer">
+                <span>gerenciamento de conta</span>
+                <span class="text-gray-600">⌄</span>
+              </button>
+
+              <button onclick="showToast('Mockups de telas OOH')" class="w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-900 transition cursor-pointer">
+                <span>mockups</span>
+                <span class="text-gray-600">⌄</span>
+              </button>
+
+              <button onclick="showToast('Materiais e central de ajuda')" class="w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-900 transition cursor-pointer">
+                <span>materiais e ajuda</span>
+                <span class="text-gray-600">⌄</span>
+              </button>
+
+              <button onclick="switchPlpChannel('combos'); closeSideMenu();" class="w-full bg-[#FAFAFA] hover:bg-gray-100 border border-gray-100 rounded-lg px-4 py-3 flex items-center gap-2.5 text-xs font-bold text-gray-900 transition cursor-pointer">
+                <svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+                <span>combos</span>
+              </button>
+
+              <button onclick="showToast('Atendimento via WhatsApp (Helen) iniciado')" class="w-full bg-white hover:bg-emerald-50/50 border border-[#22C55E] rounded-lg px-4 py-2.5 flex items-center gap-2.5 text-xs font-bold text-[#16A34A] transition cursor-pointer">
+                <svg class="w-4 h-4 text-[#16A34A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                <span>ajuda</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Rodapé do Menu Lateral: sair -->
+          <div class="pt-6 border-t border-gray-100">
+            <button onclick="closeSideMenu(); showToast('Sessão encerrada')" class="text-xs font-bold text-gray-900 hover:text-[#FF5A00] flex items-center gap-1.5 cursor-pointer">
+              <span>sair</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+            </button>
+          </div>
+        </aside>
+      </div>
+      <div id="hook-after-header"></div>`;
+const AQUI_ADS_JOURNEY_VIEWS_HTML = `      <!-- ===================================================================== -->
+      <!-- TELA 1: PÁGINA DE RESULTADOS FIEL AO ESPELHO DE PRODUÇÃO (OOH + DIGITAL) -->
+      <!-- ===================================================================== -->
+      <section id="view-resultados" class="view-section active flex-1 bg-white">
+        <div id="hook-before-results-content"></div>
+        <div id="plp-mode-ooh">
+        <!-- TOPO DA PÁGINA DE RESULTADOS: BARRA DE BUSCA INTEGRADA (688px) + CHIPS DE AMBIENTE RETANGULARES -->
+        <div class="bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-10 pt-4 pb-3">
+          
+          <!-- Barra de Busca Integrada Oficial (Onde | Período | Início | Lupa Laranja #FF4F00) -->
+          <div class="hide-on-mobile-frame max-w-[688px] mx-auto bg-white border border-[#DFE7EF] rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-1.5 flex flex-wrap md:flex-nowrap items-center">
+            <!-- Campo 1: Onde -->
+            <div class="flex-1 min-w-[220px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8] relative">
+              <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Onde</label>
+              <div class="flex items-center justify-between gap-2">
+                <input id="plp-search-address" type="text" value="Vila Olímpia, São Paulo - SP, Brasil" class="w-full text-xs font-medium text-[#282E38] bg-transparent outline-none truncate" placeholder="Ex.: Av. Paulista, Bela Vista, São Paulo/SP">
+                <button type="button" onclick="document.getElementById('plp-search-address').value=''; document.getElementById('plp-search-address').focus();" class="w-4 h-4 rounded-full border border-gray-400 text-gray-500 hover:text-gray-800 text-[9px] flex items-center justify-center cursor-pointer shrink-0" title="Limpar busca de endereço">✕</button>
+              </div>
+            </div>
+
+            <!-- Campo 2: Período -->
+            <div class="w-1/2 md:w-[150px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer" onclick="toggleOohSearchDuration()">
+              <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Período</label>
+              <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                <span id="plp-ooh-duration-label">2 semanas</span>
+                <span class="text-gray-400 text-[10px]">⌄</span>
+              </div>
+            </div>
+
+            <!-- Campo 3: Início -->
+            <div class="w-1/2 md:w-[165px] px-4 py-1.5 cursor-pointer" onclick="showToast('Selecionar data de início da campanha')">
+              <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Início</label>
+              <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                <span>26/10/2026</span>
+                <span class="text-gray-400 text-[10px]">⌄</span>
+              </div>
+            </div>
+
+            <!-- Botão Lupa #FF4F00 -->
+            <button type="button" onclick="showToast('Atualizando pontos OOH na região de Vila Olímpia...')" class="ml-auto w-[42px] h-[42px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shadow-xs cursor-pointer transition shrink-0" title="Buscar pontos">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+            </button>
+          </div>
+
+          <!-- Pílulas de Filtro de Ambientes (Formato retangular rounded-md com borda sutil fiel ao print oficial) -->
+                    <!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) -->
+          <div class="only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div class="min-h-[52px] px-3.5 py-2 flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-[#282E38] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <input id="plp-search-address-mobile" type="text" value="Vila Olímpia, São Paulo - SP, Brasil" oninput="const d=document.getElementById('plp-search-address'); if(d) d.value=this.value;" class="w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate" placeholder="Ex.: Av. Paulista, Bela Vista, São Paulo/SP">
+              <button type="button" onclick="const m=document.getElementById('plp-search-address-mobile'); if(m){m.value=''; m.focus();} const d=document.getElementById('plp-search-address'); if(d) d.value='';" class="w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0" title="Limpar busca">✕</button>
+              <svg class="w-4 h-4 text-[#6B6B6B] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div class="min-h-[46px] px-3.5 pb-3 flex items-center gap-2">
+              <button type="button" onclick="toggleOohSearchDuration()" class="w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition">
+                <span class="plp-mobile-duration-label">2 semanas</span>
+                <svg class="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <button type="button" onclick="showToast('Abrindo filtros de pontos OOH...')" class="w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition">
+                <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>filtrar</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="max-w-[1280px] mx-auto mt-6 flex flex-wrap items-center justify-center gap-2" id="plp-ambience-chips">
+            <button type="button" data-amb="todos" onclick="filterPlpAmbience('todos', this)" class="plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-semibold bg-[#4E5D6C] border border-[#4E5D6C] text-white cursor-pointer transition">todos</button>
+            <button type="button" data-amb="comercial" onclick="filterPlpAmbience('comercial', this)" class="plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">elevadores comerciais</button>
+            <button type="button" data-amb="residencial" onclick="filterPlpAmbience('residencial', this)" class="plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">elevadores residenciais</button>
+            <button type="button" data-amb="onibus" onclick="filterPlpAmbience('onibus', this)" class="plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">pontos de ônibus</button>
+            <button type="button" data-amb="shopping" onclick="showToast('Filtrando ambiente: shoppings')" class="plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">shoppings</button>
+            <button type="button" data-amb="academia" onclick="showToast('Filtrando ambiente: academias')" class="plp-ambience-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">academias</button>
+            <button type="button" onclick="showToast('Abrindo modal de mais filtros...')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-[#E2E8F0] hover:bg-[#CBD5E1] text-[#282E38] cursor-pointer transition">mais filtros</button>
+          </div>
+        </div>
+
+        <!-- CORPO PRINCIPAL DA PÁGINA DE RESULTADOS: GRID DE 3 COLUNAS + MAPA STICKY LATERAL ALINHADO AO HEADER -->
+        <div id="oohSubTab" class="apply-zoom w-full max-w-[1660px] mx-auto px-4 sm:px-6 lg:px-0 pt-4 pb-20">
+          <div class="grid grid-cols-1 lg:grid-cols-[58.6%_minmax(0,1fr)] gap-6 lg:gap-[28px] items-start w-full">
+            
+            <!-- COLUNA ESQUERDA: LISTA DE CARDS OOH REAIS + BANNER ROXO INTERCALADO + CARD CRIE SUA CONTA -->
+            <div class="w-full min-w-0">
+              <ul id="plp-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px] list-none p-0 m-0 w-full">
+                <!-- Preenchido dinamicamente por renderOohPlp() a partir de window.AQUI_ADS_MOCK_DATA.oohCatalog -->
+              </ul>
+
+              <!-- Botão "ver mais" sólido laranja oficial (#FF4F00) -->
+              <div class="mt-7 flex justify-center">
+                <button type="button" onclick="showToast('Carregando mais pontos da região...')" class="w-full max-w-[280px] py-2.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold shadow-xs cursor-pointer transition">
+                  ver mais
+                </button>
+              </div>
+            </div>
+
+            <!-- COLUNA DIREITA: MAPA STICKY FIEL AOS PRINTS OFICIAIS DE PRODUÇÃO (height: 580px) -->
+            <div class="w-full lg:sticky lg:top-[90px] h-[560px] lg:h-[580px] rounded-[20px] overflow-hidden shadow-sm border border-[#E2E8F0] relative bg-[#EDF2F7]">
+              <!-- Mapa Estilizado de Rua (Vila Olímpia / Barra Funda - Mapbox Street Style fiel aos prints) -->
+              <svg class="absolute inset-0 w-full h-full object-cover" viewBox="0 0 560 606" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <rect width="560" height="606" fill="#EDEFF2"/>
+                <!-- Quadras e áreas verdes -->
+                <path d="M0 440 L210 606 L0 606 Z" fill="#FDE68A" opacity="0.55"/>
+                <rect x="25" y="25" width="130" height="95" rx="4" fill="#E2E5EA"/>
+                <rect x="175" y="25" width="145" height="95" rx="4" fill="#E2E5EA"/>
+                <rect x="340" y="25" width="190" height="95" rx="4" fill="#E2E5EA"/>
+                <rect x="25" y="140" width="130" height="120" rx="4" fill="#E2E5EA"/>
+                <rect x="175" y="140" width="145" height="120" rx="4" fill="#E2E5EA"/>
+                <rect x="340" y="140" width="190" height="120" rx="4" fill="#E2E5EA"/>
+                <rect x="25" y="280" width="130" height="125" rx="4" fill="#DCFCE7" opacity="0.65"/>
+                <rect x="175" y="280" width="145" height="125" rx="4" fill="#E2E5EA"/>
+                <rect x="340" y="280" width="190" height="125" rx="4" fill="#E2E5EA"/>
+                <rect x="175" y="425" width="145" height="150" rx="4" fill="#E2E5EA"/>
+                <rect x="340" y="425" width="190" height="150" rx="4" fill="#E2E5EA"/>
+                <!-- Malha viária diagonal e ortogonal -->
+                <line x1="-20" y1="130" x2="580" y2="210" stroke="#FFFFFF" stroke-width="11"/>
+                <line x1="-20" y1="270" x2="580" y2="350" stroke="#FFFFFF" stroke-width="12"/>
+                <line x1="-20" y1="415" x2="580" y2="495" stroke="#FFFFFF" stroke-width="10"/>
+                <line x1="165" y1="-20" x2="90" y2="620" stroke="#FFFFFF" stroke-width="11"/>
+                <line x1="330" y1="-20" x2="275" y2="620" stroke="#FCA5A5" stroke-width="6"/>
+                <line x1="465" y1="-20" x2="395" y2="620" stroke="#FFFFFF" stroke-width="11"/>
+                <line x1="0" y1="445" x2="230" y2="615" stroke="#FBBF24" stroke-width="14"/>
+                <!-- Nomes de ruas do mapa -->
+                <text x="200" y="160" fill="#64748B" font-size="10" font-weight="600" font-family="sans-serif" transform="rotate(8 200 160)">R. Gomes de Carvalho</text>
+                <text x="210" y="302" fill="#64748B" font-size="10" font-weight="600" font-family="sans-serif" transform="rotate(8 210 302)">Rua Alvorada</text>
+                <text x="350" y="452" fill="#64748B" font-size="10" font-weight="600" font-family="sans-serif" transform="rotate(8 350 452)">R. Dr. Cardoso de Melo</text>
+                <text x="35" y="515" fill="#78716C" font-size="10" font-weight="700" font-family="sans-serif" transform="rotate(36 35 515)">Av. Santo Amaro</text>
+              </svg>
+
+              <!-- Canto Superior Direito: Botão Circular Expandir (⤢) + Controle Vertical de Zoom (+ / -) -->
+              <div class="absolute top-3.5 right-3.5 z-20 flex flex-col items-center gap-2">
+                <button type="button" onclick="showToast('Expandindo visualização do mapa...')" class="w-8 h-8 rounded-full bg-white hover:bg-gray-50 text-[#282E38] shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-gray-200 flex items-center justify-center cursor-pointer transition" title="Expandir mapa">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                </button>
+                <div class="w-8 rounded-lg bg-white shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-gray-200 overflow-hidden flex flex-col divide-y divide-gray-200">
+                  <button type="button" onclick="showToast('Zoom + no mapa')" class="h-8 flex items-center justify-center text-sm font-bold text-[#282E38] hover:bg-gray-50 cursor-pointer" title="Aproximar">+</button>
+                  <button type="button" onclick="showToast('Zoom - no mapa')" class="h-8 flex items-center justify-center text-sm font-bold text-[#282E38] hover:bg-gray-50 cursor-pointer" title="Afastar">−</button>
+                </div>
+              </div>
+
+              <!-- Clusters Circulares Laranjas (#FF4F00) + Pino Central Renderizados Dinamicamente -->
+              <div id="plp-ooh-map-pins" class="absolute inset-0 pointer-events-none"></div>
+
+              <!-- Rodapé Mapbox Attribution -->
+              <div class="absolute bottom-2 left-2.5 flex items-center gap-1.5 text-[11px] font-bold text-gray-600 bg-white/85 backdrop-blur-xs px-2 py-0.5 rounded shadow-2xs">
+                <span class="inline-block w-3.5 h-3.5 rounded-full bg-gray-600 text-white text-[9px] flex items-center justify-center font-black">m</span>
+                <span>mapbox</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ================================================================= -->
+          <!-- SEÇÃO INFERIOR 1: "Explore outros ambientes" (4 Cards + Setas)     -->
+          <!-- ================================================================= -->
+          <div class="mt-14 pt-6">
+            <h3 class="text-base font-bold text-[#282E38] mb-4">Explore outros ambientes</h3>
+            <div class="relative flex items-center gap-2">
+              <button type="button" onclick="showToast('Navegando ambientes anteriores')" class="hidden sm:flex w-8 h-8 rounded-full border border-gray-200 bg-white hover:bg-gray-50 items-center justify-center text-gray-500 shadow-2xs shrink-0 cursor-pointer">‹</button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 flex-1">
+                <button type="button" onclick="filterPlpAmbience('comercial')" class="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition">
+                  <p class="text-xs font-bold text-[#282E38] leading-snug">Anuncie em<br>elevadores comerciais</p>
+                  <p class="mt-1.5 text-[11px] text-[#64748B]">643.174 pontos para anunciar</p>
+                  <div class="mt-3 text-[10px] text-[#64748B]">
+                    <p>valor médio</p>
+                    <p class="text-xs font-bold text-[#282E38]">R$ 915,00 <span class="font-normal text-[#64748B]">/2 semanas</span></p>
+                  </div>
+                </button>
+                <button type="button" onclick="filterPlpAmbience('residencial')" class="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition">
+                  <p class="text-xs font-bold text-[#282E38] leading-snug">Anuncie em<br>elevadores residenciais</p>
+                  <p class="mt-1.5 text-[11px] text-[#64748B]">359.320 pontos para anunciar</p>
+                  <div class="mt-3 text-[10px] text-[#64748B]">
+                    <p>valor médio</p>
+                    <p class="text-xs font-bold text-[#282E38]">R$ 265,00 <span class="font-normal text-[#64748B]">/2 semanas</span></p>
+                  </div>
+                </button>
+                <button type="button" onclick="filterPlpAmbience('onibus')" class="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition">
+                  <p class="text-xs font-bold text-[#282E38] leading-snug">Anuncie em<br>ponto de ônibus</p>
+                  <p class="mt-1.5 text-[11px] text-[#64748B]">4.973.751 pontos para anunciar</p>
+                  <div class="mt-3 text-[10px] text-[#64748B]">
+                    <p>valor médio</p>
+                    <p class="text-xs font-bold text-[#282E38]">R$ 5.081,00 <span class="font-normal text-[#64748B]">/2 semanas</span></p>
+                  </div>
+                </button>
+                <button type="button" onclick="showToast('Filtrando ambiente: academias')" class="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-[#F1F5F9] p-4 text-left cursor-pointer transition">
+                  <p class="text-xs font-bold text-[#282E38] leading-snug">Anuncie em<br>academias</p>
+                  <p class="mt-1.5 text-[11px] text-[#64748B]">188.450 pontos para anunciar</p>
+                  <div class="mt-3 text-[10px] text-[#64748B]">
+                    <p>valor médio</p>
+                    <p class="text-xs font-bold text-[#282E38]">R$ 1.158,00 <span class="font-normal text-[#64748B]">/2 semanas</span></p>
+                  </div>
+                </button>
+              </div>
+              <button type="button" onclick="showToast('Navegando próximos ambientes')" class="hidden sm:flex w-8 h-8 rounded-full border border-gray-200 bg-white hover:bg-gray-50 items-center justify-center text-gray-500 shadow-2xs shrink-0 cursor-pointer">›</button>
+            </div>
+          </div>
+
+          <!-- ================================================================= -->
+          <!-- SEÇÃO INFERIOR 2: FAQ "Ficou com alguma dúvida?" (2 Colunas)      -->
+          <!-- ================================================================= -->
+          <div class="mt-16 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-5 lg:pt-12">
+              <h3 class="text-base font-bold text-[#282E38]">Ficou com alguma dúvida?</h3>
+              <p class="text-xs text-[#64748B] mt-1.5">Confira as perguntas frequentes.</p>
+              <button type="button" onclick="showToast('Abrindo atendimento com especialista Aqui Ads (Helen)...')" class="mt-4 px-4 py-2 rounded-md bg-[#282E38] hover:bg-[#1E2229] text-white text-xs font-bold cursor-pointer transition">
+                fale com um especialista
+              </button>
+            </div>
+            <div class="lg:col-span-7 space-y-0" id="ooh-faq-accordion">
+              <!-- Item 1 (Aberto por padrão com barra laranja esquerda) -->
+              <div class="faq-item border-l-[3px] border-[#FF4F00] pl-5 py-3 transition-all">
+                <button type="button" onclick="toggleOohFaq(0)" class="w-full text-left cursor-pointer">
+                  <p class="text-xs font-bold text-[#282E38] faq-title">O que é o Aqui Ads?</p>
+                </button>
+                <div class="faq-body mt-2 text-xs text-[#64748B] leading-relaxed">
+                  O Aqui Ads é a plataforma que simplifica a compra de mídia para quem quer fazer campanhas de publicidade OOH (Out of Home).
+                </div>
+              </div>
+              <!-- Item 2 -->
+              <div class="faq-item border-l-[3px] border-[#E2E8F0] pl-5 py-3 transition-all">
+                <button type="button" onclick="toggleOohFaq(1)" class="w-full text-left cursor-pointer">
+                  <p class="text-sm font-semibold text-[#64748B] hover:text-[#282E38] faq-title">O que significam as métricas de exibições, alcance e frequência?</p>
+                </button>
+                <div class="faq-body hidden mt-2 text-xs text-[#64748B] leading-relaxed">
+                  Exibições representam o total estimado de vezes que seu anúncio será exibido nas telas; Alcance estima quantas pessoas únicas passam pelo local; e Frequência é a média de vezes que cada pessoa vê o anúncio no período.
+                </div>
+              </div>
+              <!-- Item 3 -->
+              <div class="faq-item border-l-[3px] border-[#E2E8F0] pl-5 py-3 transition-all">
+                <button type="button" onclick="toggleOohFaq(2)" class="w-full text-left cursor-pointer">
+                  <p class="text-sm font-semibold text-[#64748B] hover:text-[#282E38] faq-title">Quais são as opções de criação da arte do meu anúncio?</p>
+                </button>
+                <div class="faq-body hidden mt-2 text-xs text-[#64748B] leading-relaxed">
+                  Você pode enviar sua própria arte seguindo o gabarito técnico das telas, usar modelos prontos ou escolher a opção "contrate uma arte" por R$ 99,00 para nossa equipe produzir para você.
+                </div>
+              </div>
+              <!-- Item 4 -->
+              <div class="faq-item border-l-[3px] border-[#E2E8F0] pl-5 py-3 transition-all">
+                <button type="button" onclick="toggleOohFaq(3)" class="w-full text-left cursor-pointer">
+                  <p class="text-sm font-semibold text-[#64748B] hover:text-[#282E38] faq-title">Moradores de prédios com telas da Eletromidia têm algum benefício para anunciar?</p>
+                </button>
+                <div class="faq-body hidden mt-2 text-xs text-[#64748B] leading-relaxed">
+                  Sim! Moradores e empresas instaladas em condomínios parceiros Eletromidia contam com condições especiais para anunciar no próprio edifício e no entorno.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================================================================= -->
+          <!-- SEÇÃO INFERIOR 3: "Anuncie em pontos estratégicos de São Paulo"   -->
+          <!-- ================================================================= -->
+          <div class="mt-16 pt-6 pb-4">
+            <h3 class="text-base font-bold text-[#282E38] mb-5">Anuncie em pontos estratégicos de São Paulo</h3>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-2.5 list-none p-0 m-0">
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Avenida Paulista, São Paulo - SP'; showToast('Região alterada: Avenida Paulista')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Avenida Paulista</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Faria Lima, São Paulo - SP'; showToast('Região alterada: Faria Lima')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Faria Lima</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Barra Funda, São Paulo - SP'; showToast('Região alterada: Barra Funda')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Barra Funda</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Tatuapé, São Paulo - SP'; showToast('Região alterada: Tatuapé')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Tatuapé</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Jabaquara, São Paulo - SP'; showToast('Região alterada: Jabaquara')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Jabaquara</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Vila Olímpia, São Paulo - SP'; showToast('Região alterada: Vila Olímpia')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Vila Olímpia</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Santo Amaro, São Paulo - SP'; showToast('Região alterada: Santo Amaro')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Santo Amaro</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Mooca, São Paulo - SP'; showToast('Região alterada: Mooca')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Mooca</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Jardins, São Paulo - SP'; showToast('Região alterada: Jardins')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Jardins</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Lapa, São Paulo - SP'; showToast('Região alterada: Lapa')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Lapa</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Vila Prudente, São Paulo - SP'; showToast('Região alterada: Vila Prudente')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Vila Prudente</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Alphaville, Barueri - SP'; showToast('Região alterada: Alphaville')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Alphaville</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Santana, São Paulo - SP'; showToast('Região alterada: Santana')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Santana</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Vila Mariana, São Paulo - SP'; showToast('Região alterada: Vila Mariana')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Vila Mariana</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Pinheiros, São Paulo - SP'; showToast('Região alterada: Pinheiros')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Pinheiros</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Osasco - SP'; showToast('Região alterada: Osasco')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Osasco</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Santa Cruz, São Paulo - SP'; showToast('Região alterada: Santa Cruz')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Santa Cruz</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Moema, São Paulo - SP'; showToast('Região alterada: Moema')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Moema</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Butantã, São Paulo - SP'; showToast('Região alterada: Butantã')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Butantã</a></li>
+              <li><a href="#resultados" onclick="event.preventDefault(); document.getElementById('plp-search-address').value='Diadema - SP'; showToast('Região alterada: Diadema')" class="text-xs font-semibold text-[#282E38] underline decoration-dotted underline-offset-4 hover:text-[#FF4F00]">Anuncie em Diadema</a></li>
+            </ul>
+          </div>
+        </div>
+        </div><!-- /#plp-mode-ooh -->
+
+        <!-- =================================================================== -->
+        <!-- MODO 2 DA PÁGINA DE RESULTADOS: DIGITAL | GLOBO (FIEL AO PRINT 01)  -->
+        <!-- =================================================================== -->
+        <div id="plp-mode-digital" class="hidden flex-1 bg-white pb-16">
+          <!-- Topo Branco com Cápsula de Busca (Onde | Período | Início | público | Lupa #FF4F00) e 7 Chips Retangulares -->
+          <div class="bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-12 pt-4 pb-3">
+            <div class="hide-on-mobile-frame max-w-[760px] mx-auto">
+              <div class="bg-white border border-[#E2E8F0] rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.05)] p-1.5 flex flex-wrap md:flex-nowrap items-center">
+                <!-- Campo 1: Onde -->
+                <div class="flex-1 min-w-[200px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8]">
+                  <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Onde</label>
+                  <input id="digital-search-location" type="text" value="" oninput="updateDigitalTargetLocation(this.value)" class="w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate" placeholder="Busque por cidades ou estados">
+                </div>
+                <!-- Campo 2: Período -->
+                <div class="w-1/2 md:w-[135px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer" onclick="toggleOohSearchDuration()">
+                  <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Período</label>
+                  <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                    <span id="digital-search-duration-label">4 semanas</span>
+                    <span class="text-gray-400 text-[10px]">⌄</span>
+                  </div>
+                </div>
+                <!-- Campo 3: Início -->
+                <div class="w-1/2 md:w-[140px] px-4 py-1.5 border-r border-[#EDF2F8]">
+                  <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Início</label>
+                  <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                    <span id="digital-search-start-label">28/10/2026</span>
+                    <span class="text-gray-400 text-[10px]">⌄</span>
+                  </div>
+                </div>
+                <!-- Botão "público" DENTRO da Cápsula à esquerda da lupa laranja (Fiel ao Print Oficial) -->
+                <button type="button" onclick="showToast('Segmentação de público Digital | Globo')" class="px-3.5 py-2 mx-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-semibold text-[#282E38] flex items-center gap-1.5 cursor-pointer shrink-0">
+                  <svg class="w-3.5 h-3.5 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                  <span>público</span>
+                </button>
+                <!-- Botão Lupa Laranja #FF4F00 -->
+                <button type="button" onclick="showToast('Resultados Digital | Globo atualizados')" class="w-[40px] h-[40px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shrink-0 cursor-pointer transition shadow-xs">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- 7 Pílulas Retangulares com Borda Sutil e "Todos" ativo em #4E5D6C (Fiel ao Print Oficial) -->
+                      <!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) -->
+          <div class="only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div class="min-h-[52px] px-3.5 py-2 flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-[#282E38] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <input id="digital-search-location-mobile" type="text" value="" oninput="updateDigitalTargetLocation(this.value); const d=document.getElementById('digital-search-location'); if(d) d.value=this.value;" class="w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate" placeholder="Busque por cidades ou estados">
+              <button type="button" onclick="const m=document.getElementById('digital-search-location-mobile'); if(m){m.value=''; m.focus();} const d=document.getElementById('digital-search-location'); if(d) d.value='';" class="w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0" title="Limpar busca">✕</button>
+              <svg class="w-4 h-4 text-[#6B6B6B] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div class="min-h-[46px] px-3.5 pb-3 flex items-center gap-2">
+              <button type="button" onclick="toggleOohSearchDuration()" class="w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition">
+                <span class="plp-mobile-duration-label">4 semanas</span>
+                <svg class="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <button type="button" onclick="showToast('Segmentação de público Digital | Globo')" class="w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition">
+                <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>público</span>
+              </button>
+            </div>
+          </div>
+
+            <div id="digital-category-chips" class="max-w-[1310px] mx-auto px-4 lg:px-[40px] mt-4 flex items-center justify-center gap-2 flex-wrap">
+              <button type="button" onclick="filterDigitalCategory('Todos')" data-cat="Todos" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-semibold bg-[#4E5D6C] border border-[#4E5D6C] text-white cursor-pointer transition">Todos</button>
+              <button type="button" onclick="filterDigitalCategory('Notícias & Grandes Portais')" data-cat="Notícias & Grandes Portais" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">Notícias &amp; Grandes Portais</button>
+              <button type="button" onclick="filterDigitalCategory('Negócios e finanças')" data-cat="Negócios e finanças" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">Negócios e finanças</button>
+              <button type="button" onclick="filterDigitalCategory('Automotivo & Tecnologia')" data-cat="Automotivo & Tecnologia" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">Automotivo &amp; Tecnologia</button>
+              <button type="button" onclick="filterDigitalCategory('Estilo de Vida')" data-cat="Estilo de Vida" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">Estilo de Vida</button>
+              <button type="button" onclick="filterDigitalCategory('Casa & Família')" data-cat="Casa & Família" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">Casa &amp; Família</button>
+              <button type="button" onclick="filterDigitalCategory('Vídeo & Entretenimento')" data-cat="Vídeo & Entretenimento" class="dig-cat-chip px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#282E38] cursor-pointer transition">Vídeo &amp; Entretenimento</button>
+            </div>
+          </div>
+
+          <!-- Seções Agrupadas de Produtos Digitais Globo (6 Seções x Grid 4 Colunas - Fiel ao Print Oficial) -->
+          <div class="apply-zoom mx-auto flex min-h-[60vh] w-full max-w-[1580px] px-4 lg:px-6 flex-col gap-10 py-8" id="digital-sections-container">
+            <!-- Preenchido dinamicamente por renderDigitalPlp() -->
+          </div>
+        </div><!-- /#plp-mode-digital -->
+        <div id="plp-mode-tv" class="hidden">
+          <div class="bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-10 pt-4 pb-4">
+            <div class="hide-on-mobile-frame max-w-[688px] mx-auto bg-white border border-[#DFE7EF] rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-1.5 flex flex-wrap md:flex-nowrap items-center">
+              <div class="flex-1 min-w-[220px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8] relative">
+                <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Praça de exibição</label>
+                <div class="flex items-center justify-between gap-2">
+                  <input type="text" value="São Paulo e Região Metropolitana - SP" class="w-full text-xs font-medium text-[#282E38] bg-transparent outline-none truncate">
+                </div>
+              </div>
+              <div class="w-1/2 md:w-[150px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer" onclick="toggleOohSearchDuration()">
+                <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Período</label>
+                <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                  <span>2 semanas</span>
+                  <span class="text-gray-400 text-[10px]">⌄</span>
+                </div>
+              </div>
+              <div class="w-1/2 md:w-[165px] px-4 py-1.5 cursor-pointer" onclick="showToast('Selecionar data de início da campanha')">
+                <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Início</label>
+                <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                  <span>26/10/2026</span>
+                  <span class="text-gray-400 text-[10px]">⌄</span>
+                </div>
+              </div>
+              <button type="button" onclick="showToast('Atualizando programação e faixas comerciais de TV...')" class="ml-auto w-[42px] h-[42px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shadow-xs cursor-pointer transition shrink-0" title="Buscar faixas de TV">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+              </button>
+            </div>
+          <!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) -->
+          <div class="only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div class="min-h-[52px] px-3.5 py-2 flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-[#282E38] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <input id="tv-search-location-mobile" type="text" value="São Paulo e Região Metropolitana - SP" oninput="const d=document.getElementById('plp-search-address'); if(d) d.value=this.value;" class="w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate" placeholder="Ex.: São Paulo e Região Metropolitana - SP">
+              <button type="button" onclick="const m=document.getElementById('tv-search-location-mobile'); if(m){m.value=''; m.focus();} const d=document.getElementById('plp-search-address'); if(d) d.value='';" class="w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0" title="Limpar busca">✕</button>
+              <svg class="w-4 h-4 text-[#6B6B6B] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div class="min-h-[46px] px-3.5 pb-3 flex items-center gap-2">
+              <button type="button" onclick="toggleOohSearchDuration()" class="w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition">
+                <span class="plp-mobile-duration-label">2 semanas</span>
+                <svg class="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <button type="button" onclick="showToast('Filtrando faixas comerciais de TV...')" class="w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition">
+                <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>filtrar</span>
+              </button>
+            </div>
+          </div>
+          </div>
+          <div class="apply-zoom max-w-[1580px] mx-auto px-4 lg:px-6 pt-6 pb-20">
+            <div class="mb-5">
+              <h2 class="text-lg font-extrabold text-[#282E38]">TV Aberta &amp; Pay TV | Globo</h2>
+              <p class="text-xs text-[#64748B] mt-0.5">Anuncie nos intervalos comerciais de maior audiência da TV Globo e canais Globo na sua região.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=700&q=80" alt="TV Globo Manhã" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">📺 TV Aberta Regional</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">CPM R$ 42,00</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Comercial 30s - Manhã &amp; Almoço</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Exibição regional nos intervalos do Bom Dia Praça, Encontro, Mais Você e SP1/Praça TV 1ª Edição.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold">TV Globo</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">Bom Dia SP</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">SP1</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 1.500,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 35,7 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Comercial 30s - Manhã e Almoço adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=700&q=80" alt="TV Globo Tarde" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">📺 TV Aberta Regional</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">CPM R$ 38,00</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Comercial 15s - Faixa Vespertina</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Presença com alta frequência durante Globo Esporte, Jornal Hoje, Edição Especial e Vale a Pena Ver de Novo.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold">TV Globo</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">Globo Esporte</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">Tarde</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 1.200,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 31,5 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Comercial 15s - Faixa Vespertina adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=700&q=80" alt="TV Globo Nobre" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">📺 Horário Nobre</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">CPM R$ 65,00</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Comercial 30s - Noturno Regional</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Máximo impacto regional nos intervalos do SP2/Praça TV 2ª Edição e novelas da faixa noturna.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold">TV Globo</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">SP2</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">Novelas</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 3.000,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 46,1 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Comercial 30s - Noturno Regional adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=700&q=80" alt="Canais Globo" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">📡 Pay TV Segmentada</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">CPM R$ 48,00</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Spot 30s - SporTV &amp; GloboNews</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Alcance qualificado em programação ao vivo de esportes e jornalismo 24h nos canais por assinatura Globo.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#06AA48] text-white text-[11px] font-bold">sportv</span>
+                      <span class="px-2 py-0.5 rounded bg-[#C4170C] text-white text-[11px] font-bold">GloboNews</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 1.500,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 31,2 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Spot 30s - SporTV e GloboNews adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div><!-- /#plp-mode-tv -->
+        <div id="plp-mode-radio" class="hidden">
+          <div class="bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-10 pt-4 pb-4">
+            <div class="hide-on-mobile-frame max-w-[688px] mx-auto bg-white border border-[#DFE7EF] rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-1.5 flex flex-wrap md:flex-nowrap items-center">
+              <div class="flex-1 min-w-[220px] px-4 py-1.5 border-b md:border-b-0 md:border-r border-[#EDF2F8] relative">
+                <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Praça de transmissão</label>
+                <div class="flex items-center justify-between gap-2">
+                  <input type="text" value="São Paulo - SP (Dial FM + Streaming)" class="w-full text-xs font-medium text-[#282E38] bg-transparent outline-none truncate">
+                </div>
+              </div>
+              <div class="w-1/2 md:w-[150px] px-4 py-1.5 border-r border-[#EDF2F8] cursor-pointer" onclick="toggleOohSearchDuration()">
+                <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Período</label>
+                <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                  <span>2 semanas</span>
+                  <span class="text-gray-400 text-[10px]">⌄</span>
+                </div>
+              </div>
+              <div class="w-1/2 md:w-[165px] px-4 py-1.5 cursor-pointer" onclick="showToast('Selecionar data de início da campanha')">
+                <label class="block text-[11px] font-bold text-[#282E38] mb-0.5">Início</label>
+                <div class="flex items-center justify-between text-xs font-medium text-[#282E38]">
+                  <span>26/10/2026</span>
+                  <span class="text-gray-400 text-[10px]">⌄</span>
+                </div>
+              </div>
+              <button type="button" onclick="showToast('Atualizando emissoras de Rádio disponíveis...')" class="ml-auto w-[42px] h-[42px] rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white flex items-center justify-center shadow-xs cursor-pointer transition shrink-0" title="Buscar emissoras">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+              </button>
+            </div>
+          <!-- Card de Busca Mobile Oficial (MobileResultsSearch.vue) -->
+          <div class="only-on-mobile-frame rounded-[16px] border border-[#eaeaea] bg-white shadow-[0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div class="min-h-[52px] px-3.5 py-2 flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-[#282E38] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <input id="radio-search-location-mobile" type="text" value="São Paulo - SP (Dial FM + Streaming)" oninput="const d=document.getElementById('plp-search-address'); if(d) d.value=this.value;" class="w-full text-xs font-medium text-[#282E38] placeholder-gray-400 bg-transparent outline-none truncate" placeholder="Ex.: São Paulo - SP">
+              <button type="button" onclick="const m=document.getElementById('radio-search-location-mobile'); if(m){m.value=''; m.focus();} const d=document.getElementById('plp-search-address'); if(d) d.value='';" class="w-4 h-4 rounded-full border border-gray-300 text-[#6B6B6B] hover:text-[#282E38] text-[9px] flex items-center justify-center cursor-pointer shrink-0" title="Limpar busca">✕</button>
+              <svg class="w-4 h-4 text-[#6B6B6B] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div class="min-h-[46px] px-3.5 pb-3 flex items-center gap-2">
+              <button type="button" onclick="toggleOohSearchDuration()" class="w-[72%] h-[40px] rounded-[12px] border border-[#D1D5DB] bg-white px-3.5 flex items-center justify-between text-xs font-medium text-[#282E38] cursor-pointer transition">
+                <span class="plp-mobile-duration-label">2 semanas</span>
+                <svg class="w-4 h-4 text-[#6B6B6B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <button type="button" onclick="showToast('Filtrando emissoras de Rádio...')" class="w-[28%] h-[40px] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition">
+                <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>filtrar</span>
+              </button>
+            </div>
+          </div>
+          </div>
+          <div class="apply-zoom max-w-[1580px] mx-auto px-4 lg:px-6 pt-6 pb-20">
+            <div class="mb-5">
+              <h2 class="text-lg font-extrabold text-[#282E38]">Rádio &amp; Áudio | Sistema Globo de Rádio</h2>
+              <p class="text-xs text-[#64748B] mt-0.5">Impacte ouvintes no trânsito e ao longo do dia nas emissoras CBN, Rádio Globo e BH FM.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" alt="CBN" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">📻 Dial FM + App</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">30 inserções</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Spot 30s - CBN (Jornalismo)</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Spots comerciais de 30 segundos distribuídos nos horários de pico matutino e vespertino da rádio que toca notícia.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#C4170C] text-white text-[11px] font-bold">CBN</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">06h às 19h</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 1.200,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 48,0 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Spot 30s - CBN adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=700&q=80" alt="Rádio Globo" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">📻 Dial FM + App</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">25 inserções</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Spot 30s - Rádio Globo</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Comerciais dinâmicos na programação musical, entretenimento e transmissões esportivas da Rádio Globo.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#FF6700] text-white text-[11px] font-bold">Rádio Globo</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">Rotativo</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 950,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 42,5 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Spot 30s - Rádio Globo adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=700&q=80" alt="BH FM" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">🎙️ Testemunhal</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">10 menções</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Testemunhal 60s - Comunicadores</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Menção de alta credibilidade lida pelos apresentadores durante os programas líderes de audiência.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#C4170C] text-white text-[11px] font-bold">CBN</span>
+                      <span class="px-2 py-0.5 rounded bg-[#005CEF] text-white text-[11px] font-bold">BH FM</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 2.400,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 65,0 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Testemunhal 60s adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="rounded-[14px] border border-[#d9d9d9] bg-white overflow-hidden shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+                <div class="relative h-[180px] bg-slate-900 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=700&q=80" alt="Áudio Digital" class="w-full h-full object-cover opacity-90">
+                  <span class="absolute top-3.5 left-3.5 bg-white/95 text-slate-800 text-xs font-medium px-2.5 py-1 rounded-md shadow-sm">🎧 Áudio Digital</span>
+                  <span class="absolute top-3.5 right-3.5 bg-[#1e293b]/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-sm">CPM R$ 32,00</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-bold text-[#0c0a09] leading-snug">Áudio 30s - Podcasts &amp; Streaming</h3>
+                    <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed line-clamp-3 min-h-[48px]">Anúncios em áudio nos principais podcasts da Globo e no player ao vivo das rádios via web e app.</p>
+                    <div class="flex flex-wrap items-center gap-1.5 mt-3.5">
+                      <span class="px-2 py-0.5 rounded bg-[#9B51E0] text-white text-[11px] font-bold">Podcasts Globo</span>
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-semibold">Streaming</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-slate-100">
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">investimento</span>
+                        <div class="h-10 flex items-center rounded-[8px] border border-slate-300 bg-white px-3 text-sm font-semibold text-[#0c0a09]">R$ 900,00</div>
+                      </div>
+                      <div>
+                        <span class="text-[12px] text-[#5f6b7a] block mb-1.5">impressões</span>
+                        <div class="h-10 flex items-center gap-1.5 rounded-[8px] border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#0c0a09]">👁 28,1 mil</div>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button type="button" onclick="showToast('Áudio 30s - Podcasts e Streaming adicionado à simulação!')" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">adicionar produto</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div><!-- /#plp-mode-radio -->
+        <div id="plp-mode-combos" class="hidden">
+          <div class="apply-zoom max-w-[1580px] mx-auto px-4 lg:px-6 pt-6 pb-20">
+            <div class="mb-6">
+              <span class="inline-block bg-orange-100 text-[#FF4F00] text-[11px] font-extrabold px-2.5 py-0.5 rounded uppercase mb-1.5">Pacotes Multicanal</span>
+              <h2 class="text-lg font-extrabold text-[#282E38]">Combos Aqui Ads (OOH + Digital | Globo)</h2>
+              <p class="text-xs text-[#64748B] mt-0.5">Combinações prontas de telas OOH e formatos digitais nos portais Globo para acelerar sua campanha com alcance integrado.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <article class="rounded-2xl border border-[#d9d9d9] bg-white p-6 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="px-2.5 py-1 rounded-md bg-orange-50 text-[#FF4F00] text-xs font-extrabold">OOH + Digital</span>
+                    <span class="text-xs font-semibold text-[#64748B]">2 semanas</span>
+                  </div>
+                  <h3 class="text-lg font-extrabold text-[#0c0a09]">Combo Presença de Bairro</h3>
+                  <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed">Ideal para negócios locais: impacte moradores e trabalhadores nos elevadores da sua região e reforce sua marca no g1 e ge.</p>
+                  <ul class="mt-4 space-y-2 text-xs text-[#282E38] border-t border-slate-100 pt-4">
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> 3 pontos OOH em edifícios residenciais e comerciais</li>
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> Display Portais Globo (g1, ge, gshow)</li>
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> ~220 mil impressões estimadas</li>
+                  </ul>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100">
+                  <div class="flex items-baseline justify-between mb-4">
+                    <span class="text-xs text-[#64748B]">Investimento total</span>
+                    <div>
+                      <strong class="text-xl font-extrabold text-[#0c0a09]">R$ 1.828,27</strong>
+                      <span class="block text-[10px] text-[#64748B] text-right">Em até 3x sem juros</span>
+                    </div>
+                  </div>
+                  <button type="button" onclick="window.AquiAdsUI.setCartPreset('hybrid', true); showScreen('view-resumo'); showToast('Combo Presença de Bairro carregado no seu plano!');" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">selecionar combo</button>
+                </div>
+              </article>
+              <article class="rounded-2xl border-2 border-[#FF4F00] bg-white p-6 shadow-md transition-all flex flex-col justify-between relative">
+                <span class="absolute -top-3 right-5 bg-[#FF4F00] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase shadow-2xs">Mais escolhido</span>
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="px-2.5 py-1 rounded-md bg-orange-50 text-[#FF4F00] text-xs font-extrabold">OOH + Vídeo + Portais</span>
+                    <span class="text-xs font-semibold text-[#64748B]">2 semanas</span>
+                  </div>
+                  <h3 class="text-lg font-extrabold text-[#0c0a09]">Combo Alcance Regional</h3>
+                  <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed">Combina alta frequência em telas digitais OOH com formatos de alto impacto visual e vídeo nos portais da Globo.</p>
+                  <ul class="mt-4 space-y-2 text-xs text-[#282E38] border-t border-slate-100 pt-4">
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> 5 pontos OOH comerciais e residenciais de alto fluxo</li>
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> Vídeo 15s + Display nos Portais Globo</li>
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> ~380 mil impressões estimadas</li>
+                  </ul>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100">
+                  <div class="flex items-baseline justify-between mb-4">
+                    <span class="text-xs text-[#64748B]">Investimento total</span>
+                    <div>
+                      <strong class="text-xl font-extrabold text-[#0c0a09]">R$ 3.490,00</strong>
+                      <span class="block text-[10px] text-[#64748B] text-right">Em até 3x sem juros</span>
+                    </div>
+                  </div>
+                  <button type="button" onclick="window.AquiAdsUI.setCartPreset('hybrid', true); showScreen('view-resumo'); showToast('Combo Alcance Regional carregado no seu plano!');" class="w-full h-10 bg-[#FF4F00] hover:bg-[#E04600] text-white font-bold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">selecionar combo</button>
+                </div>
+              </article>
+              <article class="rounded-2xl border border-[#d9d9d9] bg-white p-6 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-md transition-all flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="px-2.5 py-1 rounded-md bg-orange-50 text-[#FF4F00] text-xs font-extrabold">OOH + CTV + Portais</span>
+                    <span class="text-xs font-semibold text-[#64748B]">4 semanas</span>
+                  </div>
+                  <h3 class="text-lg font-extrabold text-[#0c0a09]">Combo Domínio 360º</h3>
+                  <p class="text-xs text-[#5f6b7a] mt-1.5 leading-relaxed">Cobertura completa durante 4 semanas nas principais vias, edifícios comerciais e telas conectadas Globoplay + Portais.</p>
+                  <ul class="mt-4 space-y-2 text-xs text-[#282E38] border-t border-slate-100 pt-4">
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> 8 pontos OOH (Comercial + Residencial + Rua)</li>
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> Globoplay CTV + Display Portais Globo</li>
+                    <li class="flex items-center gap-2"><span class="text-[#16A34A] font-bold">✓</span> ~610 mil impressões estimadas</li>
+                  </ul>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100">
+                  <div class="flex items-baseline justify-between mb-4">
+                    <span class="text-xs text-[#64748B]">Investimento total</span>
+                    <div>
+                      <strong class="text-xl font-extrabold text-[#0c0a09]">R$ 5.890,00</strong>
+                      <span class="block text-[10px] text-[#64748B] text-right">Em até 3x sem juros</span>
+                    </div>
+                  </div>
+                  <button type="button" onclick="window.AquiAdsUI.setCartPreset('hybrid', true); showScreen('view-resumo'); showToast('Combo Domínio 360º carregado no seu plano!');" class="w-full h-10 bg-[#5b19b4] hover:bg-[#4a1296] text-white font-semibold text-sm rounded-[8px] transition-colors flex items-center justify-center cursor-pointer">selecionar combo</button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div><!-- /#plp-mode-combos -->
+
+        <!-- BARRA INFERIOR FIXA DA PÁGINA DE RESULTADOS (Fiel aos Prints 1 e 2 e resultados_ooh.html) -->
+        <div id="actions-bar-results" class="sticky bottom-0 z-20 w-full border-t border-gray-200 bg-white py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.04)]">
+          <div class="apply-zoom w-full max-w-[1660px] mx-auto px-4 sm:px-6 lg:px-0 flex items-center justify-between gap-4">
+            <div id="plp-bar-summary-left" class="flex items-center gap-6">
+              <div class="leading-tight">
+                <span id="plp-bar-count-label" class="block text-xs font-normal text-[#64748B]"><span id="plp-bar-count">0</span> produtos selecionados</span>
+                <strong class="block text-sm font-extrabold text-[#282E38] mt-0.5">Total <span id="plp-bar-total">R$ 0,00</span></strong>
+              </div>
+            </div>
+            <button id="resultpage_next-button" type="button" onclick="showScreen('view-resumo')" class="bg-[#E2E8F0] text-[#94A3B8] cursor-not-allowed pointer-events-none ml-auto px-6 py-2.5 rounded-lg font-bold text-xs flex items-center gap-2">
+              <span>continuar</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TELA 1.B: PÁGINA DE RESUMO ("PLANO DE MÍDIA" - FIEL AOS PRINTS OFICIAIS) -->
+      <!-- ===================================================================== -->
+      <main id="view-resumo" class="view-section flex-1 bg-[#F8F9FA] pb-16">
+        <div class="max-w-[1220px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6">
+          <!-- Botão Voltar (Texto limpo sem caixa/borda, fiel ao print) -->
+          <div class="mb-4">
+            <button type="button" onclick="showScreen('view-resultados')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#282E38] hover:text-[#FF4F00] cursor-pointer transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              <span>voltar</span>
+            </button>
+          </div>
+
+          <!-- Barra de Título "Plano de mídia" + 2 Botões à Direita -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <h1 class="text-xl font-bold text-[#282E38] tracking-tight">Plano de mídia</h1>
+            <div class="flex items-center gap-2.5">
+              <button type="button" onclick="openSaveDraftModal()" class="border border-[#E2E8F0] rounded-lg px-3.5 py-2 text-xs font-semibold text-[#282E38] bg-white hover:bg-gray-50 inline-flex items-center gap-2 cursor-pointer transition">
+                <svg class="w-3.5 h-3.5 text-[#64748B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                <span>salvar como rascunho</span>
+              </button>
+              <button type="button" onclick="showToast('Link da proposta copiado para a área de transferência!')" class="border border-[#E2E8F0] rounded-lg px-3.5 py-2 text-xs font-semibold text-[#282E38] bg-white hover:bg-gray-50 inline-flex items-center gap-2 cursor-pointer transition">
+                <svg class="w-3.5 h-3.5 text-[#64748B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                <span>compartilhar proposta</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid Principal 2 Colunas (7 Colunas Esquerda: Acordeões | 5 Colunas Direita: Card Único) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+            <!-- COLUNA ESQUERDA: ACORDEÕES DE MÍDIA (DIGITAL + OOH) -->
+            <div class="lg:col-span-7 space-y-5">
+
+              <!-- ACORDEÃO 1: DIGITAL -->
+              <div id="resumo-accordion-digital" class="bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <button type="button" onclick="toggleResumoAccordion('digital')" class="w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer">
+                    <span class="inline-flex items-center gap-2">
+                      <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a14.5 14.5 0 000 18M12 3a14.5 14.5 0 010 18"/></svg>
+                      <span>Digital</span>
+                    </span>
+                    <span id="resumo-acc-icon-digital" class="w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                    </span>
+                  </button>
+                </div>
+
+                <div id="resumo-acc-body-digital" class="pt-4 space-y-4">
+                  <!-- Box Público Alvo (Grid 2x2 fiel aos prints) -->
+                  <div class="bg-[#F1F5F9] rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                      <p class="text-xs font-semibold text-[#475569]">Público alvo</p>
+                      <button type="button" onclick="promptEditDigitalLocation()" class="text-xs font-semibold text-[#2563EB] hover:underline cursor-pointer">
+                        Editar
+                      </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 gap-x-8 text-xs">
+                      <div>
+                        <p class="text-[11px] text-[#64748B]">local</p>
+                        <p id="resumo-target-local" class="font-medium text-[#282E38] mt-0.5">Todos</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B]">interesse</p>
+                        <p id="resumo-target-interesse" class="font-medium text-[#282E38] mt-0.5">Todos</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B]">idade</p>
+                        <p id="resumo-target-idade" class="font-medium text-[#282E38] mt-0.5">Todos</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B]">gênero</p>
+                        <p id="resumo-target-genero" class="font-medium text-[#282E38] mt-0.5">Todos</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Barra de Seleção em Lote Digital (Visível apenas quando há itens marcados) -->
+                  <div id="batch-bar-digital" class="hidden items-center justify-between pt-1 pb-1 text-xs">
+                    <label class="inline-flex items-center gap-2 font-medium text-gray-700 cursor-pointer select-none">
+                      <input id="batch-check-all-digital" type="checkbox" onchange="toggleSelectAllChannel('digital', this.checked)" class="w-4 h-4 rounded accent-[#FF4F00] cursor-pointer">
+                      <span>selecionar tudo</span>
+                    </label>
+                    <button id="batch-btn-remove-digital" type="button" onclick="removeBatchSelected('digital')" class="hidden px-3 py-1.5 rounded-lg bg-[#E75D4B] hover:bg-[#D64C3A] text-white text-xs font-bold items-center gap-1.5 cursor-pointer transition shadow-2xs">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                      <span id="batch-remove-label-digital">remover 1 do plano</span>
+                    </button>
+                  </div>
+
+                  <!-- Lista de Itens Digitais no Plano -->
+                  <div id="resumo-digital-list" class="divide-y divide-gray-100">
+                    <!-- Preenchido via JS populateResumoScreen() -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACORDEÃO 2: OOH | OUT OF HOME · DIGITAL -->
+              <div id="resumo-accordion-ooh" class="bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <button type="button" onclick="toggleResumoAccordion('ooh')" class="w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer">
+                    <div class="flex items-center gap-1.5">
+                      <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      <span>OOH | Out of Home</span>
+                      <span class="text-sm font-normal text-[#64748B]">· Digital</span>
+                    </div>
+                    <span id="resumo-acc-icon-ooh" class="w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                    </span>
+                  </button>
+                </div>
+
+                <div id="resumo-acc-body-ooh" class="pt-4 space-y-3">
+                  <!-- Barra de Seleção em Lote OOH (Visível apenas quando há itens marcados) -->
+                  <div id="batch-bar-ooh" class="hidden items-center justify-between pt-1 pb-1 text-xs">
+                    <label class="inline-flex items-center gap-2 font-medium text-gray-700 cursor-pointer select-none">
+                      <input id="batch-check-all-ooh" type="checkbox" onchange="toggleSelectAllChannel('ooh', this.checked)" class="w-4 h-4 rounded accent-[#FF4F00] cursor-pointer">
+                      <span>selecionar tudo</span>
+                    </label>
+                    <button id="batch-btn-remove-ooh" type="button" onclick="removeBatchSelected('ooh')" class="hidden px-3 py-1.5 rounded-lg bg-[#E75D4B] hover:bg-[#D64C3A] text-white text-xs font-bold items-center gap-1.5 cursor-pointer transition shadow-2xs">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                      <span id="batch-remove-label-ooh">remover 1 do plano</span>
+                    </button>
+                  </div>
+
+                  <!-- Lista de Itens OOH no Plano -->
+                  <div id="resumo-ooh-list" class="divide-y divide-gray-100">
+                    <!-- Preenchido via JS populateResumoScreen() -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACORDEÃO 3: RÁDIO (Fiel ao Summary.vue c/ badge Confirmação por especialista) -->
+              <div id="resumo-accordion-radio" class="bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <button type="button" onclick="toggleResumoAccordion('radio')" class="w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                      <span>Rádio</span>
+                      <span class="inline-flex items-center rounded-md bg-orange-50 px-2.5 py-0.5 text-[11px] font-medium text-[#FF4F00]">Confirmação por especialista</span>
+                    </div>
+                    <span id="resumo-acc-icon-radio" class="w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform rotate-180">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                    </span>
+                  </button>
+                </div>
+                <div id="resumo-acc-body-radio" class="hidden pt-4 space-y-3">
+                  <div class="py-3 px-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3">
+                    <div>
+                      <p class="text-xs font-bold text-[#282E38]">Nenhuma emissora de Rádio adicionada ao plano</p>
+                      <p class="text-[11px] text-[#64748B] mt-0.5">Combine sua campanha com spots nas rádios líderes de audiência (CBN, Rádio Globo e BH FM).</p>
+                    </div>
+                    <button type="button" onclick="showToast('Alternando para página de resultados Rádio...')" class="px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer transition">Explorar Rádio</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACORDEÃO 4: TV -->
+              <div id="resumo-accordion-tv" class="bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <button type="button" onclick="toggleResumoAccordion('tv')" class="w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+                      <span>TV</span>
+                    </div>
+                    <span id="resumo-acc-icon-tv" class="w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform rotate-180">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                    </span>
+                  </button>
+                </div>
+                <div id="resumo-acc-body-tv" class="hidden pt-4 space-y-3">
+                  <div class="py-3 px-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3">
+                    <div>
+                      <p class="text-xs font-bold text-[#282E38]">Nenhum formato de TV adicionado ao plano</p>
+                      <p class="text-[11px] text-[#64748B] mt-0.5">Amplie o alcance regional da sua marca anunciando na programação da TV Globo e canais por assinatura.</p>
+                    </div>
+                    <button type="button" onclick="showToast('Alternando para página de resultados TV...')" class="px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer transition">Explorar TV</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACORDEÃO 5: COMBOS -->
+              <div id="resumo-accordion-combos" class="bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <button type="button" onclick="toggleResumoAccordion('combos')" class="w-full flex items-center justify-between text-sm font-bold text-[#282E38] cursor-pointer">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                      <span>Combos</span>
+                    </div>
+                    <span id="resumo-acc-icon-combos" class="w-7 h-7 rounded-full bg-[#E2E8F0] text-[#282E38] flex items-center justify-center transition-transform rotate-180">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                    </span>
+                  </button>
+                </div>
+                <div id="resumo-acc-body-combos" class="hidden pt-4 space-y-3">
+                  <div class="py-3 px-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-3">
+                    <div>
+                      <p class="text-xs font-bold text-[#282E38]">Nenhum Combo multicanal selecionado</p>
+                      <p class="text-[11px] text-[#64748B] mt-0.5">Confira pacotes prontos combinando OOH + Digital com condições especiais.</p>
+                    </div>
+                    <button type="button" onclick="showToast('Alternando para Combos...')" class="px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer transition">Ver Combos</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botão Contratar Mais Produtos Largura Total -->
+              <div>
+                <button type="button" onclick="showScreen('view-resultados')" class="w-full py-2.5 rounded-lg border border-[#E2E8F0] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] cursor-pointer transition text-center">
+                  contratar mais produtos
+                </button>
+              </div>
+            </div>
+
+            <!-- COLUNA DIREITA: CARD BRANCO ÚNICO CONSOLIDADO -->
+            <div class="lg:col-span-5">
+              <div class="bg-white rounded-2xl border border-[#F1F5F9] p-6 shadow-2xs space-y-5">
+
+                <!-- SEÇÃO 1: CONFIGURE SEU ANÚNCIO -->
+                <div>
+                  <h2 class="text-sm font-bold text-[#282E38] mb-4">Configure seu anúncio</h2>
+
+                  <!-- Nome da campanha + contador alinhado à direita -->
+                  <div class="mb-3.5">
+                    <label class="block text-[11px] text-[#64748B] mb-1.5">Nome da campanha</label>
+                    <input id="resumo-camp-name" type="text" maxlength="30" value="" placeholder="Nome da campanha" oninput="updateResumoCampaignName(this.value)" class="w-full border border-[#E2E8F0] rounded-lg px-3.5 py-2 text-xs text-[#282E38] placeholder-[#94A3B8] focus:outline-none focus:border-[#FF4F00]">
+                    <div class="flex justify-end mt-1">
+                      <p id="resumo-char-count" class="text-[10.5px] text-[#64748B]">0/30 caracteres</p>
+                    </div>
+                  </div>
+
+                  <!-- Grid Duração | Início | Fim (Com ícone de calendário à esquerda dentro de cada campo) -->
+                  <div class="grid grid-cols-3 gap-2.5 mb-3.5">
+                    <div>
+                      <label class="block text-[11px] text-[#64748B] mb-1">duração</label>
+                      <div class="relative flex items-center border border-[#E2E8F0] rounded-lg px-2.5 py-2 bg-white focus-within:border-[#FF4F00]">
+                        <svg class="w-3.5 h-3.5 text-[#94A3B8] shrink-0 mr-1.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        <select id="resumo-duration-select" onchange="updateResumoDuration(this.value)" class="w-full text-xs text-[#282E38] bg-transparent focus:outline-none cursor-pointer">
+                          <option id="resumo-dur-opt-agnostic" value="agnostic">— semanas</option>
+                          <option value="14">2 semanas</option>
+                          <option value="28">4 semanas</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-[#64748B] mb-1">início</label>
+                      <div class="relative flex items-center border border-[#E2E8F0] rounded-lg px-2.5 py-2 bg-white focus-within:border-[#FF4F00]">
+                        <svg class="w-3.5 h-3.5 text-[#94A3B8] shrink-0 mr-1.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        <input id="resumo-start-date" type="text" value="dd/mm/aaaa" placeholder="dd/mm/aaaa" onchange="updateResumoStartDate(this.value)" class="w-full text-xs text-[#282E38] bg-transparent focus:outline-none">
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-[#64748B] mb-1">fim</label>
+                      <div class="w-full border border-[#E2E8F0] rounded-lg px-2.5 py-2 text-xs text-[#64748B] bg-[#F8FAFC] select-none flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-[#94A3B8] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        <span id="resumo-end-date">dd/mm/aaaa</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tags de Resumo Dinâmicas -->
+                  <div id="resumo-summary-tags" class="flex flex-wrap items-center gap-1.5">
+                    <!-- Preenchido via JS updateResumoRightCardUI() -->
+                  </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- SEÇÃO 2: PERFORMANCE PROJETADA -->
+                <div>
+                  <h3 class="text-sm font-bold text-[#282E38] mb-3">Performance projetada</h3>
+
+                  <!-- Bloco Digital (Contextual) -->
+                  <div id="resumo-perf-digital-block">
+                    <p class="text-xs font-bold text-[#282E38] mb-2">Digital</p>
+                    <div class="flex items-start gap-8">
+                      <div>
+                        <p class="text-[11px] text-[#64748B] flex items-center gap-1">
+                          <span>impressões</span>
+                          <span class="text-[10px] text-[#94A3B8]">▷</span>
+                        </p>
+                        <p id="resumo-perf-dig-imp" class="text-xs font-extrabold text-[#282E38] mt-0.5">—</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B]">portais</p>
+                        <div id="resumo-perf-dig-portals" class="flex items-center gap-1 flex-wrap mt-0.5 text-xs font-extrabold text-[#282E38]">
+                          —
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Divisória entre Digital e OOH dentro de Performance projetada -->
+                  <hr id="resumo-perf-divider" class="border-gray-100 my-4">
+
+                  <!-- Bloco OOH | Out of Home (Contextual - 5 colunas na mesma linha) -->
+                  <div id="resumo-perf-ooh-block">
+                    <p class="text-xs font-bold text-[#282E38] mb-2">OOH | Out of Home</p>
+                    <div class="grid grid-cols-5 gap-2 text-left">
+                      <div>
+                        <p class="text-[11px] text-[#64748B] flex items-center gap-0.5"><span>exibições</span><span class="text-[9px] text-[#94A3B8]">▷</span></p>
+                        <p id="resumo-perf-ooh-views" class="text-xs font-extrabold text-[#282E38] mt-0.5">—</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B] flex items-center gap-0.5"><span>alcance</span><span class="text-[9px] text-[#94A3B8]">👤</span></p>
+                        <p id="resumo-perf-ooh-reach" class="text-xs font-extrabold text-[#282E38] mt-0.5">—</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B] flex items-center gap-0.5"><span>impacto</span><span class="text-[9px] text-[#94A3B8]">🎯</span></p>
+                        <p id="resumo-perf-ooh-impact" class="text-xs font-extrabold text-[#282E38] mt-0.5">—</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B] flex items-center gap-0.5"><span>frequência</span><span class="text-[9px] text-[#94A3B8]">↻</span></p>
+                        <p id="resumo-perf-ooh-freq" class="text-xs font-extrabold text-[#282E38] mt-0.5">—</p>
+                      </div>
+                      <div>
+                        <p class="text-[11px] text-[#64748B] flex items-center gap-0.5"><span>telas</span><span class="text-[9px] text-[#94A3B8]">🖥</span></p>
+                        <p id="resumo-perf-ooh-screens" class="text-xs font-extrabold text-[#282E38] mt-0.5">—</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <!-- SEÇÃO 3: VALOR -->
+                <div>
+                  <h3 class="text-sm font-bold text-[#282E38] mb-3">Valor</h3>
+                  <div class="flex items-center gap-1.5 pb-3 mb-3 border-b border-gray-100">
+                    <span class="text-xs text-[#64748B]">Possui cupom?</span>
+                    <button type="button" onclick="showToast('Campo de cupom de desconto habilitado!')" class="text-xs font-semibold text-[#10B981] hover:underline cursor-pointer">
+                      Adicionar
+                    </button>
+                  </div>
+
+                  <div class="space-y-2 text-xs mb-4">
+                    <div id="resumo-row-val-digital" class="flex items-center justify-between text-[#475569]">
+                      <span>Campanha Digital</span>
+                      <span id="resumo-val-digital" class="font-medium text-[#282E38]">R$ —</span>
+                    </div>
+                    <div id="resumo-row-val-ooh" class="flex items-center justify-between text-[#475569]">
+                      <span>Campanha Out of Home</span>
+                      <span id="resumo-val-ooh" class="font-medium text-[#282E38]">R$ —</span>
+                    </div>
+                    <div class="flex items-center justify-between font-bold text-[#282E38] pt-1">
+                      <span>Subtotal</span>
+                      <span id="resumo-val-subtotal">R$ —</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm font-extrabold text-[#282E38] pt-2 border-t border-gray-100">
+                      <span>Total</span>
+                      <span id="resumo-val-total">R$ —</span>
+                    </div>
+                  </div>
+
+                  <!-- Aviso Informativo Fiel aos Prints -->
+                  <p class="text-[10.5px] text-[#64748B] flex items-center gap-1.5 mb-5">
+                    <span class="text-gray-400">ⓘ</span>
+                    <span>Os planos de mídia podem sofrer alteração de valores e/ou disponibilidade de pontos sem aviso prévio.</span>
+                  </p>
+
+                  <!-- Botões Enviar Criativo e Realizar Pagamento -->
+                  <div class="grid grid-cols-2 gap-3">
+                    <button type="button" onclick="openEnvioArteFromResumo()" class="py-2.5 px-3 rounded-lg border border-[#E2E8F0] bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] cursor-pointer transition text-center">
+                      enviar criativo
+                    </button>
+                    <button type="button" onclick="goToPagamento()" class="py-2.5 px-3 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer transition text-center shadow-xs">
+                      realizar pagamento
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div id="hook-after-resumo-content" class="mt-6"></div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ===================================================================== -->
+      <!-- TELA 1.C: ENVIAR CRIATIVO (3 CAMINHOS + URL CONDICIONAL + TEMPLATES)  -->
+      <!-- ===================================================================== -->
+      <main id="view-envio-arte" class="view-section flex-1 flex flex-col justify-between bg-white">
+        <!-- SUB-VIEW 1: CONFIGURE OS DETALHES DO SEU ANÚNCIO (FIEL AO PRINT OFICIAL 07) -->
+        <div id="art-subview-selecao" class="max-w-[960px] w-full mx-auto px-4 sm:px-6 pt-10 pb-28">
+          <div class="mb-5">
+            <h1 class="text-xl font-bold text-[#282E38] tracking-tight">Configure os detalhes do seu anúncio</h1>
+            <p class="mt-1 text-xs text-[#64748B]">Campanha: <span id="envio-arte-camp-name" class="text-[#282E38]">—</span></p>
+          </div>
+
+          <!-- Grid 3 Cards de Opção (Fiel ao Print Oficial) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            <!-- Opção 1: Enviar minha arte -->
+            <div id="art-method-card-upload" onclick="selectArtCreationMethod('upload')" class="rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-6 cursor-pointer transition flex flex-col">
+              <!-- Ilustração 148x136 em #F3F2EE (Notebook roxo + paisagem laranja + seta upload) -->
+              <div class="w-[148px] h-[136px] mx-auto mb-5 rounded-lg bg-[#F3F2EE] flex items-center justify-center">
+                <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+                  <!-- Base e tela do notebook roxo -->
+                  <rect x="20" y="34" width="60" height="40" rx="3" fill="#4C1D95"/>
+                  <rect x="24" y="38" width="52" height="32" rx="1.5" fill="#DDD6FE"/>
+                  <path d="M13 74H87L83 80H17L13 74Z" fill="#4C1D95"/>
+                  <!-- Card de imagem laranja emergindo da tela -->
+                  <rect x="33" y="24" width="34" height="27" rx="2.5" fill="#FB923C" stroke="#4C1D95" stroke-width="2"/>
+                  <circle cx="42" cy="32" r="3" fill="#FEF08A"/>
+                  <path d="M35 48L44 37L52 45L58 39L65 48H35Z" fill="#EA580C"/>
+                  <!-- Seta laranja de upload -->
+                  <path d="M50 11L58 19H53V27H47V19H42L50 11Z" fill="#F97316"/>
+                </svg>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <input id="radio-art-upload" type="radio" name="art_method" class="w-3.5 h-3.5 accent-[#FF4F00] cursor-pointer">
+                <h3 class="text-xs font-bold text-[#282E38]">Enviar minha arte</h3>
+              </div>
+              <p class="text-[11px] text-[#64748B] leading-relaxed">Já tem sua arte pronta? Faça o upload do arquivo para veicular seu anúncio.</p>
+            </div>
+
+            <!-- Opção 2: Utilizar modelos prontos -->
+            <div id="art-method-card-modelos" onclick="selectArtCreationMethod('modelos')" class="rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-6 cursor-pointer transition flex flex-col">
+              <!-- Ilustração 148x136 em #F3F2EE (Quadros 1 roxo e 2 verde + mão rosa) -->
+              <div class="w-[148px] h-[136px] mx-auto mb-5 rounded-lg bg-[#F3F2EE] flex items-center justify-center">
+                <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+                  <!-- Quadro 1 (roxo) -->
+                  <rect x="20" y="20" width="32" height="32" rx="4" fill="#6D28D9"/>
+                  <text x="36" y="42" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="800" font-family="Inter, sans-serif">1</text>
+                  <!-- Quadro 2 (verde) -->
+                  <rect x="46" y="34" width="32" height="32" rx="4" fill="#34D399" stroke="#4C1D95" stroke-width="2"/>
+                  <text x="62" y="56" text-anchor="middle" fill="#064E3B" font-size="16" font-weight="800" font-family="Inter, sans-serif">2</text>
+                  <!-- Mão rosa apontando -->
+                  <path d="M40 78C40 70 45 64 51 64C55 64 58 67 60 72L62 78H40Z" fill="#F472B6"/>
+                  <rect x="49" y="55" width="6" height="14" rx="3" fill="#F472B6"/>
+                </svg>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <input id="radio-art-modelos" type="radio" name="art_method" class="w-3.5 h-3.5 accent-[#FF4F00] cursor-pointer">
+                <h3 class="text-xs font-bold text-[#282E38]">Utilizar modelos prontos</h3>
+              </div>
+              <p class="text-[11px] text-[#64748B] leading-relaxed">Personalize modelos prontos e gere textos e imagens com IA para deixar o anúncio com a cara da sua marca.</p>
+            </div>
+
+            <!-- Opção 3: Contratar uma arte -->
+            <div id="art-method-card-contratar" onclick="selectArtCreationMethod('contratar')" class="rounded-lg border border-gray-200 hover:border-gray-300 bg-white p-6 cursor-pointer transition flex flex-col justify-between">
+              <div>
+                <!-- Ilustração 148x136 em #F3F2EE (Tablet roxo isométrico + mão amarela desenhando) -->
+                <div class="w-[148px] h-[136px] mx-auto mb-5 rounded-lg bg-[#F3F2EE] flex items-center justify-center">
+                  <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none">
+                    <!-- Tablet isométrico roxo -->
+                    <rect x="20" y="36" width="48" height="34" rx="5" transform="rotate(-12 20 36)" fill="#5B21B6"/>
+                    <rect x="24" y="40" width="40" height="26" rx="2.5" transform="rotate(-12 24 40)" fill="#EDE9FE"/>
+                    <circle cx="43" cy="49" r="7" fill="#F97316"/>
+                    <!-- Caneta stylus e mão amarela -->
+                    <path d="M52 46L74 24L79 29L57 51L50 53L52 46Z" fill="#4C1D95"/>
+                    <path d="M62 36C67 34 74 37 77 43L82 53L67 58L59 45C58 41 59 37 62 36Z" fill="#FACC15"/>
+                  </svg>
+                </div>
+                <div class="flex items-center gap-2 mb-2">
+                  <input id="radio-art-contratar" type="radio" name="art_method" class="w-3.5 h-3.5 accent-[#FF4F00] cursor-pointer">
+                  <h3 class="text-xs font-bold text-[#282E38]">Contratar uma arte</h3>
+                </div>
+                <p class="text-[11px] text-[#64748B] leading-relaxed">Conte com o nosso time de criação para fazer sua arte.</p>
+              </div>
+
+              <div class="mt-3 pt-1">
+                <div class="text-[10px] text-gray-400 line-through">R$ 199,99</div>
+                <div class="flex items-center justify-between gap-2 mt-0.5">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-sm font-extrabold text-[#282E38]">R$ 99,00</span>
+                    <span class="bg-[#10B981] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">50% OFF</span>
+                  </div>
+                  <button type="button" onclick="event.stopPropagation(); showToast('A equipe criativa produz todos os formatos da sua campanha em até 2 dias úteis.')" class="text-[11px] font-semibold text-[#282E38] underline cursor-pointer">Saiba mais</button>
+                </div>
+                <div class="mt-2.5 w-full text-center bg-[#FFF0E6] text-[#FF4F00] text-[10px] font-medium px-2 py-1 rounded">
+                  * Desconto válido até 31/10/2026.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco URL de destino (Direto no fundo branco, sem card cinza — Fiel ao Print Oficial) -->
+          <div id="block-url-destino" class="pt-1 mb-6">
+            <h2 class="text-lg font-bold text-[#282E38] mb-1.5">URL de destino</h2>
+            <p class="text-xs text-[#64748B] leading-relaxed">
+              Escolha para onde o seu público será levado ao clicar em seu anúncio. A URL de destino passará por uma análise pelo nosso time técnico após a confirmação do pagamento.
+            </p>
+            <p class="text-xs text-[#64748B] mb-4 leading-relaxed">
+              Confira nossas <button type="button" onclick="showToast('Políticas de conteúdo Aqui Ads')" class="text-[#282E38] underline font-semibold cursor-pointer">Políticas de conteúdo</button>.
+            </p>
+            <div>
+              <input id="creative-dest-url" type="url" value="" oninput="if(window.cartState) window.cartState.destinationUrl = this.value" class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]" placeholder="https://www.seusite.com.br">
+            </div>
+          </div>
+
+          <!-- Box Briefing quando "Contratar uma arte" estiver selecionado e avançar -->
+          <div id="block-briefing-contratar" class="hidden bg-[#F8FAFC] rounded-xl border border-gray-200 p-5 mb-6">
+            <h2 class="text-sm font-bold text-[#282E38] mb-1">Briefing para produção das peças</h2>
+            <p class="text-xs text-[#64748B] mb-3">Descreva a mensagem principal, cores da marca e informações de contato que devem constar nos anúncios.</p>
+            <textarea id="creative-briefing-text" rows="3" class="w-full border border-gray-300 rounded-lg p-3 text-xs text-[#282E38] bg-white mb-3 focus:outline-none focus:border-[#FF4F00]" placeholder="Ex.: Destacar campanha institucional com chamada para canais digitais e endereço comercial."></textarea>
+            <button type="button" onclick="showToast('Logotipo e manual da marca anexados ao briefing!')" class="px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-gray-800 cursor-pointer">
+              + Anexar logotipo e referências
+            </button>
+          </div>
+        </div>
+
+        <!-- SUB-VIEW 2: UPLOAD DE ARQUIVOS E PREVIEW INTERATIVO POR FORMATO (OOH 62PX + DIGITAL) -->
+        <div id="art-subview-upload" class="hidden max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <button type="button" onclick="backToArtSelection()" class="px-3.5 py-1.5 border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 cursor-pointer">
+              <span>‹</span> alterar forma de envio
+            </button>
+            <div class="text-xs text-gray-500">
+              Campanha: <strong id="upload-subview-camp-name" class="text-gray-900">—</strong>
+            </div>
+          </div>
+
+          <div class="flex flex-col lg:flex-row gap-6 items-start">
+            <!-- Sidebar Esquerda (lg:w-[410px]): Acordeões de Formatos Contratados -->
+            <div class="w-full lg:w-[410px] shrink-0 bg-white rounded-2xl border border-gray-200 p-5 shadow-2xs space-y-4">
+              <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div>
+                  <h2 class="text-base font-bold text-gray-900">Arquivos</h2>
+                  <p id="art-upload-progress-text" class="text-xs text-gray-500 mt-0.5">0 de 0 produtos prontos para publicação</p>
+                </div>
+                <span id="art-upload-status-badge" class="bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-bold px-2.5 py-1 rounded-full">Pendente</span>
+              </div>
+
+              <!-- Acordeão Upload Digital (Contextual) -->
+              <div id="upload-acc-digital" class="border border-gray-200 rounded-xl p-3.5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-gray-900">Digital • Portais Globo</span>
+                  <span id="upload-pill-digital" class="text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded">3 dimensões</span>
+                </div>
+                <p class="text-[11px] text-gray-500">Formatos: 300x250px, 728x90px e 970x250px (JPG ou PNG até 150KB)</p>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button type="button" onclick="switchUploadFormatPreview('dig-300x250')" class="px-2 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer">300x250px</button>
+                  <button type="button" onclick="switchUploadFormatPreview('dig-728x90')" class="px-2 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer">728x90px</button>
+                  <button type="button" onclick="switchUploadFormatPreview('dig-970x250')" class="px-2 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer">970x250px</button>
+                </div>
+                <button type="button" onclick="simulateFormatFileUpload('digital')" class="w-full py-2.5 px-3 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#FF4F00] text-xs font-bold text-[#FF4F00] bg-orange-50/20 cursor-pointer transition">
+                  + Enviar criativos Digitais
+                </button>
+              </div>
+
+              <!-- Acordeão Upload OOH (Contextual) -->
+              <div id="upload-acc-ooh" class="border border-gray-200 rounded-xl p-3.5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-gray-900">OOH • Telas Digitais</span>
+                  <span id="upload-pill-ooh" class="text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded">2 dimensões</span>
+                </div>
+                <p class="text-[11px] text-gray-500">Formatos: 800x600px (Elevador c/ régua 62px) e 1080x1920px Vertical</p>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="switchUploadFormatPreview('ooh-800x600')" class="px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer">800x600px (Elevador)</button>
+                  <button type="button" onclick="switchUploadFormatPreview('ooh-1080x1920')" class="px-2.5 py-1.5 rounded-lg border border-gray-200 hover:border-[#FF4F00] text-[11px] font-semibold text-gray-700 bg-gray-50 cursor-pointer">1080x1920px (Vertical)</button>
+                </div>
+                <button type="button" onclick="simulateFormatFileUpload('ooh')" class="w-full py-2.5 px-3 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#FF4F00] text-xs font-bold text-[#FF4F00] bg-orange-50/20 cursor-pointer transition">
+                  + Enviar criativos OOH
+                </button>
+              </div>
+            </div>
+
+            <!-- Área Direita de Preview Interativo -->
+            <div class="flex-1 w-full bg-[#F8FAFC] rounded-2xl border border-gray-200 p-6 min-h-[420px] flex flex-col justify-between">
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-gray-200">
+                <div>
+                  <span id="upload-preview-title" class="text-xs font-bold text-gray-900">Preview da peça • OOH 800x600px (Elevador Residencial)</span>
+                  <p id="upload-preview-subtitle" class="text-[11px] text-gray-500">Verifique as margens de segurança antes de prosseguir para o pagamento.</p>
+                </div>
+                <span class="text-[11px] font-semibold text-gray-600 bg-white border border-gray-200 px-2.5 py-1 rounded-lg">Visualização em escala</span>
+              </div>
+
+              <!-- Moldura Central do Preview -->
+              <div class="my-6 flex items-center justify-center">
+                <div id="upload-preview-canvas" class="relative w-full max-w-[420px] h-[280px] rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 text-white p-6 flex flex-col justify-between overflow-hidden shadow-md">
+                  <div>
+                    <span class="inline-block bg-[#FF4F00] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2">VISUALIZAÇÃO DO FORMATO</span>
+                    <h4 id="upload-canvas-headline" class="text-lg font-extrabold leading-snug">Sua marca presente nos principais pontos e portais</h4>
+                    <p class="text-xs text-gray-300 mt-1">Peça demonstrativa validada nas especificações técnicas</p>
+                  </div>
+                  <!-- Régua de Segurança 62px Eletromidia (Visível para OOH 800x600) -->
+                  <div id="upload-ooh-safety-ruler" class="inset-x-0 bottom-0 h-11 bg-amber-500/90 text-gray-950 px-3 flex items-center justify-between text-[11px] font-bold rounded-lg">
+                    <span>⚠ Área da régua inferior Eletromidia (62px)</span>
+                    <span>Não posicionar textos aqui</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Barra Inferior do Upload -->
+              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <button type="button" onclick="backToArtSelection()" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-gray-700 cursor-pointer">
+                  voltar
+                </button>
+                <button type="button" onclick="goToPagamento()" class="px-5 py-2.5 rounded-xl bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer shadow-xs">
+                  salvar e ir para pagamento →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-VIEW 3: EDITOR DE MODELOS PRONTOS COM IA -->
+        <div id="art-subview-modelos" class="hidden max-w-[1140px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-6">
+          <div class="mb-4">
+            <button type="button" onclick="backToArtSelection()" class="px-3.5 py-1.5 border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 cursor-pointer">
+              <span>‹</span> voltar para seleção
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start bg-white rounded-2xl border border-gray-200 p-6 shadow-2xs">
+            <div class="lg:col-span-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-base font-bold text-gray-900">Personalizar modelo pronto</h2>
+                <button type="button" onclick="generateAiCreativeCopy()" class="px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF4F00] border border-orange-200 text-xs font-bold cursor-pointer hover:bg-orange-100">
+                  ✦ Sugerir texto com IA
+                </button>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Título principal do anúncio</label>
+                <input id="tpl-headline-input" type="text" value="" placeholder="Digite o título principal do seu anúncio" oninput="document.getElementById('tpl-preview-title').textContent=this.value || 'Título principal do seu anúncio'" class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-xs text-gray-900">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Chamada complementar / Site ou Contato</label>
+                <input id="tpl-cta-input" type="text" value="" placeholder="Digite a chamada complementar ou contato" oninput="document.getElementById('tpl-preview-cta').textContent=this.value || 'Chamada complementar'" class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-xs text-gray-900">
+              </div>
+              <div class="pt-3 flex items-center justify-end gap-3">
+                <button type="button" onclick="backToArtSelection()" class="px-4 py-2 rounded-lg border border-gray-300 text-xs font-bold text-gray-700 cursor-pointer">
+                  cancelar
+                </button>
+                <button type="button" onclick="applyReadyTemplateAndContinue()" class="px-5 py-2.5 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer shadow-xs">
+                  aplicar modelo e avançar →
+                </button>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6 flex items-center justify-center bg-[#F8FAFC] rounded-xl p-6 border border-gray-100">
+              <div class="bg-gradient-to-br from-[#FF4F00] to-[#B83200] rounded-2xl p-6 text-white text-center shadow-md w-full max-w-[320px]">
+                <span class="inline-block bg-white/20 text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-3">MODELO ADAPTÁVEL MULTICANAL</span>
+                <h4 id="tpl-preview-title" class="text-base font-extrabold leading-snug mb-2">Título principal do seu anúncio</h4>
+                <p id="tpl-preview-cta" class="text-xs opacity-90">Chamada complementar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BARRA INFERIOR FIXA DA TELA DE ENVIO DE CRIATIVO (Fiel ao Print Oficial 07) -->
+        <div id="envio-arte-bottom-bar" class="sticky bottom-0 z-20 w-full border-t border-gray-200 bg-white py-3.5">
+          <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-[60px] flex items-center justify-between gap-4">
+            <button type="button" onclick="showScreen('view-resumo')" class="px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-semibold text-[#282E38] cursor-pointer transition">
+              voltar
+            </button>
+            <button id="art-selection-next-btn" type="button" onclick="proceedFromArtSelection()" class="px-5 py-2.5 rounded-lg bg-[#FF9B71] text-white text-xs font-semibold inline-flex items-center gap-2 cursor-not-allowed transition">
+              <span>avançar</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <!-- ===================================================================== -->
+      <!-- TELA 1.D: CHECKOUT / PAGAMENTO (FIEL AOS PRINTS OFICIAIS 08, 09 E 10) -->
+      <!-- ===================================================================== -->
+      <main id="view-pagamento" class="view-section flex-1 bg-white pb-20">
+        <div class="max-w-[1140px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-8">
+          <div class="mb-6">
+            <button type="button" onclick="showScreen('view-envio-arte')" class="text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] inline-flex items-center gap-1.5 cursor-pointer transition">
+              <span>‹</span> voltar
+            </button>
+          </div>
+
+          <!-- Grid 2 Colunas (7 Colunas Esquerda: Dados Faturamento + PIX/Cartão | 5 Colunas Direita: Resumo de Valores + Dúvidas) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+            <!-- COLUNA ESQUERDA (lg:col-span-7) -->
+            <div class="lg:col-span-7 space-y-7">
+              <div>
+                <h1 class="text-2xl font-bold text-[#282E38] tracking-tight">Pagamento</h1>
+                <p class="text-xs text-[#64748B] mt-2 leading-relaxed">Você está a um passo de concluir sua compra. Confirme os valores e selecione a forma de pagamento.</p>
+              </div>
+
+              <!-- Seção 1: Dados de faturamento (Título fora do card + Card branco com divisória vertical + Concluir Cadastro abaixo) -->
+              <div>
+                <h2 class="text-base font-bold text-[#282E38] mb-3">Dados de faturamento</h2>
+
+                <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex-1 sm:pr-5 sm:border-r border-gray-200">
+                    <span id="billing-profile-badge" class="inline-block bg-[#282E38] text-white text-[10px] font-semibold px-2.5 py-0.5 rounded mb-2.5">pessoa física</span>
+                    <div class="text-xs space-y-1">
+                      <p id="billing-profile-name" class="font-bold text-[#282E38] uppercase">—</p>
+                      <p id="billing-profile-doc" class="text-[#64748B]">—</p>
+                      <p id="billing-profile-address" class="text-[#64748B] leading-relaxed">—</p>
+                    </div>
+                  </div>
+
+                  <div class="sm:pl-4 flex sm:flex-col items-center justify-center gap-3 shrink-0">
+                    <button type="button" onclick="showToast('Edição de dados de faturamento habilitada')" class="px-4 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-medium text-[#282E38] inline-flex items-center gap-1.5 cursor-pointer transition">
+                      <span>editar</span>
+                      <svg class="w-3.5 h-3.5 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </button>
+                    <button type="button" onclick="toggleBillingProfile()" class="text-xs font-medium text-[#282E38] hover:text-[#FF4F00] inline-flex items-center gap-1.5 cursor-pointer transition">
+                      <span>trocar perfil</span>
+                      <span>⇄</span>
+                    </button>
+                  </div>
+                </div>
+
+                <p class="mt-2.5 text-[11px] text-[#282E38]">
+                  Você ainda não concluiu seu cadastro de Pessoa Jurídica.
+                  <button type="button" onclick="toggleBillingProfile()" class="text-[#FF4F00] underline font-medium cursor-pointer ml-0.5">Concluir Cadastro</button>
+                </p>
+              </div>
+
+              <!-- Seção 2: Escolha o método de pagamento (PIX e Cartão de crédito desmarcados por padrão) -->
+              <div class="space-y-5">
+                <div>
+                  <h2 class="text-base font-bold text-[#282E38] mb-3">Escolha o método de pagamento</h2>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <!-- Card PIX -->
+                    <button type="button" onclick="selectPaymentMethod('pix')" id="pay-method-pix" class="h-[88px] rounded-xl border border-gray-200 bg-white hover:border-gray-300 p-4 flex flex-col items-start justify-between text-left cursor-pointer transition">
+                      <svg class="w-5 h-5 text-[#282E38]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8.5 8.5a1 1 0 010 1.4L12 21.4a1 1 0 01-1.4 0L2.1 12.9a1 1 0 010-1.4L10.6 3a1 1 0 011.4 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.5 8.5l7 7m0-7l-7 7"/></svg>
+                      <span class="text-xs font-medium text-[#282E38]">PIX</span>
+                    </button>
+
+                    <!-- Card Cartão de crédito -->
+                    <button type="button" onclick="selectPaymentMethod('card')" id="pay-method-card" class="h-[88px] rounded-xl border border-gray-200 bg-white hover:border-gray-300 p-4 flex flex-col items-start justify-between text-left cursor-pointer transition">
+                      <svg class="w-5 h-5 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M2 10h20M6 15h4"/></svg>
+                      <span class="text-xs font-medium text-[#282E38]">Cartão de crédito</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Formulário Cartão de Crédito (Oculto por padrão até o usuário clicar em Cartão de crédito; sem caixa cinza) -->
+                <div id="pay-form-card" class="hidden pt-2 space-y-4">
+                  <h3 class="text-base font-bold text-[#282E38]">Método de pagamento - Cartão de crédito</h3>
+
+                  <div>
+                    <label class="block text-xs font-bold text-[#282E38] mb-1.5">Número do cartão</label>
+                    <input type="text" value="" placeholder="0000 0000 0000 0000" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]">
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-[#282E38] mb-1.5">Nome do titular</label>
+                    <input type="text" value="" placeholder="Preencha exatamente como está no cartão" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]">
+                  </div>
+
+                  <div id="pay-card-row-fields" class="grid grid-cols-12 gap-3">
+                    <div id="pay-card-col-val" class="col-span-3">
+                      <label class="block text-xs font-bold text-[#282E38] mb-1.5">Validade</label>
+                      <input type="text" value="" placeholder="00/00" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]">
+                    </div>
+                    <div id="pay-card-col-cvv" class="col-span-3">
+                      <label class="block text-xs font-bold text-[#282E38] mb-1.5">CVV</label>
+                      <input type="text" value="" placeholder="000" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-xs text-[#282E38] placeholder-gray-400 bg-white focus:outline-none focus:border-[#FF4F00]">
+                    </div>
+                    <div id="pay-card-col-inst" class="col-span-6">
+                      <label class="block text-xs font-bold text-[#282E38] mb-1.5">Selecione as parcelas</label>
+                      <select id="checkout-installments-select" class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-xs text-[#282E38] bg-white focus:outline-none focus:border-[#FF4F00] cursor-pointer">
+                        <!-- Preenchido dinamicamente por populateCheckoutScreen() em até 3x sem juros -->
+                      </select>
+                    </div>
+                  </div>
+
+                  <label class="flex items-center gap-2 pt-1 cursor-pointer select-none">
+                    <input type="checkbox" class="w-4 h-4 rounded border-gray-300 accent-[#FF4F00]">
+                    <span class="text-xs font-medium text-[#282E38]">Deseja salvar este cartão?</span>
+                  </label>
+
+                  <div class="pt-2 space-y-2.5">
+                    <button type="button" onclick="completeCheckoutPurchase()" class="w-full py-3 px-4 rounded-lg bg-[#FF9B71] hover:bg-[#FF4F00] text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition">
+                      <span>pagar</span>
+                      <span>✓</span>
+                    </button>
+                    <button type="button" onclick="selectPaymentMethod(null)" class="w-full py-2 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] flex items-center justify-center gap-1.5 cursor-pointer transition">
+                      <span>←</span>
+                      <span>voltar</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Painel PIX (Oculto por padrão até o usuário clicar em PIX) -->
+                <div id="pay-form-pix" class="hidden pt-2 space-y-4">
+                  <h3 class="text-base font-bold text-[#282E38]">Método de pagamento - PIX</h3>
+                  <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col sm:flex-row items-center gap-5">
+                    <div class="w-28 h-28 rounded-xl bg-white border border-gray-200 p-2.5 flex items-center justify-center shrink-0">
+                      <div class="w-full h-full bg-[radial-gradient(#111827_2px,transparent_2px)] [background-size:8px_8px] rounded flex items-center justify-center">
+                        <span class="bg-white px-2 py-0.5 text-[10px] font-extrabold text-gray-900 border border-gray-300 rounded">PIX QR</span>
+                      </div>
+                    </div>
+                    <div class="space-y-2 text-xs text-[#64748B] flex-1">
+                      <p class="font-bold text-[#282E38]">Escaneie o QR Code ou utilize o código Pix Copia e Cola</p>
+                      <p class="text-[11px]">A confirmação do pagamento ocorre em poucos segundos e libera sua campanha automaticamente.</p>
+                      <div class="flex items-center gap-2 pt-1">
+                        <input type="text" readonly value="00020126580014br.gov.bcb.pix0136aqui-ads-pagamento-instantaneo" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-[11px] text-[#282E38] bg-white">
+                        <button type="button" onclick="showToast('Código PIX Copia e Cola copiado!')" class="px-3 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-xs font-bold text-[#282E38] shrink-0 cursor-pointer">
+                          Copiar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="space-y-2.5">
+                    <button type="button" onclick="completeCheckoutPurchase()" class="w-full py-3 px-4 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold cursor-pointer transition">
+                      Confirmar pagamento PIX
+                    </button>
+                    <button type="button" onclick="selectPaymentMethod(null)" class="w-full py-2 text-xs font-semibold text-[#282E38] hover:text-[#FF4F00] flex items-center justify-center gap-1.5 cursor-pointer transition">
+                      <span>←</span>
+                      <span>voltar</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Selo Pagamento Seguro (stone para Digital/Híbrido ou rede itaú para OOH exclusivo) -->
+                <div class="pt-4 flex flex-col items-center justify-center text-center gap-1">
+                  <span class="text-[11px] text-[#64748B]">Pagamento seguro com</span>
+                  <div id="checkout-gateway-logo" class="text-xl font-black tracking-tight text-[#16A34A]">stone</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLUNA DIREITA (lg:col-span-5): RESUMO DE VALORES + TIRE SUAS DÚVIDAS -->
+            <div class="lg:col-span-5 space-y-5">
+              <!-- Card 1: Resumo de valores -->
+              <div class="bg-white rounded-xl border border-gray-200 p-6">
+                <h2 class="text-base font-bold text-[#282E38] mb-4">Resumo de valores</h2>
+
+                <!-- Linha Possui cupom? -->
+                <div class="flex items-center justify-between pb-3.5 border-b border-gray-100 text-xs">
+                  <span class="text-[#282E38]">Possui cupom?</span>
+                  <button type="button" onclick="promptCoupon()" class="text-[#16A34A] underline font-medium cursor-pointer">Adicionar</button>
+                </div>
+
+                <!-- Linhas de valores das campanhas + arte + subtotal -->
+                <div class="py-3.5 border-b border-gray-100 space-y-3 text-xs">
+                  <div id="checkout-row-digital" class="flex items-center justify-between text-[#282E38]">
+                    <span>Campanha Digital</span>
+                    <span id="checkout-val-digital" class="font-bold text-[#282E38]">R$ —</span>
+                  </div>
+                  <div id="checkout-row-ooh" class="flex items-center justify-between text-[#282E38]">
+                    <span>Campanha Out of Home</span>
+                    <span id="checkout-val-ooh" class="font-bold text-[#282E38]">R$ —</span>
+                  </div>
+                  <div id="checkout-row-creative-fee" class="hidden flex items-center justify-between text-[#282E38]">
+                    <span>Serviço de criação de arte</span>
+                    <div class="flex items-center gap-1.5">
+                      <button type="button" onclick="removeCreativeServiceFromCheckout()" class="text-gray-500 hover:text-red-600 cursor-pointer" title="Remover criação de arte">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                      </button>
+                      <span class="text-[11px] text-gray-400 line-through">R$ 299,99</span>
+                      <span id="checkout-val-creative" class="font-bold text-[#282E38]">R$ 199,99</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between font-bold text-[#282E38] pt-1">
+                    <span>Subtotal</span>
+                    <span id="checkout-val-subtotal" class="font-bold text-[#282E38]">R$ —</span>
+                  </div>
+                  <p id="checkout-globo-cnpj" class="text-[9px] text-[#64748B] uppercase tracking-tight pt-0.5">
+                    * GLOBO COMUNICACAO E PARTICIPACOES S/A – CNPJ 27.865.757/0006-65
+                  </p>
+                </div>
+
+                <!-- Linha Total -->
+                <div class="pt-3.5">
+                  <div class="flex items-center justify-between text-base font-extrabold text-[#282E38]">
+                    <span>Total</span>
+                    <span id="checkout-val-total">R$ —</span>
+                  </div>
+                  <p id="checkout-terms-note" class="text-[11px] text-[#64748B] mt-3 leading-relaxed">
+                    Ao fazer o pedido, você concorda com os <a href="javascript:void(0)" onclick="showToast('Abrindo Termos e Condições de uso...')" class="text-[#FF4F00] underline">Termos e Condições de uso</a>.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card 2: Tire suas dúvidas (Acordeão Oficial + mais perguntas + Fale com o nosso time) -->
+              <div class="bg-white rounded-xl border border-gray-200 p-6">
+                <h3 class="text-base font-bold text-[#282E38] mb-3">Tire suas dúvidas</h3>
+
+                <div class="divide-y divide-gray-200 border-b border-gray-200">
+                  <!-- Item Condicional: Sobre a contratação de uma arte (visível quando há arte contratada) -->
+                  <div id="checkout-faq-art" class="hidden py-3">
+                    <button type="button" onclick="toggleCheckoutFaq('art')" class="w-full flex items-center justify-between text-left text-xs font-medium text-[#282E38] hover:text-[#FF4F00] cursor-pointer">
+                      <span>Sobre a contratação de uma arte</span>
+                      <svg id="checkout-faq-icon-art" class="w-4 h-4 text-gray-500 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <p id="checkout-faq-body-art" class="hidden mt-2 text-[11px] text-[#64748B] leading-relaxed">
+                      Ao contratar uma arte, nossa equipe criará as peças nos formatos exatos da sua campanha após a confirmação do pagamento.
+                    </p>
+                  </div>
+
+                  <!-- Item 1: Métodos de pagamentos disponíveis -->
+                  <div class="py-3">
+                    <button type="button" onclick="toggleCheckoutFaq('methods')" class="w-full flex items-center justify-between text-left text-xs font-medium text-[#282E38] hover:text-[#FF4F00] cursor-pointer">
+                      <span>Métodos de pagamentos disponíveis</span>
+                      <svg id="checkout-faq-icon-methods" class="w-4 h-4 text-gray-500 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <p id="checkout-faq-body-methods" class="hidden mt-2 text-[11px] text-[#64748B] leading-relaxed">
+                      Aceitamos pagamentos via PIX (com liberação instantânea) e Cartão de crédito em até 3x sem juros.
+                    </p>
+                  </div>
+
+                  <!-- Item 2: Regras de parcelamento e boleto -->
+                  <div class="py-3">
+                    <button type="button" onclick="toggleCheckoutFaq('installments')" class="w-full flex items-center justify-between text-left text-xs font-medium text-[#282E38] hover:text-[#FF4F00] cursor-pointer">
+                      <span>Regras de parcelamento e boleto</span>
+                      <svg id="checkout-faq-icon-installments" class="w-4 h-4 text-gray-500 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <p id="checkout-faq-body-installments" class="hidden mt-2 text-[11px] text-[#64748B] leading-relaxed">
+                      O parcelamento no cartão de crédito pode ser feito em até 3x sem juros.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mt-4 space-y-3">
+                  <button type="button" onclick="showToast('Abrindo central de ajuda completa...')" class="text-xs font-medium text-[#282E38] hover:text-[#FF4F00] flex items-center gap-2 cursor-pointer transition">
+                    <svg class="w-4 h-4 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8m-4-4h8"/></svg>
+                    <span class="underline">mais perguntas</span>
+                  </button>
+
+                  <button type="button" onclick="showToast('Atendimento com a Helen iniciado!')" class="text-xs font-medium text-[#282E38] hover:text-[#FF4F00] flex items-center gap-2 cursor-pointer transition">
+                    <svg class="w-4 h-4 text-[#FF4F00]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span class="underline">Fale com o nosso time</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      <!-- ===================================================================== -->
+      <!-- TELA 2: LISTAGEM "MEUS ANÚNCIOS" (PLANOS DE MÍDIA + RASCUNHOS LIMPOS) -->
+      <!-- ===================================================================== -->
+      <main id="screen-list" class="view-section flex-1 max-w-[1140px] w-full mx-auto px-6 md:px-10 py-8 responsive-main-padding">
+
+        <h2 class="text-[22px] font-bold text-gray-900 tracking-tight mb-6">Meus Anúncios</h2>
+
+        <!-- Abas Superiores: Planos de mídia (19) | Rascunhos (4) -->
+        <div class="flex items-center gap-6 border-b border-gray-200 mb-5">
+          <button onclick="switchTopTab('planos')" id="top-tab-planos" class="pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] transition cursor-pointer">
+            Planos de mídia (19)
+          </button>
+          <button onclick="switchTopTab('rascunhos')" id="top-tab-rascunhos" class="pb-2.5 text-xs font-medium text-gray-500 hover:text-gray-800 border-b-2 border-transparent transition cursor-pointer">
+            Rascunhos (<span id="drafts-tab-count">4</span>)
+          </button>
+        </div>
+
+        <!-- CONTEÚDO DA ABA PLANOS DE MÍDIA -->
+        <div id="tab-content-planos">
+          <!-- Barra Cinza de Filtros (#F3F4F6) fiel ao print 01 + Quick Win 3 -->
+          <div class="bg-[#F3F4F6] rounded-xl p-4 md:p-5 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end responsive-filter-row">
+              <!-- Nome, ID ou Endereço -->
+              <div class="md:col-span-3">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Nome, ID ou Endereço</label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  </span>
+                  <input type="text" id="filter-search" oninput="applyCampaignFilters()" placeholder="Nome, #ID, cidade ou endereço..." class="w-full bg-white border border-gray-200 rounded-md pl-8 pr-3 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]">
+                </div>
+              </div>
+
+              <!-- Data de início -->
+              <div class="md:col-span-2">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Data de início</label>
+                <div class="relative">
+                  <input type="text" id="filter-date-start" oninput="applyCampaignFilters()" placeholder="dd/mm/aaaa" class="w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]">
+                  <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-gray-400 pointer-events-none">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Data de fim -->
+              <div class="md:col-span-2">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Data de fim</label>
+                <div class="relative">
+                  <input type="text" id="filter-date-end" oninput="applyCampaignFilters()" placeholder="dd/mm/aaaa" class="w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]">
+                  <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-gray-400 pointer-events-none">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Pílulas de Status -->
+              <div class="md:col-span-5">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Status</label>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <button onclick="setStatusFilter('todos')" data-status="todos" class="status-pill px-3 py-1 rounded-full text-[11px] font-semibold bg-[#1E2229] text-white border border-[#1E2229] transition cursor-pointer">todos</button>
+                  <button onclick="setStatusFilter('pendentes')" data-status="pendentes" class="status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer">pendentes</button>
+                  <button onclick="setStatusFilter('veiculando')" data-status="veiculando" class="status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer">veiculando</button>
+                  <button onclick="setStatusFilter('a_iniciar')" data-status="a_iniciar" class="status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer">a iniciar</button>
+                  <button onclick="setStatusFilter('concluidos')" data-status="concluidos" class="status-pill px-3 py-1 rounded-full text-[11px] font-medium bg-white text-gray-800 border border-gray-400 hover:border-gray-600 transition cursor-pointer">concluídos</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Linha 2 de Filtro Rápido (Quick Win 3): Formato / Canal + Limpar Filtros -->
+            <div class="mt-3.5 pt-3 border-t border-gray-200/80 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-bold text-gray-700 mr-1">Formato / Canal:</span>
+                <button onclick="setChannelFilter('todos')" data-channel="todos" class="channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#1E2229] text-white border border-[#1E2229] transition cursor-pointer">Todos</button>
+                <button onclick="setChannelFilter('OOH')" data-channel="OOH" class="channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer">OOH</button>
+                <button onclick="setChannelFilter('Digital')" data-channel="Digital" class="channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer">Digital | Globo</button>
+                <button onclick="setChannelFilter('Hibrida')" data-channel="Hibrida" class="channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer">Híbrida (OOH + Digital)</button>
+              </div>
+              <button onclick="resetAllFilters()" class="text-[11px] font-bold text-[#FF5A00] hover:underline cursor-pointer">
+                Limpar filtros
+              </button>
+            </div>
+          </div>
+
+          <!-- Subtítulo e Botões "ver em lista" / "ordenar" -->
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <p class="text-xs text-gray-500" id="results-counter-text">
+              Aqui estão suas campanhas já contratadas, com status ativo, pendente, concluído ou cancelado.
+            </p>
+            <div class="flex items-center gap-2">
+              <button onclick="toggleListViewMode()" id="toggle-view-btn" class="px-2.5 py-1 border border-gray-200 rounded-md text-[11px] font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span id="toggle-view-label">ver em lista</span>
+              </button>
+
+              <div class="relative">
+                <select id="sort-select" onchange="applyCampaignFilters()" class="appearance-none px-2.5 py-1 pr-6 border border-gray-200 rounded-md text-[11px] font-semibold text-gray-700 bg-white hover:bg-gray-50 cursor-pointer focus:outline-none">
+                  <option value="default">⇅ ordenar (Pendentes → Veiculando → Concluídas)</option>
+                  <option value="pending_first">Prioridade (Pendentes de arte)</option>
+                  <option value="recent">Data de início (Mais recentes)</option>
+                  <option value="value_desc">Maior valor investido</option>
+                  <option value="name_asc">Nome da campanha (A-Z)</option>
+                </select>
+                <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1.5 text-gray-500 text-[10px]">▾</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- GRID DE CARDS (4 COLUNAS FIEL AO PRINT 01) -->
+          <div id="campaigns-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 responsive-cards-grid">
+            <!-- Renderizado via JS para suportar filtros, busca, ordenação e renomeação via menu -->
+          </div>
+
+          <!-- VISÃO EM LISTA (ALTERNÁVEL PELO BOTÃO "VER EM LISTA") -->
+          <div id="campaigns-table-container" class="hidden border border-gray-200 rounded-xl overflow-x-auto bg-white">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#F3F4F6] text-[11px] font-bold text-gray-700 border-b border-gray-200">
+                  <th class="py-3 px-4">Campanha</th>
+                  <th class="py-3 px-3">ID</th>
+                  <th class="py-3 px-3">Canal</th>
+                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3">Período</th>
+                  <th class="py-3 px-3">Valor</th>
+                  <th class="py-3 px-4 text-right">Ação Principal</th>
+                </tr>
+              </thead>
+              <tbody id="campaigns-table-body" class="divide-y divide-gray-100 text-xs">
+                <!-- Preenchido via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ESTADO ZERO INTELIGENTE (QUICK WIN 3 - NUNCA DEIXA O USUÁRIO SEM SAÍDA) -->
+          <div id="empty-state-box" class="hidden bg-[#F8FAFC] border border-dashed border-gray-300 rounded-2xl p-8 text-center my-6">
+            <div class="w-12 h-12 rounded-full bg-orange-50 text-[#FF5A00] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <h3 class="text-sm font-bold text-gray-900 mb-1">Nenhuma campanha encontrada para este filtro</h3>
+            <p class="text-xs text-gray-500 max-w-md mx-auto mb-4" id="empty-state-desc">
+              Não encontramos campanhas correspondentes aos critérios selecionados. Você pode limpar os filtros ou acessar diretamente seus anúncios recentes abaixo:
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-5">
+              <button onclick="resetAllFilters()" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] text-white hover:bg-[#E04E00] transition cursor-pointer">
+                Limpar todos os filtros
+              </button>
+              <button onclick="setStatusFilter('pendentes')" class="px-3 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition cursor-pointer">
+                ⚠️ Ver pendentes de arte (2)
+              </button>
+              <button onclick="setStatusFilter('veiculando')" class="px-3 py-2 rounded-lg text-xs font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition cursor-pointer">
+                ▶️ Ver em veiculação (5)
+              </button>
+            </div>
+          </div>
+
+          <!-- GAVETA / ACORDEÃO DE HISTÓRICO ANTERIOR (> 90 DIAS - SEÇÃO 2.2 DO DOC) -->
+          <div class="mt-8 border border-gray-200 rounded-xl bg-[#F8FAFC] overflow-hidden">
+            <button onclick="toggleHistoricalDrawer()" class="w-full px-4 py-3 flex items-center justify-between text-xs font-bold text-gray-700 hover:bg-gray-100 transition cursor-pointer">
+              <span class="flex items-center gap-2">
+                <span>🗂️</span>
+                <span>Histórico de campanhas anteriores (+90 dias)</span>
+                <span class="bg-gray-200 text-gray-700 text-[10px] px-2 py-0.5 rounded-full">12 concluídas</span>
+              </span>
+              <span id="hist-drawer-label" class="text-[#FF5A00] font-semibold">Ver histórico anterior ▾</span>
+            </button>
+            <div id="historical-campaigns-drawer" class="hidden border-t border-gray-200 p-4 bg-white">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="border border-gray-200 rounded-lg p-3 flex flex-col justify-between bg-gray-50/60">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[10px] font-bold bg-gray-200 text-gray-700 px-2 py-0.5 rounded">✓ Concluída</span>
+                      <span class="text-[10px] text-gray-400">#14210</span>
+                    </div>
+                    <p class="font-bold text-gray-900 mt-1">Campanha Sazonal - Maio</p>
+                    <p class="text-[11px] text-gray-500">01/05/2025 a 15/05/2025 • R$ 1.420,00</p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2">
+                    <button onclick="openRenewModal('750598')" class="flex-1 py-1.5 px-2.5 rounded border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 font-bold text-[11px] cursor-pointer">↻ renovar</button>
+                    <button onclick="openCampaignDetail('15966', 'metricas')" class="py-1.5 px-2.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-[11px] cursor-pointer">ver relatório</button>
+                  </div>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-3 flex flex-col justify-between bg-gray-50/60">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[10px] font-bold bg-gray-200 text-gray-700 px-2 py-0.5 rounded">✓ Concluída</span>
+                      <span class="text-[10px] text-gray-400">#13890</span>
+                    </div>
+                    <p class="font-bold text-gray-900 mt-1">Campanha Institucional - Março</p>
+                    <p class="text-[11px] text-gray-500">10/03/2025 a 24/03/2025 • R$ 2.150,00</p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2">
+                    <button onclick="openRenewModal('750598')" class="flex-1 py-1.5 px-2.5 rounded border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 font-bold text-[11px] cursor-pointer">↻ renovar</button>
+                    <button onclick="openCampaignDetail('15966', 'metricas')" class="py-1.5 px-2.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-[11px] cursor-pointer">ver relatório</button>
+                  </div>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-3 flex flex-col justify-between bg-gray-50/60">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[10px] font-bold bg-gray-200 text-gray-700 px-2 py-0.5 rounded">✓ Concluída</span>
+                      <span class="text-[10px] text-gray-400">#12904</span>
+                    </div>
+                    <p class="font-bold text-gray-900 mt-1">Campanha Verão Digital + OOH</p>
+                    <p class="text-[11px] text-gray-500">15/01/2025 a 12/02/2025 • R$ 3.490,00</p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2">
+                    <button onclick="openRenewModal('750598')" class="flex-1 py-1.5 px-2.5 rounded border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 font-bold text-[11px] cursor-pointer">↻ renovar</button>
+                    <button onclick="openCampaignDetail('15966', 'metricas')" class="py-1.5 px-2.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-[11px] cursor-pointer">ver relatório</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paginação Oficial Fiel ao Print 01 -->
+          <div id="pagination-bar" class="flex items-center justify-center gap-4 mt-8 mb-4 text-xs text-gray-500 select-none">
+            <span class="cursor-pointer hover:text-gray-900">«</span>
+            <span class="cursor-pointer hover:text-gray-900">‹</span>
+            <span class="font-bold text-gray-900 cursor-pointer">1</span>
+            <span onclick="showToast('Página 2 carregada')" class="cursor-pointer hover:text-gray-900">2</span>
+            <span onclick="showToast('Página 3 carregada')" class="cursor-pointer hover:text-gray-900">3</span>
+            <span class="cursor-pointer hover:text-gray-900">›</span>
+            <span class="cursor-pointer hover:text-gray-900">»</span>
+          </div>
+        </div>
+
+        <!-- CONTEÚDO DA ABA RASCUNHOS (HIGIENIZADO E VALIDADO PELO FRANKS) -->
+        <div id="tab-content-rascunhos" class="hidden">
+          <!-- Barra Cinza de Filtros (#F3F4F6) idêntica à de Planos de Mídia (sem ícones nos rótulos) -->
+          <div class="bg-[#F3F4F6] rounded-xl p-4 md:p-5 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end responsive-filter-row">
+              <!-- Busca por Nome, ID ou Local -->
+              <div class="md:col-span-5">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Nome, ID ou Local</label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  </span>
+                  <input type="text" id="draft-filter-search" oninput="applyDraftFilters()" placeholder="Buscar rascunho por nome, #ID ou cidade..." class="w-full bg-white border border-gray-200 rounded-md pl-8 pr-3 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]">
+                </div>
+              </div>
+
+              <!-- Data Inicial -->
+              <div class="md:col-span-3">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Data inicial</label>
+                <input type="date" id="draft-filter-start" onchange="applyDraftFilters()" class="w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-600 focus:outline-none focus:border-[#FF5A00]">
+              </div>
+
+              <!-- Data Final -->
+              <div class="md:col-span-4">
+                <label class="block text-[11px] font-bold text-gray-800 mb-1.5">Data final</label>
+                <input type="date" id="draft-filter-end" onchange="applyDraftFilters()" class="w-full bg-white border border-gray-200 rounded-md px-2.5 py-1.5 text-xs text-gray-600 focus:outline-none focus:border-[#FF5A00]">
+              </div>
+            </div>
+
+            <!-- Linha 2: Filtro de Canal Limpo (Sem ícones/emojis nas pílulas) -->
+            <div class="mt-3.5 pt-3 border-t border-gray-200/80 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-[11px] font-bold text-gray-700 mr-1">Formato / Canal:</span>
+                <button type="button" onclick="setDraftChannelFilter('todos')" data-dchannel="todos" class="draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#1E2229] text-white border border-[#1E2229] transition cursor-pointer">Todos</button>
+                <button type="button" onclick="setDraftChannelFilter('OOH')" data-dchannel="OOH" class="draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer">OOH</button>
+                <button type="button" onclick="setDraftChannelFilter('Digital')" data-dchannel="Digital" class="draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer">Digital | Globo</button>
+                <button type="button" onclick="setDraftChannelFilter('Hibrida')" data-dchannel="Hibrida" class="draft-channel-pill px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-white text-gray-700 border border-gray-300 hover:border-gray-500 transition cursor-pointer">Híbrida (OOH + Digital)</button>
+              </div>
+              <button type="button" onclick="resetDraftFilters()" class="text-[11px] font-bold text-[#FF5A00] hover:underline cursor-pointer">
+                Limpar filtros
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <p class="text-xs text-gray-500" id="drafts-counter-text">
+              Aqui estão seus planos de mídia salvos como rascunho antes do pagamento.
+            </p>
+          </div>
+
+          <!-- Grid de Cards de Rascunhos (4 Colunas - Renderizado via JS applyDraftFilters) -->
+          <div id="drafts-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 responsive-cards-grid">
+            <!-- Preenchido via JS -->
+          </div>
+
+          <!-- Empty State de Rascunhos -->
+          <div id="drafts-empty-state" class="hidden bg-[#F8FAFC] border border-dashed border-gray-300 rounded-2xl p-8 text-center my-6">
+            <h3 class="text-sm font-bold text-gray-900 mb-1">Nenhum rascunho encontrado</h3>
+            <p class="text-xs text-gray-500 max-w-md mx-auto mb-4">Não encontramos rascunhos para o filtro selecionado.</p>
+            <button type="button" onclick="resetDraftFilters()" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] text-white hover:bg-[#E04E00] transition cursor-pointer">
+              Limpar filtros
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- ===================================================================== -->
+      <!-- TELA 2: DETALHES DO PEDIDO & MÉTRICAS (BLOCO 2 - QUICK WINS 4, 5, 6, 7)-->
+      <!-- ===================================================================== -->
+      <main id="screen-detail" class="view-section flex-1 max-w-[1060px] w-full mx-auto px-6 md:px-10 py-6 responsive-main-padding">
+
+        <!-- Botão Voltar fiel aos prints 04, 06, 09, 10 -->
+        <div class="mb-5">
+          <button onclick="showScreen('screen-list')" class="px-3.5 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer">
+            <span>←</span> voltar
+          </button>
+        </div>
+
+        <!-- CABEÇALHO DO PEDIDO (FIEL AOS PRINTS 04, 05, 06 + QUICK WIN 2 E 4) -->
+        <div class="flex items-start justify-between gap-6 mb-8 responsive-header-detail">
+          <!-- Esquerda: Miniatura + Botão Ver/Trocar Arte + Dados da Campanha -->
+          <div class="flex items-start gap-5">
+            <div class="flex flex-col items-center gap-1.5 shrink-0">
+              <img id="detail-thumb" onclick="switchDetailTab('arte')" src="" alt="Preview da Campanha" class="w-24 h-24 md:w-28 md:h-28 rounded-md object-cover border border-gray-200 bg-gray-100 cursor-pointer hover:opacity-90 transition" title="Ver ou trocar arte">
+              <button onclick="switchDetailTab('arte')" class="text-[10px] font-bold text-gray-600 hover:text-[#FF5A00] border border-gray-200 rounded px-2 py-0.5 bg-white hover:bg-orange-50 transition cursor-pointer flex items-center gap-1">
+                <span>🖼</span> ver / trocar arte
+              </button>
+            </div>
+            <div class="pt-1">
+              <!-- Título da Campanha (Renomeação via menu editar ⋮ -> renomear campanha) -->
+              <div class="mb-2.5">
+                <h2 id="detail-title" class="text-base md:text-lg font-extrabold text-gray-900 tracking-tight">
+                  Campanha Multicanal - Outubro
+                </h2>
+              </div>
+
+              <!-- Linha Início / Fim / Prazo -->
+              <div class="flex flex-wrap items-center gap-4 text-xs text-gray-600 mb-3">
+                <span><strong class="text-gray-900">Início:</strong> <span id="detail-start">15/10/2026</span></span>
+                <span><strong class="text-gray-900">Fim:</strong> <span id="detail-end">28/10/2026</span></span>
+                <span><strong class="text-gray-900">Prazo:</strong> <span id="detail-duration">14 DIAS</span></span>
+              </div>
+
+              <!-- Pílulas Cinzas de Formato -->
+              <div id="detail-format-pills" class="flex flex-wrap items-center gap-1.5">
+                <span class="bg-[#D1D5DB] text-gray-900 text-[10px] font-bold px-2.5 py-0.5 rounded">Elevadores Residenciais</span>
+                <span class="bg-[#D1D5DB] text-gray-900 text-[10px] font-bold px-2.5 py-0.5 rounded">Elevadores Comerciais</span>
+                <span class="bg-[#D1D5DB] text-gray-900 text-[10px] font-bold px-2.5 py-0.5 rounded">Digital</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direita: #ID + Badge de 2 Camadas + Botões Renovar e Editar (Quick Win 4) -->
+          <div class="flex flex-col items-end gap-3 shrink-0 responsive-header-detail-right">
+            <div class="flex items-center gap-4">
+              <span id="detail-id" class="text-xl md:text-2xl font-bold text-gray-400 tracking-tight">#750598</span>
+
+              <!-- Badge de Status Duplo Fiel ao Print 04 -->
+              <div id="detail-status-badge" class="w-48 rounded-xl overflow-hidden text-center shadow-2xs">
+                <div class="bg-[#107C10] text-white text-[11px] font-bold py-1 px-3 flex items-center justify-center gap-1.5">
+                  <span>▶</span> anúncio veiculando
+                </div>
+                <div class="bg-[#8AC483] text-gray-900 text-[10px] font-medium py-1 px-3">
+                  seu anúncio está no ar
+                </div>
+              </div>
+            </div>
+
+            <!-- Ações no Topo: Renovar Campanha (Quick Win 4) + Menu Editar -->
+            <div class="flex items-center gap-2">
+              <button onclick="openRenewModal()" class="px-3 py-1.5 border border-[#FF5A00] text-[#FF5A00] hover:bg-orange-50 rounded-md text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+                <span>↻</span> renovar campanha
+              </button>
+              <div class="relative">
+                <button onclick="toggleDetailEditMenu()" class="px-3 py-1.5 border border-gray-200 rounded-md text-xs font-bold text-gray-800 bg-white hover:bg-gray-50 flex items-center gap-2 cursor-pointer">
+                  <span>editar</span>
+                  <span class="text-gray-400">⋮</span>
+                </button>
+                <div id="detail-edit-dropdown" class="hidden absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 z-40 text-xs">
+                  <button onclick="promptRenameDetail(); toggleDetailEditMenu();" class="w-full text-left px-3.5 py-2 hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">renomear campanha</button>
+                  <button onclick="goToUploadArteScreen(currentSelectedCampaign.id); toggleDetailEditMenu();" class="w-full text-left px-3.5 py-2 hover:bg-orange-50 text-[#FF5A00] font-semibold cursor-pointer">enviar arte</button>
+                  <button onclick="switchDetailTab('arte'); toggleDetailEditMenu();" class="w-full text-left px-3.5 py-2 hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">gerenciar arte</button>
+                  <button onclick="showToast('Alteração de data disponível para campanhas pendentes'); toggleDetailEditMenu();" class="w-full text-left px-3.5 py-2 hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">alterar data de início</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEPPER HORIZONTAL "ETAPAS ATÉ A PUBLICAÇÃO" ACIONÁVEL E COLAPSÁVEL (QUICK WIN 5) -->
+        <div class="mb-8">
+          <!-- Versão Compacta de 1 Linha (Exibida quando a campanha já está Veiculando/Concluída) -->
+          <div id="stepper-compact-bar" class="hidden max-w-[680px] mx-auto bg-[#F8FAFC] border border-gray-200 rounded-lg px-4 py-2.5 flex items-center justify-between text-xs mb-2">
+            <div class="flex flex-wrap items-center gap-2 text-gray-700 font-medium">
+              <span class="text-emerald-700 font-bold">✓ Etapas concluídas:</span>
+              <span>Criado</span> • <span>Pago</span> • <span>Arte enviada</span> • <span>Aprovado</span>
+            </div>
+            <button onclick="toggleStepperExpand()" id="stepper-toggle-btn" class="text-[#FF5A00] font-bold hover:underline text-[11px] cursor-pointer whitespace-nowrap ml-2">
+              Ver detalhes ▾
+            </button>
+          </div>
+
+          <div id="stepper-full-container">
+            <h3 class="text-center text-xs font-bold text-gray-800 mb-3">Etapas até a publicação</h3>
+            <div class="grid grid-cols-4 gap-3 max-w-[680px] mx-auto responsive-stepper-grid">
+              <!-- Caixa 1: Anúncio criado -->
+              <div onclick="switchDetailTab('locais')" class="border border-gray-200 rounded-lg p-3 bg-white hover:border-gray-400 transition cursor-pointer" title="Ver locais contratados">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-gray-900">Anúncio criado</span>
+                  <span class="text-emerald-600 text-xs font-bold">✓</span>
+                </div>
+                <p class="text-[10px] text-gray-500" id="step-date-created">09/10/2026 - 11h26</p>
+              </div>
+
+              <!-- Caixa 2: Pagamento (Clicável -> Aba Faturamento) -->
+              <div onclick="switchDetailTab('faturamento')" class="border border-gray-200 rounded-lg p-3 bg-white hover:border-[#FF5A00] transition cursor-pointer group" title="Ir para a aba Faturamento">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-gray-900 group-hover:text-[#FF5A00]">Pagamento</span>
+                  <span id="step-icon-payment" class="text-emerald-600 text-xs font-bold">✓</span>
+                </div>
+                <p class="text-[10px] text-gray-500 flex items-center justify-between">
+                  <span id="step-text-payment">aprovado</span>
+                  <span class="text-[#FF5A00] font-semibold opacity-80 group-hover:opacity-100">Fatura →</span>
+                </p>
+              </div>
+
+              <!-- Caixa 3: Envio de arte (Clicável -> Tela Subir Imagem ou Aba Arte - Quick Win 5) -->
+              <div onclick="handleStepperArteClick()" id="stepper-box-arte" class="border border-gray-200 rounded-lg p-3 bg-white hover:border-[#FF5A00] transition cursor-pointer group" title="Gerenciar ou enviar arte">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-gray-900 group-hover:text-[#FF5A00]">Envio de arte</span>
+                  <span id="step-icon-arte" class="text-emerald-600 text-xs font-bold">✓</span>
+                </div>
+                <p class="text-[10px] text-gray-500 flex items-center justify-between">
+                  <span id="step-text-arte">14/10/2026</span>
+                  <span id="step-link-arte" class="text-[#FF5A00] font-bold group-hover:underline">Ver arte →</span>
+                </p>
+              </div>
+
+              <!-- Caixa 4: Aprovação -->
+              <div onclick="switchDetailTab('arte')" class="border border-gray-200 rounded-lg p-3 bg-white hover:border-gray-400 transition cursor-pointer">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-gray-900">Aprovação</span>
+                  <span id="step-icon-approval" class="text-emerald-600 text-xs font-bold">✓</span>
+                </div>
+                <p class="text-[10px] text-gray-500" id="step-text-approval">aprovado</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAVEGAÇÃO DAS 4 ABAS REAIS: MÉTRICAS | ARTE | FATURAMENTO | LOCAIS -->
+        <div class="flex items-center gap-6 border-b border-gray-200 mb-6 overflow-x-auto">
+          <button onclick="switchDetailTab('metricas')" id="dtab-btn-metricas" class="detail-tab-btn pb-2.5 text-xs font-bold text-[#FF5A00] border-b-2 border-[#FF5A00] flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <span>📊</span> Métricas
+          </button>
+          <button onclick="switchDetailTab('arte')" id="dtab-btn-arte" class="detail-tab-btn pb-2.5 text-xs font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <span>🖼️</span> Arte
+            <span id="arte-tab-alert-dot" class="hidden w-2 h-2 rounded-full bg-[#FF5A00]"></span>
+          </button>
+          <button onclick="switchDetailTab('faturamento')" id="dtab-btn-faturamento" class="detail-tab-btn pb-2.5 text-xs font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <span>🧾</span> Faturamento
+          </button>
+          <button onclick="switchDetailTab('locais')" id="dtab-btn-locais" class="detail-tab-btn pb-2.5 text-xs font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+            <span>📍</span> Locais
+          </button>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- ABA 1: MÉTRICAS DO ANÚNCIO (OOH + DIGITAL | GLOBO + FAQ)          -->
+        <!-- ================================================================= -->
+        <section id="dtab-panel-metricas" class="detail-tab-panel">
+          <!-- Banner Contextual de Renovação no Topo de Métricas (Quando Entrega >= 90% ou Concluído - Seção 3.4 do Doc) -->
+          <div id="metrics-top-renewal-banner" class="bg-orange-50/90 border border-orange-200 rounded-xl p-4 mb-5 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FF5A00] text-white flex items-center justify-center font-bold text-sm shrink-0">🚀</div>
+              <div>
+                <h4 id="metrics-renewal-banner-title" class="text-xs font-extrabold text-gray-900">Sua campanha já superou 100% da meta contratada!</h4>
+                <p id="metrics-renewal-banner-desc" class="text-[11px] text-gray-600">Mantenha sua marca visível nos mesmos edifícios e portais sem precisar subir a arte novamente.</p>
+              </div>
+            </div>
+            <button onclick="openRenewModal()" class="px-4 py-2 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shrink-0">
+              <span>↻</span> renovar campanha em 1 clique
+            </button>
+          </div>
+
+          <!-- Barra de Título + Pílulas de Salto Rápido (Quick Win 6 e 7) + Exportar PDF/CSV e Renovar (Quick Win 4) -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <div class="flex flex-wrap items-center gap-3">
+              <h3 class="text-lg font-bold text-gray-900">Métricas do anúncio</h3>
+
+              <!-- Pílulas de Salto / Filtro de Canal nas Métricas (Quick Win 6 e 7) -->
+              <div id="metrics-channel-switcher" class="flex items-center gap-1.5 bg-gray-100 p-1 rounded-full">
+                <button onclick="filterMetricsSection('all')" id="mjump-all" class="px-3 py-1 rounded-full text-[11px] font-bold bg-white text-gray-900 shadow-2xs transition cursor-pointer">
+                  Todos os canais
+                </button>
+                <button onclick="filterMetricsSection('ooh')" id="mjump-ooh" class="px-3 py-1 rounded-full text-[11px] font-semibold text-gray-600 hover:text-gray-900 transition cursor-pointer">
+                  📍 OOH | Out of Home
+                </button>
+                <button onclick="filterMetricsSection('digital')" id="mjump-digital" class="px-3 py-1 rounded-full text-[11px] font-semibold text-gray-600 hover:text-gray-900 transition cursor-pointer">
+                  🌐 Digital | Globo
+                </button>
+              </div>
+            </div>
+
+            <!-- Botões Exportar (PDF / CSV) + Renovar Campanha (Quick Win 4) -->
+            <div class="flex items-center gap-2">
+              <div class="relative">
+                <button onclick="toggleExportMenu()" class="px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer">
+                  <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  <span>exportar</span>
+                  <span class="text-[10px] text-gray-400">▾</span>
+                </button>
+                <div id="export-dropdown-menu" class="hidden absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 z-40 text-xs">
+                  <button onclick="exportReport('PDF Executivo')" class="w-full text-left px-3.5 py-2 hover:bg-orange-50 hover:text-[#FF5A00] text-gray-800 font-semibold flex items-center justify-between cursor-pointer">
+                    <span>📄 PDF Executivo</span>
+                    <span class="text-[10px] text-gray-400">Pronto</span>
+                  </button>
+                  <button onclick="exportReport('CSV (Planilha)')" class="w-full text-left px-3.5 py-2 hover:bg-orange-50 hover:text-[#FF5A00] text-gray-800 font-semibold flex items-center justify-between cursor-pointer">
+                    <span>📊 CSV (Dados brutos)</span>
+                    <span class="text-[10px] text-gray-400">Excel</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- CONTAINER 1: OOH | OUT OF HOME (FIEL AO PRINT 04 E 05)          -->
+          <!-- =============================================================== -->
+          <div id="metrics-ooh-container" class="bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-base font-bold text-gray-900">OOH | Out of Home</h4>
+              <span class="bg-[#22A047] text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                Atualizado em 22/10
+              </span>
+            </div>
+
+            <!-- 6 KPIs em Cards Brancos (2x3) com Micro-copy de Letramento (Seção 3.2 do Doc) -->
+            <div class="grid grid-cols-3 gap-3 mb-6 responsive-kpis-ooh">
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p id="ooh-kpi-days" class="text-xl font-extrabold text-gray-900">8/14</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Quantidade de dias já veiculados em relação ao prazo total contratado">
+                  dias ativos <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Restam 6 dias de exibição</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p id="ooh-kpi-screens" class="text-xl font-extrabold text-gray-900">7</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Total de telas digitais exibindo sua campanha">
+                  telas contratadas <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Monitores digitais ativos</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p id="ooh-kpi-spaces" class="text-xl font-extrabold text-gray-900">7</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Total de edifícios ou estabelecimentos com telas ativas">
+                  espaços <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Em 5 edifícios / locais</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p id="ooh-kpi-impact" class="text-xl font-extrabold text-gray-900">88,7%</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Percentual do fluxo estimado do local impactado pelo anúncio">
+                  impacto <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Da circulação dos prédios</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p id="ooh-kpi-reach" class="text-xl font-extrabold text-gray-900">991</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Audiência única estimada que visualizou a campanha">
+                  pessoas alcançadas <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Pessoas únicas impactadas</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p id="ooh-kpi-freq" class="text-xl font-extrabold text-gray-900">19.6x</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Média de vezes que cada pessoa alcançada viu o anúncio">
+                  frequência média <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Cada pessoa viu ~20 vezes</p>
+              </div>
+            </div>
+
+            <!-- Bloco Exibições (Barra Laranja #FF5A00 + Taxa de Entrega) -->
+            <div class="mb-7">
+              <h5 class="text-xs font-bold text-gray-900">Exibições</h5>
+              <p class="text-[11px] text-gray-500 mb-2.5">Número de vezes que seus anúncios foram exibidos até agora</p>
+
+              <div class="grid grid-cols-12 gap-3 responsive-exibicoes-row">
+                <!-- Card Barra de Progresso -->
+                <div class="col-span-12 md:col-span-8 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between">
+                  <div class="flex items-baseline justify-between mb-3">
+                    <div>
+                      <p id="ooh-deliv-val" class="text-xl font-extrabold text-gray-900">23.205</p>
+                      <p class="text-[10px] text-gray-500">exibições entregues</p>
+                    </div>
+                    <div class="text-right">
+                      <p id="ooh-contr-val" class="text-xl font-extrabold text-gray-900">21.888</p>
+                      <p class="text-[10px] text-gray-500">exibições contratadas</p>
+                    </div>
+                  </div>
+                  <!-- Barra Laranja Fiel ao Print 04 -->
+                  <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden flex">
+                    <div class="h-full bg-[#FF5A00]" style="width: 94%;"></div>
+                    <div class="h-full bg-[#A83800]" style="width: 6%;" title="Exibições bônus acima de 100%"></div>
+                  </div>
+                </div>
+
+                <!-- Card Taxa de Entrega -->
+                <div class="col-span-12 md:col-span-4 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between">
+                  <div class="flex items-start justify-between">
+                    <span class="text-xs font-bold text-gray-900">Taxa de entrega</span>
+                    <span id="ooh-rate-val" class="text-2xl font-black text-gray-900">106%</span>
+                  </div>
+                  <p class="text-[10px] text-gray-500 mt-2 leading-relaxed">
+                    Percentual de impressões entregues em relação ao valor contratado
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráfico "Exibições por dia" (Barras Verticais Laranjas Fiéis ao Print 04) -->
+            <div class="mb-8">
+              <h5 class="text-xs font-bold text-gray-900 mb-4">Exibições por dia</h5>
+              <div class="bg-transparent pt-2 pb-1">
+                <div class="flex items-end gap-3 h-52">
+                  <!-- Eixo Y -->
+                  <div class="flex flex-col justify-between h-44 text-[9px] text-gray-400 pr-2 select-none text-right w-10">
+                    <span>6.000</span>
+                    <span>5.000</span>
+                    <span>4.000</span>
+                    <span>3.000</span>
+                    <span>2.000</span>
+                    <span>1.000</span>
+                    <span>0</span>
+                  </div>
+                  <!-- Área de Barras -->
+                  <div class="flex-1 h-44 border-b border-gray-300 relative flex items-end justify-around px-2">
+                    <!-- Linhas horizontais de referência -->
+                    <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                      <div class="border-b border-dashed border-gray-200 w-full h-0"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full h-0"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full h-0"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full h-0"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full h-0"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full h-0"></div>
+                      <div class="w-full h-0"></div>
+                    </div>
+
+                    <!-- 8 Barras Laranjas (15/10 a 22/10) -->
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 28px;" title="15/10: 1.012 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">15/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 146px;" title="16/10: 5.140 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">16/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 105px;" title="17/10: 3.690 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">17/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 85px;" title="18/10: 2.980 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">18/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 85px;" title="19/10: 2.985 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">19/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 85px;" title="20/10: 2.990 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">20/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-8">
+                      <div class="w-6 md:w-7 bg-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 84px;" title="21/10: 2.960 exibições"></div>
+                      <span class="text-[9px] text-gray-500 mt-1.5">21/10</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center group w-12">
+                      <span class="text-[8px] font-bold bg-orange-100 text-[#FF5A00] px-1 py-0.5 rounded mb-1 whitespace-nowrap">Em andamento</span>
+                      <div class="w-6 md:w-7 bg-[#FF5A00]/75 border border-dashed border-[#FF5A00] rounded-t-sm transition-all group-hover:opacity-85" style="height: 38px;" title="22/10 (Hoje - Dados em consolidação): 1.448 exibições parciais"></div>
+                      <span class="text-[9px] font-bold text-[#FF5A00] mt-1.5">22/10</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabela "Métricas por local" Unificada com Aba Locais (Quick Win 6 - Seção 3.2 do Doc) -->
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <h5 class="text-xs font-bold text-gray-900">Métricas por local</h5>
+                <span class="text-[10px] text-gray-500">Visão consolidada por edifício/estabelecimento, ambiente, telas e entrega</span>
+              </div>
+
+              <!-- Busca por local + Filtro Ambientes de exibição -->
+              <div class="flex flex-wrap items-center gap-2.5 mb-3">
+                <div class="relative w-56">
+                  <input type="text" id="local-search-input" oninput="filterLocationsTable()" placeholder="Buscar por local ou endereço" class="w-full bg-white border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#FF5A00]">
+                  <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-gray-500">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  </span>
+                </div>
+
+                <select id="local-env-select" onchange="filterLocationsTable()" class="bg-white border border-gray-200 rounded-md px-3 py-1.5 text-xs text-gray-600 focus:outline-none focus:border-[#FF5A00]">
+                  <option value="todos">Ambientes de exibição</option>
+                  <option value="Elevadores Residenciais">Elevadores Residenciais</option>
+                  <option value="Elevadores Comerciais">Elevadores Comerciais</option>
+                </select>
+              </div>
+
+              <!-- Tabela Branca Unificada (Local + Ambiente + Telas + Previstas + Entregues + % Entrega + Alcance + Status) -->
+              <div class="bg-white rounded-xl border border-gray-100 overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[740px]">
+                  <thead>
+                    <tr class="border-b border-gray-100 text-[10px] font-bold text-gray-700">
+                      <th class="py-3 px-4">Local <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">Ambiente <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-2 text-center">Telas</th>
+                      <th class="py-3 px-3">Previstas <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">Entregues <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">% Entrega <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">Alcance <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3 text-right">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ooh-locations-tbody" class="divide-y divide-gray-100 text-[11px] text-gray-700">
+                    <tr class="local-row" data-name="edifício melbourne rua professor moraes" data-env="Elevadores Residenciais">
+                      <td class="py-3 px-4">
+                        <p class="font-bold text-gray-900">Edifício Melbourne</p>
+                        <p class="text-[10px] text-gray-400">Rua Professor Moraes, 72 , Funcionários - Belo Horizonte</p>
+                      </td>
+                      <td class="py-3 px-3"><span class="bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded">Elevadores Residenciais</span></td>
+                      <td class="py-3 px-2 text-center font-semibold">1</td>
+                      <td class="py-3 px-3">4.875</td>
+                      <td class="py-3 px-3">3.711</td>
+                      <td class="py-3 px-3">76,1%</td>
+                      <td class="py-3 px-3">189</td>
+                      <td class="py-3 px-3 text-right"><span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">● Veiculando</span></td>
+                    </tr>
+                    <tr class="local-row" data-name="residencial monet rua santa rita durão" data-env="Elevadores Residenciais">
+                      <td class="py-3 px-4">
+                        <p class="font-bold text-gray-900">Residencial Monet</p>
+                        <p class="text-[10px] text-gray-400">Rua Santa Rita Durão, 466 , Funcionários - Belo Horizonte</p>
+                      </td>
+                      <td class="py-3 px-3"><span class="bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded">Elevadores Residenciais</span></td>
+                      <td class="py-3 px-2 text-center font-semibold">1</td>
+                      <td class="py-3 px-3">4.875</td>
+                      <td class="py-3 px-3">3.743</td>
+                      <td class="py-3 px-3">76,8%</td>
+                      <td class="py-3 px-3">165</td>
+                      <td class="py-3 px-3 text-right"><span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">● Veiculando</span></td>
+                    </tr>
+                    <tr class="local-row" data-name="condomínio champagnat funcionários" data-env="Elevadores Residenciais">
+                      <td class="py-3 px-4">
+                        <p class="font-bold text-gray-900">Condomínio Champagnat</p>
+                        <p class="text-[10px] text-gray-400">Rua Santa Rita Durão, 1000 , Funcionários - Belo Horizonte</p>
+                      </td>
+                      <td class="py-3 px-3"><span class="bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded">Elevadores Residenciais</span></td>
+                      <td class="py-3 px-2 text-center font-semibold">2</td>
+                      <td class="py-3 px-3">4.873</td>
+                      <td class="py-3 px-3 font-semibold text-gray-900">8.218</td>
+                      <td class="py-3 px-3 font-semibold text-emerald-700">168,6%</td>
+                      <td class="py-3 px-3">375</td>
+                      <td class="py-3 px-3 text-right"><span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">● Veiculando</span></td>
+                    </tr>
+                    <tr class="local-row" data-name="derminas avenida do contorno" data-env="Elevadores Comerciais">
+                      <td class="py-3 px-4">
+                        <p class="font-bold text-gray-900">Derminas</p>
+                        <p class="text-[10px] text-gray-400">Avenida do Contorno, 6084 , Funcionários - Belo Horizonte</p>
+                      </td>
+                      <td class="py-3 px-3"><span class="bg-blue-50 text-blue-800 text-[10px] font-semibold px-2 py-0.5 rounded">Elevadores Comerciais</span></td>
+                      <td class="py-3 px-2 text-center font-semibold">2</td>
+                      <td class="py-3 px-3">5.535</td>
+                      <td class="py-3 px-3 text-gray-400">Em apuração</td>
+                      <td class="py-3 px-3 text-gray-400">—</td>
+                      <td class="py-3 px-3 text-gray-400">—</td>
+                      <td class="py-3 px-3 text-right"><span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full" title="Os dados deste condomínio são sincronizados em lotes de até 48h">⏳ Sincronizando</span></td>
+                    </tr>
+                    <tr class="local-row" data-name="parque das acácias rua grão mogol carmo" data-env="Elevadores Residenciais">
+                      <td class="py-3 px-4">
+                        <p class="font-bold text-gray-900">Parque das Acácias</p>
+                        <p class="text-[10px] text-gray-400">Rua Grão Mogol, 172 , Carmo - Belo Horizonte</p>
+                      </td>
+                      <td class="py-3 px-3"><span class="bg-gray-100 text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded">Elevadores Residenciais</span></td>
+                      <td class="py-3 px-2 text-center font-semibold">1</td>
+                      <td class="py-3 px-3">4.873</td>
+                      <td class="py-3 px-3 font-semibold text-gray-900">7.533</td>
+                      <td class="py-3 px-3 font-semibold text-emerald-700">154,6%</td>
+                      <td class="py-3 px-3">261</td>
+                      <td class="py-3 px-3 text-right"><span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">● Veiculando</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="text-center mt-3">
+                <button onclick="showToast('Todos os 5 locais estão visíveis')" class="text-[11px] font-bold text-gray-700 hover:text-gray-900 inline-flex items-center gap-1 cursor-pointer">
+                  ver menos <span>^</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- CONTAINER 2: DIGITAL | GLOBO (FIEL AO PRINT 06)                 -->
+          <!-- =============================================================== -->
+          <div id="metrics-digital-container" class="bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-10">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-base font-bold text-gray-900">Digital | Globo</h4>
+              <span class="bg-[#22A047] text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                Atualizado em 22/10
+              </span>
+            </div>
+
+            <!-- 4 KPIs em Cards Brancos (incluindo CTR - Seção 3.3 do Doc) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 responsive-kpis-digital">
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p class="text-xl font-extrabold text-gray-900">25/28</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Dias de veiculação ativa nas propriedades digitais da Globo">
+                  dias ativos <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Veiculação contínua</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p class="text-xl font-extrabold text-gray-900">1</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Quantidade de formatos publicitários contratados">
+                  formatos <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Display IAB nos portais</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p class="text-xl font-extrabold text-gray-900">12</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Total de cliques direcionados ao seu link de destino">
+                  cliques <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Visitas enviadas ao site</p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-100">
+                <p class="text-xl font-extrabold text-[#005CEF]">0,04%</p>
+                <p class="text-[11px] font-semibold text-gray-700 mt-0.5 flex items-center gap-1" title="Taxa de Cliques (Cliques divididos por Impressões entregues)">
+                  taxa de cliques (CTR) <span class="text-gray-400 cursor-help">ⓘ</span>
+                </p>
+                <p class="text-[10px] text-emerald-700 font-semibold mt-0.5">Dentro da média Display</p>
+              </div>
+            </div>
+
+            <!-- Bloco Impressões (Barra Azul #005CEF + Taxa de Entrega 94.6%) -->
+            <div class="mb-7">
+              <h5 class="text-xs font-bold text-gray-900">Impressões</h5>
+              <p class="text-[11px] text-gray-500 mb-2.5">Número de vezes que seus anúncios foram exibidos até agora</p>
+
+              <div class="grid grid-cols-12 gap-3 responsive-exibicoes-row">
+                <!-- Card Barra Azul -->
+                <div class="col-span-12 md:col-span-8 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between">
+                  <div class="flex items-baseline justify-between mb-3">
+                    <div>
+                      <p class="text-xl font-extrabold text-gray-900">30.273</p>
+                      <p class="text-[10px] text-gray-500">Impressões entregues</p>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-xl font-extrabold text-gray-900">32.000</p>
+                      <p class="text-[10px] text-gray-500">Impressões contratadas</p>
+                    </div>
+                  </div>
+                  <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-[#005CEF] rounded-full" style="width: 94.6%;"></div>
+                  </div>
+                </div>
+
+                <!-- Card Taxa de Entrega 94.6% -->
+                <div class="col-span-12 md:col-span-4 bg-white rounded-lg p-4 border border-gray-100 flex flex-col justify-between">
+                  <div class="flex items-start justify-between">
+                    <span class="text-xs font-bold text-gray-900">Taxa de entrega</span>
+                    <span class="text-2xl font-black text-gray-900">94.6%</span>
+                  </div>
+                  <p class="text-[10px] text-gray-500 mt-2 leading-relaxed">
+                    Percentual de impressões entregues em relação ao valor contratado
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráfico "Impressões por dia" (Barras Azuis #005CEF Fiéis ao Print 06) -->
+            <div class="mb-8">
+              <h5 class="text-xs font-bold text-gray-900">Impressões por dia</h5>
+              <p class="text-[11px] text-gray-500 mb-4">Número de vezes que seu anúncio foi exibido por dia nas plataformas da Globo</p>
+
+              <div class="overflow-x-auto pb-2">
+                <div class="flex items-end gap-2 h-48 min-w-[560px]">
+                  <!-- Eixo Y -->
+                  <div class="flex flex-col justify-between h-40 text-[9px] text-gray-400 pr-2 select-none text-right w-10">
+                    <span>3.000</span>
+                    <span>2.500</span>
+                    <span>2.000</span>
+                    <span>1.500</span>
+                    <span>1.000</span>
+                    <span>500</span>
+                    <span>0</span>
+                  </div>
+                  <!-- Barras Diárias Azuis -->
+                  <div id="digital-bars-chart" class="flex-1 h-40 border-b border-gray-300 relative flex items-end justify-between px-1 gap-1">
+                    <!-- Preenchido via JS com os 24 dias exatos (29/09 a 22/10) do Print 06 -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabela "Métricas por produto" com Selos Oficiais g1, ge, gshow, receitas, globo.com -->
+            <div>
+              <h5 class="text-xs font-bold text-gray-900">Métricas por produto</h5>
+              <p class="text-[11px] text-gray-500 mb-3">Número de vezes que os produtos do seu anúncio foram exibidos nas plataformas da Globo</p>
+
+              <div class="bg-white rounded-xl border border-gray-100 overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[560px]">
+                  <thead>
+                    <tr class="border-b border-gray-100 text-[10px] font-bold text-gray-700">
+                      <th class="py-3 px-4">Produto <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">Plataformas <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">Impressões Contratadas <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-3">Impressões Entregues <span class="text-gray-400 ml-1">⇅</span></th>
+                      <th class="py-3 px-4">Taxa de Entrega <span class="text-gray-400 ml-1">⇅</span></th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-[11px] text-gray-700">
+                    <tr>
+                      <td class="py-3.5 px-4 font-semibold text-gray-900">Display - Crescer</td>
+                      <td class="py-3.5 px-3">
+                        <div class="flex items-center gap-1">
+                          <span class="bg-[#C4170C] text-white font-black px-1.5 py-0.5 rounded text-[10px]">g1</span>
+                          <span class="bg-[#06AA48] text-white font-black px-1.5 py-0.5 rounded text-[10px]">ge</span>
+                          <span class="bg-[#FF6700] text-white font-black px-1.5 py-0.5 rounded text-[10px]">gshow</span>
+                          <span class="bg-[#9B116E] text-white font-black px-1.5 py-0.5 rounded text-[10px]">receitas</span>
+                          <span class="bg-[#005CEF] text-white font-black px-1.5 py-0.5 rounded text-[10px]">globo.com</span>
+                        </div>
+                      </td>
+                      <td class="py-3.5 px-3">32.000</td>
+                      <td class="py-3.5 px-3">30.273</td>
+                      <td class="py-3.5 px-4 font-semibold text-gray-900">94,6%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="text-center mt-3">
+                <button class="text-[11px] font-bold text-gray-700 hover:text-gray-900 inline-flex items-center gap-1 cursor-pointer">
+                  ver menos <span>^</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BARRA/CARD DE FECHAMENTO: RENOVAR CAMPANHA AO FINAL DAS MÉTRICAS (AJUSTE 2) -->
+          <div class="bg-[#FFF7F2] border border-[#FFCCAA] rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#FF5A00]/10 text-[#FF5A00] flex items-center justify-center font-black text-base shrink-0">
+                ↻
+              </div>
+              <p class="text-xs md:text-sm font-bold text-gray-900">
+                Gostou dos resultados desta campanha? Garanta os mesmos pontos e formatos para o próximo período com 1 clique.
+              </p>
+            </div>
+            <button onclick="openRenewModal()" class="px-4 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer whitespace-nowrap">
+              <span>↻</span> renovar campanha
+            </button>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- FAQ NO RODAPÉ DA ABA MÉTRICAS (FIEL AOS PRINTS 04 E 06)         -->
+          <!-- =============================================================== -->
+          <div class="grid grid-cols-12 gap-8 py-6 items-start responsive-faq-grid">
+            <div class="col-span-12 md:col-span-5 flex flex-col items-start justify-center pt-6">
+              <h4 class="text-sm font-bold text-gray-900 mb-3">Ficou com alguma dúvida?</h4>
+              <button onclick="showToast('Abrindo atendimento com especialista Aqui ads...')" class="bg-[#1E2229] hover:bg-black text-white text-xs font-bold px-4 py-2.5 rounded-md transition cursor-pointer">
+                fale com especialista
+              </button>
+            </div>
+
+            <div class="col-span-12 md:col-span-7 border-l-2 border-gray-200 pl-0 space-y-1" id="faq-accordion">
+              <!-- Item 1 (Aberto por padrão com borda laranja à esquerda) -->
+              <div class="faq-item border-l-2 border-[#FF5A00] -ml-[2px] pl-5 py-2 cursor-pointer" onclick="toggleFaq(0)">
+                <h5 class="text-xs font-bold text-gray-900">O que significa exibição total?</h5>
+                <p class="faq-answer text-[11px] text-gray-600 mt-1.5 leading-relaxed">
+                  A exibição total mostra a porcentagem de exibições que já foram entregues em relação ao que foi contratado. Exemplo: se a campanha está com 18%, significa que 18% do volume total previsto já foi exibido até o momento.
+                </p>
+              </div>
+              <!-- Item 2 -->
+              <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer" onclick="toggleFaq(1)">
+                <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">Qual a diferença entre exibições contratadas e exibições entregues?</h5>
+                <p class="faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed">
+                  Exibições contratadas representam a meta estimada no plano de mídia, enquanto exibições entregues contabilizam as inserções efetivamente reproduzidas nas telas OOH e propriedades digitais.
+                </p>
+              </div>
+              <!-- Item 3 -->
+              <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer" onclick="toggleFaq(2)">
+                <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">O que são dias ativos e como isso impacta os resultados?</h5>
+                <p class="faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed">
+                  Dias ativos indicam quantos dias a campanha já esteve em exibição frente ao período total contratado. A entrega acumula progressivamente a cada dia ativo.
+                </p>
+              </div>
+              <!-- Item 4 -->
+              <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer" onclick="toggleFaq(3)">
+                <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">Como interpretar pessoas alcançadas?</h5>
+                <p class="faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed">
+                  Representa a estimativa de indivíduos únicos que passaram pelos ambientes de exibição durante os dias ativos da sua campanha.
+                </p>
+              </div>
+              <!-- Item 5 -->
+              <div class="faq-item border-l-2 border-transparent -ml-[2px] pl-5 py-2 cursor-pointer" onclick="toggleFaq(4)">
+                <h5 class="text-xs font-medium text-gray-600 hover:text-gray-900">Por que as métricas variam por local, ambiente ou tipo de mídia?</h5>
+                <p class="faq-answer hidden text-[11px] text-gray-600 mt-1.5 leading-relaxed">
+                  Cada edifício comercial, condomínio residencial ou portal digital possui fluxo de audiência, número de elevadores e horários de funcionamento próprios.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- ABA 2: ARTE (FIEL AOS PRINTS 07 E 08 - APROVADA E PENDENTE)       -->
+        <!-- ================================================================= -->
+        <section id="dtab-panel-arte" class="detail-tab-panel hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+            <h3 class="text-lg font-bold text-gray-900">Arte</h3>
+            <!-- Seletor de Estado da Aba Arte para Validação Rápida -->
+            <div class="flex items-center gap-1.5 bg-gray-100 p-1 rounded-lg text-[11px]">
+              <span class="text-gray-500 px-2 font-medium">Simular estado:</span>
+              <button onclick="setArteState('aprovada')" id="arte-state-aprovada" class="px-2.5 py-1 rounded-md font-bold bg-white text-gray-900 shadow-2xs cursor-pointer">
+                ✓ Arte Aprovada (Print 07)
+              </button>
+              <button onclick="setArteState('pendente')" id="arte-state-pendente" class="px-2.5 py-1 rounded-md font-semibold text-gray-600 hover:text-gray-900 cursor-pointer">
+                ⚠️ Arte Pendente (Print 08)
+              </button>
+            </div>
+          </div>
+
+          <!-- ESTADO A: ARTE APROVADA COM MOLDURA ELETROMIDIA (PRINT 07) -->
+          <div id="arte-view-aprovada" class="bg-[#F1F5F9] rounded-2xl p-6 mb-8">
+            <div class="flex items-start gap-6 responsive-arte-grid">
+              <!-- Seletor Vertical de Ambientes -->
+              <div class="w-48 shrink-0 space-y-2">
+                <button onclick="showToast('Visualizando formato: Elevadores Residenciais')" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-white border-2 border-[#FF5A00] text-xs font-bold text-gray-900 flex items-center justify-between cursor-pointer">
+                  <span>🏢 residenciais</span>
+                  <span class="text-[10px] text-emerald-600 font-bold">✓</span>
+                </button>
+                <button onclick="showToast('Visualizando formato: Elevadores Comerciais')" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center justify-between cursor-pointer">
+                  <span>🏢 comerciais</span>
+                  <span class="text-[10px] text-emerald-600 font-bold">✓</span>
+                </button>
+              </div>
+
+              <!-- Preview Central na Moldura Eletromidia -->
+              <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200 flex flex-col items-center">
+                <div class="w-full flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-2">
+                    <span class="bg-gray-100 text-gray-700 text-[11px] font-bold px-2.5 py-1 rounded">900x600 px</span>
+                    <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded">✓ Arte aprovada</span>
+                  </div>
+                  <button onclick="openUploadArteModal()" class="px-3 py-1.5 border border-gray-300 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50 cursor-pointer">
+                    trocar arte
+                  </button>
+                </div>
+
+                <!-- Moldura Preta Oficial de Elevador Eletromidia -->
+                <div class="bg-gray-950 p-4 rounded-xl shadow-lg max-w-[420px] w-full border-4 border-gray-800">
+                  <div class="overflow-hidden rounded-md bg-amber-900 relative aspect-3/2 flex items-center justify-center">
+                    <img id="arte-approved-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Criativo Aprovado" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-r from-amber-950/85 via-amber-900/50 to-transparent p-5 flex flex-col justify-between text-white">
+                      <div>
+                        <p class="text-[10px] uppercase tracking-widest text-amber-200 font-bold">Outubro Rosa</p>
+                        <p class="text-sm font-extrabold leading-tight">UM NOVO VISUAL,<br>UM NOVO VOCÊ</p>
+                      </div>
+                      <div class="bg-black/40 backdrop-blur-xs border border-white/30 rounded p-2 w-fit">
+                        <p class="text-[9px] font-semibold">ATÉ R$ <span class="text-lg font-black">400</span></p>
+                        <p class="text-[10px] font-extrabold">DE DESCONTO</p>
+                      </div>
+                      <p class="text-[9px] font-bold tracking-wider uppercase text-amber-100">CAMPANHA INSTITUCIONAL</p>
+                    </div>
+                  </div>
+                  <div class="mt-2.5 flex items-center justify-between text-[10px] text-gray-400 px-1">
+                    <span>espaço reservado ao condomínio</span>
+                    <span class="font-bold text-orange-500">eletromidia</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ESTADO B: ARTE PENDENTE DE ENVIO (PRINT 08 - LUNETA ROXA/ROSA) -->
+          <div id="arte-view-pendente" class="hidden bg-[#F1F5F9] rounded-2xl p-6 md:p-8 mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div class="flex-1 max-w-xl">
+                <h4 class="text-sm font-bold text-gray-900 mb-2">Tudo certo! Formulário de criação enviado</h4>
+                <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                  Recebemos suas informações.<br>
+                  Em até 12h úteis, entraremos em contato por e-mail ou WhatsApp para confirmar os detalhes e iniciar a criação.
+                </p>
+                <button onclick="showToast('Abrindo resumo do briefing enviado...')" class="px-3.5 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-800 hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer">
+                  <span>✍️</span> ver formulário
+                </button>
+
+                <hr class="my-6 border-gray-200">
+
+                <h4 class="text-xs font-bold text-gray-900 mb-1">Já recebeu sua arte?</h4>
+                <p class="text-xs text-gray-600 mb-4">Envie aqui para darmos continuidade ao processo.</p>
+                <button onclick="openUploadArteModal()" class="px-4 py-2.5 bg-[#FF5A00] hover:bg-[#E04E00] text-white rounded-lg text-xs font-bold inline-flex items-center gap-1.5 shadow-xs transition cursor-pointer">
+                  <span>↑</span> enviar arte
+                </button>
+              </div>
+
+              <!-- Ilustração Fiel ao Print 08 (Luneta Roxa/Rosa/Verde) -->
+              <div class="w-44 h-44 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 200 200" class="w-full h-full">
+                  <path d="M95 190 L110 120 L132 125 L125 190 Z" fill="#F472B6"/>
+                  <polygon points="65,75 175,112 170,128 55,115" fill="#4F46E5"/>
+                  <ellipse cx="60" cy="95" rx="22" ry="28" fill="#15803D"/>
+                  <ellipse cx="60" cy="95" rx="16" ry="21" fill="#EA580C"/>
+                  <ellipse cx="62" cy="95" rx="10" ry="14" fill="#FFFFFF"/>
+                  <ellipse cx="60" cy="95" rx="5" ry="9" fill="#111827"/>
+                  <rect x="115" y="83" width="7" height="16" rx="3.5" transform="rotate(18 115 83)" fill="#F472B6"/>
+                  <rect x="125" y="87" width="7" height="16" rx="3.5" transform="rotate(18 125 87)" fill="#F472B6"/>
+                  <rect x="135" y="91" width="7" height="16" rx="3.5" transform="rotate(18 135 91)" fill="#F472B6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- ABA 3: FATURAMENTO (FIEL AO PRINT 09)                             -->
+        <!-- ================================================================= -->
+        <section id="dtab-panel-faturamento" class="detail-tab-panel hidden pb-12">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start responsive-faturamento-grid">
+            <!-- Coluna Valores -->
+            <div class="md:col-span-6">
+              <h3 class="text-base font-bold text-gray-900 mb-5">Valores</h3>
+              <div class="space-y-3 text-xs">
+                <div class="flex items-center justify-between text-gray-600">
+                  <span>Subtotal</span>
+                  <span id="fat-subtotal" class="font-medium text-gray-800">R$ 1.092,08</span>
+                </div>
+                <div class="flex items-center justify-between text-gray-600">
+                  <span>Cupom aplicado (MICHELM15)</span>
+                  <span class="font-semibold text-[#22A047]">-R$ 163,81</span>
+                </div>
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-sm font-extrabold text-gray-900">
+                  <span>Total</span>
+                  <span id="fat-total">R$ 928,27</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coluna Pagamento -->
+            <div class="md:col-span-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-base font-bold text-gray-900">Pagamento</h3>
+                <button onclick="showToast('Baixando Nota Fiscal Eletrônica (PDF)...')" class="px-3 py-1 border border-gray-200 rounded-md text-[11px] font-bold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer">
+                  <span>nota fiscal</span>
+                  <span>🧾</span>
+                </button>
+              </div>
+
+              <div class="border border-gray-200 rounded-xl p-4 bg-white flex items-center justify-between mb-4">
+                <span class="text-xs text-gray-700 font-medium">Pagamento aprovado em</span>
+                <span class="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                  Boleto
+                  <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </span>
+              </div>
+
+              <p class="text-center text-[10px] text-gray-400">
+                Pagamento processado por <strong class="text-[#00A868] text-sm font-black tracking-tight ml-0.5">stone</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- ABA 4: LOCAIS (FIEL AO PRINT 10)                                  -->
+        <!-- ================================================================= -->
+        <section id="dtab-panel-locais" class="detail-tab-panel hidden pb-12">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-bold text-gray-900">Locais</h3>
+            <div class="flex items-center gap-2">
+              <button onclick="openRenewModal()" class="px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer">
+                <span>↻</span> renovar campanha
+              </button>
+              <button onclick="exportReport('Lista de Locais CSV')" class="px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer">
+                <span>📥</span> exportar
+              </button>
+            </div>
+          </div>
+
+          <h4 class="text-xs font-bold text-gray-800 mb-3">OOH</h4>
+
+          <div class="border border-gray-200 rounded-xl overflow-x-auto bg-white">
+            <table class="w-full text-left border-collapse min-w-[600px]">
+              <thead>
+                <tr class="bg-[#F3F4F6] text-[10px] font-bold text-gray-800 border-b border-gray-200">
+                  <th class="py-3 px-4">Local</th>
+                  <th class="py-3 px-4">Endereço</th>
+                  <th class="py-3 px-4">Vertical</th>
+                  <th class="py-3 px-4">Telas</th>
+                  <th class="py-3 px-4">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 text-[11px] text-gray-600">
+                <tr>
+                  <td class="py-3.5 px-4 text-gray-800">Edifício Melbourne</td>
+                  <td class="py-3.5 px-4">Rua Professor Moraes, 72</td>
+                  <td class="py-3.5 px-4">Elevadores</td>
+                  <td class="py-3.5 px-4">1</td>
+                  <td class="py-3.5 px-4"><span class="bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 text-gray-800">Residencial Monet</td>
+                  <td class="py-3.5 px-4">Rua Santa Rita Durão, 466</td>
+                  <td class="py-3.5 px-4">Elevadores</td>
+                  <td class="py-3.5 px-4">1</td>
+                  <td class="py-3.5 px-4"><span class="bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 text-gray-800">Condomínio Champagnat</td>
+                  <td class="py-3.5 px-4">Rua Santa Rita Durão, 1000</td>
+                  <td class="py-3.5 px-4">Elevadores</td>
+                  <td class="py-3.5 px-4">2</td>
+                  <td class="py-3.5 px-4"><span class="bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 text-gray-800">Derminas</td>
+                  <td class="py-3.5 px-4">Avenida do Contorno, 6084</td>
+                  <td class="py-3.5 px-4">Elevadores</td>
+                  <td class="py-3.5 px-4">1</td>
+                  <td class="py-3.5 px-4"><span class="bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 text-gray-800">Parque das Acácias</td>
+                  <td class="py-3.5 px-4">Rua Grão Mogol, 172</td>
+                  <td class="py-3.5 px-4">Elevadores</td>
+                  <td class="py-3.5 px-4">2</td>
+                  <td class="py-3.5 px-4"><span class="bg-[#16A34A] text-white text-[10px] font-bold px-4 py-0.5 rounded-full">Ativo</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ===================================================================== -->
+      <!-- TELA DEDICADA: SUBIR IMAGEM / ENVIAR ARTE (VIEW-UPLOAD-ARTE)          -->
+      <!-- ===================================================================== -->
+      <main id="view-upload-arte" class="view-section flex-1 max-w-[1060px] w-full mx-auto px-6 md:px-10 py-6 responsive-main-padding">
+        <!-- Botão Voltar -->
+        <div class="mb-5">
+          <button onclick="backFromUploadArte()" class="px-3.5 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 inline-flex items-center gap-1.5 shadow-2xs cursor-pointer">
+            <span>‹</span> voltar
+          </button>
+        </div>
+
+        <!-- Cabeçalho da Tela de Subir Imagem -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-gray-200">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full">⚠️ Aguardando envio de criativo</span>
+              <span id="upload-screen-campaign-id" class="text-xs font-bold text-gray-400">#750708</span>
+            </div>
+            <h2 class="text-xl font-extrabold text-gray-900 tracking-tight">Enviar arte da campanha</h2>
+            <p class="text-xs text-gray-600 mt-0.5">
+              Campanha: <strong id="upload-screen-campaign-title" class="text-gray-900">Ed. Comercial liv635</strong> • Prazo contratado: <span id="upload-screen-campaign-period" class="font-medium text-gray-800">26/10/2026 a 22/11/2026 (28 dias)</span>
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="openCampaignDetail(uploadingCampaignId, 'locais')" class="px-3 py-1.5 border border-gray-200 rounded-md text-xs font-semibold text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
+              📍 ver locais contratados
+            </button>
+          </div>
+        </div>
+
+        <!-- Seletor do Formato Contratado -->
+        <div class="mb-6">
+          <label class="block text-xs font-bold text-gray-800 mb-2">1. Selecione o formato contratado para enviar o arquivo</label>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button onclick="selectUploadFormat('comercial')" id="up-fmt-comercial" class="px-4 py-2.5 rounded-xl border-2 border-[#FF5A00] bg-orange-50/40 text-left flex items-center gap-3 cursor-pointer transition">
+              <span class="text-lg">🏢</span>
+              <div>
+                <p class="text-xs font-bold text-gray-900">Elevadores Comerciais / Residenciais</p>
+                <p class="text-[10px] text-gray-500">Dimensão obrigatória: <strong class="text-gray-800">900x600 px</strong> (Horizontal • JPG, PNG ou MP4)</p>
+              </div>
+              <span id="up-fmt-badge" class="ml-2 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">Pendente</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid Principal: Área Tracejada de Upload + Pré-visualização na Moldura Eletromidia -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#F1F5F9] rounded-2xl p-5 md:p-6 mb-8">
+          <!-- Coluna Esquerda: Dropzone para Subir Imagem (7 cols) -->
+          <div class="lg:col-span-7 flex flex-col justify-between bg-white rounded-xl p-6 border border-gray-200">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-bold text-gray-900">2. Subir imagem ou vídeo do anúncio</h3>
+                <span class="text-[11px] font-semibold text-gray-500">900x600 px • Máx. 15MB</span>
+              </div>
+
+              <!-- Área Tracejada Interativa -->
+              <div onclick="previewSelectedCreative()" id="upload-dropzone-box" class="border-2 border-dashed border-gray-300 hover:border-[#FF5A00] bg-[#F8FAFC] hover:bg-orange-50/30 rounded-2xl p-8 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[230px]">
+                <div id="upload-dropzone-icon" class="w-12 h-12 rounded-full bg-orange-100 text-[#FF5A00] flex items-center justify-center mb-3 font-black text-lg">
+                  ↑
+                </div>
+                <p id="upload-dropzone-title" class="text-xs md:text-sm font-bold text-gray-900 mb-1">
+                  Arraste sua imagem aqui ou clique para selecionar do computador
+                </p>
+                <p id="upload-dropzone-sub" class="text-[11px] text-gray-500 max-w-sm">
+                  Formatos aceitos: <strong class="text-gray-700">JPG, PNG ou MP4</strong> • Dimensão exata: <strong class="text-gray-700">900x600 px</strong>
+                </p>
+                <span id="upload-file-pill" class="mt-4 px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 text-xs font-bold text-gray-800 shadow-2xs">
+                  Selecionar arquivo do computador...
+                </span>
+              </div>
+
+              <!-- Checklist de Validação Técnica -->
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+                <div class="bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700">
+                  <span id="chk-dim" class="text-gray-400 font-bold">✓</span>
+                  <span>Resolução <strong>900x600 px</strong></span>
+                </div>
+                <div class="bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700">
+                  <span id="chk-fmt" class="text-gray-400 font-bold">✓</span>
+                  <span>Formato <strong>JPG / PNG / MP4</strong></span>
+                </div>
+                <div class="bg-[#F8FAFC] border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2 text-gray-700">
+                  <span id="chk-mod" class="text-gray-400 font-bold">✓</span>
+                  <span>Aprovação em <strong>até 24h</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rodapé de Ação da Coluna de Upload -->
+            <div class="mt-6 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+              <button onclick="backFromUploadArte()" class="px-4 py-2.5 rounded-lg border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50 cursor-pointer">
+                cancelar
+              </button>
+              <button onclick="confirmUploadArteFromScreen()" id="btn-confirm-upload-screen" class="px-5 py-2.5 rounded-lg bg-[#FF5A00] hover:bg-[#E04E00] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition cursor-pointer">
+                <span>✓</span> confirmar envio da arte
+              </button>
+            </div>
+          </div>
+
+          <!-- Coluna Direita: Pré-visualização na Moldura Eletromidia (5 cols) -->
+          <div class="lg:col-span-5 bg-white rounded-xl p-6 border border-gray-200 flex flex-col items-center justify-between">
+            <div class="w-full flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-gray-900">Pré-visualização na tela OOH</span>
+              <span id="upload-preview-status" class="bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-0.5 rounded">Aguardando arquivo</span>
+            </div>
+
+            <!-- Moldura Preta Oficial Eletromidia -->
+            <div class="bg-gray-950 p-4 rounded-xl shadow-lg w-full border-4 border-gray-800 my-auto">
+              <!-- Estado Vazio (Antes de selecionar imagem) -->
+              <div id="upload-frame-empty" onclick="previewSelectedCreative()" class="overflow-hidden rounded-md bg-gray-800 relative aspect-3/2 flex flex-col items-center justify-center text-center p-4 cursor-pointer hover:bg-gray-800/80 transition">
+                <svg class="w-8 h-8 text-gray-500 mb-2" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <p class="text-[11px] font-bold text-gray-300">Espaço da sua arte (900x600 px)</p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Clique ao lado para carregar e simular na tela</p>
+              </div>
+
+              <!-- Estado Preenchido (Após selecionar imagem) -->
+              <div id="upload-frame-filled" class="hidden overflow-hidden rounded-md bg-amber-900 relative aspect-3/2 flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Preview da Arte Carregada" class="w-full h-full object-cover opacity-90">
+                <div class="absolute inset-0 bg-gradient-to-r from-amber-950/85 via-amber-900/50 to-transparent p-4 flex flex-col justify-between text-white">
+                  <div>
+                    <p class="text-[9px] uppercase tracking-widest text-amber-200 font-bold">Campanha OOH</p>
+                    <p class="text-xs font-extrabold leading-tight">SEU ANÚNCIO EM DESTAQUE<br>NOS ELEVADORES</p>
+                  </div>
+                  <div class="bg-black/40 border border-white/30 rounded px-2 py-1 w-fit">
+                    <p class="text-[9px] font-bold">900x600 px • VALIDADO ✓</p>
+                  </div>
+                  <p id="upload-frame-mall-label" class="text-[8px] font-bold tracking-wider uppercase text-amber-100">ED. COMERCIAL LIV635</p>
+                </div>
+              </div>
+
+              <div class="mt-2.5 flex items-center justify-between text-[10px] text-gray-400 px-1">
+                <span>espaço reservado ao condomínio</span>
+                <span class="font-bold text-orange-500">eletromidia</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-gray-500 text-center mt-3">
+              Após confirmar o envio, nossa equipe revisa o material em até 24h úteis antes da publicação nas telas.
+            </p>
+          </div>
+        </div>
+      </main>`;
+const AQUI_ADS_SHELL_FOOTER_HTML = `      <!-- ===================================================================== -->
+      <!-- FOOTER OFICIAL GLOBO (FIEL AOS PRINTS 01..10)                         -->
+      <!-- ===================================================================== -->
+      <footer class="bg-[#F3F4F6] border-t border-gray-200 px-6 md:px-10 py-8 mt-auto">
+        <div class="max-w-[1140px] mx-auto">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex items-center gap-1.5 font-black text-lg text-gray-900 tracking-tight">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-900 text-white text-[10px]">◉</span>
+              globo
+            </div>
+            <div class="flex items-center gap-3 text-xs text-gray-600">
+              <span>Acompanhe o Aqui ads</span>
+              <span class="font-bold text-gray-900 cursor-pointer">in</span>
+              <span class="font-bold text-gray-900 cursor-pointer">📷</span>
+              <span class="font-bold text-gray-900 cursor-pointer">▶</span>
+              <span class="font-bold text-gray-900 cursor-pointer">♪</span>
+            </div>
+          </div>
+
+          <div class="mb-6 text-[11px] text-gray-500 space-y-1">
+            <p class="font-bold text-gray-700">Quer uma ajuda?</p>
+            <p>📱 (11) 5039-5212</p>
+            <p>✉️ contato@aqui.globo</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200 flex flex-wrap items-center justify-between gap-2 text-[10px] text-gray-400">
+            <p>© Copyright 2026 GLOBO COMUNICACAO E PARTICIPACOES S/A | CNPJ: 27.865.757/0036-65 | R. Evandro Carlos de Andrade, 160 - 3º Andar, Vila Cordeiro - São Paulo, SP, 04583-115</p>
+            <div class="flex items-center gap-4">
+              <a href="javascript:void(0)" class="hover:underline">Privacidade</a>
+              <a href="javascript:void(0)" class="hover:underline">Gerencie seus dados</a>
+              <a href="javascript:void(0)" class="hover:underline">Gerencie seus cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL INTERATIVO 1: RENOMEAR CAMPANHA (VIA MENU ⋮ -> RENOMEAR CAMPANHA)   -->
+  <!-- ========================================================================= -->
+  <div id="modal-rename-campaign" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-base font-bold text-gray-900">Renomear campanha</h3>
+        <button onclick="closeRenameModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer">✕</button>
+      </div>
+      <p class="text-xs text-gray-500 mb-4">
+        Escolha um nome claro para identificar rapidamente este plano de mídia na sua listagem.
+      </p>
+      <div class="mb-5">
+        <label class="block text-[11px] font-bold text-gray-700 mb-1.5">Nome da campanha</label>
+        <input type="text" id="rename-modal-input" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#FF5A00]" placeholder="Digite o novo nome da campanha">
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <button onclick="closeRenameModal()" class="px-3.5 py-2 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 cursor-pointer">cancelar</button>
+        <button onclick="saveRenamedCampaign()" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] hover:bg-[#E04E00] text-white cursor-pointer">
+          salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL INTERATIVO 2: RENOVAR CAMPANHA EM 1 CLIQUE (QUICK WIN 4 - SEÇÃO 3.4) -->
+  <!-- ========================================================================= -->
+  <div id="modal-renew" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200">
+      <div class="flex items-center justify-between mb-3">
+        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded">Recompra Express em 1 Clique</span>
+        <button onclick="closeRenewModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer">✕</button>
+      </div>
+      <h3 class="text-base font-bold text-gray-900 mb-1">Renovar campanha</h3>
+      <p class="text-xs text-gray-500 mb-4" id="renew-modal-subtitle">
+        Seus locais e formatos já estão pré-carregados. Escolha a duração do novo período para continuar anunciando sem interrupção.
+      </p>
+
+      <!-- Seletor de Prazo (7, 14 ou 28 dias) -->
+      <div class="mb-4">
+        <label class="block text-[11px] font-bold text-gray-800 mb-1.5">1. Escolha a duração da renovação</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="selectRenewDuration(7)" id="renew-dur-7" class="py-2 px-3 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer">
+            7 dias
+          </button>
+          <button onclick="selectRenewDuration(14)" id="renew-dur-14" class="py-2 px-3 rounded-lg border-2 border-[#FF5A00] bg-orange-50/60 text-xs font-extrabold text-[#FF5A00] cursor-pointer">
+            14 dias (Atual)
+          </button>
+          <button onclick="selectRenewDuration(28)" id="renew-dur-28" class="py-2 px-3 rounded-lg border border-gray-200 text-xs font-semibold text-gray-700 hover:border-gray-400 cursor-pointer">
+            28 dias
+          </button>
+        </div>
+      </div>
+
+      <!-- Opção de Reaproveitar Arte Aprovada -->
+      <div class="mb-4 bg-emerald-50/70 border border-emerald-200 rounded-xl p-3">
+        <label class="flex items-start gap-2.5 cursor-pointer">
+          <input type="checkbox" checked class="mt-0.5 accent-[#FF5A00] rounded cursor-pointer">
+          <span class="text-xs text-gray-800 leading-snug">
+            <strong class="text-emerald-950 block">Manter a mesma arte aprovada</strong>
+            <span class="text-[11px] text-gray-600">Sem fila de moderação — sua campanha entra no ar automaticamente na data escolhida.</span>
+          </span>
+        </label>
+      </div>
+
+      <!-- Resumo Financeiro + Regra Canônica de Parcelamento em até 3x -->
+      <div class="bg-[#F8FAFC] border border-gray-200 rounded-xl p-3.5 mb-5 space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-gray-500">Campanha base:</span>
+          <strong class="text-gray-900" id="renew-campaign-title">Campanha Multicanal - Outubro</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500">Novo período sugerido:</span>
+          <strong class="text-gray-900" id="renew-period-label">29/10/2026 a 11/11/2026 (14 dias)</strong>
+        </div>
+        <div class="flex justify-between items-baseline pt-1 border-t border-gray-200">
+          <span class="text-gray-700 font-semibold">Investimento total:</span>
+          <div class="text-right">
+            <strong class="text-sm font-black text-[#FF5A00]" id="renew-campaign-price">R$ 928,27</strong>
+            <span class="block text-[10px] text-gray-500">Em até 3x sem juros no cartão ou PIX</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2">
+        <button onclick="closeRenewModal()" class="px-3.5 py-2 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100 cursor-pointer">Voltar</button>
+        <button onclick="confirmRenewal()" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#FF5A00] hover:bg-[#E04E00] text-white cursor-pointer">
+          Ir para o Pagamento →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETALHES DO PONTO OOH / PRODUTO DIGITAL (Acionado por "ver detalhes" na PLP) -->
+  <div id="modal-plp-detail" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-200">
+      <div class="flex items-start justify-between gap-3 mb-4">
+        <div>
+          <span id="plp-detail-modal-badge" class="bg-orange-100 text-[#FF4F00] text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Detalhes do Ponto</span>
+          <h3 id="plp-detail-modal-title" class="text-base font-bold text-[#282E38] mt-1">VN Alvorada 1217</h3>
+          <p id="plp-detail-modal-sub" class="text-xs text-[#6B7588] mt-0.5">Rua Alvorada - 1217, Vila Olímpia - São Paulo</p>
+        </div>
+        <button type="button" onclick="closePlpDetailModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer">✕</button>
+      </div>
+      <div id="plp-detail-modal-body" class="space-y-3 text-xs text-[#282E38] mb-5">
+        <!-- Preenchido via JS -->
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
+        <button type="button" onclick="closePlpDetailModal()" class="px-4 py-2 rounded-lg border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">Fechar</button>
+        <button type="button" id="plp-detail-modal-action-btn" class="px-5 py-2 rounded-lg bg-[#3A9F3A] hover:bg-[#338C33] text-white text-xs font-bold shadow-xs cursor-pointer">Adicionar ao plano</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST DE FEEDBACK -->
+  <div id="proto-toast" class="fixed bottom-5 right-5 z-50 hidden bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-gray-700">
+    <span class="w-2 h-2 rounded-full bg-[#FF5A00]"></span>
+    <span id="proto-toast-text">Ação concluída</span>
+  </div>
+
+  <!-- MODAL SALVAR COMO RASCUNHO (Acionado pela Página de Resumo) -->
+  <div id="modal-save-draft" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200">
+      <div class="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <span class="bg-orange-100 text-[#FF4F00] text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">Salvar Plano</span>
+          <h3 class="text-base font-bold text-gray-900 mt-1">Salvar como rascunho</h3>
+        </div>
+        <button type="button" onclick="closeSaveDraftModal()" class="text-gray-400 hover:text-gray-700 text-lg font-bold cursor-pointer">✕</button>
+      </div>
+      <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+        Seu plano ficará salvo na aba <strong>Rascunhos</strong> dentro de <strong>Meus Anúncios</strong> para você retomar ou compartilhar quando quiser.
+      </p>
+      <div class="mb-5">
+        <label class="block text-xs font-bold text-gray-800 mb-1.5">Nome do rascunho</label>
+        <input id="save-draft-name-input" type="text" maxlength="40" value="Campanha - 21/10 - 15h34" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF4F00] outline-none">
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <button type="button" onclick="closeSaveDraftModal()" class="px-4 py-2 rounded-lg border border-gray-300 text-xs font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer">Cancelar</button>
+        <button type="button" onclick="confirmSaveDraft()" class="px-5 py-2 rounded-lg bg-[#FF4F00] hover:bg-[#E04600] text-white text-xs font-bold shadow-xs cursor-pointer">Salvar rascunho</button>
+      </div>
+    </div>
+  </div>`;
 
 // 3. Motor Reativo e Funções Globais do Aqui Ads
     function normalizeMockSource(raw) {

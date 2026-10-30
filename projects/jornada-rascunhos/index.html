@@ -13,22 +13,136 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* ==========================================================================
+       ESTILOS DA JORNADA DE RASCUNHOS + ALINHAMENTO COM TEMPLATES OFICIAIS
+       Desktop + Mobile (390px: #viewport-container.mobile-frame e @media <= 767px)
+       ========================================================================== */
+
+    /* Oculta permanentemente acordeões de canais fora do escopo (Rádio, TV, Combos) */
+    #resumo-accordion-radio,
+    #resumo-accordion-tv,
+    #resumo-accordion-combos {
+      display: none !important;
+    }
+
+    /* Menu contextual (⋮) nos cards de rascunho */
+    .draft-kebab-dropdown {
+      display: none;
+      position: absolute;
+      top: 38px;
+      right: 8px;
+      z-index: 40;
+      width: 176px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.16);
+      padding: 4px;
+    }
+    .draft-kebab-dropdown.open {
+      display: block;
+    }
+
+    /* Ajustes Mobile (Simulador 390px da barra superior e telas <= 767px) */
+    #viewport-container.mobile-frame #main-header > div {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+      height: 56px !important;
+    }
+    #viewport-container.mobile-frame #main-header nav {
+      gap: 8px !important;
+    }
+    /* Barra Fixa Inferior da Página de Resultados (Mobile 390px) */
+    #viewport-container.mobile-frame #actions-bar-results > div {
+      padding: 10px 12px !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 8px !important;
+    }
+    #viewport-container.mobile-frame #plp-bar-summary-left {
+      width: 100% !important;
+      justify-content: space-between !important;
+      gap: 8px !important;
+    }
+    #viewport-container.mobile-frame #plp-bar-summary-left > div:nth-child(2) {
+      display: none !important;
+    }
+    #viewport-container.mobile-frame #resultpage_next-button {
+      width: 100% !important;
+      height: 40px !important;
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+      font-size: 11px !important;
+      justify-content: center !important;
+    }
+
+    /* Página de Resumo do Plano (#view-resumo) no Mobile 390px */
+    #viewport-container.mobile-frame #view-resumo > div {
+      padding: 16px 12px 96px 12px !important;
+    }
+    #viewport-container.mobile-frame #view-resumo .flex.items-center.justify-between.mb-6 {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+    #viewport-container.mobile-frame #view-resumo .flex.items-center.justify-between.mb-6 > div:last-child {
+      width: 100% !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 8px !important;
+    }
+    #viewport-container.mobile-frame #view-resumo .flex.items-center.justify-between.mb-6 > div:last-child button {
+      width: 100% !important;
+      justify-content: center !important;
+      font-size: 11px !important;
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+    }
+    #viewport-container.mobile-frame #view-resumo .grid.grid-cols-1.lg\:grid-cols-12 {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+    #viewport-container.mobile-frame #view-resumo .grid-cols-2 {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Meus Anúncios e Rascunhos (#screen-list) no Mobile 390px */
+    #viewport-container.mobile-frame #screen-list {
+      padding: 16px 12px 80px 12px !important;
+    }
+    #viewport-container.mobile-frame #meus-anuncios-tabs-bar {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+    #viewport-container.mobile-frame #drafts-grid-container {
+      grid-template-columns: 1fr !important;
+      gap: 14px !important;
+    }
+    #viewport-container.mobile-frame #modal-save-draft > div {
+      margin: 12px !important;
+      max-width: calc(100% - 24px) !important;
+    }
+  </style>
 </head>
 <body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
 
   <!-- Base de Dados Mockada Oficial Centralizada -->
-  <script src="aqui_ads_mock_data.js"></script>
+  <script src="aqui_ads_mock_data.js?v=20261029v5"></script>
 
   <!-- Configuração Declarativa do Protótipo: Jornada Completa de Rascunhos -->
   <script>
+    window.AQUI_ADS_MANUAL_MOUNT = true;
     window.AQUI_ADS_CONFIG = {
       initialScreen: 'view-resultados',
       initialChannel: 'ooh',
       initialTab: 'rascunhos',
-      cartPreset: 'empty',
+      cartPreset: 'midiaMista',
       hooks: {
         onReady(api) {
-          // Injeta o botão de Documentação (Notion) na barra superior de controle do protótipo
           const topbarRow = document.querySelector('#aqui-ads-shell-root > header > div');
           if (topbarRow && !document.getElementById('notion-doc-link')) {
             topbarRow.insertAdjacentHTML('beforeend', `
@@ -47,6 +161,819 @@
   </script>
 
   <!-- Motor de UI e Jornada Oficial do Aqui Ads -->
-  <script src="aqui_ads_ui.js"></script>
+  <script src="aqui_ads_ui.js?v=20261029v5"></script>
+
+  <!-- Overrides da Iniciativa: Jornada Fluida de Rascunhos + Alinhamento com Templates Oficiais -->
+  <script>
+    (function () {
+      // Estado adicional para controle de edição manual do nome da campanha, modo lista/grade e ordenação
+      let draftViewMode = 'grid'; // 'grid' | 'list'
+      let draftSortOrder = 'recent'; // 'recent' | 'value_desc' | 'name_asc'
+
+      // Garante dados ricos nos rascunhos mockados (incluindo itens reais para abrir no Resumo do Plano)
+      function ensureRichDraftsData() {
+        if (!Array.isArray(draftsData) || draftsData.length === 0) return;
+
+        const presets = (window.AQUI_ADS_MOCK_DATA && window.AQUI_ADS_MOCK_DATA.cartPresets) || {};
+        const enrichMap = {
+          'draft-1': {
+            name: 'OOH SP - 2 pts (03/11)',
+            title: 'OOH SP - 2 pts (03/11)',
+            channel: 'OOH',
+            channels: ['ooh'],
+            channelsList: ['OOH'],
+            summaryText: '2 pontos OOH selecionados • 5 telas (Vila Olímpia, SP)',
+            startDate: '03/11/2026',
+            endDate: '17/11/2026',
+            StartISO: '2026-11-03',
+            EndISO: '2026-11-17',
+            durationDays: 14,
+            value: 529.92,
+            expiredDate: false,
+            updatedAtLabel: 'Editado hoje às 14:20',
+            oohItems: JSON.parse(JSON.stringify((presets.oohOnly && presets.oohOnly.oohItems) || [])),
+            digitalItems: []
+          },
+          'draft-2': {
+            name: 'OOH + Globo - 03/11',
+            title: 'OOH + Globo - 03/11',
+            channel: 'Hibrida',
+            channels: ['digital', 'ooh'],
+            channelsList: ['OOH', 'DIGITAL'],
+            summaryText: '2 pontos OOH + Display Portais Globo (93.750 impressões)',
+            startDate: '03/11/2026',
+            endDate: '17/11/2026',
+            StartISO: '2026-11-03',
+            EndISO: '2026-11-17',
+            durationDays: 14,
+            value: 1429.92,
+            expiredDate: false,
+            updatedAtLabel: 'Editado ontem às 18:45',
+            oohItems: JSON.parse(JSON.stringify((presets.hybrid && presets.hybrid.oohItems) || [])),
+            digitalItems: JSON.parse(JSON.stringify((presets.hybrid && presets.hybrid.digitalItems) || []))
+          },
+          'draft-3': {
+            name: 'Globo Digital - 2 prod (03/11)',
+            title: 'Globo Digital - 2 prod (03/11)',
+            channel: 'Digital',
+            channels: ['digital'],
+            channelsList: ['DIGITAL'],
+            summaryText: 'Display Portais Globo + Vídeo 15s Portais Globo',
+            startDate: '03/11/2026',
+            endDate: '17/11/2026',
+            StartISO: '2026-11-03',
+            EndISO: '2026-11-17',
+            durationDays: 14,
+            value: 1800.00,
+            expiredDate: false,
+            updatedAtLabel: 'Editado há 3 dias',
+            oohItems: [],
+            digitalItems: JSON.parse(JSON.stringify((presets.digitalOnly && presets.digitalOnly.digitalItems) || []))
+          },
+          'draft-4': {
+            name: 'OOH SP - Período Expirado',
+            title: 'OOH SP - Período Expirado',
+            channel: 'OOH',
+            channels: ['ooh'],
+            channelsList: ['OOH'],
+            summaryText: '2 pontos OOH selecionados • Datas originais no passado',
+            startDate: '10/10/2026',
+            endDate: '24/10/2026',
+            StartISO: '2026-10-10',
+            EndISO: '2026-10-24',
+            durationDays: 14,
+            value: 529.92,
+            expiredDate: true,
+            updatedAtLabel: 'Editado em 01/10/2026',
+            oohItems: JSON.parse(JSON.stringify((presets.oohOnly && presets.oohOnly.oohItems) || [])),
+            digitalItems: []
+          }
+        };
+
+        draftsData.forEach((d) => {
+          if (enrichMap[d.id] && !d._enriched) {
+            Object.assign(d, enrichMap[d.id], { _enriched: true });
+          } else {
+            d.name = d.name || d.title || 'Rascunho Aqui Ads';
+            d.title = d.name;
+            if (!Array.isArray(d.channels)) {
+              const hasO = (d.oohItems && d.oohItems.length > 0) || d.channel === 'OOH' || d.channel === 'Hibrida' || d.channel === 'Multicanal';
+              const hasD = (d.digitalItems && d.digitalItems.length > 0) || d.channel === 'Digital' || d.channel === 'Hibrida' || d.channel === 'Multicanal';
+              d.channels = [hasD ? 'digital' : null, hasO ? 'ooh' : null].filter(Boolean);
+            }
+            if (!d.value && typeof calcDraftTotal === 'function') {
+              d.value = calcDraftTotal(d) || 529.92;
+            }
+          }
+        });
+      }
+
+      // 1. GERAÇÃO INTELIGENTE E AUTOMÁTICA DO NOME DA CAMPANHA (<= 30 CARACTERES)
+      window.generateSmartCampaignName = function () {
+        const oohCount = Array.isArray(cartState.oohItems) ? cartState.oohItems.length : 0;
+        const digCount = Array.isArray(cartState.digitalItems) ? cartState.digitalItems.length : 0;
+
+        const rawStart = String(cartState.startDate || '03/11/2026');
+        let shortDate = '03/11';
+        if (rawStart.includes('/')) {
+          const p = rawStart.split('/');
+          if (p.length >= 2) shortDate = `${p[0]}/${p[1]}`;
+        } else if (rawStart.includes('-')) {
+          const p = rawStart.split('-');
+          if (p.length === 3) shortDate = `${p[2]}/${p[1]}`;
+        }
+
+        let candidate = '';
+        if (oohCount > 0 && digCount > 0) {
+          candidate = `OOH + Globo - ${shortDate}`;
+        } else if (oohCount > 0) {
+          candidate = `OOH SP - ${oohCount} ${oohCount === 1 ? 'pt' : 'pts'} (${shortDate})`;
+        } else if (digCount > 0) {
+          candidate = `Globo Digital - ${digCount} prod (${shortDate})`;
+        } else {
+          candidate = `Plano Aqui Ads - ${shortDate}`;
+        }
+
+        return candidate.slice(0, 30);
+      };
+
+      // Sincroniza o input nativo #resumo-camp-name sem criar nenhuma caixa extra abaixo dele
+      window.syncSmartCampaignNameInInput = function (forceOverride) {
+        const smartName = window.generateSmartCampaignName();
+        if (forceOverride || !cartState.userEditedCampaignName || !cartState.campaignName || !cartState.campaignName.trim() || cartState.campaignName.indexOf('Campanha-sem_nome') === 0) {
+          cartState.campaignName = smartName;
+          cartState.userEditedCampaignName = false;
+        }
+        const nameInput = document.getElementById('resumo-camp-name');
+        const charCount = document.getElementById('resumo-char-count');
+        if (nameInput) {
+          if (document.activeElement !== nameInput || forceOverride) {
+            nameInput.value = cartState.campaignName;
+          }
+          nameInput.placeholder = smartName;
+        }
+        if (charCount) {
+          charCount.textContent = `${(cartState.campaignName || '').length}/30 caracteres`;
+        }
+      };
+
+      // Sobrescreve os handlers do formulário "Configure seu anúncio"
+      window.updateResumoCampaignName = function (val) {
+        const trimmed = (val || '').slice(0, 30);
+        cartState.campaignName = trimmed;
+        const smartName = window.generateSmartCampaignName();
+        cartState.userEditedCampaignName = Boolean(trimmed.trim() && trimmed !== smartName);
+        const charCount = document.getElementById('resumo-char-count');
+        if (charCount) {
+          charCount.textContent = `${trimmed.length}/30 caracteres`;
+        }
+      };
+
+      const origUpdateResumoDuration = window.updateResumoDuration;
+      window.updateResumoDuration = function (val) {
+        if (typeof origUpdateResumoDuration === 'function') {
+          origUpdateResumoDuration(val);
+        }
+        window.syncSmartCampaignNameInInput(false);
+        window.enforceOfficialResumoAccordions();
+      };
+
+      const origUpdateResumoStartDate = window.updateResumoStartDate;
+      window.updateResumoStartDate = function (val) {
+        if (typeof origUpdateResumoStartDate === 'function') {
+          origUpdateResumoStartDate(val);
+        }
+        window.syncSmartCampaignNameInInput(false);
+      };
+
+      // 2. HIGIENIZAÇÃO FIEL DOS ACORDEÕES NA PÁGINA DE RESUMO (03_resumo_plano_carrinho.html)
+      window.enforceOfficialResumoAccordions = function () {
+        const oohCount = Array.isArray(cartState.oohItems) ? cartState.oohItems.length : Object.keys(cartState.ooh || {}).length;
+        const digCount = Array.isArray(cartState.digitalItems) ? cartState.digitalItems.length : Object.keys(cartState.digital || {}).length;
+        const hasOoh = oohCount > 0;
+        const hasDig = digCount > 0;
+
+        // Oculta sempre Rádio, TV e Combos
+        ['resumo-accordion-radio', 'resumo-accordion-tv', 'resumo-accordion-combos'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.classList.add('hidden');
+            el.style.display = 'none';
+          }
+        });
+
+        // Exibe #resumo-accordion-digital apenas quando há produtos digitais no plano
+        const accDig = document.getElementById('resumo-accordion-digital');
+        if (accDig) {
+          if (hasDig) {
+            accDig.classList.remove('hidden');
+            accDig.style.display = '';
+          } else {
+            accDig.classList.add('hidden');
+            accDig.style.display = 'none';
+          }
+        }
+
+        // Exibe #resumo-accordion-ooh apenas quando há pontos OOH no plano (ou ambos se plano vazio)
+        const accOoh = document.getElementById('resumo-accordion-ooh');
+        if (accOoh) {
+          if (hasOoh || (!hasDig && !hasOoh)) {
+            accOoh.classList.remove('hidden');
+            accOoh.style.display = '';
+          } else {
+            accOoh.classList.add('hidden');
+            accOoh.style.display = 'none';
+          }
+        }
+
+        // Oculta a opção "--" de duração agnóstica quando há itens
+        const optAgnostic = document.getElementById('resumo-dur-opt-agnostic');
+        const durSelect = document.getElementById('resumo-duration-select');
+        if (optAgnostic) {
+          optAgnostic.hidden = true;
+        }
+        if (durSelect && (!durSelect.value || durSelect.value === '')) {
+          durSelect.value = String(cartState.durationDays || 14);
+        }
+      };
+
+      // Aviso discreto abaixo das datas quando um rascunho com data expirada é ajustado automaticamente
+      window.renderExpiredDateNoticeInResumo = function () {
+        const endDateEl = document.getElementById('resumo-end-date');
+        if (!endDateEl) return;
+        const datesGrid = endDateEl.closest('.grid');
+        if (!datesGrid) return;
+
+        let noticeEl = document.getElementById('resumo-expired-date-notice');
+        if (cartState.expiredDateAutoAdjusted) {
+          if (!noticeEl) {
+            noticeEl = document.createElement('div');
+            noticeEl.id = 'resumo-expired-date-notice';
+            noticeEl.className = 'mt-2.5 p-2.5 rounded-lg bg-[#FFFBEB] border border-[#FDE68A] flex items-start gap-2 text-[11px] text-[#92400E] leading-snug';
+            datesGrid.insertAdjacentElement('afterend', noticeEl);
+          }
+          noticeEl.innerHTML = `
+            <span class="text-[13px] leading-none mt-0.5">⚠️</span>
+            <div class="flex-1">
+              <strong class="font-bold text-[#78350F]">Período atualizado automaticamente:</strong> a data de início original deste rascunho já havia passado. Ajustamos para a próxima janela disponível (<strong>03/11/2026 a 17/11/2026</strong>).
+            </div>
+          `;
+          noticeEl.classList.remove('hidden');
+        } else if (noticeEl) {
+          noticeEl.classList.add('hidden');
+        }
+      };
+
+      // Wrap de updateResumoRightCardUI e populateResumoScreen
+      const origUpdateResumoRightCardUI = window.updateResumoRightCardUI;
+      window.updateResumoRightCardUI = function (isAgnostic, hasOoh, hasDig, totals) {
+        window.syncSmartCampaignNameInInput(false);
+        if (typeof origUpdateResumoRightCardUI === 'function') {
+          origUpdateResumoRightCardUI(false, hasOoh, hasDig, totals);
+        }
+        window.syncSmartCampaignNameInInput(false);
+        window.enforceOfficialResumoAccordions();
+        window.renderExpiredDateNoticeInResumo();
+
+        // Garante listener de blur no input #resumo-camp-name para restaurar nome inteligente se apagado
+        const nameInput = document.getElementById('resumo-camp-name');
+        if (nameInput && !nameInput.dataset.smartBound) {
+          nameInput.dataset.smartBound = '1';
+          nameInput.addEventListener('blur', function () {
+            if (!nameInput.value || !nameInput.value.trim()) {
+              cartState.userEditedCampaignName = false;
+              window.syncSmartCampaignNameInInput(true);
+            }
+          });
+        }
+      };
+
+      const origPopulateResumoScreen = window.populateResumoScreen;
+      window.populateResumoScreen = function () {
+        if (!cartState.startDate) {
+          cartState.startDate = '03/11/2026';
+          cartState.endDate = '17/11/2026';
+        }
+        window.syncSmartCampaignNameInInput(false);
+        if (typeof origPopulateResumoScreen === 'function') {
+          origPopulateResumoScreen();
+        }
+        window.syncSmartCampaignNameInInput(false);
+        window.enforceOfficialResumoAccordions();
+        window.renderExpiredDateNoticeInResumo();
+      };
+
+      const origSyncPlpStickyBar = window.syncPlpStickyBar;
+      window.syncPlpStickyBar = function () {
+        if (typeof origSyncPlpStickyBar === 'function') {
+          origSyncPlpStickyBar();
+        }
+        window.syncSmartCampaignNameInInput(false);
+      };
+
+      // 4. MODAL "SALVAR RASCUNHO DO PLANO" COM NOME INTELIGENTE PRÉ-PREENCHIDO E PREVIEW DO PLANO
+      window.openSaveDraftModal = function () {
+        const modal = document.getElementById('modal-save-draft');
+        if (!modal) return;
+
+        window.syncSmartCampaignNameInInput(false);
+        const input = document.getElementById('save-draft-name-input') || document.getElementById('draft-name-input');
+        if (input) {
+          input.value = cartState.campaignName || window.generateSmartCampaignName();
+        }
+
+        const totals = getCartTotals();
+        const oohCount = Array.isArray(cartState.oohItems) ? cartState.oohItems.length : 0;
+        const digCount = Array.isArray(cartState.digitalItems) ? cartState.digitalItems.length : 0;
+
+        let previewBox = document.getElementById('modal-save-draft-preview');
+        if (!previewBox && input) {
+          previewBox = document.createElement('div');
+          previewBox.id = 'modal-save-draft-preview';
+          previewBox.className = 'mt-3 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] text-[#475569] space-y-1';
+          input.parentElement.insertAdjacentElement('afterend', previewBox);
+        }
+        if (previewBox) {
+          const channelsLabel = [
+            oohCount > 0 ? `${oohCount} ${oohCount === 1 ? 'ponto OOH' : 'pontos OOH'}` : null,
+            digCount > 0 ? `${digCount} ${digCount === 1 ? 'produto Digital' : 'produtos Digitais'}` : null
+          ].filter(Boolean).join(' + ') || 'Itens do plano atual';
+
+          previewBox.innerHTML = `
+            <div class="flex items-center justify-between font-bold text-[#1E222A]">
+              <span>Resumo do rascunho</span>
+              <span class="text-[#2500FF]">${formatBRL(totals.total)}</span>
+            </div>
+            <div>Itens: <strong>${channelsLabel}</strong> • Duração: <strong>${cartState.durationDays || 14} dias</strong></div>
+            <div class="text-[10px] text-[#64748B]">Você poderá retomar este plano a qualquer momento em <strong>Meus anúncios &gt; Rascunhos</strong>.</div>
+          `;
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      };
+
+      window.confirmSaveDraft = function () {
+        const input = document.getElementById('save-draft-name-input') || document.getElementById('draft-name-input');
+        const nameVal = (input && input.value.trim()) ? input.value.trim().slice(0, 30) : window.generateSmartCampaignName();
+        cartState.campaignName = nameVal;
+
+        const totals = getCartTotals();
+        const oohCount = Array.isArray(cartState.oohItems) ? cartState.oohItems.length : 0;
+        const digCount = Array.isArray(cartState.digitalItems) ? cartState.digitalItems.length : 0;
+
+        const channels = [];
+        const channelsList = [];
+        if (digCount > 0) { channels.push('digital'); channelsList.push('DIGITAL'); }
+        if (oohCount > 0) { channels.push('ooh'); channelsList.push('OOH'); }
+        if (channels.length === 0) { channels.push('ooh'); channelsList.push('OOH'); }
+        const channelStr = (digCount > 0 && oohCount > 0) ? 'Hibrida' : (digCount > 0 ? 'Digital' : 'OOH');
+
+        const startDateStr = cartState.startDate && cartState.startDate.includes('/') ? cartState.startDate : '03/11/2026';
+        const endDateStr = cartState.endDate && cartState.endDate.includes('/') ? cartState.endDate : '17/11/2026';
+        const toISO = (br) => {
+          const p = String(br || '').split('/');
+          return p.length === 3 ? `${p[2]}-${p[1]}-${p[0]}` : '2026-11-03';
+        };
+
+        const summaryParts = [];
+        if (oohCount > 0) summaryParts.push(`${oohCount} ${oohCount === 1 ? 'ponto OOH' : 'pontos OOH'}`);
+        if (digCount > 0) summaryParts.push(`${digCount} ${digCount === 1 ? 'produto Digital' : 'produtos Digitais'}`);
+
+        const newDraft = {
+          id: 'draft-' + Math.floor(100 + Math.random() * 899),
+          name: nameVal,
+          title: nameVal,
+          channel: channelStr,
+          channels: channels,
+          channelsList: channelsList,
+          summaryText: summaryParts.join(' • ') || 'Plano configurado',
+          startDate: startDateStr,
+          endDate: endDateStr,
+          StartISO: toISO(startDateStr),
+          EndISO: toISO(endDateStr),
+          durationDays: cartState.durationDays || 14,
+          value: totals.total > 0 ? totals.total : 529.92,
+          expiredDate: false,
+          updatedAt: 'Salvo agora mesmo',
+          updatedAtLabel: 'Salvo agora mesmo',
+          oohItems: JSON.parse(JSON.stringify(cartState.oohItems || [])),
+          digitalItems: JSON.parse(JSON.stringify(cartState.digitalItems || [])),
+          _enriched: true
+        };
+
+        draftsData.unshift(newDraft);
+
+        if (typeof closeSaveDraftModal === 'function') {
+          closeSaveDraftModal();
+        }
+        window.updateAllDraftBadges();
+        window.applyDraftFilters();
+        showScreen('screen-list');
+        switchTopTab('rascunhos');
+        showToast(`Rascunho "${nameVal}" salvo com sucesso em Meus Rascunhos!`);
+      };
+
+      // 5. MEUS ANÚNCIOS > ABA RASCUNHOS (#screen-list / #tab-content-rascunhos) — FIEL A 11_meus_anuncios_aba_rascunhos.png
+      window.ensureMeusAnunciosHeaderEnhancements = function () {
+        const screenList = document.getElementById('screen-list');
+        if (!screenList) return;
+
+        // Subtítulo oficial abaixo de "Meus anúncios"
+        const h1 = screenList.querySelector('h1');
+        if (h1 && !document.getElementById('meus-anuncios-official-subtitle')) {
+          const sub = document.createElement('p');
+          sub.id = 'meus-anuncios-official-subtitle';
+          sub.className = 'text-[13px] text-[#5A6069] -mt-4 mb-5';
+          sub.textContent = 'Acompanhe o status de criação dos seus planos de mídia';
+          h1.insertAdjacentElement('afterend', sub);
+        }
+
+        // Botões "ver em lista" e "ordenar" à direita das abas (como em 11_meus_anuncios_aba_rascunhos.png)
+        const tabBtnRascunhos = document.getElementById('tab-btn-rascunhos');
+        if (tabBtnRascunhos) {
+          const tabsRow = tabBtnRascunhos.parentElement;
+          if (tabsRow && !document.getElementById('meus-anuncios-view-controls')) {
+            tabsRow.id = 'meus-anuncios-tabs-bar';
+            tabsRow.classList.add('justify-between', 'flex-wrap');
+
+            const leftTabsWrap = document.createElement('div');
+            leftTabsWrap.className = 'flex items-center gap-6';
+            const btnAnuncios = document.getElementById('tab-btn-anuncios');
+            if (btnAnuncios) leftTabsWrap.appendChild(btnAnuncios);
+            leftTabsWrap.appendChild(tabBtnRascunhos);
+            tabsRow.insertBefore(leftTabsWrap, tabsRow.firstChild);
+
+            const rightControls = document.createElement('div');
+            rightControls.id = 'meus-anuncios-view-controls';
+            rightControls.className = 'flex items-center gap-2 pb-2';
+            rightControls.innerHTML = `
+              <button id="btn-toggle-draft-view" type="button" onclick="toggleDraftViewMode()" class="px-3 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-[#282E38] text-[12px] font-semibold flex items-center gap-1.5 transition cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                <span id="btn-toggle-draft-view-label">ver em lista</span>
+              </button>
+              <button id="btn-cycle-draft-sort" type="button" onclick="cycleDraftSortOrder()" class="px-3 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-[#282E38] text-[12px] font-semibold flex items-center gap-1.5 transition cursor-pointer" title="Alternar ordenação dos rascunhos">
+                <svg class="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+                <span id="btn-cycle-draft-sort-label">ordenar</span>
+              </button>
+            `;
+            tabsRow.appendChild(rightControls);
+          }
+        }
+      };
+
+      window.toggleDraftViewMode = function () {
+        draftViewMode = draftViewMode === 'grid' ? 'list' : 'grid';
+        const lbl = document.getElementById('btn-toggle-draft-view-label');
+        if (lbl) {
+          lbl.textContent = draftViewMode === 'grid' ? 'ver em lista' : 'ver em grade';
+        }
+        window.applyDraftFilters();
+      };
+
+      window.cycleDraftSortOrder = function () {
+        const orderCycle = ['recent', 'value_desc', 'name_asc'];
+        const labelMap = {
+          recent: 'ordenar: recentes',
+          value_desc: 'ordenar: maior valor',
+          name_asc: 'ordenar: A-Z'
+        };
+        const idx = orderCycle.indexOf(draftSortOrder);
+        draftSortOrder = orderCycle[(idx + 1) % orderCycle.length];
+        const lbl = document.getElementById('btn-cycle-draft-sort-label');
+        if (lbl) {
+          lbl.textContent = labelMap[draftSortOrder];
+        }
+        window.applyDraftFilters();
+      };
+
+      // Atualiza todos os contadores de rascunhos (aba, menu mobile e barra da PLP)
+      window.updateAllDraftBadges = function () {
+        const count = Array.isArray(draftsData) ? draftsData.length : 0;
+        const tabCount = document.getElementById('drafts-tab-count');
+        if (tabCount) tabCount.textContent = String(count);
+
+        const mobileBadge = document.getElementById('mobile-drawer-drafts-badge');
+        if (mobileBadge) mobileBadge.textContent = String(count);
+      };
+
+      // Renderização oficial dos cards de rascunho (11_meus_anuncios_aba_rascunhos.png + melhorias de UX e base alinhada)
+      window.applyDraftFilters = function () {
+        ensureRichDraftsData();
+        window.ensureMeusAnunciosHeaderEnhancements();
+
+        const searchEl = document.getElementById('draft-filter-search');
+        const startEl = document.getElementById('draft-filter-start');
+        const endEl = document.getElementById('draft-filter-end');
+        const gridEl = document.getElementById('drafts-grid-container');
+        const emptyEl = document.getElementById('drafts-empty-state');
+
+        const query = searchEl ? searchEl.value.trim().toLowerCase() : '';
+        const startFilter = startEl ? startEl.value : '';
+        const endFilter = endEl ? endEl.value : '';
+
+        const totalCount = draftsData.length;
+        const oohOnlyCount = draftsData.filter((d) => (d.channels || []).includes('ooh') && !(d.channels || []).includes('digital')).length;
+        const digOnlyCount = draftsData.filter((d) => (d.channels || []).includes('digital') && !(d.channels || []).includes('ooh')).length;
+        const hibCount = draftsData.filter((d) => (d.channels || []).includes('ooh') && (d.channels || []).includes('digital')).length;
+
+        document.querySelectorAll('.draft-channel-pill').forEach((btn) => {
+          const ch = btn.getAttribute('data-channel');
+          if (ch === 'todos' || ch === 'all') btn.textContent = `Todos (${totalCount})`;
+          else if (ch === 'OOH' || ch === 'ooh') btn.textContent = `OOH (${oohOnlyCount + hibCount})`;
+          else if (ch === 'Digital' || ch === 'digital') btn.textContent = `Digital | Globo (${digOnlyCount + hibCount})`;
+          else if (ch === 'Hibrida' || ch === 'Multicanal') btn.textContent = `Híbrida (${hibCount})`;
+        });
+
+        let filtered = draftsData.filter((d) => {
+          const chs = d.channels || [];
+          if (currentDraftChannelFilter && currentDraftChannelFilter !== 'all' && currentDraftChannelFilter !== 'todos') {
+            if ((currentDraftChannelFilter === 'OOH' || currentDraftChannelFilter === 'ooh') && !chs.includes('ooh')) return false;
+            if ((currentDraftChannelFilter === 'Digital' || currentDraftChannelFilter === 'digital') && !chs.includes('digital')) return false;
+            if ((currentDraftChannelFilter === 'Hibrida' || currentDraftChannelFilter === 'Multicanal') && !(chs.includes('ooh') && chs.includes('digital'))) return false;
+          }
+          if (query && !d.name.toLowerCase().includes(query)) return false;
+          if (startFilter && d.StartISO < startFilter) return false;
+          if (endFilter && d.EndISO > endFilter) return false;
+          return true;
+        });
+
+        if (draftSortOrder === 'value_desc') {
+          filtered = filtered.slice().sort((a, b) => (b.value || 0) - (a.value || 0));
+        } else if (draftSortOrder === 'name_asc') {
+          filtered = filtered.slice().sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        }
+
+        window.updateAllDraftBadges();
+        if (!gridEl) return;
+
+        if (filtered.length === 0) {
+          gridEl.innerHTML = '';
+          gridEl.classList.add('hidden');
+          if (emptyEl) emptyEl.classList.remove('hidden');
+          return;
+        }
+
+        gridEl.classList.remove('hidden');
+        if (emptyEl) emptyEl.classList.add('hidden');
+
+        if (draftViewMode === 'list') {
+          gridEl.className = 'flex flex-col gap-3';
+        } else {
+          gridEl.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch';
+        }
+
+        gridEl.innerHTML = filtered.map((d) => {
+          const defaultCoverMap = {
+            'draft-1': 'https://cdn.eletromidia.com.br/seahorse/repositorio/imagens_predios/0000015387.webp',
+            'draft-2': 'https://cdn.eletromidia.com.br/seahorse/repositorio/imagens_predios/0000028368.webp',
+            'draft-3': 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=500&q=80',
+            'draft-4': 'https://cdn.eletromidia.com.br/seahorse/repositorio/imagens_predios/0000010445.webp'
+          };
+          const firstOohPhoto = d.oohItems && d.oohItems[0] && (d.oohItems[0].photo || d.oohItems[0].img);
+          const firstDigPhoto = d.digitalItems && d.digitalItems[0] && (d.digitalItems[0].photo || d.digitalItems[0].img);
+          const isOnlyDigital = Array.isArray(d.channels) && d.channels.includes('digital') && !d.channels.includes('ooh');
+          const coverPhoto = d.coverPhoto || defaultCoverMap[d.id] || (isOnlyDigital ? (firstDigPhoto || defaultCoverMap['draft-3']) : (firstOohPhoto || defaultCoverMap['draft-1']));
+
+          const channelPills = (d.channels || []).map((c) =>
+            c === 'digital'
+              ? '<span class="px-2.5 py-0.5 rounded-md bg-white/95 text-[#282E38] text-[10px] font-semibold shadow-2xs">Mídia digital</span>'
+              : '<span class="px-2.5 py-0.5 rounded-md bg-white/95 text-[#282E38] text-[10px] font-semibold shadow-2xs">Mídia OOH</span>'
+          ).join('');
+
+          const statusPill = d.expiredDate
+            ? `<span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FEF3C7] text-[#B45309] border border-[#FDE68A] text-[11px] font-bold shadow-2xs">
+                 <span>⚠️</span>
+                 <span>rascunho • data expirada</span>
+               </span>`
+            : `<span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#E4E7EC] text-[#282E38] text-[11px] font-semibold shadow-2xs">
+                 <svg class="w-3 h-3 text-[#282E38]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                 <span>rascunho</span>
+               </span>`;
+
+          if (draftViewMode === 'list') {
+            return `
+              <div class="bg-white border border-[#E2E8F0] rounded-[14px] p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-md transition">
+                <div class="flex items-center gap-3.5 min-w-0">
+                  <div class="w-14 h-14 rounded-[10px] bg-gray-100 border border-[#E2E8F0] relative overflow-hidden shrink-0">
+                    <img src="${coverPhoto}" alt="${d.name}" class="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                      <h4 class="text-[15px] font-bold text-[#1E222A] truncate">${d.name}</h4>
+                      ${statusPill}
+                    </div>
+                    <p class="text-[11px] text-[#64748B]">${d.summaryText || 'Plano salvo'} • Início: <strong>${d.startDate}</strong> • Fim: <strong>${d.endDate}</strong></p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 border-t md:border-t-0 pt-3 md:pt-0 border-gray-100">
+                  <div class="text-left md:text-right">
+                    <span class="text-[10px] text-gray-400 block">valor estimado</span>
+                    <span class="text-[15px] font-extrabold text-[#1E222A]">${formatBRL(d.value)}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="duplicateDraftItem('${d.id}')" class="h-[36px] px-3 rounded-[8px] border border-gray-300 text-[#282E38] hover:bg-gray-50 text-[11px] font-bold transition cursor-pointer">duplicar</button>
+                    <button type="button" onclick="deleteDraftItem('${d.id}')" class="h-[36px] px-3 rounded-[8px] border border-[#EF4444] text-[#EF4444] hover:bg-red-50 text-[11px] font-bold transition cursor-pointer">excluir</button>
+                    <button type="button" onclick="openDraftInSummary('${d.id}')" class="h-[36px] px-4 rounded-[8px] border border-[#282E38] bg-white hover:bg-gray-100 text-[#282E38] text-[11px] font-bold transition cursor-pointer">☑ editar</button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="bg-white border border-[#E2E8F0] rounded-[14px] overflow-hidden shadow-2xs hover:shadow-md transition flex flex-col h-full relative">
+              <!-- Moldura da Capa Contextual com Foto do 1º Ponto OOH / Formato Digital do Rascunho -->
+              <div class="p-2.5 pb-0 relative">
+                <div class="h-[108px] rounded-[10px] bg-gray-100 border border-[#E2E8F0] relative overflow-hidden">
+                  <img src="${coverPhoto}" alt="${d.name}" class="w-full h-full object-cover" loading="lazy" />
+                  <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/20 pointer-events-none"></div>
+
+                  <!-- Pílulas de Canal no canto superior esquerdo -->
+                  <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 flex-wrap z-10">
+                    ${channelPills}
+                  </div>
+
+                  <!-- Botão de Menu Contextual (⋮) no canto superior direito -->
+                  <button type="button" onclick="toggleDraftKebabMenu(event, '${d.id}')" class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/45 hover:bg-black/65 text-white flex items-center justify-center text-sm font-bold transition cursor-pointer z-20" title="Mais ações do rascunho">
+                    ⋮
+                  </button>
+                </div>
+
+                <!-- Dropdown Menu Rápido (Renomear, Duplicar, Excluir) -->
+                <div id="draft-kebab-${d.id}" class="draft-kebab-dropdown">
+                  <button type="button" onclick="promptRenameDraft('${d.id}')" class="w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold text-[#282E38] hover:bg-gray-100 flex items-center gap-2 cursor-pointer">
+                    <span>✎</span><span>Renomear rascunho</span>
+                  </button>
+                  <button type="button" onclick="duplicateDraftItem('${d.id}')" class="w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold text-[#282E38] hover:bg-gray-100 flex items-center gap-2 cursor-pointer">
+                    <span>⧉</span><span>Duplicar rascunho</span>
+                  </button>
+                  <div class="my-1 border-t border-gray-100"></div>
+                  <button type="button" onclick="deleteDraftItem('${d.id}')" class="w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold text-[#EF4444] hover:bg-red-50 flex items-center gap-2 cursor-pointer">
+                    <span>🗑️</span><span>Excluir rascunho</span>
+                  </button>
+                </div>
+
+                <!-- Pílula Central Sobreposta na Base da Capa -->
+                <div class="flex justify-center -mt-3.5 relative z-10">
+                  ${statusPill}
+                </div>
+              </div>
+
+              <!-- Corpo do Card com Base 100% Alinhada (mt-auto) -->
+              <div class="p-4 pt-3 flex-1 flex flex-col">
+                <h4 class="text-[15px] font-bold text-[#1E222A] line-clamp-1 mb-0.5" title="${d.name}">${d.name}</h4>
+                <p class="text-[11px] text-[#64748B] line-clamp-1 mb-3">${d.summaryText || 'Plano em elaboração'}</p>
+
+                <div class="mt-auto pt-2 border-t border-gray-100">
+                  <!-- Datas lado a lado em 2 colunas -->
+                  <div class="grid grid-cols-2 gap-2 text-[11px] mb-2.5">
+                    <div>
+                      <span class="text-gray-400 block text-[10px]">início</span>
+                      <span class="font-bold ${d.expiredDate ? 'text-[#B45309]' : 'text-[#282E38]'}">${d.startDate}</span>
+                    </div>
+                    <div>
+                      <span class="text-gray-400 block text-[10px]">fim</span>
+                      <span class="font-bold text-[#282E38]">${d.endDate}</span>
+                    </div>
+                  </div>
+
+                  <!-- Valor Investimento Alinhado -->
+                  <div class="mb-3.5">
+                    <span class="text-gray-400 block text-[10px]">valor</span>
+                    <span class="text-[15px] font-extrabold text-[#1E222A]">${formatBRL(d.value)}</span>
+                  </div>
+
+                  <!-- 2 Botões Outline Lado a Lado: [ excluir ] e [ editar ] -->
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="deleteDraftItem('${d.id}')" class="h-[36px] rounded-[8px] border border-[#EF4444] bg-white hover:bg-red-50 text-[#EF4444] text-[12px] font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
+                      <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                      <span>excluir</span>
+                    </button>
+                    <button type="button" onclick="openDraftInSummary('${d.id}')" class="h-[36px] rounded-[8px] border border-[#282E38] bg-white hover:bg-gray-100 text-[#282E38] text-[12px] font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
+                      <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                      <span>editar</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      };
+
+      // Ações dos cards de rascunho: menu ⋮, renomear, duplicar, excluir e abrir no Resumo do Plano
+      window.toggleDraftKebabMenu = function (ev, draftId) {
+        if (ev) ev.stopPropagation();
+        document.querySelectorAll('.draft-kebab-dropdown').forEach((el) => {
+          if (el.id !== `draft-kebab-${draftId}`) el.classList.remove('open');
+        });
+        const target = document.getElementById(`draft-kebab-${draftId}`);
+        if (target) target.classList.toggle('open');
+      };
+
+      document.addEventListener('click', function () {
+        document.querySelectorAll('.draft-kebab-dropdown.open').forEach((el) => el.classList.remove('open'));
+      });
+
+      window.promptRenameDraft = function (draftId) {
+        const d = draftsData.find((x) => x.id === draftId);
+        if (!d) return;
+        const nuevo = window.prompt('Renomear rascunho (máx. 30 caracteres):', d.name);
+        if (nuevo && nuevo.trim()) {
+          d.name = nuevo.trim().slice(0, 30);
+          d.updatedAtLabel = 'Renomeado agora';
+          window.applyDraftFilters();
+          showToast(`Rascunho renomeado para "${d.name}".`, 'success');
+        }
+      };
+
+      window.duplicateDraftItem = function (draftId) {
+        const d = draftsData.find((x) => x.id === draftId);
+        if (!d) return;
+        const copyName = `${d.name.slice(0, 23)} (Cópia)`;
+        const copy = Object.assign({}, JSON.parse(JSON.stringify(d)), {
+          id: 'DRF-' + Math.floor(100 + Math.random() * 899),
+          name: copyName,
+          expiredDate: false,
+          startDate: '03/11/2026',
+          endDate: '17/11/2026',
+          StartISO: '2026-11-03',
+          EndISO: '2026-11-17',
+          updatedAtLabel: 'Duplicado agora'
+        });
+        draftsData.unshift(copy);
+        window.applyDraftFilters();
+        showToast(`Rascunho "${copy.name}" duplicado com sucesso!`, 'success');
+      };
+
+      window.deleteDraftItem = function (draftId) {
+        const idx = draftsData.findIndex((x) => x.id === draftId);
+        if (idx === -1) return;
+        const removed = draftsData.splice(idx, 1)[0];
+        window.applyDraftFilters();
+        showToast(`Rascunho "${removed.name}" excluído.`, 'info');
+      };
+
+      // Abre um rascunho diretamente na Página de Resumo (#view-resumo) com os canais corretos e ajuste automático de data se expirado
+      window.openDraftInSummary = function (draftId) {
+        ensureRichDraftsData();
+        const d = draftsData.find((x) => x.id === draftId);
+        if (!d) return;
+
+        // Restaura os itens correspondentes ao canal do rascunho em cartState.oohItems e cartState.digitalItems
+        if (d.savedCartSnapshot && (Array.isArray(d.savedCartSnapshot.oohItems) || Array.isArray(d.savedCartSnapshot.digitalItems))) {
+          cartState.oohItems = JSON.parse(JSON.stringify(d.savedCartSnapshot.oohItems || []));
+          cartState.digitalItems = JSON.parse(JSON.stringify(d.savedCartSnapshot.digitalItems || []));
+          cartState.durationDays = d.savedCartSnapshot.durationDays || 14;
+        } else if (Array.isArray(d.oohItems) || Array.isArray(d.digitalItems)) {
+          cartState.oohItems = JSON.parse(JSON.stringify(d.oohItems || []));
+          cartState.digitalItems = JSON.parse(JSON.stringify(d.digitalItems || []));
+          cartState.durationDays = d.durationDays || 14;
+        } else {
+          const presets = (window.AQUI_ADS_MOCK_DATA && window.AQUI_ADS_MOCK_DATA.cartPresets) || {};
+          const fallbackOoh = (presets.combo_padrao && presets.combo_padrao.oohItems) || [];
+          const fallbackDig = (presets.combo_padrao && presets.combo_padrao.digitalItems) || [];
+          const hasOoh = (d.channels || []).includes('ooh');
+          const hasDig = (d.channels || []).includes('digital');
+
+          cartState.oohItems = hasOoh ? JSON.parse(JSON.stringify(fallbackOoh)) : [];
+          cartState.digitalItems = hasDig ? JSON.parse(JSON.stringify(fallbackDig)) : [];
+          cartState.durationDays = d.durationDays || 14;
+        }
+
+        cartState.campaignName = (d.name || '').slice(0, 30);
+        cartState.userEditedCampaignName = true;
+
+        if (d.expiredDate) {
+          cartState.startDate = '03/11/2026';
+          cartState.endDate = '17/11/2026';
+          cartState.expiredDateAutoAdjusted = true;
+        } else {
+          cartState.startDate = d.startDate || '03/11/2026';
+          cartState.endDate = d.endDate || '17/11/2026';
+          cartState.expiredDateAutoAdjusted = false;
+        }
+
+        if (typeof renderOohPlp === 'function') renderOohPlp();
+        if (typeof renderDigitalPlp === 'function') renderDigitalPlp();
+        window.syncPlpStickyBar();
+        showScreen('view-resumo');
+
+        if (d.expiredDate) {
+          showToast(`Rascunho "${d.name}" carregado. Atualizamos a data expirada para a próxima janela disponível!`, 'info');
+        } else {
+          showToast(`Rascunho "${d.name}" aberto no Resumo do Plano.`, 'info');
+        }
+      };
+
+      // Monta a aplicação e aplica todas as melhorias na inicialização
+      window.AquiAdsUI.mount();
+      ensureRichDraftsData();
+      window.syncSmartCampaignNameInInput(true);
+      window.ensureMeusAnunciosHeaderEnhancements();
+      window.applyDraftFilters();
+    })();
+  </script>
 </body>
 </html>
